@@ -1,7 +1,5 @@
 # LettuceAI Website
 
-The official website for [LettuceAI](https://github.com/LettuceAI) — a privacy-first, BYOK (Bring Your Own Key) AI chat application with infinite memory.
-
 ## Features
 
 - **Landing Page:** Hero section, features showcase, provider logos, testimonials
