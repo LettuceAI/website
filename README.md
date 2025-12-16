@@ -2,13 +2,10 @@
 
 The official website for [LettuceAI](https://github.com/LettuceAI) — a privacy-first, BYOK (Bring Your Own Key) AI chat application with infinite memory.
 
-![LettuceAI](public/images/logo.svg)
+![LettuceAI]([public/images/logo.svg](https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEKHtLXijUThaiVjQ5lFnW8C6uS7RMmf4pPb9t))
 
-## 🌐 Live Site
 
-Visit: [lettuceai.com](https://lettuceai.com)
-
-## ✨ Features
+## Features
 
 - **Landing Page:** Hero section, features showcase, provider logos, testimonials
 - **Documentation:** Searchable docs with sidebar navigation and code blocks
@@ -17,7 +14,7 @@ Visit: [lettuceai.com](https://lettuceai.com)
 - **FAQ Page:** Categorized accordion-style FAQs
 - **404 Page:** Custom not found page
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Framework:** React 19 + TypeScript
 - **Build:** Vite 7
@@ -27,7 +24,7 @@ Visit: [lettuceai.com](https://lettuceai.com)
 - **Icons:** Lucide React
 - **Routing:** React Router DOM
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -64,7 +61,7 @@ The output will be in the `dist/` directory.
 npm run preview
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 src/
@@ -102,7 +99,7 @@ src/
 | `/docs/characters` | Character creation guide |
 | `/docs/memory` | Memory system documentation |
 
-## 🎨 Design System
+## Design System
 
 The site uses a dark theme with green accent colors matching LettuceAI's branding:
 
@@ -118,4 +115,3 @@ MIT License — see [LICENSE](LICENSE) for details.
 
 - [LettuceAI App](https://github.com/LettuceAI/mobile-app)
 - [Discord Community](https://discord.gg/745bEttw2r)
-- [Documentation](https://lettuceai.com/docs)
