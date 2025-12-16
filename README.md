@@ -2,9 +2,6 @@
 
 The official website for [LettuceAI](https://github.com/LettuceAI) — a privacy-first, BYOK (Bring Your Own Key) AI chat application with infinite memory.
 
-![LettuceAI]([public/images/logo.svg](https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEKHtLXijUThaiVjQ5lFnW8C6uS7RMmf4pPb9t))
-
-
 ## Features
 
 - **Landing Page:** Hero section, features showcase, provider logos, testimonials
