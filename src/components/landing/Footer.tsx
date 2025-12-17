@@ -5,7 +5,7 @@ const footerLinks = [
     {
         title: "Product",
         links: [
-            { name: "Features", href: "/features", external: false },
+            { name: "FAQ", href: "/faq", external: false },
             { name: "Providers", href: "/providers", external: false },
             { name: "Download", href: "/download", external: false },
         ],
@@ -21,9 +21,9 @@ const footerLinks = [
     {
         title: "Legal",
         links: [
-            { name: "Privacy Policy", href: "#", external: false },
-            { name: "Terms of Service", href: "#", external: false },
-            { name: "License (GPL-3.0)", href: "#", external: false },
+            { name: "Privacy Policy", href: "/privacy", external: false },
+            { name: "Terms of Service", href: "/terms", external: false },
+            { name: "License (AGPL-3.0)", href: "/license", external: false },
         ],
     },
 ];
@@ -84,7 +84,7 @@ export function Footer() {
                 {/* Bottom Bar */}
                 <div className="mt-12 pt-8 border-t border-border/50 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <p className="text-sm text-muted-foreground">
-                        © {new Date().getFullYear()} LettuceAI. Open source under GPL-3.0.
+                        © {new Date().getFullYear()} LettuceAI. Open source under AGPL-3.0.
                     </p>
                     <p className="text-sm text-muted-foreground flex items-center gap-1">
                         Made with <Heart className="w-4 h-4 text-red-500 fill-red-500" /> and 🥬 by the community

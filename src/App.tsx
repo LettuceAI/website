@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { HomePage, DownloadPage, ProvidersPage, FAQPage, NotFoundPage } from "@/pages";
+import { HomePage, DownloadPage, ProvidersPage, FAQPage, PrivacyPage, TermsPage, LicensePage, NotFoundPage } from "@/pages";
 import {
     DocsLayout,
     DocsIndex,
@@ -20,6 +20,9 @@ export function App() {
                     <Route path="/download" element={<DownloadPage />} />
                     <Route path="/providers" element={<ProvidersPage />} />
                     <Route path="/faq" element={<FAQPage />} />
+                    <Route path="/privacy" element={<PrivacyPage />} />
+                    <Route path="/terms" element={<TermsPage />} />
+                    <Route path="/license" element={<LicensePage />} />
 
                     {/* Docs Routes */}
                     <Route path="/docs" element={<DocsLayout />}>

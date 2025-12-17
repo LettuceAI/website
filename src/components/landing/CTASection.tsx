@@ -51,7 +51,7 @@ export function CTASection() {
                             className="h-11 px-6 gap-2 bg-white text-black hover:bg-white/90"
                             asChild
                         >
-                            <a href="#download-links">
+                            <a href="/download">
                                 <Download className="w-4 h-4" />
                                 Download
                             </a>

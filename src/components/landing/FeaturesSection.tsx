@@ -2,27 +2,39 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { images } from "@/config/images";
 
-const features = [
+interface Feature {
+    title: string;
+    description: string;
+    image: string;
+    imageSize: string;
+    ctaText: string;
+    ctaLink: string;
+};
+
+const features: Feature[] = [
     {
         title: "Bring Your Own Keys",
         description: "Stop paying monthly subscriptions. Use your own API keys from OpenAI, Anthropic, or any provider. Pay only for what you use.",
         image: images.models,
-        imageSize: "w-[90%]", // Adjust: w-full, w-[80%], w-[70%], etc.
-        cta: "Learn about BYOK",
+        imageSize: "w-[90%]", 
+        ctaText: "Learn about BYOK",
+        ctaLink: "/docs",
     },
     {
         title: "Endless Customisation",
         description: "Create unique characters, craft custom prompts, and tailor every aspect of your AI experience to match your creative vision.",
         image: images.characters,
         imageSize: "w-[100%]",
-        cta: "Explore Customisation",
+        ctaText: "Explore Customisation",
+        ctaLink: "/docs",
     },
     {
-        title: "Smart Memory",
-        description: "Our smart memory system remembers context from thousands of messages ago. Your stories never lose continuity.",
+        title: "Dynamic Memory",
+        description: "Our Dynamic Memory system remembers context from thousands of messages ago. Your stories never lose continuity.",
         image: images.memoryManager,
         imageSize: "w-full",
-        cta: "How Memory Works",
+        ctaText: "How Memory Works",
+        ctaLink: "/docs",
     },
 ];
 
@@ -55,7 +67,7 @@ export function FeaturesSection() {
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                             className="group"
                         >
-                            {/* Image Container - Fixed size */}
+                            {/* Image Container */}
                             <div className="relative rounded-2xl bg-zinc-900/50 border border-border/30 p-6 mb-6 aspect-4/3 overflow-hidden flex items-center justify-center">
                                 <img
                                     src={feature.image}
@@ -74,10 +86,10 @@ export function FeaturesSection() {
 
                             {/* CTA Link */}
                             <a
-                                href="#"
+                                href={feature.ctaLink}
                                 className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all group/link"
                             >
-                                {feature.cta}
+                                {feature.ctaText}
                                 <ArrowRight className="w-4 h-4 transition-transform group-hover/link:translate-x-1" />
                             </a>
                         </motion.div>

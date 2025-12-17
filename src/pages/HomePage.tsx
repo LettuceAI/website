@@ -4,6 +4,7 @@ import {
     FeaturesSection,
     ProvidersSection,
     TrustSection,
+    TestimonialsSection,
     FAQSection,
     CTASection,
     Footer,
@@ -17,6 +18,7 @@ export function HomePage() {
             <FeaturesSection />
             <ProvidersSection />
             <TrustSection />
+            <TestimonialsSection />
             <FAQSection />
             <CTASection />
             <Footer />

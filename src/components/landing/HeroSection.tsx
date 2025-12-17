@@ -76,11 +76,9 @@ function GradientMesh() {
 export function HeroSection() {
     return (
         <section className="relative min-h-screen flex flex-col overflow-hidden bg-[#050505] pt-20">
-            {/* Background effects */}
             <GradientMesh />
             <Particles />
 
-            {/* Subtle grid overlay */}
             <div
                 className="absolute inset-0 opacity-[0.02] pointer-events-none"
                 style={{
@@ -157,14 +155,13 @@ export function HeroSection() {
                     </motion.div>
                 </div>
 
-                {/* App Screenshot - Bottom, floating up */}
+                {/* App Screenshot */}
                 <motion.div
                     initial={{ opacity: 0, y: 100 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
                     className="relative flex-1 flex items-end justify-center px-4 sm:px-8 lg:px-16"
                 >
-                    {/* Glow behind the image */}
                     <div
                         className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[90%] max-w-5xl h-100"
                         style={{
@@ -172,12 +169,9 @@ export function HeroSection() {
                         }}
                     />
 
-                    {/* The screenshot with perspective and border glow */}
                     <div className="relative w-full max-w-5xl">
-                        {/* Border glow effect */}
                         <div className="absolute -inset-px rounded-t-xl bg-linear-to-b from-primary/30 via-primary/10 to-transparent blur-sm" />
 
-                        {/* Image container */}
                         <div className="relative rounded-t-xl overflow-hidden border border-border/30 border-b-0 bg-card/20 backdrop-blur-sm shadow-2xl shadow-black/50">
                             <img
                                 src={images.desktopView}
