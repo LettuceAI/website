@@ -20,7 +20,6 @@ export function TableOfContents() {
                     htmlEl.id = text.toLowerCase().replace(/\s+/g, "-").replace(/[^\w-]/g, "");
                 }
 
-                // Add anchor link icon if not already present
                 if (!htmlEl.querySelector(".anchor-link")) {
                     htmlEl.classList.add("group", "relative", "flex", "items-center", "gap-2");
                     const anchor = document.createElement("button");
@@ -32,6 +31,7 @@ export function TableOfContents() {
                         const url = new URL(window.location.href);
                         url.hash = htmlEl.id;
                         navigator.clipboard.writeText(url.toString());
+                        window.history.pushState(null, "", `#${htmlEl.id}`);
                         htmlEl.scrollIntoView({ behavior: "smooth" });
                     };
                     htmlEl.appendChild(anchor);
