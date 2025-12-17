@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ScrollToTop } from "@/components/common/ScrollToTop";
 import { HomePage, DownloadPage, ProvidersPage, FAQPage, PrivacyPage, TermsPage, LicensePage, NotFoundPage } from "@/pages";
 import {
     DocsLayout,
@@ -14,6 +15,7 @@ import {
 export function App() {
     return (
         <BrowserRouter>
+            <ScrollToTop />
             <main className="dark min-h-screen bg-background text-foreground">
                 <Routes>
                     <Route path="/" element={<HomePage />} />

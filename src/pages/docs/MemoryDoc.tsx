@@ -9,60 +9,124 @@ export function MemoryDoc() {
             className="prose prose-invert max-w-none"
         >
             <h1>Memory System</h1>
+
             <p className="lead">
-                Our smart memory system gives you infinite context without paying for huge token windows.
+                LettuceAI’s dynamic memory system is designed for long conversations.
+                It keeps important context alive without replaying your entire chat history
+                or requiring massive token windows.
             </p>
 
-            <h2>How It Works</h2>
+            <h2>Why Memory Matters</h2>
             <p>
-                Traditional AI chat apps send your entire conversation history with each message. As conversations grow, this becomes expensive and eventually hits token limits.
+                Most AI chat apps send the entire conversation history with every message.
+                As chats grow longer, this becomes slow, expensive, and eventually impossible
+                due to token limits.
             </p>
             <p>
-                LettuceAI's memory system works differently:
+                LettuceAI takes a different approach. Instead of remembering everything
+                verbatim, it remembers what <em>matters</em>.
             </p>
+
+            <h2>How Dynamic Memory Works</h2>
+            <p>
+                Dynamic memory continuously compresses long conversations into structured,
+                searchable summaries and recalls them only when they are relevant.
+            </p>
+
             <ol>
-                <li><strong>Automatic Summarization</strong> — Old messages are summarized and stored</li>
-                <li><strong>Semantic Search</strong> — Relevant memories are retrieved when needed</li>
-                <li><strong>Context Injection</strong> — Memories are injected into your prompts</li>
+                <li>
+                    <strong>Sliding Context Window</strong> — A limited number of recent
+                    messages are kept in full detail to preserve conversational flow.
+                </li>
+                <li>
+                    <strong>Automatic Summarization</strong> — Older messages are periodically
+                    summarized into concise memories that capture key events, facts, and
+                    character developments.
+                </li>
+                <li>
+                    <strong>Semantic Retrieval</strong> — When you send a new message, the system
+                    searches stored memories and selects only the most relevant ones.
+                </li>
+                <li>
+                    <strong>Selective Injection</strong> — Retrieved memories are injected into
+                    the prompt alongside recent messages, keeping responses coherent without
+                    unnecessary token usage.
+                </li>
             </ol>
 
-            <h2>Enabling Memory</h2>
-            <ol>
-                <li>Go to <strong>Settings → Advanced</strong></li>
-                <li>Enable <strong>Dynamic Memory</strong></li>
-                <li>Download the embedding model (one-time, ~100MB)</li>
-                <li>Configure memory settings</li>
-            </ol>
-
-            <h2>Memory Settings</h2>
+            <h2>What the System Remembers</h2>
             <ul>
-                <li><strong>Context Window Size</strong> — How many recent messages to keep in full</li>
-                <li><strong>Summarization Model</strong> — Which model to use for creating summaries</li>
-                <li><strong>Memory Retrieval Count</strong> — How many memories to inject per message</li>
+                <li>Important story events and decisions</li>
+                <li>Character traits, relationships, and emotional states</li>
+                <li>World rules, lore, and persistent facts</li>
+                <li>Information that continues to matter across sessions</li>
+            </ul>
+
+            <p>
+                Minor dialogue details and momentary exchanges are intentionally discarded.
+                This keeps memory useful instead of noisy.
+            </p>
+
+            <h2>Enabling Dynamic Memory</h2>
+            <ol>
+                <li>Open <strong>Settings → Advanced</strong></li>
+                <li>Enable <strong>Dynamic Memory</strong></li>
+                <li>Download the local embedding model (one-time download)</li>
+                <li>Adjust memory settings if desired</li>
+            </ol>
+
+            <h2>Memory Settings Explained</h2>
+            <ul>
+                <li>
+                    <strong>Context Window Size</strong> — The number of recent messages kept
+                    verbatim before summarization begins.
+                </li>
+                <li>
+                    <strong>Summarization Model</strong> — The model used to create memory
+                    summaries. Faster models work best for this task.
+                </li>
+                <li>
+                    <strong>Memory Retrieval Count</strong> — How many past memories are injected
+                    into each prompt when relevant.
+                </li>
+            </ul>
+
+            <h2>Manual Memory Control</h2>
+            <p>
+                Dynamic memory is automatic, but you are always in control.
+            </p>
+            <ul>
+                <li>Edit memories to correct mistakes or refine details</li>
+                <li>Pin important memories so they are never removed</li>
+                <li>Delete memories you no longer want the AI to recall</li>
             </ul>
 
             <h2>Best Practices</h2>
             <ul>
-                <li>Start with a context window of 10-20 messages</li>
-                <li>Use a fast model for summarization (e.g., GPT-4o-mini)</li>
-                <li>The memory system works best for long-form conversations and storytelling</li>
+                <li>Start with a context window of 10–20 messages</li>
+                <li>Use a fast, inexpensive model for summarization</li>
+                <li>Review and pin critical memories in long-running stories</li>
+                <li>Let the system forget small talk — it improves overall quality</li>
             </ul>
 
             <div className="not-prose my-6 p-4 rounded-lg bg-primary/10 border border-primary/30">
                 <p className="text-sm text-primary">
-                    <strong>Note:</strong> The embedding model runs locally on your device, so your memories never leave your device.
+                    <strong>Note:</strong> The embedding model runs entirely on your device.
+                    Memory generation and retrieval are performed locally.
                 </p>
             </div>
 
-            <h2>Viewing Memories</h2>
-            <p>
-                You can view and manage stored memories:
-            </p>
+            <h2>Viewing and Managing Memories</h2>
             <ol>
-                <li>Open a chat</li>
-                <li>Tap the memory icon in the toolbar</li>
-                <li>Browse, search, or delete memories</li>
+                <li>Open a conversation</li>
+                <li>Select the memory icon in the chat toolbar</li>
+                <li>Browse, search, edit, pin, or delete stored memories</li>
             </ol>
+
+            <p>
+                Think of memory as a living summary of your story — constantly updated,
+                selectively recalled, and always under your control.
+            </p>
         </motion.article>
     );
 }

@@ -3,10 +3,10 @@ import { motion } from "framer-motion";
 
 const testimonials: Testimonial[] = [
     {
-        text: "LettuceAI has transformed my creative writing. The memory system actually remembers my characters and story arcs perfectly.",
+        text: "It's fucking based and replaced c.ai for me",
         image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
-        name: "Alex Thompson",
-        role: "Writer & Creator",
+        name: "A Random LettuceAI User",
+        role: "AI Enthusiast",
     },
     {
         text: "Finally, an AI companion that respects privacy! Everything stays on my device, and I control my own data with BYOK.",

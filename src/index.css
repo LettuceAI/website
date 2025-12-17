@@ -199,54 +199,77 @@
 .prose h1 {
   font-size: 2.25rem;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   color: white;
+  letter-spacing: -0.02em;
 }
 
 .prose h2 {
   font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 3.5rem;
+  margin-bottom: 1.25rem;
+  color: white;
+  letter-spacing: -0.01em;
+}
+
+.prose h3 {
+  font-size: 1.25rem;
   font-weight: 600;
   margin-top: 2.5rem;
   margin-bottom: 1rem;
   color: white;
 }
 
-.prose h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-top: 2rem;
-  margin-bottom: 0.75rem;
-  color: white;
-}
-
 .prose p {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
   color: var(--color-muted-foreground);
 }
 
 .prose p.lead {
-  font-size: 1.125rem;
+  font-size: 1.25rem;
+  line-height: 1.6;
   color: var(--color-muted-foreground);
+  margin-bottom: 2.5rem;
+}
+
+/* Images in Docs */
+.prose img {
+  @apply rounded-2xl border border-border/10 shadow-2xl my-8;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Callouts/Alerts */
+.prose .callout {
+  @apply my-8 p-6 rounded-2xl border bg-zinc-900/40 relative overflow-hidden;
+}
+
+.prose .callout-info {
+  @apply border-blue-500/20 bg-blue-500/5;
+}
+
+.prose .callout-warning {
+  @apply border-amber-500/20 bg-amber-500/5;
+}
+
+.prose .callout-success {
+  @apply border-primary/20 bg-primary/5;
 }
 
 /* Links - only style links without explicit classes */
 .prose a:where(:not([class*="bg-"]):not([class*="text-"]):not([class*="flex"])) {
   color: var(--color-primary);
   text-decoration: none;
+  @apply font-medium transition-colors hover:text-primary/80;
 }
 
 .prose a:where(:not([class*="bg-"]):not([class*="text-"]):not([class*="flex"])):hover {
   text-decoration: underline;
 }
 
-/* Not-prose resets */
-.not-prose * {
-  margin: initial;
-  padding: initial;
-}
-
 .prose ul, .prose ol {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
   padding-left: 1.5rem;
   color: var(--color-muted-foreground);
 }
@@ -260,12 +283,7 @@
 }
 
 .prose li {
-  margin-bottom: 0.5rem;
-}
-
-.prose li ul, .prose li ol {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .prose strong {
@@ -275,24 +293,19 @@
 
 .prose code {
   font-family: ui-monospace, monospace;
-  font-size: 0.875em;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 0.2em 0.4em;
-  border-radius: 0.25rem;
-  color: var(--color-primary);
+  font-size: 0.9em;
+  @apply bg-zinc-800/80 px-1.5 py-0.5 rounded-md border border-white/5;
+  color: #e4e4e7;
 }
 
 .prose pre {
-  margin: 1.5rem 0;
-  padding: 1rem;
-  background: #18181B;
-  border-radius: 0.5rem;
-  overflow-x: auto;
+  @apply my-6 p-4 bg-zinc-900 border border-border/10 rounded-xl overflow-x-auto;
 }
 
 .prose pre code {
   background: transparent;
   padding: 0;
+  border: none;
   font-size: 0.875rem;
   color: #e4e4e7;
 }

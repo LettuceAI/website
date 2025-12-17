@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { DocImage } from "@/components/docs/DocImage";
+import { Callout } from "@/components/docs/Callout";
 
 export function QuickStartDoc() {
     return (
@@ -19,6 +20,13 @@ export function QuickStartDoc() {
             <p>
                 After launching LettuceAI, you'll need to add at least one AI provider.
             </p>
+
+            <DocImage
+                src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=2000"
+                alt="AI Provider Setup"
+                caption="The provider configuration screen where you manage your API keys."
+            />
+
             <ol>
                 <li>Open the app and go to <strong>Settings → Providers</strong></li>
                 <li>Tap <strong>Add Provider</strong></li>
@@ -27,11 +35,9 @@ export function QuickStartDoc() {
                 <li>Save the configuration</li>
             </ol>
 
-            <div className="not-prose my-6 p-4 rounded-lg bg-primary/10 border border-primary/30">
-                <p className="text-sm text-primary">
-                    <strong>Tip:</strong> Don't have an API key? Visit the <Link to="/docs/api-keys" className="underline">API Keys guide</Link> to learn how to get one.
-                </p>
-            </div>
+            <Callout type="info" title="Pro Tip">
+                Don't have an API key? Visit the <Link to="/docs/api-keys">API Keys guide</Link> to learn how to get one.
+            </Callout>
 
             <h2>Step 2: Start a Conversation</h2>
             <ol>
@@ -41,25 +47,23 @@ export function QuickStartDoc() {
                 <li>Start typing your message</li>
             </ol>
 
+            <Callout type="success" title="Success!">
+                Your first message will trigger the AI to respond using your chosen model. You're now ready to roll!
+            </Callout>
+
             <h2>Step 3: Explore Features</h2>
             <p>
                 Once you're comfortable with basic chatting, explore these features:
             </p>
             <ul>
-                <li><Link to="/docs/characters" className="text-primary hover:underline">Create custom characters</Link> with unique personalities</li>
-                <li><Link to="/docs/memory" className="text-primary hover:underline">Enable smart memory</Link> for infinite context</li>
-                <li>Add multiple providers and switch between them</li>
+                <li><Link to="/docs/characters">Create custom characters</Link> with unique personalities.</li>
+                <li><Link to="/docs/memory">Enable smart memory</Link> for context that lasts across sessions.</li>
+                <li>Add multiple providers and switch between them instantly.</li>
             </ul>
 
-            <div className="not-prose mt-8 flex gap-3">
-                <Link
-                    to="/docs/api-keys"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-black font-medium hover:bg-primary/90 transition-colors"
-                >
-                    Next: API Keys
-                    <ArrowRight className="w-4 h-4" />
-                </Link>
-            </div>
+            <Callout type="warning" title="Privacy Note">
+                Your API keys are stored locally on your device. LettuceAI never sees or stores your keys on its own servers.
+            </Callout>
         </motion.article>
     );
 }

@@ -17,7 +17,7 @@ export function Navbar() {
     }, []);
 
     const navLinks = [
-        { name: "Features", href: "/features" },
+        { name: "Documentation", href: "/docs" },
         { name: "Providers", href: "/providers" },
         { name: "GitHub", href: "https://github.com/LettuceAI/", external: true },
     ];
