@@ -1,29 +1,8 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ArrowRight } from "lucide-react";
+import { homepageFAQs } from "@/config/faq";
 
-const faqs = [
-    {
-        question: "Is LettuceAI free?",
-        answer: "Yes! LettuceAI is completely free and open source. You only pay for the AI provider you choose to use (like OpenAI or Anthropic). We don't charge anything.",
-    },
-    {
-        question: "Do I need a powerful GPU?",
-        answer: "No. LettuceAI uses cloud APIs, so all the heavy lifting happens on the provider's servers. Any modern computer or phone can run it smoothly.",
-    },
-    {
-        question: "Where is my data stored?",
-        answer: "Everything is stored locally on your device. Your conversations, characters, and settings never leave your computer unless you explicitly export them.",
-    },
-    {
-        question: "Can I use local models like Ollama?",
-        answer: "Absolutely! LettuceAI supports Ollama and any OpenAI-compatible API endpoint. Run completely offline with your own local models.",
-    },
-    {
-        question: "What makes LettuceAI different?",
-        answer: "Unlike other apps, we're BYOK (Bring Your Own Key), open source, and privacy-first. Our smart memory system lets you have infinite context without paying for huge token windows.",
-    },
-];
 
 function FAQItem({ question, answer, isOpen, onToggle }: {
     question: string;
@@ -73,7 +52,6 @@ export function FAQSection() {
 
     return (
         <section className="relative py-24 sm:py-32 overflow-hidden bg-[#050505]">
-            {/* Subtle gradient */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div
                     className="absolute left-1/2 top-0 -translate-x-1/2 w-150 h-100 rounded-full opacity-10 blur-[120px]"
@@ -108,7 +86,7 @@ export function FAQSection() {
                     transition={{ duration: 0.5, delay: 0.1 }}
                     className="rounded-2xl bg-card/20 border border-border/30 p-6 sm:p-8"
                 >
-                    {faqs.map((faq, index) => (
+                    {homepageFAQs.map((faq, index) => (
                         <FAQItem
                             key={index}
                             question={faq.question}
@@ -117,6 +95,23 @@ export function FAQSection() {
                             onToggle={() => setOpenIndex(openIndex === index ? null : index)}
                         />
                     ))}
+                </motion.div>
+
+                {/* View All Button */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    className="mt-8 text-center"
+                >
+                    <a
+                        href="/faq"
+                        className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary/10 border border-primary/20 text-primary font-medium hover:bg-primary/20 transition-colors"
+                    >
+                        View All FAQs
+                        <ArrowRight className="w-4 h-4" />
+                    </a>
                 </motion.div>
             </div>
         </section>

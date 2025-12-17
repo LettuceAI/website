@@ -2,82 +2,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Navbar, Footer } from "@/components/landing";
+import { faqCategories } from "@/config/faq";
 
-// Extended FAQ data with categories
-const faqCategories = [
-    {
-        category: "General",
-        faqs: [
-            {
-                question: "Is LettuceAI free?",
-                answer: "Yes! LettuceAI is completely free and open source. You only pay for the AI provider you choose to use (like OpenAI or Anthropic). We don't charge anything.",
-            },
-            {
-                question: "What makes LettuceAI different?",
-                answer: "Unlike other apps, we're BYOK (Bring Your Own Key), open source, and privacy-first. Our smart memory system lets you have infinite context without paying for huge token windows.",
-            },
-            {
-                question: "Is LettuceAI open source?",
-                answer: "Yes! LettuceAI is fully open source under the MIT license. You can view, modify, and contribute to the code on GitHub.",
-            },
-        ],
-    },
-    {
-        category: "Technical",
-        faqs: [
-            {
-                question: "Do I need a powerful GPU?",
-                answer: "No. LettuceAI uses cloud APIs, so all the heavy lifting happens on the provider's servers. Any modern computer or phone can run it smoothly.",
-            },
-            {
-                question: "Can I use local models like Ollama?",
-                answer: "Absolutely! LettuceAI supports Ollama and any OpenAI-compatible API endpoint. Run completely offline with your own local models.",
-            },
-            {
-                question: "What platforms are supported?",
-                answer: "Android is available now. Windows and Linux desktop apps are coming soon. iOS support is planned for a future release.",
-            },
-            {
-                question: "How does the smart memory system work?",
-                answer: "Our memory system automatically summarizes and stores important context from your conversations. When relevant, it injects this context back into your prompts, allowing you to have coherent conversations spanning thousands of messages.",
-            },
-        ],
-    },
-    {
-        category: "Privacy & Data",
-        faqs: [
-            {
-                question: "Where is my data stored?",
-                answer: "Everything is stored locally on your device. Your conversations, characters, and settings never leave your computer unless you explicitly export them.",
-            },
-            {
-                question: "Do you collect any telemetry?",
-                answer: "No. We don't collect any usage data, analytics, or telemetry. Your privacy is paramount.",
-            },
-            {
-                question: "Can you see my API keys?",
-                answer: "No. Your API keys are stored locally on your device and sent directly to the AI providers. We never see or store your keys.",
-            },
-        ],
-    },
-    {
-        category: "Providers & API",
-        faqs: [
-            {
-                question: "Which AI providers are supported?",
-                answer: "We support OpenAI, Anthropic, Google Gemini, DeepSeek, Mistral, Groq, xAI, OpenRouter, and many more. Any OpenAI-compatible endpoint works.",
-            },
-            {
-                question: "Can I use multiple providers?",
-                answer: "Yes! You can add multiple providers and switch between them mid-conversation. Mix and match models based on your needs.",
-            },
-            {
-                question: "How do I get an API key?",
-                answer: "Visit your chosen provider's website (e.g., platform.openai.com for OpenAI) and create an account. API keys are usually found in your account settings or developer console.",
-            },
-        ],
-    },
-];
 
 function FAQItem({ question, answer, isOpen, onToggle }: {
     question: string;

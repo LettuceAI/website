@@ -6,7 +6,6 @@ import { FallingPattern } from "@/components/ui/falling-pattern";
 export function CTASection() {
     return (
         <section id="download" className="relative py-16 sm:py-20 overflow-hidden">
-            {/* Falling Pattern with mask to blend into dark background */}
             <div className="absolute inset-0">
                 <FallingPattern
                     className="h-full w-full mask-[radial-gradient(ellipse_at_center,transparent,var(--background))]"

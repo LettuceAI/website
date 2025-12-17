@@ -1,5 +1,6 @@
 import { Github, Heart } from "lucide-react";
 import { images } from "@/config/images";
+import { links } from "@/config/links";
 
 const footerLinks = [
     {
@@ -13,9 +14,9 @@ const footerLinks = [
     {
         title: "Community",
         links: [
-            { name: "GitHub", href: "https://github.com/LettuceAI/", external: true },
-            { name: "Discord", href: "https://discord.gg/745bEttw2r", external: true },
-            { name: "Documentation", href: "/docs", external: true },
+            { name: "GitHub", href: links.github, external: true },
+            { name: "Discord", href: links.discord, external: true },
+            { name: "Documentation", href: "/docs", external: false },
         ],
     },
     {
