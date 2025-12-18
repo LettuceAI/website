@@ -82,22 +82,34 @@ export function MemoryDoc() {
                 unless you pin them.
             </p>
 
-            <DocHeading level={3}>Memory Importance & Decay</DocHeading>
+            <DocHeading level={3}>Memory Importance & Cooling</DocHeading>
             <p>
                 Every memory has an importance score between <strong>0.0</strong> and <strong>1.0</strong>.
             </p>
 
             <ul>
-                <li><strong>Hot memories</strong>: Actively searched using meaning-based matching.</li>
-                <li><strong>Decay</strong>: Every 10 messages, unpinned memories slowly lose importance.</li>
                 <li>
-                    <strong>Cold memories</strong>: Below 0.3 importance, memories become dormant.
-                    They are ignored by semantic search but still exist.
+                    <strong>Hot memories</strong>: Actively searched using meaning-based matching.
+                </li>
+                <li>
+                    <strong>Importance fading</strong>: If a memory is not used for a while,
+                    its importance is gradually reduced.
+                </li>
+                <li>
+                    <strong>Cold memories</strong>: When importance drops below 0.3,
+                    memories move to cold storage. They are not searched by meaning,
+                    but are still safely stored.
                 </li>
             </ul>
 
+
             <p>
                 If a cold memory is found via keyword search, it immediately becomes hot again.
+            </p>
+
+            <p>
+                Memories are not deleted automatically. Cooling only affects how likely
+                a memory is to be used, not whether it exists.
             </p>
 
             <DocHeading level={3}>Automatic Memory Creation</DocHeading>
@@ -203,7 +215,7 @@ export function MemoryDoc() {
 
             <DocHeading level={4}>Dynamic Mode</DocHeading>
             <ul>
-                <li><strong>Pin</strong>: Protect important memories from decay.</li>
+                <li><strong>Pin</strong>: Prevent important memories from losing importance.</li>
                 <li><strong>Delete</strong>: Remove incorrect or unwanted memories.</li>
                 <li><strong>Add</strong>: Manually insert memories when the system misses something.</li>
             </ul>
