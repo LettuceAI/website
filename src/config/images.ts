@@ -28,6 +28,15 @@ export const images = {
         featherless: `https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiENVcWbuA3hVcAIWJ9gtzT0D1KL6vpeBY7XZfR`,
         nanogpt: `https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiE9vfRvjnOqX2jKv1NyFE6ATZbzRdLmxlchJVB`,
     },
+
+    quickStart: {
+        step1: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEGSaQBWolvZNz7b9S6JOnaWIErcYV8jTRAoKU",
+        step2: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiERJD3yz4Jx2P34yDg6iKGIpAlcoTf9etwqHkz",
+        step3: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEStjtW5fjxYOkrVMn2NmPXpy46uELTt0boAJw",
+        step4: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiECKhW9NdKF5jgO0T3epcX6SBoEmPVManwqhUN",
+        step5: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEgoDCLuz1uLhxGKCwTQRqZ4bmt2ikFOrvslNd",
+        step6: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEzapwjd5CgsDQbf3mrGI2U5jA9RHS8i0x1naJ",
+    }
 } as const;
 
 export type ImageKey = keyof typeof images;
