@@ -1,4 +1,4 @@
-import { Home, Download, Zap, Settings, Palette, Brain, Key, HelpCircle } from "lucide-react";
+import { Home, Download, Zap, Settings, Palette, Brain, Key, HelpCircle, Book } from "lucide-react";
 
 export const docsNav = [
     {
@@ -21,6 +21,7 @@ export const docsNav = [
         items: [
             { title: "Characters", href: "/docs/characters", icon: Palette, keywords: ["character", "persona", "personality", "avatar", "system prompt"] },
             { title: "Memory System", href: "/docs/memory", icon: Brain, keywords: ["memory", "context", "history", "remember", "infinite", "summarization"] },
+            { title: "Lorebooks", href: "/docs/lorebooks", icon: Book, keywords: ["lorebook", "lore", "lorebook", "lorebook", "lorebook"] },
         ],
     },
     {

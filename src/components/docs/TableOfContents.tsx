@@ -12,35 +12,17 @@ export function TableOfContents() {
     const [activeId, setActiveId] = useState<string>("");
 
     useEffect(() => {
-        const elements = Array.from(document.querySelectorAll("h1, h2"))
+        const elements = Array.from(document.querySelectorAll("h1, h2, h3"))
+            .filter((el) => {
+                // Ensure the element has an ID to link to
+                return el.id;
+            })
             .map((el) => {
                 const htmlEl = el as HTMLElement;
-                const text = htmlEl.textContent || "";
-                if (!htmlEl.id) {
-                    htmlEl.id = text.toLowerCase().replace(/\s+/g, "-").replace(/[^\w-]/g, "");
-                }
-
-                if (!htmlEl.querySelector(".anchor-link")) {
-                    htmlEl.classList.add("group", "relative", "flex", "items-center", "gap-2");
-                    const anchor = document.createElement("button");
-                    anchor.className = "anchor-link opacity-0 group-hover:opacity-100 transition-opacity text-primary hover:text-primary/80";
-                    anchor.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>';
-                    anchor.title = "Copy link to section";
-                    anchor.onclick = (e) => {
-                        e.preventDefault();
-                        const url = new URL(window.location.href);
-                        url.hash = htmlEl.id;
-                        navigator.clipboard.writeText(url.toString());
-                        window.history.pushState(null, "", `#${htmlEl.id}`);
-                        htmlEl.scrollIntoView({ behavior: "smooth" });
-                    };
-                    htmlEl.appendChild(anchor);
-                }
-
                 return {
                     id: htmlEl.id,
-                    text,
-                    level: htmlEl.tagName === "H1" ? 1 : 2,
+                    text: htmlEl.textContent?.replace("Copy link to section", "").trim() || "", // Remove the hidden button text if it gets picked up
+                    level: parseInt(htmlEl.tagName.substring(1)),
                 };
             });
         setItems(elements);
@@ -84,49 +66,30 @@ export function TableOfContents() {
                 On this page
             </h5>
             <div className="relative">
-                <ul className="space-y-0 text-sm">
-                    {items.map((item, index) => {
-                        const isLastInGroup = index === items.length - 1 || items[index + 1].level === 1;
-                        const isH1 = item.level === 1;
-                        const hasH2sBelow = !isLastInGroup && items[index + 1].level === 2;
+                <ul className="space-y-1 text-sm">
+                    {items.map((item) => {
+                        const isActive = activeId === item.id;
 
                         return (
-                            <li key={item.id} className="relative py-1.5 grayscale-0">
-                                {/* Vertical tree connectivity */}
-                                {!isH1 && (
-                                    <>
-                                        <div className="absolute left-1.75 top-0 w-px h-1/2 bg-border/60" />
-                                        {!isLastInGroup && (
-                                            <div className="absolute left-1.75 top-1/2 w-px h-1/2 bg-border/60" />
-                                        )}
-                                    </>
-                                )}
-                                {isH1 && hasH2sBelow && (
-                                    <div className="absolute left-1.75 top-1/2 w-px h-1/2 bg-border/60" />
-                                )}
-
-                                <div className="flex items-center">
-                                    {!isH1 && (
-                                        <div className="absolute left-1.75 w-6 h-px bg-border/60" />
+                            <li key={item.id} className="relative">
+                                <a
+                                    href={`#${item.id}`}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth" });
+                                        window.history.pushState(null, "", `#${item.id}`);
+                                        setActiveId(item.id);
+                                    }}
+                                    className={cn(
+                                        "block transition-all duration-200 hover:text-white border-l-2 py-1",
+                                        isActive ? "border-primary text-primary font-medium" : "border-transparent text-muted-foreground",
+                                        item.level === 1 && "pl-4",
+                                        item.level === 2 && "pl-4",
+                                        item.level === 3 && "pl-8 text-xs"
                                     )}
-                                    <a
-                                        href={`#${item.id}`}
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth" });
-                                            window.history.pushState(null, "", `#${item.id}`);
-                                        }}
-                                        className={cn(
-                                            "block transition-all duration-200 hover:text-white",
-                                            isH1 ? "font-semibold text-[13px] pl-0" : "pl-10 text-[13px]",
-                                            activeId === item.id
-                                                ? "text-primary scale-105 origin-left"
-                                                : "text-muted-foreground"
-                                        )}
-                                    >
-                                        {item.text}
-                                    </a>
-                                </div>
+                                >
+                                    {item.text}
+                                </a>
                             </li>
                         );
                     })}

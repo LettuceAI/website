@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { DocImage } from "@/components/docs/DocImage";
 import { Callout } from "@/components/docs/Callout";
+import { DocHeading } from "@/components/docs/DocHeading";
 
 export function QuickStartDoc() {
     return (
@@ -11,12 +12,12 @@ export function QuickStartDoc() {
             transition={{ duration: 0.5 }}
             className="prose prose-invert max-w-none"
         >
-            <h1>Quick Start</h1>
+            <DocHeading level={1}>Quick Start</DocHeading>
             <p className="lead">
                 Get chatting with AI in under 5 minutes.
             </p>
 
-            <h2>Step 1: Add a Provider</h2>
+            <DocHeading level={2}>Step 1: Add a Provider</DocHeading>
             <p>
                 After launching LettuceAI, you'll need to add at least one AI provider.
             </p>
@@ -39,7 +40,7 @@ export function QuickStartDoc() {
                 Don't have an API key? Visit the <Link to="/docs/api-keys">API Keys guide</Link> to learn how to get one.
             </Callout>
 
-            <h2>Step 2: Start a Conversation</h2>
+            <DocHeading level={2}>Step 2: Start a Conversation</DocHeading>
             <ol>
                 <li>Go to the <strong>Chats</strong> tab</li>
                 <li>Tap <strong>New Chat</strong></li>
@@ -51,7 +52,7 @@ export function QuickStartDoc() {
                 Your first message will trigger the AI to respond using your chosen model. You're now ready to roll!
             </Callout>
 
-            <h2>Step 3: Explore Features</h2>
+            <DocHeading level={2}>Step 3: Explore Features</DocHeading>
             <p>
                 Once you're comfortable with basic chatting, explore these features:
             </p>

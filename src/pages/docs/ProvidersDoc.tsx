@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import { DocHeading } from "@/components/docs/DocHeading";
 
 export function ProvidersDoc() {
     return (
@@ -10,17 +11,17 @@ export function ProvidersDoc() {
             transition={{ duration: 0.5 }}
             className="prose prose-invert max-w-none"
         >
-            <h1>Providers</h1>
+            <DocHeading level={1}>Providers</DocHeading>
             <p className="lead">
                 LettuceAI supports a wide range of AI providers. Use one or many.
             </p>
 
-            <h2>Supported Providers</h2>
+            <DocHeading level={2}>Supported Providers</DocHeading>
             <p>
                 See the full list of <Link to="/providers" className="text-primary hover:underline">supported providers</Link>.
             </p>
 
-            <h2>Adding a Provider</h2>
+            <DocHeading level={2}>Adding a Provider</DocHeading>
             <ol>
                 <li>Go to <strong>Settings → Providers</strong></li>
                 <li>Tap <strong>Add Provider</strong></li>
@@ -30,7 +31,7 @@ export function ProvidersDoc() {
                 <li>Save</li>
             </ol>
 
-            <h2>Custom Endpoints</h2>
+            <DocHeading level={2}>Custom Endpoints</DocHeading>
             <p>
                 Any OpenAI-compatible API works with LettuceAI. This includes:
             </p>
@@ -41,7 +42,7 @@ export function ProvidersDoc() {
                 <li>Any other OpenAI-compatible endpoint</li>
             </ul>
 
-            <h2>Switching Providers</h2>
+            <DocHeading level={2}>Switching Providers</DocHeading>
             <p>
                 You can switch providers at any time during a conversation:
             </p>

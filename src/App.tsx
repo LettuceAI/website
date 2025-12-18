@@ -10,6 +10,7 @@ import {
     ProvidersDoc,
     CharactersDoc,
     MemoryDoc,
+    LorebooksDoc,
 } from "@/pages/docs";
 
 export function App() {
@@ -35,6 +36,7 @@ export function App() {
                         <Route path="providers" element={<ProvidersDoc />} />
                         <Route path="characters" element={<CharactersDoc />} />
                         <Route path="memory" element={<MemoryDoc />} />
+                        <Route path="lorebooks" element={<LorebooksDoc />} />
                     </Route>
 
                     <Route path="*" element={<NotFoundPage />} />
