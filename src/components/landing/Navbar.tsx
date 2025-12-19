@@ -1,12 +1,14 @@
 import { motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Snowflake } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { images } from "@/config/images";
+import { useSnow } from "@/contexts/SnowContext";
 
 export function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const { snowEnabled, toggleSnow, isHolidaySeason } = useSnow();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -66,7 +68,21 @@ export function Navbar() {
                                 {link.name}
                             </motion.a>
                         ))}
-                        <div className="ml-4">
+                        {isHolidaySeason && (
+                            <motion.button
+                                onClick={toggleSnow}
+                                className={`p-2 rounded-lg transition-colors ${snowEnabled
+                                    ? "text-cyan-400 bg-cyan-500/10 hover:bg-cyan-500/20"
+                                    : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                                    }`}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                title={snowEnabled ? "Turn off snow" : "Turn on snow"}
+                            >
+                                <Snowflake size={18} />
+                            </motion.button>
+                        )}
+                        <div className="ml-2">
                             <Button asChild className="gap-2">
                                 <a href="/docs/get-started">
                                     Get Started
@@ -105,6 +121,18 @@ export function Navbar() {
                                     {link.name}
                                 </a>
                             ))}
+                            {isHolidaySeason && (
+                                <button
+                                    onClick={toggleSnow}
+                                    className={`flex items-center gap-2 w-full px-4 py-2 text-sm font-medium rounded-lg transition-colors ${snowEnabled
+                                        ? "text-cyan-400 bg-cyan-500/10"
+                                        : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                                        }`}
+                                >
+                                    <Snowflake size={18} />
+                                    {snowEnabled ? "Snow: On" : "Snow: Off"}
+                                </button>
+                            )}
                             <div className="pt-2">
                                 <Button className="w-full gap-2" asChild>
                                     <a href="/download">

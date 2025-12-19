@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ScrollToTop } from "@/components/common/ScrollToTop";
 import { HomePage, DownloadPage, ProvidersPage, FAQPage, PrivacyPage, TermsPage, LicensePage, NotFoundPage } from "@/pages";
 import {
@@ -12,11 +12,29 @@ import {
     MemoryDoc,
     LorebooksDoc,
 } from "@/pages/docs";
+import Snowfall from "react-snowfall";
+import { SnowProvider, useSnow } from "@/contexts/SnowContext";
 
-export function App() {
+function AppContent() {
+    const { snowEnabled, isHolidaySeason } = useSnow();
+    const location = useLocation();
+    const isDocsPage = location.pathname.startsWith("/docs");
+
     return (
-        <BrowserRouter>
+        <>
             <ScrollToTop />
+            {isHolidaySeason && snowEnabled && !isDocsPage && (
+                <Snowfall
+                    style={{
+                        position: "fixed",
+                        width: "100vw",
+                        height: "100vh",
+                        zIndex: 9999,
+                        pointerEvents: "none",
+                    }}
+                    snowflakeCount={150}
+                />
+            )}
             <main className="dark min-h-screen bg-background text-foreground">
                 <Routes>
                     <Route path="/" element={<HomePage />} />
@@ -42,6 +60,16 @@ export function App() {
                     <Route path="*" element={<NotFoundPage />} />
                 </Routes>
             </main>
+        </>
+    );
+}
+
+export function App() {
+    return (
+        <BrowserRouter>
+            <SnowProvider>
+                <AppContent />
+            </SnowProvider>
         </BrowserRouter>
     );
 }
