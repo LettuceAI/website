@@ -5,7 +5,6 @@ import { Navbar, Footer } from "@/components/landing";
 import { useLatestRelease } from "@/hooks/useLatestRelease";
 
 export function DownloadPage() {
-    // Fetch latest release from GitHub
     const release = useLatestRelease("LettuceAI", "mobile-app");
 
     const formatDate = (dateStr: string) => {
@@ -27,14 +26,14 @@ export function DownloadPage() {
         {
             name: "Windows",
             icon: Monitor,
-            status: "coming-soon" as const,
+            status: "available" as const,
             description: "Windows app with full feature support.",
         },
         {
             name: "Linux",
             icon: Terminal,
-            status: "coming-soon" as const,
-            description: "AppImage, .rpm, and .deb packages for all major distros.",
+            status: "available" as const,
+            description: "Available as AppImage, .deb, and .rpm for all major distros.",
         },
     ];
 
@@ -58,7 +57,7 @@ export function DownloadPage() {
                             Get LettuceAI for your device
                         </h1>
                         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                            Take your AI companion everywhere. Available on Android now, with Windows and Linux coming soon.
+                            Take your AI companion everywhere. Available on Android, Windows, and Linux.
                         </p>
                     </motion.div>
 
@@ -126,7 +125,7 @@ export function DownloadPage() {
                                     </div>
 
                                     {/* Action */}
-                                    <div className="shrink-0 flex items-center gap-2">
+                                    <div className="shrink-0 flex items-center gap-2 flex-wrap">
                                         {platform.status === "available" && (
                                             <>
                                                 {release.loading ? (
@@ -134,28 +133,104 @@ export function DownloadPage() {
                                                         <Loader2 className="w-4 h-4 animate-spin" />
                                                         Loading
                                                     </Button>
-                                                ) : release.downloadUrl ? (
-                                                    <>
-                                                        <Button asChild className="gap-2">
-                                                            <a href={release.downloadUrl}>
-                                                                <Download className="w-4 h-4" />
-                                                                Download APK
-                                                            </a>
-                                                        </Button>
-                                                        <Button asChild variant="outline" size="icon">
-                                                            <a href={release.releaseUrl} target="_blank" rel="noopener noreferrer">
+                                                ) : platform.name === "Android" ? (
+                                                    release.downloads.android ? (
+                                                        <>
+                                                            <Button asChild className="gap-2">
+                                                                <a href={release.downloads.android}>
+                                                                    <Download className="w-4 h-4" />
+                                                                    Download APK
+                                                                </a>
+                                                            </Button>
+                                                            <Button asChild variant="outline" size="icon">
+                                                                <a href={release.releaseUrl} target="_blank" rel="noopener noreferrer">
+                                                                    <ExternalLink className="w-4 h-4" />
+                                                                </a>
+                                                            </Button>
+                                                        </>
+                                                    ) : (
+                                                        <Button asChild variant="outline" className="gap-2">
+                                                            <a href={release.releaseUrl || `https://github.com/LettuceAI/mobile-app/releases`} target="_blank" rel="noopener noreferrer">
+                                                                View on GitHub
                                                                 <ExternalLink className="w-4 h-4" />
                                                             </a>
                                                         </Button>
-                                                    </>
-                                                ) : (
-                                                    <Button asChild variant="outline" className="gap-2">
-                                                        <a href={release.releaseUrl || `https://github.com/LettuceAI/mobile-app/releases`} target="_blank" rel="noopener noreferrer">
-                                                            View on GitHub
-                                                            <ExternalLink className="w-4 h-4" />
-                                                        </a>
-                                                    </Button>
-                                                )}
+                                                    )
+                                                ) : platform.name === "Windows" ? (
+                                                    release.downloads.windows ? (
+                                                        <>
+                                                            {release.downloads.windows.msi && (
+                                                                <Button asChild className="gap-2">
+                                                                    <a href={release.downloads.windows.msi}>
+                                                                        <Download className="w-4 h-4" />
+                                                                        MSI
+                                                                    </a>
+                                                                </Button>
+                                                            )}
+                                                            {release.downloads.windows.exe && (
+                                                                <Button asChild variant="outline" className="gap-2">
+                                                                    <a href={release.downloads.windows.exe}>
+                                                                        <Download className="w-4 h-4" />
+                                                                        EXE
+                                                                    </a>
+                                                                </Button>
+                                                            )}
+                                                            <Button asChild variant="outline" size="icon">
+                                                                <a href={release.releaseUrl} target="_blank" rel="noopener noreferrer">
+                                                                    <ExternalLink className="w-4 h-4" />
+                                                                </a>
+                                                            </Button>
+                                                        </>
+                                                    ) : (
+                                                        <Button asChild variant="outline" className="gap-2">
+                                                            <a href={release.releaseUrl || `https://github.com/LettuceAI/mobile-app/releases`} target="_blank" rel="noopener noreferrer">
+                                                                View on GitHub
+                                                                <ExternalLink className="w-4 h-4" />
+                                                            </a>
+                                                        </Button>
+                                                    )
+                                                ) : platform.name === "Linux" ? (
+                                                    release.downloads.linux ? (
+                                                        <>
+                                                            {release.downloads.linux.appImage && (
+                                                                <Button asChild className="gap-2">
+                                                                    <a href={release.downloads.linux.appImage}>
+                                                                        <Download className="w-4 h-4" />
+                                                                        AppImage
+                                                                    </a>
+                                                                </Button>
+                                                            )}
+                                                            {release.downloads.linux.deb && (
+                                                                <Button asChild variant="outline" className="gap-2">
+                                                                    <a href={release.downloads.linux.deb}>
+                                                                        <Download className="w-4 h-4" />
+                                                                        DEB
+                                                                    </a>
+                                                                </Button>
+                                                            )}
+                                                            {release.downloads.linux.rpm && (
+                                                                <Button asChild variant="outline" className="gap-2">
+                                                                    <a href={release.downloads.linux.rpm}>
+                                                                        <Download className="w-4 h-4" />
+                                                                        RPM
+                                                                    </a>
+                                                                </Button>
+                                                            )}
+                                                            <Button asChild variant="outline" size="icon">
+                                                                <a href={release.releaseUrl} target="_blank" rel="noopener noreferrer">
+                                                                    <ExternalLink className="w-4 h-4" />
+                                                                </a>
+                                                            </Button>
+                                                        </>
+                                                    ) : (
+                                                        <Button asChild variant="outline" className="gap-2">
+                                                            <a href={release.releaseUrl || `https://github.com/LettuceAI/mobile-app/releases`} target="_blank" rel="noopener noreferrer">
+                                                                View on GitHub
+                                                                <ExternalLink className="w-4 h-4" />
+                                                            </a>
+                                                        </Button>
+                                                    )
+                                                ) : null}
                                             </>
                                         )}
                                     </div>

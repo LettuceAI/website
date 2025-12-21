@@ -5,4 +5,5 @@ export { FAQPage } from "./FAQPage";
 export { PrivacyPage } from "./PrivacyPage";
 export { TermsPage } from "./TermsPage";
 export { LicensePage } from "./LicensePage";
+export { ChangelogPage } from "./ChangelogPage";
 export { NotFoundPage } from "./NotFoundPage";

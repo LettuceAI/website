@@ -125,7 +125,157 @@ export function MemoryDoc() {
                 </li>
             </ol>
 
-            <DocHeading level={3}>How Memories Are Retrieved</DocHeading>
+            <DocHeading level={2}>Embedding Model (v2)</DocHeading>
+            <p>
+                Dynamic Memory relies on an embedding model to understand
+                what memories are <em>about</em>, not just what words they contain.
+            </p>
+
+            <p>
+                LettuceAI v2 uses a newer embedding model designed specifically
+                for long-running conversations and roleplay scenarios.
+            </p>
+
+            <DocHeading level={3}>What embeddings do</DocHeading>
+            <p>
+                An embedding model converts text into numerical vectors that represent meaning.
+                Similar ideas end up close together, even if they use different wording.
+            </p>
+
+            <ul>
+                <li>“He hates crowded places”</li>
+                <li>“Large groups make him anxious”</li>
+            </ul>
+
+            <p>
+                Even though these sentences share few words, the embedding model
+                understands that they describe the same idea.
+            </p>
+
+            <DocHeading level={3}>Embedding Model: v1 vs v2</DocHeading>
+
+            <p>
+                lettuce-emb-512d-v2 is a new embedding model designed specifically for Dynamic Memory.
+                It is smaller, faster, and supports significantly larger context sizes.
+            </p>
+
+            <table className="min-w-full text-sm my-6">
+                <thead>
+                    <tr className="border-b border-border/50">
+                        <th className="text-left py-2 px-4">Aspect</th>
+                        <th className="text-left py-2 px-4">v1 (lettuce-emb-512d-v1)</th>
+                        <th className="text-left py-2 px-4">v2 (lettuce-emb-512d-v2)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr className="border-b border-border/10">
+                        <td className="py-2 px-4 font-medium">Max input context</td>
+                        <td className="py-2 px-4">512 tokens</td>
+                        <td className="py-2 px-4">Up to 4096 tokens</td>
+                    </tr>
+                    <tr className="border-b border-border/10">
+                        <td className="py-2 px-4 font-medium">Model size</td>
+                        <td className="py-2 px-4">~220 MB</td>
+                        <td className="py-2 px-4">~121 MB</td>
+                    </tr>
+                    <tr className="border-b border-border/10">
+                        <td className="py-2 px-4 font-medium">Inference speed</td>
+                        <td className="py-2 px-4">Baseline</td>
+                        <td className="py-2 px-4">Faster (lower latency)</td>
+                    </tr>
+                    <tr className="border-b border-border/10">
+                        <td className="py-2 px-4 font-medium">Long-context stability</td>
+                        <td className="py-2 px-4">Limited</td>
+                        <td className="py-2 px-4">Improved</td>
+                    </tr>
+                    <tr>
+                        <td className="py-2 px-4 font-medium">Memory relevance</td>
+                        <td className="py-2 px-4">More drift over time</td>
+                        <td className="py-2 px-4">More stable ranking</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>
+                v2 allows larger memory chunks to be embedded directly, reducing the need
+                for aggressive summarization and improving recall accuracy.
+            </p>
+
+            <p>
+                Existing memories remain compatible. No manual migration is required.
+            </p>
+
+            <DocHeading level={3}>Context Enrichment (v2 only)</DocHeading>
+
+            <p>
+                lettuce-emb-512d-v2 uses <strong>context enrichment</strong> when generating embeddings.
+            </p>
+
+            <p>
+                Instead of embedding only the latest user message, v2 embeds a short
+                conversational window that includes:
+            </p>
+
+            <ul>
+                <li>The latest user message</li>
+                <li>The previous assistant response</li>
+            </ul>
+
+            <p>
+                This provides additional semantic context and reduces ambiguity during
+                memory retrieval.
+            </p>
+
+            <p>
+                In practice, this improves:
+            </p>
+
+            <ul>
+                <li>Recall accuracy for follow-up questions</li>
+                <li>Detection of implied references (“that”, “him”, “what we said earlier”)</li>
+                <li>Stability when conversations alternate rapidly between topics</li>
+            </ul>
+
+            <p>
+                Context enrichment is only available in v2 due to its larger supported
+                context size and improved embedding stability.
+            </p>
+
+
+
+            <DocHeading level={3}>Why Embedding Models matter for memory</DocHeading>
+            <p>
+                In Dynamic Mode, the embedding model decides which memories are
+                considered “related” to your current message.
+            </p>
+
+            <p>
+                A better embedding model means:
+            </p>
+            <ul>
+                <li>Fewer random callbacks to irrelevant details</li>
+                <li>More consistent character behavior</li>
+                <li>Cleaner separation between scenes and timelines</li>
+            </ul>
+
+            <DocHeading level={3}>Local-first design</DocHeading>
+            <p>
+                Embeddings are generated and stored locally.
+                They are never sent to providers unless a memory is actually injected
+                into the prompt.
+            </p>
+
+            <p>
+                This keeps Dynamic Memory fast, cheap, and privacy-friendly.
+            </p>
+
+            <Callout type="info" title="Important">
+                Changing models or providers does not invalidate your memories.
+                Embeddings are provider-agnostic and remain usable across chats.
+            </Callout>
+
+
+            <DocHeading level={2}>How Memories Are Retrieved</DocHeading>
             <p>When you send a message, memory retrieval happens in two steps:</p>
 
             <ol>

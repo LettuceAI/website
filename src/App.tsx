@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ScrollToTop } from "@/components/common/ScrollToTop";
-import { HomePage, DownloadPage, ProvidersPage, FAQPage, PrivacyPage, TermsPage, LicensePage, NotFoundPage } from "@/pages";
+import { HomePage, DownloadPage, ProvidersPage, FAQPage, PrivacyPage, TermsPage, LicensePage, ChangelogPage, NotFoundPage } from "@/pages";
 import {
     DocsLayout,
     DocsIndex,
@@ -11,6 +11,8 @@ import {
     CharactersDoc,
     MemoryDoc,
     LorebooksDoc,
+    PersonasDoc,
+    SystemPromptsDoc,
 } from "@/pages/docs";
 import Snowfall from "react-snowfall";
 import { SnowProvider, useSnow } from "@/contexts/SnowContext";
@@ -44,6 +46,7 @@ function AppContent() {
                     <Route path="/privacy" element={<PrivacyPage />} />
                     <Route path="/terms" element={<TermsPage />} />
                     <Route path="/license" element={<LicensePage />} />
+                    <Route path="/changelog" element={<ChangelogPage />} />
 
                     {/* Docs Routes */}
                     <Route path="/docs" element={<DocsLayout />}>
@@ -55,6 +58,8 @@ function AppContent() {
                         <Route path="characters" element={<CharactersDoc />} />
                         <Route path="memory" element={<MemoryDoc />} />
                         <Route path="lorebooks" element={<LorebooksDoc />} />
+                        <Route path="personas" element={<PersonasDoc />} />
+                        <Route path="system-prompts" element={<SystemPromptsDoc />} />
                     </Route>
 
                     <Route path="*" element={<NotFoundPage />} />

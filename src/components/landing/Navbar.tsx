@@ -22,6 +22,7 @@ export function Navbar() {
         { name: "Documentation", href: "/docs" },
         { name: "Providers", href: "/providers" },
         { name: "GitHub", href: "https://github.com/LettuceAI/", external: true },
+        { name: "Changelog", href: "/changelog" },
     ];
 
     return (
@@ -84,7 +85,7 @@ export function Navbar() {
                         )}
                         <div className="ml-2">
                             <Button asChild className="gap-2">
-                                <a href="/docs/get-started">
+                                <a href="/docs/quickstart">
                                     Get Started
                                 </a>
                             </Button>

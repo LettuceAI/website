@@ -110,7 +110,7 @@ export function DocsNavbar() {
                                 alt="LettuceAI"
                                 className="w-7 h-7"
                             />
-                            <span className="hidden sm:inline-block text-lg font-bold bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+                            <span className="hidden sm:inline-block text-lg font-bold bg-primary bg-clip-text text-transparent">
                                 LettuceAI
                             </span>
                         </Link>

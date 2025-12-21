@@ -2,60 +2,114 @@ import { TestimonialsColumn, type Testimonial } from "@/components/ui/testimonia
 import { motion } from "framer-motion";
 
 const testimonials: Testimonial[] = [
+  {
+    text: "been using this for some weeks now and it didnt forget important stuff which is rare",
+    name: "abrasive_carcass",
+  },
+  {
+    text: "first day was confusing but after you understand how memory works its actually good",
+    name: "TheObeseBoardroom",
+  },
+  {
+    text: "been using this for some weeks now and it didnt forget important stuff which is rare",
+    name: "abrasive_carcass",
+  },
+  {
+    text: "first day was confusing but after you understand how memory works its actually good",
+    name: "TheObeseBoardroom",
+  },
+  {
+    text: "characters feel more consistent here. they dont randomly change personality",
+    name: "lastingequation",
+  },
+  {
+    text: "not perfect english on my side but conversation flows better than expected",
+    name: "gullible_basin",
+  },
+  {
+    text: "ui could be cleaner but the chat quality makes up for it",
+    name: "spottediceberg",
+  },
+  {
+    text: "characters feel more consistent here. they dont randomly change personality",
+    name: "lastingequation",
+  },
+  {
+    text: "not perfect english on my side but conversation flows better than expected",
+    name: "gullible_basin",
+  },
+  {
+    text: "ui could be cleaner but the chat quality makes up for it",
+    name: "spottediceberg",
+  },
+  {
+    text: "i was expecting another hype app but its actually usable long term",
+    name: "RuddySetup",
+  },
+  {
+    text: "sometimes slow sometimes weird but overall less frustrating than others",
+    name: "SleepyBadger",
+  },
+  {
+    text: "feels like it pays attention instead of repeating same stuff",
+    name: "RevolvingSquid",
+  },
+  {
+    text: "i dont use all features but even basic chat feels solid",
+    name: "KindSuburb",
+  },
+  {
+    text: "setup took time but after that i stopped thinking about the app and just use it",
+    name: "KaleidoscopicMeans",
+  },
+  {
+    text: "way less random replies compared to what i used before",
+    name: "violent_curator",
+  },
+  {
+    text: "not mindblowing but reliable which matters more",
+    name: "SpiritedGlamour",
+  },
     {
-        text: "It's fucking based and replaced c.ai for me",
-        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
-        name: "A Random LettuceAI User",
-        role: "AI Enthusiast",
-    },
+    text: "way less random replies compared to what i used before",
+    name: "violent_curator",
+  },
+  {
+    text: "not mindblowing but reliable which matters more",
+    name: "SpiritedGlamour",
+  },
     {
-        text: "Finally, an AI companion that respects privacy! Everything stays on my device, and I control my own data with BYOK.",
-        image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop",
-        name: "Sarah Chen",
-        role: "Privacy Advocate",
-    },
-    {
-        text: "The open-source nature and dynamic memory system are impressive. It genuinely understands context across conversations.",
-        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop",
-        name: "Marcus Rodriguez",
-        role: "Software Developer",
-    },
-    {
-        text: "I use LettuceAI for language practice. Characters remember our discussions and adapt to my learning style perfectly.",
-        image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=150&h=150&fit=crop",
-        name: "Emma Williams",
-        role: "Language Learner",
-    },
-    {
-        text: "The local-first approach means I can use it anywhere, even offline. My conversations stay private and personal.",
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop",
-        name: "David Kim",
-        role: "Digital Nomad",
-    },
-    {
-        text: "Character creation is incredibly detailed. The AI maintains consistency throughout conversations beautifully.",
-        image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop",
-        name: "Sophia Martinez",
-        role: "Content Creator",
-    },
-    {
-        text: "The memory system is a game-changer. It remembers context from weeks ago and weaves it naturally into chats.",
-        image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop",
-        name: "James Parker",
-        role: "AI Enthusiast",
-    },
-    {
-        text: "Using my own API keys saves money and gives full control. The open-source code shows exactly what's happening.",
-        image: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=150&h=150&fit=crop",
-        name: "Rachel Green",
-        role: "Tech Professional",
-    },
-    {
-        text: "Perfect balance of powerful AI and privacy. The no-telemetry policy and local storage give me peace of mind.",
-        image: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=150&h=150&fit=crop",
-        name: "Michael Brooks",
-        role: "Security Researcher",
-    },
+    text: "feels less repetitive than most ai chats i tried",
+    name: "spottediceberg",
+  },
+  {
+    text: "i keep coming back to same character and it still makes sense",
+    name: "RevolvingSquid",
+  },
+  {
+    text: "sometimes it says weird stuff but overall conversation stays on track",
+    name: "cruelexclamation388",
+  },
+  {
+    text: "better long chats. short chats feel same everywhere anyway",
+    name: "gleamingsharpness7",
+  },
+  {
+    text: "not flashy but it works which i prefer",
+    name: "KindSuburb",
+  },
+  {
+    text: "feels more thought put into replies not just filler text",
+    name: "violent_curator",
+  },
+  {
+    text: "i stopped noticing the app and just talk which is good sign",
+    name: "SleepyBadger",
+  },
+  {
+    text: "memory doesnt feel forced. it comes up when it makes sense",
+    name: "KaleidoscopicMeans",
+  },
 ];
 
 const firstColumn = testimonials.slice(0, 2);

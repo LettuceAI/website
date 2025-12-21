@@ -17,6 +17,7 @@ const footerLinks = [
             { name: "GitHub", href: links.github, external: true },
             { name: "Discord", href: links.discord, external: true },
             { name: "Documentation", href: "/docs", external: false },
+            { name: "Changelog", href: "/changelog", external: false },
         ],
     },
     {

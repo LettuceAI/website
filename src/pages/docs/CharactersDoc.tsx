@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { DocSplit } from "@/components/docs/DocSplit";
+import { DocHeading } from "@/components/docs/DocHeading";
 import { Callout } from "@/components/docs/Callout";
-import { CodeBlock } from "@/components/ui/CodeBlock";
 
 export function CharactersDoc() {
     return (
@@ -11,68 +11,94 @@ export function CharactersDoc() {
             transition={{ duration: 0.5 }}
             className="prose prose-invert max-w-none"
         >
-            <h1>Characters</h1>
+            <DocHeading level={1}>Characters</DocHeading>
+
             <p className="lead">
-                Create custom AI personas with unique personalities, backstories, and behaviors.
+                Characters define who you are talking to. Each one has its own personality,
+                memory behavior, and default setup.
             </p>
 
-            <h2>What are Characters?</h2>
             <p>
-                Characters are custom AI personas you create. Each character has its own system prompt, personality traits, and conversation style. Use them for creative writing, roleplay, or specialized assistants.
+                Creating a character happens across a few simple screens. You can edit
+                everything later, so don't worry about getting it perfect the first time.
             </p>
 
+            <DocHeading level={2}>Step 1: Basic identity</DocHeading>
             <DocSplit
-                imageSrc="https://images.unsplash.com/photo-1618331835717-801e976710b2?auto=format&fit=crop&q=80&w=800"
-                imageAlt="Character Design"
+                imageSrc="/images/character_step_1.webp"
+                imageAlt="Character identity screen"
             >
-                <h3>Creating a Character</h3>
                 <p>
-                    Designing a character is the heart of the LettuceAI experience. You can define every detail from their appearance to their deepest secrets.
-                </p>
-                <ol>
-                    <li>Go to the <strong>Characters</strong> tab</li>
-                    <li>Tap <strong>Create Character</strong></li>
-                    <li>Fill in the character details:
-                        <ul className="mt-2">
-                            <li><strong>Name</strong> — Their display name</li>
-                            <li><strong>Avatar</strong> — Portrait image</li>
-                            <li><strong>System Prompt</strong> — Behavioral logic</li>
-                        </ul>
-                    </li>
-                </ol>
-            </DocSplit>
-
-            <Callout type="info" title="Character Avatars">
-                We recommend using portrait images with a 3:4 aspect ratio for the best display quality across all devices.
-            </Callout>
-
-            <h2>Writing Good System Prompts</h2>
-            <p>
-                The system prompt is the most important part of a character. It acts as the "operating system" for their personality.
-            </p>
-            <div className="not-prose my-6">
-                <CodeBlock>{`You are Luna, a wise and patient mentor who specializes in teaching programming. You explain complex concepts using simple analogies. You're encouraging but also challenge students to think critically. You always ask follow-up questions to ensure understanding.`}</CodeBlock>
-            </div>
-
-            <DocSplit
-                imageSrc="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=800"
-                imageAlt="Personality Traits"
-                reverse
-            >
-                <h3>Personality & Traits</h3>
-                <p>
-                    Don't just state facts; define *how* they speak. Are they sarcastic? Overly formal? Do they have a specific accent?
+                    The first screen is where you define the character's basic identity.
+                    This is what you'll see when selecting or chatting with them.
                 </p>
                 <ul>
-                    <li>Be specific about personality traits</li>
-                    <li>Define how the character should respond</li>
-                    <li>Include relevant knowledge or expertise</li>
-                    <li>Set boundaries for what they *won't* do</li>
+                    <li><strong>Name</strong>: The character's display name</li>
+                    <li><strong>Avatar (optional)</strong>: Portrait image shown in chat</li>
+                    <li><strong>Chat background (optional)</strong>: Background image for this character's conversations</li>
+                </ul>
+                <p>
+                    All of these can be changed later.
+                </p>
+            </DocSplit>
+
+            <DocHeading level={2}>Step 2: Starting scenes</DocHeading>
+            <DocSplit
+                imageSrc="/images/character_step_2.webp"
+                imageAlt="Starting scenes screen"
+                reverse
+            >
+                <p>
+                    Starting scenes define how a conversation begins.
+                    They set the situation, mood, or relationship at the start of a chat.
+                </p>
+                <ul>
+                    <li>You can create multiple starting scenes</li>
+                    <li>One scene can be selected as the default</li>
+                    <li>Scenes only affect the beginning, not the character's personality</li>
                 </ul>
             </DocSplit>
 
-            <Callout type="warning" title="Privacy Tip">
-                All character data, including system prompts and avatars, are stored locally on your device. Use the export feature if you want to back them up or share them with others!
+            <DocHeading level={2}>Step 3: Behavior and defaults</DocHeading>
+            <DocSplit
+                imageSrc="/images/character_step_3.webp"
+                imageAlt="Character behavior and settings screen"
+            >
+                <p>
+                    The final screen controls how the character behaves and remembers things.
+                </p>
+                <ul>
+                    <li><strong>Description</strong>: Who this character is</li>
+                    <li><strong>System prompt</strong>: Instructions that guide responses</li>
+                    <li>
+                        <strong>Memory mode</strong>
+                        <ul className="mt-2">
+                            <li><strong>Manual</strong>: Only saved memories are kept</li>
+                            <li><strong>Dynamic</strong>: Important details are remembered automatically</li>
+                        </ul>
+                    </li>
+                    <li><strong>Default model</strong>: Used when starting new chats</li>
+                </ul>
+            </DocSplit>
+
+            <Callout type="info" title="Roleplay tips">
+                <ul className="mt-2 list-disc pl-5 space-y-1">
+                    <li>
+                        Treat the starting scene like the opening of a book. It sets expectations for tone, pacing, and how the character sees you.
+                    </li>
+                    <li>
+                        You don’t need long prompts. Clear personality rules beat walls of text for keeping a character consistent.
+                    </li>
+                    <li>
+                        If a character starts drifting, rewrite how they speak, not what they know. Tone matters more than lore.
+                    </li>
+                    <li>
+                        Use multiple starting scenes for the same character to explore different timelines or moods without creating duplicates.
+                    </li>
+                    <li>
+                        Let conversations build the character. Over-defining everything upfront can make interactions feel stiff.
+                    </li>
+                </ul>
             </Callout>
         </motion.article>
     );

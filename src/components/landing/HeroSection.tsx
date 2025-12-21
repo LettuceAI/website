@@ -3,6 +3,7 @@ import { Github, ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { images } from "@/config/images";
+import { links } from "@/config/links";
 
 // Animated particles for depth
 function Particles() {
@@ -137,7 +138,7 @@ export function HeroSection() {
                             className="h-12 px-8 text-base font-medium bg-primary hover:bg-primary/90 shadow-[0_0_30px_rgba(136,192,87,0.25)] hover:shadow-[0_0_40px_rgba(136,192,87,0.4)] transition-all duration-300"
                             asChild
                         >
-                            <a href="#download">
+                            <a href="/download">
                                 Download Free
                             </a>
                         </Button>
@@ -147,7 +148,7 @@ export function HeroSection() {
                             className="h-12 px-8 text-base font-medium border-border/50 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 gap-2"
                             asChild
                         >
-                            <a href="https://github.com/lettuce-ai" target="_blank" rel="noopener noreferrer">
+                            <a href={links.github} target="_blank" rel="noopener noreferrer">
                                 <Github className="w-5 h-5" />
                                 View Source
                             </a>

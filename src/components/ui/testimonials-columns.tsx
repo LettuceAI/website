@@ -4,10 +4,22 @@ import { motion } from "motion/react";
 
 export type Testimonial = {
     text: string;
-    image: string;
+    image?: string;
     name: string;
-    role: string;
+    role?: string;
 };
+
+function getInitials(name: string) {
+    const clean = name.replace(/^\/u\//, "");
+    const parts = clean.split(/[_\-.]/).filter(Boolean);
+
+    if (parts.length === 1) {
+        return parts[0].slice(0, 2).toUpperCase();
+    }
+
+    return (parts[0][0] + parts[1][0]).toUpperCase();
+}
+
 
 export const TestimonialsColumn = (props: {
     className?: string;
@@ -40,13 +52,13 @@ export const TestimonialsColumn = (props: {
                                         "{text}"
                                     </p>
                                     <div className="flex items-center gap-3">
-                                        <img
-                                            width={48}
-                                            height={48}
-                                            src={image}
-                                            alt={name}
-                                            className="h-12 w-12 rounded-full ring-2 ring-border/30"
-                                        />
+                                        <div
+                                            className="h-12 w-12 rounded-full flex items-center justify-center
+                                            bg-border/20 ring-2 ring-border/30
+                                            text-sm font-semibold text-white/80 select-none"
+                                        >
+                                            {getInitials(name)}
+                                        </div>
                                         <div className="flex flex-col">
                                             <div className="font-semibold text-white">{name}</div>
                                             <div className="text-sm text-muted-foreground">{role}</div>

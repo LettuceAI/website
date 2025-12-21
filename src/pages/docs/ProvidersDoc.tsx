@@ -1,6 +1,4 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
 import { DocHeading } from "@/components/docs/DocHeading";
 
 export function ProvidersDoc() {
@@ -12,62 +10,50 @@ export function ProvidersDoc() {
             className="prose prose-invert max-w-none"
         >
             <DocHeading level={1}>Providers</DocHeading>
+
             <p className="lead">
-                LettuceAI supports a wide range of AI providers. Use one or many.
+                Providers are the services that actually run the AI models.
+                LettuceAI connects to them — it doesn’t lock you into one.
             </p>
 
-            <DocHeading level={2}>Supported Providers</DocHeading>
+            <DocHeading level={2}>What is a provider?</DocHeading>
             <p>
-                See the full list of <Link to="/providers" className="text-primary hover:underline">supported providers</Link>.
+                A provider is a company or service that hosts AI models and responds
+                to your messages. When you send a message in LettuceAI, it is forwarded
+                to the selected provider using your API key.
+            </p>
+            <p>
+                LettuceAI acts as the interface, memory system, and character layer.
+                The provider handles the heavy AI computation.
             </p>
 
-            <DocHeading level={2}>Adding a Provider</DocHeading>
-            <ol>
-                <li>Go to <strong>Settings → Providers</strong></li>
-                <li>Tap <strong>Add Provider</strong></li>
-                <li>Select your provider type</li>
-                <li>Enter your API key</li>
-                <li>Optionally customize the endpoint URL</li>
-                <li>Save</li>
-            </ol>
-
-            <DocHeading level={2}>Custom Endpoints</DocHeading>
+            <DocHeading level={2}>Why use multiple providers?</DocHeading>
             <p>
-                Any OpenAI-compatible API works with LettuceAI. This includes:
+                Each provider is a separate service with its own pricing, limits, models,
+                and availability. Using more than one gives you flexibility instead of
+                depending on a single company.
             </p>
             <ul>
-                <li><strong>Ollama</strong> — Local models at <code>http://localhost:11434/v1</code></li>
-                <li><strong>LM Studio</strong> — Local inference server</li>
-                <li><strong>vLLM</strong> — High-throughput serving</li>
-                <li>Any other OpenAI-compatible endpoint</li>
+                <li>
+                    Providers have different prices and rate limits
+                </li>
+                <li>
+                    One provider might be down or throttled while another works fine
+                </li>
+                <li>
+                    Some providers offer models that others don’t
+                </li>
+                <li>
+                    You can avoid being locked into one ecosystem
+                </li>
             </ul>
-
-            <DocHeading level={2}>Switching Providers</DocHeading>
             <p>
-                You can switch providers at any time during a conversation:
+                LettuceAI lets you add multiple providers at the same time and switch between
+                them instantly without losing chats or memory.
             </p>
-            <ol>
-                <li>Open a chat</li>
-                <li>Tap the model selector at the top</li>
-                <li>Choose a different model or provider</li>
-                <li>Continue chatting seamlessly</li>
-            </ol>
-
-            <div className="not-prose my-6 p-4 rounded-lg bg-primary/10 border border-primary/30">
-                <p className="text-sm text-primary">
-                    <strong>Tip:</strong> Use different providers for different tasks. Claude for creative writing, GPT-4 for coding, local models for privacy-sensitive conversations.
-                </p>
-            </div>
-
-            <div className="not-prose mt-8 flex gap-3">
-                <Link
-                    to="/docs/characters"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-black font-medium hover:bg-primary/90 transition-colors"
-                >
-                    Next: Characters
-                    <ArrowRight className="w-4 h-4" />
-                </Link>
-            </div>
+            <p>
+                Using more than one means you always have a backup and more choice.
+            </p>
         </motion.article>
     );
 }

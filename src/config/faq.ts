@@ -122,28 +122,33 @@ export const faqCategories: FAQCategory[] = [
 
 export const homepageFAQs: FAQ[] = [
     {
-        question: "Is LettuceAI free?",
+        question: "Do I have to pay to use LettuceAI?",
         answer:
-            "Yes. LettuceAI is free and open source. You only pay for the AI provider you choose to use.",
+            "LettuceAI itself is free and open source. You only pay for the AI provider you connect, using your own API key.",
     },
     {
-        question: "What is LettuceAI best at?",
+        question: "What do people actually use LettuceAI for?",
         answer:
-            "Long-term roleplay, storytelling, and character-driven conversations with memory that actually lasts.",
+            "Mostly long-term roleplay, storytelling, and character chats where memory and personality consistency matter.",
     },
     {
-        question: "Do I need a powerful GPU?",
+        question: "Do I need a good PC or GPU for this?",
         answer:
-            "No. LettuceAI runs on cloud providers or local models, so it works on almost any device.",
+            "No. LettuceAI works on almost any device since the heavy AI processing is handled by the provider you choose.",
     },
     {
-        question: "Can I use local models like Ollama?",
+        question: "How is this different from other AI chat apps?",
         answer:
-            "Yes. LettuceAI supports Ollama and other OpenAI-compatible local endpoints, including offline setups.",
+            "LettuceAI focuses on long conversations, real memory, and giving you control instead of locking you into one model or service.",
     },
     {
-        question: "What makes LettuceAI different?",
+        question: "Can characters remember things from old conversations?",
         answer:
-            "Smart memory, character consistency, open source design, and full control over models and providers.",
+            "Yes. LettuceAI uses a manuel Lorebook system designed to carry important details forward instead of resetting every chat.",
+    },
+    {
+        question: "Is my data shared or tracked?",
+        answer:
+            "No telemetry is collected by LettuceAI. Your chats and data stay under your control.",
     },
 ];

@@ -7,3 +7,5 @@ export { ProvidersDoc } from "./ProvidersDoc";
 export { CharactersDoc } from "./CharactersDoc";
 export { MemoryDoc } from "./MemoryDoc";
 export { LorebooksDoc } from "./LorebooksDoc";
+export { PersonasDoc } from "./PersonasDoc";
+export { SystemPromptsDoc } from "./SystemPromptsDoc";

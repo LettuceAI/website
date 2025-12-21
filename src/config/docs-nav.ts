@@ -1,4 +1,4 @@
-import { Home, Download, Zap, Settings, Palette, Brain, Key, HelpCircle, Book } from "lucide-react";
+import { Home, Download, Zap, Settings, Brain, Key, HelpCircle, Book, Bot, PersonStandingIcon } from "lucide-react";
 
 export const docsNav = [
     {
@@ -19,7 +19,9 @@ export const docsNav = [
     {
         title: "Features",
         items: [
-            { title: "Characters", href: "/docs/characters", icon: Palette, keywords: ["character", "persona", "personality", "avatar", "system prompt"] },
+            { title: "Characters", href: "/docs/characters", icon: Bot, keywords: ["character", "persona", "personality", "avatar", "system prompt"] },
+            { title: "Personas", href: "/docs/personas", icon: PersonStandingIcon, keywords: ["persona", "personality", "role", "voice", "user"] },
+            { title: "System Prompts", href: "/docs/system-prompts", icon: Settings, keywords: ["system", "prompt", "instructions", "behavior", "rules"] },
             { title: "Memory System", href: "/docs/memory", icon: Brain, keywords: ["memory", "context", "history", "remember", "infinite", "summarization"] },
             { title: "Lorebooks", href: "/docs/lorebooks", icon: Book, keywords: ["lorebook", "lore", "lorebook", "lorebook", "lorebook"] },
         ],
