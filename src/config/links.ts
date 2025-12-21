@@ -4,7 +4,7 @@
  * Replace the placeholder URLs with your actual links
  */
 export const links = {
-    discord: "https://discord.gg/lettuceai",
+    discord: "https://discord.gg/745bEttw2r",
     github: "https://github.com/LettuceAI",
     githubRepo: "https://github.com/LettuceAI/mobile-app",
 } as const;
