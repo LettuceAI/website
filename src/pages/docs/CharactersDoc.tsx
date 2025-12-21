@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { DocSplit } from "@/components/docs/DocSplit";
 import { DocHeading } from "@/components/docs/DocHeading";
 import { Callout } from "@/components/docs/Callout";
+import { images } from "@/config/images";
 
 export function CharactersDoc() {
     return (
@@ -25,7 +26,7 @@ export function CharactersDoc() {
 
             <DocHeading level={2}>Step 1: Basic identity</DocHeading>
             <DocSplit
-                imageSrc="/images/character_step_1.webp"
+                imageSrc={images.charactersDocs.step1}
                 imageAlt="Character identity screen"
             >
                 <p>
@@ -44,7 +45,7 @@ export function CharactersDoc() {
 
             <DocHeading level={2}>Step 2: Starting scenes</DocHeading>
             <DocSplit
-                imageSrc="/images/character_step_2.webp"
+                imageSrc={images.charactersDocs.step2}
                 imageAlt="Starting scenes screen"
                 reverse
             >
@@ -61,7 +62,7 @@ export function CharactersDoc() {
 
             <DocHeading level={2}>Step 3: Behavior and defaults</DocHeading>
             <DocSplit
-                imageSrc="/images/character_step_3.webp"
+                imageSrc={images.charactersDocs.step3}
                 imageAlt="Character behavior and settings screen"
             >
                 <p>

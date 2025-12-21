@@ -36,6 +36,12 @@ export const images = {
         step4: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiECKhW9NdKF5jgO0T3epcX6SBoEmPVManwqhUN",
         step5: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEgoDCLuz1uLhxGKCwTQRqZ4bmt2ikFOrvslNd",
         step6: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEzapwjd5CgsDQbf3mrGI2U5jA9RHS8i0x1naJ",
+    },
+    
+    charactersDocs: {
+        step1: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEN4bBGjA3hVcAIWJ9gtzT0D1KL6vpeBY7XZfR",
+        step2: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEzzTntk5CgsDQbf3mrGI2U5jA9RHS8i0x1naJ",
+        step3: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEDWVdcoLk6KQEIaUv3RMC80pwfLYbPBhuTci9",
     }
 } as const;
 
