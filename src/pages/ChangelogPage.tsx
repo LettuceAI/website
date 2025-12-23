@@ -64,7 +64,7 @@ export function ChangelogPage() {
                                 Backup Fixes, Provider Expansion & Extended Timeout
                             </h2>
                             <p className="text-muted-foreground">
-                                Beta 7 is a stability and compatibility update focused on fixing critical backup issues, expanding provider support with Ollama and LM Studio, and improving reasoning model compatibility.
+                                Beta 6.1 is a stability and compatibility update focused on fixing critical backup issues, expanding provider support with Ollama and LM Studio, and improving reasoning model compatibility.
                             </p>
                         </div>
 
