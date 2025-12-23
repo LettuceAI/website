@@ -43,7 +43,7 @@ export function ChangelogPage() {
                         </div>
                     </motion.div>
 
-                    {/* Beta 6.1 Release */}
+                    {/* Beta 6.2 Release */}
                     <motion.article
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -54,7 +54,7 @@ export function ChangelogPage() {
                         <div className="not-prose mb-8 pb-6 border-b border-border/30">
                             <div className="flex items-center gap-3 mb-2">
                                 <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
-                                    v1.0-beta.6.1
+                                    v1.0-beta.6.2
                                 </span>
                                 <span className="text-muted-foreground text-sm">
                                     December 24, 2025
@@ -64,7 +64,7 @@ export function ChangelogPage() {
                                 Backup Fixes, Provider Expansion & Extended Timeout
                             </h2>
                             <p className="text-muted-foreground">
-                                Beta 6.1 is a stability and compatibility update focused on fixing critical backup issues, expanding provider support with Ollama and LM Studio, and improving reasoning model compatibility.
+                                Beta 6.2 is a stability and compatibility update focused on fixing critical backup issues, expanding provider support with Ollama and LM Studio, and improving reasoning model compatibility.
                             </p>
                         </div>
 
