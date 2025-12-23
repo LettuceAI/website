@@ -35,13 +35,70 @@ export function ChangelogPage() {
                                 </Link>
                             </Button>
                             <Button asChild variant="outline" className="gap-2">
-                                <a href="https://github.com/LettuceAI/mobile-app/releases" target="_blank" rel="noopener noreferrer">
+                                <a href="https://github.com/LettuceAI/mobile-app" target="_blank" rel="noopener noreferrer">
                                     <ExternalLink className="w-4 h-4" />
-                                    GitHub Releases
+                                    GitHub Repository
                                 </a>
                             </Button>
                         </div>
                     </motion.div>
+
+                    {/* Beta 6.1 Release */}
+                    <motion.article
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.1 }}
+                        className="prose prose-invert max-w-none mb-16"
+                    >
+                        {/* Release Header */}
+                        <div className="not-prose mb-8 pb-6 border-b border-border/30">
+                            <div className="flex items-center gap-3 mb-2">
+                                <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
+                                    v1.0-beta.6.1
+                                </span>
+                                <span className="text-muted-foreground text-sm">
+                                    December 24, 2025
+                                </span>
+                            </div>
+                            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                                Backup Fixes, Provider Expansion & Extended Timeout
+                            </h2>
+                            <p className="text-muted-foreground">
+                                Beta 7 is a stability and compatibility update focused on fixing critical backup issues, expanding provider support with Ollama and LM Studio, and improving reasoning model compatibility.
+                            </p>
+                        </div>
+
+                        {/* Bug Fixes */}
+                        <section className="mb-10">
+                            <div className="flex items-center gap-3 mb-4 not-prose">
+                                <div className="w-8 h-8 rounded-lg bg-red-500/10 border border-red-500/30 flex items-center justify-center shrink-0">
+                                    <Bug className="w-4 h-4 text-red-400" />
+                                </div>
+                                <span className="text-xl font-semibold text-white">Bug Fixes</span>
+                            </div>
+                            <ul>
+                                <li><strong>Fixed backup issues</strong> where data wasn't fully saved</li>
+                                <li><strong>Fixed characters losing context</strong> after restore</li>
+                                <li><strong>Fixed OpenRouter & MistralAI reasoning</strong> to work correctly with reasoning-capable models</li>
+                                <li><strong>Fixed backups with images</strong> not loading properly</li>
+                            </ul>
+                        </section>
+
+                        {/* New Features */}
+                        <section className="mb-10">
+                            <div className="flex items-center gap-3 mb-4 not-prose">
+                                <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
+                                    <Sparkles className="w-4 h-4 text-primary" />
+                                </div>
+                                <span className="text-xl font-semibold text-white">New Features</span>
+                            </div>
+                            <ul>
+                                <li><strong>Added Ollama & LM Studio endpoint support</strong> for locally hosted models</li>
+                                <li><strong>Added custom OpenAI / Anthropic-compatible endpoints</strong> for flexible API integration</li>
+                                <li><strong>Increased request timeout</strong> from 2 minutes to 15 minutes for better handling of slow models and reasoning tasks</li>
+                            </ul>
+                        </section>
+                    </motion.article>
 
                     {/* Beta 6 Release */}
                     <motion.article
