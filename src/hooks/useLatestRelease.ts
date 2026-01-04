@@ -46,17 +46,17 @@ export function useLatestRelease(): ReleaseInfo {
     publishedAt: "2026-01-04T20:11:00Z",
     downloads: {
       android:
-        "https://github.com/LettuceAI/mobile-app/releases/download/1.0/lettuceai-1-0-0-android.apk",
+        "https://github.com/LettuceAI/mobile-app/releases/download/1.0.0/lettuceai-1-0-1-android.apk",
       windows: {
-        exe: "https://github.com/LettuceAI/mobile-app/releases/download/1.0/lettuceai_1.0.0-beta-2_x64_en-US.exe",
-        msi: "https://github.com/LettuceAI/mobile-app/releases/download/1.0/lettuceai_1.0.0-beta-2_x64_en-US.msi",
+        exe: "https://github.com/LettuceAI/mobile-app/releases/download/1.0.0/lettuceai_1.0.0-beta-2_x64_en-US.exe",
+        msi: "https://github.com/LettuceAI/mobile-app/releases/download/1.0.0/lettuceai_1.0.0-beta-2_x64_en-US.msi",
       },
       linux: {
-        deb: "https://github.com/LettuceAI/mobile-app/releases/download/1.0/lettuceai_1.0.0-beta-2_amd64.deb",
-        rpm: "https://github.com/LettuceAI/mobile-app/releases/download/1.0/lettuceai_1.0.0-beta-2.x86_64.rpm",
+        deb: "https://github.com/LettuceAI/mobile-app/releases/download/1.0.0/lettuceai_1.0.0-beta-2_amd64.deb",
+        rpm: "https://github.com/LettuceAI/mobile-app/releases/download/1.0.0/lettuceai_1.0.0-beta-2.x86_64.rpm",
       },
     },
-    releaseUrl: "https://github.com/LettuceAI/mobile-app/releases/tag/1.0",
+    releaseUrl: "https://github.com/LettuceAI/mobile-app/releases/tag/1.0.0",
     loading: false,
     error: null,
   });
