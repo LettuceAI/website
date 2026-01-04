@@ -15,3 +15,4 @@ export { SyncDoc } from "./SyncDoc";
 export { AccessibilityDoc } from "./AccessibilityDoc";
 export { ReplyHelperDoc } from "./ReplyHelperDoc";
 export { TTSDoc } from "./TTSDoc"; 
+export { CharacterCreatorDoc } from "./CharacterCreatorDoc";

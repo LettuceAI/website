@@ -61,7 +61,7 @@ export function ChangelogPage() {
                           </span>
                         </div>
                         <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
-                          Text-to-Speech, Reply Helper, Sync, Accessibility Upgrades & Voice Playback
+                          Text-to-Speech, AI Character Creator, Reply Helper, Sync, Accessibility Upgrades & Voice Playback
                         </h2>
                         <p className="text-muted-foreground">
                           This release brings LettuceAI to Android along with the second desktop beta update.
@@ -70,6 +70,36 @@ export function ChangelogPage() {
                           These updates focus on expressiveness, comfort, and smoother roleplay workflows.
                         </p>
                       </div>
+                      
+                      <section className="mb-10">
+                        <div className="flex items-center gap-3 mb-4 not-prose">
+                          <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center shrink-0">
+                            <Sparkles className="w-4 h-4 text-purple-400" />
+                          </div>
+                          <span className="text-xl font-semibold text-white">AI Character Creator</span>
+                        </div>
+                      
+                        <p>
+                          The AI Character Creator helps you build fully-formed characters through conversation.
+                          Instead of filling forms, you describe the character you have in mind, and the Creator
+                          guides you step-by-step through details like personality, backstory, style, and scenes.
+                        </p>
+                      
+                        <ul>
+                          <li>Conversational guided character creation</li>
+                          <li>Automatic field filling (name, traits, description, etc.)</li>
+                          <li>Optional starting scenes to define tone</li>
+                          <li>Attach avatars & reference material</li>
+                        </ul>
+                      
+                        <p>
+                          You can stop at any time, everything remains editable in the manual editor.
+                        </p>
+                      
+                        <p className="text-muted-foreground text-sm">
+                          The Creator uses your default app model.
+                        </p>
+                      </section>
                     
                       {/* Text-to-Speech */}
                       <section className="mb-10">

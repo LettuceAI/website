@@ -83,6 +83,16 @@ export const images = {
     messagePlayback: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEI3u4FPWH5ZchmM4LX9xYKk8DP0ard7TuUASv",
     autoplayToggle: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEArTzpU6HVGa4JAWoXSTlxK7bywCNnupM92jq",
     cache: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEQXu4TEg9vKmiI437oLMurRteET6N0XOnDfwW",
+  },
+  
+  creation: {  
+    helperStart: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiExupY5xUkw2MN5G1QtVTFbq6Audpci7RZUDXS",
+    helperQuestions: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEBHjOiLXeaxpi2W1v7t9cGgFBwm4kZdrEyDTJ",
+    helperSetFields: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEh26v3pYy8QKsz1bUcRixZ7tHBO4qoCruLYPV",
+    helperScenes: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiETnTiUB1vLgnoyBUP4fh5Ym03jIwd2HkAqcaZ",
+    helperAvatar: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEAlHNsyM6HVGa4JAWoXSTlxK7bywCNnupM92j",
+    helperAddReference: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEX9KHOjbhURCmJTLy5bkWoeHzN28xMVBZ4s6f",
+    helperPreview: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiErL1CGVBKjANVFCI4TD3ie1sRfLdyMgv6wHbh"
   }
   
 } as const;

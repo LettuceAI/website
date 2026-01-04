@@ -19,6 +19,7 @@ import {
     AccessibilityDoc,
     ReplyHelperDoc,
     TTSDoc,
+    CharacterCreatorDoc
 } from "@/pages/docs";
 import Snowfall from "react-snowfall";
 import { SnowProvider, useSnow } from "@/contexts/SnowContext";
@@ -72,6 +73,7 @@ function AppContent() {
                         <Route path="lorebooks" element={<LorebooksDoc />} />
                         <Route path="personas" element={<PersonasDoc />} />
                         <Route path="system-prompts" element={<SystemPromptsDoc />} />
+                        <Route path="character-creator" element={<CharacterCreatorDoc />} />
                     </Route>
 
                     <Route path="*" element={<NotFoundPage />} />

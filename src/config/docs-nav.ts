@@ -1,4 +1,4 @@
-import { Home, Download, Zap, Settings, Brain, Key, HelpCircle, Book, Bot, PersonStandingIcon, Image, MessageCircle, AudioLines } from "lucide-react";
+import { Home, Download, Zap, Settings, Brain, Key, HelpCircle, Book, Bot, PersonStandingIcon, Image, MessageCircle, AudioLines, BookOpen } from "lucide-react";
 import { Wheelchair } from "./WheelChairIcon";
 
 export const docsNav = [
@@ -31,6 +31,7 @@ export const docsNav = [
             { title: "Sync", href: "/docs/sync", icon: Zap, keywords: ["sync", "cloud", "backup", "restore", "accounts"] },
             { title: "Help Me Reply", href: "/docs/help-me-reply", icon: MessageCircle, keywords: ["autofill", "autocomplete", "replyasuser"] },
             { title: "Text to Speech", href: "/docs/tts", icon: AudioLines, keywords: ["text to speech", "tts", "voice", "speak", "audio"] },
+            { title: "Character Creator", href: "/docs/character-creator", icon: BookOpen, keywords: ["character creator", "create character", "custom character", "design character"] },
         ],
     },
     {
