@@ -1,33 +1,34 @@
-import { useState, useEffect } from 'react';
+import { useState } from "react";
 
 interface PlatformDownloads {
-    android?: string;
-    windows?: {
-        msi?: string;
-        exe?: string;
-    };
-    linux?: {
-        appImage?: string;
-        rpm?: string;
-        deb?: string;
-    };
+  android?: string;
+  windows?: {
+    msi?: string;
+    exe?: string;
+  };
+  linux?: {
+    appImage?: string;
+    rpm?: string;
+    deb?: string;
+  };
 }
 
 interface ReleaseInfo {
-    version: string;
-    isPrerelease: boolean;
-    publishedAt: string;
-    downloads: PlatformDownloads;
-    releaseUrl: string;
-    loading: boolean;
-    error: string | null;
+  version: string;
+  isPrerelease: boolean;
+  publishedAt: string;
+  downloads: PlatformDownloads;
+  releaseUrl: string;
+  loading: boolean;
+  error: string | null;
 }
-
+/*
 interface ReleaseAsset {
     name: string;
     browser_download_url: string;
     size: number;
 }
+
 
 interface GitHubRelease {
     tag_name: string;
@@ -36,9 +37,34 @@ interface GitHubRelease {
     published_at: string;
     assets: ReleaseAsset[];
     html_url: string;
+}*/
+
+export function useLatestRelease(): ReleaseInfo {
+  const [release] = useState<ReleaseInfo>({
+    version: "v1.0.0",
+    isPrerelease: false,
+    publishedAt: "2026-01-04T20:11:00Z",
+    downloads: {
+      android:
+        "https://github.com/LettuceAI/mobile-app/releases/download/1.0/lettuceai-1-0-0-android.apk",
+      windows: {
+        exe: "https://github.com/LettuceAI/mobile-app/releases/download/1.0/lettuceai_1.0.0-beta-2_x64_en-US.exe",
+        msi: "https://github.com/LettuceAI/mobile-app/releases/download/1.0/lettuceai_1.0.0-beta-2_x64_en-US.msi",
+      },
+      linux: {
+        deb: "https://github.com/LettuceAI/mobile-app/releases/download/1.0/lettuceai_1.0.0-beta-2_amd64.deb",
+        rpm: "https://github.com/LettuceAI/mobile-app/releases/download/1.0/lettuceai_1.0.0-beta-2.x86_64.rpm",
+      },
+    },
+    releaseUrl: "https://github.com/LettuceAI/mobile-app/releases/tag/1.0",
+    loading: false,
+    error: null,
+  });
+
+  return release;
 }
 
-export function useLatestRelease(owner: string, repo: string): ReleaseInfo {
+/*export function useLatestRelease(owner: string, repo: string): ReleaseInfo {
     const [release, setRelease] = useState<ReleaseInfo>({
         version: "",
         isPrerelease: false,
@@ -127,3 +153,4 @@ export function useLatestRelease(owner: string, repo: string): ReleaseInfo {
 
     return release;
 }
+*/
