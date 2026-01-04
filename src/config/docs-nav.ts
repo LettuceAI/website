@@ -1,4 +1,5 @@
-import { Home, Download, Zap, Settings, Brain, Key, HelpCircle, Book, Bot, PersonStandingIcon } from "lucide-react";
+import { Home, Download, Zap, Settings, Brain, Key, HelpCircle, Book, Bot, PersonStandingIcon, Image, MessageCircle, AudioLines } from "lucide-react";
+import { Wheelchair } from "./WheelChairIcon";
 
 export const docsNav = [
     {
@@ -14,6 +15,9 @@ export const docsNav = [
         items: [
             { title: "API Keys", href: "/docs/api-keys", icon: Key, keywords: ["api", "key", "openai", "anthropic", "claude", "gemini", "token"] },
             { title: "Providers", href: "/docs/providers", icon: Settings, keywords: ["provider", "model", "ollama", "local", "endpoint", "custom"] },
+            { title: "Models", href: "/docs/models", icon: Bot, keywords: ["model", "provider", "ollama", "local", "endpoint", "custom"] },
+            { title: "Image Generation", href: "/docs/images", icon: Image, keywords: ["image", "generation", "in-chat", "images", "img"] },
+            { title: "Accessibility", href: "/docs/accessibility", icon: Wheelchair, keywords: ["accessibility", "a11y", "screen reader", "contrast", "usability"] }
         ],
     },
     {
@@ -24,6 +28,9 @@ export const docsNav = [
             { title: "System Prompts", href: "/docs/system-prompts", icon: Settings, keywords: ["system", "prompt", "instructions", "behavior", "rules"] },
             { title: "Memory System", href: "/docs/memory", icon: Brain, keywords: ["memory", "context", "history", "remember", "infinite", "summarization"] },
             { title: "Lorebooks", href: "/docs/lorebooks", icon: Book, keywords: ["lorebook", "lore", "lorebook", "lorebook", "lorebook"] },
+            { title: "Sync", href: "/docs/sync", icon: Zap, keywords: ["sync", "cloud", "backup", "restore", "accounts"] },
+            { title: "Help Me Reply", href: "/docs/help-me-reply", icon: MessageCircle, keywords: ["autofill", "autocomplete", "replyasuser"] },
+            { title: "Text to Speech", href: "/docs/tts", icon: AudioLines, keywords: ["text to speech", "tts", "voice", "speak", "audio"] },
         ],
     },
     {

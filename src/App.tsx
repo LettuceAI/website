@@ -13,6 +13,12 @@ import {
     LorebooksDoc,
     PersonasDoc,
     SystemPromptsDoc,
+    ModelsDoc,
+    ImageGenerationDoc,
+    SyncDoc,
+    AccessibilityDoc,
+    ReplyHelperDoc,
+    TTSDoc,
 } from "@/pages/docs";
 import Snowfall from "react-snowfall";
 import { SnowProvider, useSnow } from "@/contexts/SnowContext";
@@ -55,6 +61,12 @@ function AppContent() {
                         <Route path="quickstart" element={<QuickStartDoc />} />
                         <Route path="api-keys" element={<ApiKeysDoc />} />
                         <Route path="providers" element={<ProvidersDoc />} />
+                        <Route path="models" element={<ModelsDoc />} />
+                        <Route path="images" element={<ImageGenerationDoc />} />
+                        <Route path="sync" element={<SyncDoc />} />
+                        <Route path="accessibility" element={<AccessibilityDoc />} />
+                        <Route path="help-me-reply" element={<ReplyHelperDoc />} />
+                        <Route path="tts" element={<TTSDoc />} />
                         <Route path="characters" element={<CharactersDoc />} />
                         <Route path="memory" element={<MemoryDoc />} />
                         <Route path="lorebooks" element={<LorebooksDoc />} />
