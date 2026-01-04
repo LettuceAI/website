@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { History, Brain, Sparkles, BookOpen, Image, Zap, Monitor, Bug, Heart, Download, ExternalLink } from "lucide-react";
+import { History, Brain, Sparkles, BookOpen, Image, Zap, Monitor, Bug, Heart, Download, ExternalLink, Volume2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Navbar, Footer } from "@/components/landing";
@@ -42,6 +42,195 @@ export function ChangelogPage() {
                             </Button>
                         </div>
                     </motion.div>
+                    
+                    {/* Android Release & Desktop Beta 2 */}
+                    <motion.article
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.05 }}
+                      className="prose prose-invert max-w-none mb-16"
+                    >
+                      {/* Release Header */}
+                      <div className="not-prose mb-8 pb-6 border-b border-border/30">
+                        <div className="flex items-center gap-3 mb-2">
+                          <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
+                            Android Release & Desktop Beta 2
+                          </span>
+                          <span className="text-muted-foreground text-sm">
+                            January 4, 2026
+                          </span>
+                        </div>
+                        <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                          Text-to-Speech, Reply Helper, Sync, Accessibility Upgrades & Voice Playback
+                        </h2>
+                        <p className="text-muted-foreground">
+                          This release brings LettuceAI to Android along with the second desktop beta update.
+                          It introduces Text-to-Speech voices, reply generation assistance, encrypted device-to-device sync,
+                          enhanced accessibility features, and per-character voice playback controls.
+                          These updates focus on expressiveness, comfort, and smoother roleplay workflows.
+                        </p>
+                      </div>
+                    
+                      {/* Text-to-Speech */}
+                      <section className="mb-10">
+                        <div className="flex items-center gap-3 mb-4 not-prose">
+                          <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
+                            <Volume2 className="w-4 h-4 text-primary" />
+                          </div>
+                          <span className="text-xl font-semibold text-white">Text-to-Speech Voices</span>
+                        </div>
+                    
+                        <p>
+                          Characters can now speak using natural-sounding generated voices. You can assign a voice per-character
+                          and optionally enable automatic playback for new replies.
+                        </p>
+                    
+                        <ul>
+                          <li><strong>Device TTS</strong> – uses your system’s built-in voice engine</li>
+                          <li><strong>ElevenLabs</strong> – natural voice synthesis with custom voice support</li>
+                          <li><strong>Gemini TTS</strong> – neural speech generation with custom voice support</li>
+                        </ul>
+                    
+                        <p>
+                          You can also create custom voices with style descriptions and reuse them across characters.
+                        </p>
+                    
+                        <p className="text-muted-foreground text-sm">
+                          Generated audio is cached locally to reduce repeated regenerations.
+                        </p>
+                      </section>
+                    
+                      {/* Reply Helper */}
+                      <section className="mb-10">
+                        <div className="flex items-center gap-3 mb-4 not-prose">
+                          <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
+                            <Sparkles className="w-4 h-4 text-amber-400" />
+                          </div>
+                          <span className="text-xl font-semibold text-white">Reply Helper</span>
+                        </div>
+                    
+                        <p>
+                          Sometimes it’s hard to think of what to say next. Reply Helper can generate a suggested reply
+                          for your current message — either starting from scratch or expanding the text you already wrote.
+                        </p>
+                    
+                        <ul>
+                          <li><strong>Use my text as base</strong> — improve or complete your draft</li>
+                          <li><strong>Write something new</strong> — generate a fresh reply</li>
+                          <li><strong>Regenerate</strong> — try multiple suggestions</li>
+                        </ul>
+                    
+                        <p className="text-muted-foreground text-sm">
+                          Reply Helper uses your default app model.
+                        </p>
+                      </section>
+                    
+                      {/* Sync */}
+                      <section className="mb-10">
+                        <div className="flex items-center gap-3 mb-4 not-prose">
+                          <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center shrink-0">
+                            <History className="w-4 h-4 text-blue-400" />
+                          </div>
+                          <span className="text-xl font-semibold text-white">Encrypted Device Sync</span>
+                        </div>
+                    
+                        <p>
+                          Sync lets you transfer your data securely between your own devices without accounts or cloud storage.
+                        </p>
+                    
+                        <ul>
+                          <li>Peer-to-peer encrypted transfer</li>
+                          <li>No servers or permanent connections</li>
+                          <li>You start sync manually when needed</li>
+                        </ul>
+                    
+                        <p>
+                          One device hosts a session, the other joins with a code. Once connected,
+                          your data is synced directly between devices.
+                        </p>
+                      </section>
+                    
+                      {/* Accessibility */}
+                      <section className="mb-10">
+                        <div className="flex items-center gap-3 mb-4 not-prose">
+                          <div className="w-8 h-8 rounded-lg bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0">
+                            <Heart className="w-4 h-4 text-green-400" />
+                          </div>
+                          <span className="text-xl font-semibold text-white">Accessibility Improvements</span>
+                        </div>
+                    
+                        <p>
+                          Accessibility options now include sound and haptic feedback for key chat events such as sending,
+                          successful replies, and errors.
+                        </p>
+                    
+                        <ul>
+                          <li>Per-event volume controls</li>
+                          <li>Optional haptic feedback with selectable intensity</li>
+                          <li>Lightweight and non-intrusive</li>
+                        </ul>
+                      </section>
+                    
+                      {/* Character Voice Playback */}
+                      <section className="mb-10">
+                        <h3>Per-Message Voice Playback</h3>
+                    
+                        <p>
+                          You can now play voice audio for individual messages — or enable autoplay so your character
+                          always speaks when replying.
+                        </p>
+                    
+                        <ul>
+                          <li>Assign a default voice per character</li>
+                          <li>Optional autoplay</li>
+                          <li>Manual playback button per message</li>
+                        </ul>
+                      </section>
+                    
+                      {/* Scene Directions */}
+                      <section className="mb-10">
+                        <h3>Scene Directions</h3>
+                    
+                        <p>
+                          Scenes now support private “direction” notes that are hidden from the chat UI and used only
+                          to guide model behaviour during the opening context of a scene.
+                        </p>
+                      </section>
+                    
+                      {/* General Improvements */}
+                      <section className="mb-10">
+                        <h3>General Improvements</h3>
+                        <ul>
+                          <li>Improved character editing workflow</li>
+                          <li>Better consistency across Android & Desktop</li>
+                          <li>Internal cleanup & UI polish</li>
+                        </ul>
+                      </section>
+                    
+                      {/* Bug Fixes */}
+                      <section className="mb-10">
+                        <div className="flex items-center gap-3 mb-4 not-prose">
+                          <div className="w-8 h-8 rounded-lg bg-red-500/10 border border-red-500/30 flex items-center justify-center shrink-0">
+                            <Bug className="w-4 h-4 text-red-400" />
+                          </div>
+                          <span className="text-xl font-semibold text-white">Bug Fixes & Behaviour Improvements</span>
+                        </div>
+                    
+                        <ul>
+                          <li>Reasoning now works correctly with the Google Gemini endpoint</li>
+                          <li>Fixed an issue where Dynamic Memory processing could cancel when switching pages</li>
+                          <li>Fixed an issue where characters could be duplicated unexpectedly</li>
+                          <li>Added a retry button to the embedding download screen</li>
+                          <li>Fixed Backup settings failing to load existing backups</li>
+                          <li>Redesigned the Edit Model page into a single-page layout</li>
+                          <li>Disabled reasoning controls for the Mistral endpoint</li>
+                          <li>Optimised entry animations in Settings</li>
+                          <li>Optimised Markdown rendering performance</li>
+                          <li>Added support for <code>(...)</code> and <code>[...]</code> as italic formatting shortcuts</li>
+                          <li>Added Scene Directions to help guide starting scene behaviour</li>
+                        </ul>
+                      </section>
+                    </motion.article>
 
                     {/* Beta 6.2 Release */}
                     <motion.article

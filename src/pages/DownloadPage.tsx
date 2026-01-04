@@ -99,7 +99,7 @@ export function DownloadPage() {
                                                         <span className="px-2 py-0.5 rounded-full bg-zinc-800 text-muted-foreground text-xs font-medium">
                                                             Loading...
                                                         </span>
-                                                    ) : release.isPrerelease ? (
+                                                    ) : release.isPrerelease && platform.name !== "Android" ? (
                                                         <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 text-xs font-medium">
                                                             Beta
                                                         </span>
