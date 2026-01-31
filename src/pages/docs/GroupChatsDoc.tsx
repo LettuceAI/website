@@ -111,7 +111,7 @@ export function GroupChatsDoc() {
       </ol>
       <div className="relative -mx-6 w-[calc(100%+3rem)] px-6">
         <DocImage
-          src="/images/group-chats-backend.svg"
+          src="https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEDvEcN4Lk6KQEIaUv3RMC80pwfLYbPBhuTci9"
           alt="Group chat speaker selection flow"
           containerClassName="max-w-7xl mx-auto"
           className="w-full"

@@ -16,13 +16,11 @@ export function DocImage({ src, alt, caption, className, containerClassName }: D
                     src={src}
                     alt={alt}
                     className={cn(
-                        "w-full h-auto object-cover transition-transform duration-500 group-hover:scale-[1.02]",
+                        "w-full h-auto object-cover transition-transform duration-500",
                         className
                     )}
                 />
 
-                {/* Subtle overlay on hover */}
-                <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
             </div>
 
             {caption && (

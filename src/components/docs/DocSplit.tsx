@@ -16,8 +16,6 @@ export function DocSplit({
     imageAlt,
     children,
     reverse = false,
-    disableHoverGradient = false,
-    disableHoverAnimation = false,
     className,
     imageContainerClassName
 }: DocSplitProps) {
@@ -36,14 +34,9 @@ export function DocSplit({
                         src={imageSrc}
                         alt={imageAlt}
                         className={cn(
-                            "w-full h-full object-cover transition-transform duration-500 group-hover:scale-105",
-                            disableHoverAnimation && "group-hover:scale-100"
+                            "w-full h-full object-cover transition-transform duration-500",
                         )}
                     />
-                    <div className={cn(
-                        "absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity",
-                        disableHoverGradient && "opacity-0"
-                    )} />
                 </div>
             </div>
 
