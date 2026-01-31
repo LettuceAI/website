@@ -15,29 +15,33 @@ export function ReplyHelperDoc() {
       <DocHeading level={1}>Help Me Reply</DocHeading>
 
       <p>
-        Help Me Reply is a tool you can use when you are not sure what to say next
-        in a chat. If you ever have a moment of "What do I even write now?",
-        Help Me Reply can suggest a message for you, so the conversation keeps
-        flowing.
+        Help Me Reply is a tool you can use when you are not sure what to say
+        next in a chat. If you ever have a moment of "What do I even write
+        now?", Help Me Reply can suggest a message for you, so the conversation
+        keeps flowing.
       </p>
 
       <Callout>
         Help Me Reply doesn’t replace you. It simply gives you a starting point
         when you feel stuck.
       </Callout>
-      
+
       <DocHeading level={2}>Where is the Help Me Reply?</DocHeading>
       <p>
-        You can find Help Me Reply next to the message input box in any chat. Its inside the Plus icon.
+        You can find Help Me Reply next to the message input box in any chat.
+        Its inside the Plus icon.
       </p>
-      
-      <DocImage src={images.replyHelper.location} alt="Help Me Reply location" />
+
+      <DocImage
+        src={images.replyHelper.location}
+        alt="Help Me Reply location"
+      />
 
       <DocHeading level={2}>Starting a Reply</DocHeading>
 
       <p>
-        When you open Help Me Reply, you will see two options if you already have
-        text typed in the message box:
+        When you open Help Me Reply, you will see two options if you already
+        have text typed in the message box:
       </p>
 
       <DocImage
@@ -52,14 +56,53 @@ export function ReplyHelperDoc() {
           you already wrote
         </li>
         <li>
-          <strong>Write something new:</strong> ignores your draft and
-          generates a fresh reply from scratch
+          <strong>Write something new:</strong> ignores your draft and generates
+          a fresh reply from scratch
         </li>
       </ul>
 
       <p>
         If the message box is empty, Help Me Reply simply generates a new reply.
       </p>
+
+      <DocHeading level={2}>Modes and streaming</DocHeading>
+      <p>
+        Help Me Reply supports two styles: <strong>Conversation-like</strong>{" "}
+        and
+        <strong> Roleplay-like</strong>. Pick the mode that fits your current
+        chat.
+      </p>
+      <ul>
+        <li>
+          <strong>Conversation-like</strong>: natural, casual replies
+        </li>
+        <li>
+          <strong>Roleplay-like</strong>: in-character, narrative replies
+        </li>
+      </ul>
+      <p>
+        Replies now stream in real time, so you can stop early or regenerate
+        without waiting for a full response.
+      </p>
+      <p>
+        Streaming can be toggled in settings if you prefer full replies at once.
+      </p>
+
+      <DocHeading level={2}>Settings</DocHeading>
+      <p>
+        You can fine-tune Help Me Reply in settings, including options like Max
+        Token Output for shorter or longer suggestions.
+      </p>
+      <p>
+        You can also choose a specific model for Help Me Reply, or leave it set
+        to your app’s default model.
+      </p>
+
+      <DocImage
+        src={images.replyHelper.settings}
+        containerClassName="max-w-xl mx-auto"
+        alt="Help Me Reply settings panel"
+      />
 
       <DocHeading level={2}>Using your text as a base</DocHeading>
 

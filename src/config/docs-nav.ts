@@ -1,47 +1,219 @@
-import { Home, Download, Zap, Settings, Brain, Key, HelpCircle, Book, Bot, PersonStandingIcon, Image, MessageCircle, AudioLines, BookOpen } from "lucide-react";
+import {
+  Home,
+  Download,
+  Zap,
+  Settings,
+  Brain,
+  Key,
+  HelpCircle,
+  Book,
+  Bot,
+  PersonStandingIcon,
+  Image,
+  MessageCircle,
+  AudioLines,
+  BookOpen,
+  Compass,
+  Users,
+} from "lucide-react";
 import { Wheelchair } from "./WheelChairIcon";
 
 export const docsNav = [
-    {
-        title: "Getting Started",
-        items: [
-            { title: "Introduction", href: "/docs", icon: Home, keywords: ["home", "start", "welcome", "overview"] },
-            { title: "Installation", href: "/docs/installation", icon: Download, keywords: ["install", "download", "setup", "android", "apk"] },
-            { title: "Quick Start", href: "/docs/quickstart", icon: Zap, keywords: ["quick", "start", "begin", "first", "tutorial"] },
+  {
+    title: "Getting Started",
+    items: [
+      {
+        title: "Introduction",
+        href: "/docs",
+        icon: Home,
+        keywords: ["home", "start", "welcome", "overview"],
+      },
+      {
+        title: "Installation",
+        href: "/docs/installation",
+        icon: Download,
+        keywords: ["install", "download", "setup", "android", "apk"],
+      },
+      {
+        title: "Quick Start",
+        href: "/docs/quickstart",
+        icon: Zap,
+        keywords: ["quick", "start", "begin", "first", "tutorial"],
+      },
+    ],
+  },
+  {
+    title: "Configuration",
+    items: [
+      {
+        title: "API Keys",
+        href: "/docs/api-keys",
+        icon: Key,
+        keywords: [
+          "api",
+          "key",
+          "openai",
+          "anthropic",
+          "claude",
+          "gemini",
+          "token",
         ],
-    },
-    {
-        title: "Configuration",
-        items: [
-            { title: "API Keys", href: "/docs/api-keys", icon: Key, keywords: ["api", "key", "openai", "anthropic", "claude", "gemini", "token"] },
-            { title: "Providers", href: "/docs/providers", icon: Settings, keywords: ["provider", "model", "ollama", "local", "endpoint", "custom"] },
-            { title: "Models", href: "/docs/models", icon: Bot, keywords: ["model", "provider", "ollama", "local", "endpoint", "custom"] },
-            { title: "Image Generation", href: "/docs/images", icon: Image, keywords: ["image", "generation", "in-chat", "images", "img"] },
-            { title: "Accessibility", href: "/docs/accessibility", icon: Wheelchair, keywords: ["accessibility", "a11y", "screen reader", "contrast", "usability"] }
+      },
+      {
+        title: "Providers",
+        href: "/docs/providers",
+        icon: Settings,
+        keywords: [
+          "provider",
+          "model",
+          "ollama",
+          "local",
+          "endpoint",
+          "custom",
         ],
-    },
-    {
-        title: "Features",
-        items: [
-            { title: "Characters", href: "/docs/characters", icon: Bot, keywords: ["character", "persona", "personality", "avatar", "system prompt"] },
-            { title: "Personas", href: "/docs/personas", icon: PersonStandingIcon, keywords: ["persona", "personality", "role", "voice", "user"] },
-            { title: "System Prompts", href: "/docs/system-prompts", icon: Settings, keywords: ["system", "prompt", "instructions", "behavior", "rules"] },
-            { title: "Memory System", href: "/docs/memory", icon: Brain, keywords: ["memory", "context", "history", "remember", "infinite", "summarization"] },
-            { title: "Lorebooks", href: "/docs/lorebooks", icon: Book, keywords: ["lorebook", "lore", "lorebook", "lorebook", "lorebook"] },
-            { title: "Sync", href: "/docs/sync", icon: Zap, keywords: ["sync", "cloud", "backup", "restore", "accounts"] },
-            { title: "Help Me Reply", href: "/docs/help-me-reply", icon: MessageCircle, keywords: ["autofill", "autocomplete", "replyasuser"] },
-            { title: "Text to Speech", href: "/docs/tts", icon: AudioLines, keywords: ["text to speech", "tts", "voice", "speak", "audio"] },
-            { title: "Character Creator", href: "/docs/character-creator", icon: BookOpen, keywords: ["character creator", "create character", "custom character", "design character"] },
+      },
+      {
+        title: "Models",
+        href: "/docs/models",
+        icon: Bot,
+        keywords: [
+          "model",
+          "provider",
+          "ollama",
+          "local",
+          "endpoint",
+          "custom",
         ],
-    },
-    {
-        title: "Help",
-        items: [
-            { title: "FAQ", href: "/faq", icon: HelpCircle, keywords: ["faq", "question", "help", "support", "common"] },
+      },
+      {
+        title: "Image Generation",
+        href: "/docs/images",
+        icon: Image,
+        keywords: ["image", "generation", "in-chat", "images", "img"],
+      },
+      {
+        title: "Accessibility",
+        href: "/docs/accessibility",
+        icon: Wheelchair,
+        keywords: [
+          "accessibility",
+          "a11y",
+          "screen reader",
+          "contrast",
+          "usability",
         ],
-    },
+      },
+    ],
+  },
+  {
+    title: "Features",
+    items: [
+      {
+        title: "Characters",
+        href: "/docs/characters",
+        icon: Bot,
+        keywords: [
+          "character",
+          "persona",
+          "personality",
+          "avatar",
+          "system prompt",
+        ],
+      },
+      {
+        title: "Personas",
+        href: "/docs/personas",
+        icon: PersonStandingIcon,
+        keywords: ["persona", "personality", "role", "voice", "user"],
+      },
+      {
+        title: "Group Chats",
+        href: "/docs/group-chats",
+        icon: Users,
+        keywords: ["group chat", "multi character", "conversation", "roleplay"],
+      },
+      {
+        title: "Discovery",
+        href: "/docs/discovery",
+        icon: Compass,
+        keywords: [
+          "discovery",
+          "character tavern",
+          "browse",
+          "search",
+          "import",
+        ],
+      },
+      {
+        title: "System Prompts",
+        href: "/docs/system-prompts",
+        icon: Settings,
+        keywords: ["system", "prompt", "instructions", "behavior", "rules"],
+      },
+      {
+        title: "Memory System",
+        href: "/docs/memory",
+        icon: Brain,
+        keywords: [
+          "memory",
+          "context",
+          "history",
+          "remember",
+          "infinite",
+          "summarization",
+        ],
+      },
+      {
+        title: "Lorebooks",
+        href: "/docs/lorebooks",
+        icon: Book,
+        keywords: ["lorebook", "lore", "lorebook", "lorebook", "lorebook"],
+      },
+      {
+        title: "Sync",
+        href: "/docs/sync",
+        icon: Zap,
+        keywords: ["sync", "cloud", "backup", "restore", "accounts"],
+      },
+      {
+        title: "Help Me Reply",
+        href: "/docs/help-me-reply",
+        icon: MessageCircle,
+        keywords: ["autofill", "autocomplete", "replyasuser"],
+      },
+      {
+        title: "Text to Speech",
+        href: "/docs/tts",
+        icon: AudioLines,
+        keywords: ["text to speech", "tts", "voice", "speak", "audio"],
+      },
+      {
+        title: "Smart Creator",
+        href: "/docs/smart-creator",
+        icon: BookOpen,
+        keywords: [
+          "smart creator",
+          "character creator",
+          "create character",
+          "persona",
+          "lorebook",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Help",
+    items: [
+      {
+        title: "FAQ",
+        href: "/faq",
+        icon: HelpCircle,
+        keywords: ["faq", "question", "help", "support", "common"],
+      },
+    ],
+  },
 ];
 
-export const allDocsItems = docsNav.flatMap(section =>
-    section.items.map(item => ({ ...item, section: section.title }))
+export const allDocsItems = docsNav.flatMap((section) =>
+  section.items.map((item) => ({ ...item, section: section.title })),
 );

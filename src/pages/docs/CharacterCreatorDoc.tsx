@@ -12,18 +12,93 @@ export function CharacterCreatorDoc() {
       transition={{ duration: 0.5 }}
       className="prose prose-invert max-w-none"
     >
-      <DocHeading level={1}>AI Character Creator</DocHeading>
+      <DocHeading level={1}>Smart Creator</DocHeading>
 
       <p>
-        The AI Character Creator is an interactive tool that helps you build
-        fully-fleshed characters step-by-step. Instead of filling out long
-        forms, you simply talk with the creator and describe the kind of
-        character you want, the AI guides you through the process.
+        Smart Creator (formerly known as the Character Creator) is an
+        interactive tool that helps you build fully-fleshed characters
+        step-by-step. Instead of filling out long forms, you simply talk with
+        the creator and describe the kind of character you want, the AI guides
+        you through the process.
+      </p>
+
+      <p>
+        It also supports <strong>Personas</strong> and{" "}
+        <strong>Lorebooks</strong>
+        using the same conversational flow. You just choose what you want to
+        create before starting.
       </p>
 
       <Callout>
         You can stop at any time. your character is always editable later.
       </Callout>
+
+      <DocHeading level={2}>Choose what you’re creating</DocHeading>
+      <p>At the top of the Creator, you can switch between creation goals:</p>
+      <ul>
+        <li>
+          <strong>Character</strong> — build a new character profile
+        </li>
+        <li>
+          <strong>Persona</strong> — build a user persona for roleplay
+        </li>
+        <li>
+          <strong>Lorebook</strong> — build world or setting entries
+        </li>
+      </ul>
+      <p>
+        The title and mode badge update so you always know what you’re creating.
+      </p>
+      
+      <DocImage src={images.creation.helperChoose} alt="Choose creation mode" containerClassName="max-w-xl mx-auto"/>
+
+      <DocHeading level={2}>Tool selection (Smart Mode)</DocHeading>
+      <p>
+        Smart Creator uses a tool system behind the scenes to apply changes like
+        setting names, writing scenes, generating images, or saving personas and
+        lorebooks.
+      </p>
+      <p>
+        In <strong>Advanced Settings → Creation Helper</strong>, you can control
+        how tools are used:
+      </p>
+      <ul>
+        <li>
+          <strong>Smart Tool Selection</strong> (default): the Creator asks what
+          you want to make and only loads the relevant tool set.
+        </li>
+        <li>
+          <strong>Manual tool selection</strong>: disable Smart Tool Selection
+          to pick a preset or enable specific tools yourself.
+        </li>
+      </ul>
+      <p>
+        Presets include <strong>All Tools</strong>, <strong>Essential</strong>,
+        and
+        <strong>Minimal</strong>. Manual mode also lets you toggle tools for
+        Characters, Personas, Lorebooks, Settings, and Image Generation.
+      </p>
+      <Callout type="warning" title="Manual Tool Selection">
+        Turning off Smart Tool Selection gives you full control, but it can also
+        limit what the Creator is allowed to do. If the right tools are
+        disabled, the Creator may fail to complete steps or skip parts of your
+        request.
+      </Callout>
+
+      <DocHeading level={2}>Image generation</DocHeading>
+      <p>
+        Smart Creator can generate images during creation (for avatars or visual
+        references) when the <strong>Generate Image</strong> tool is enabled.
+      </p>
+      <p>
+        You can choose the image model in{" "}
+        <strong>Advanced Settings → Creation Helper</strong>. If no image model
+        is selected, the Creator won’t generate images.
+      </p>
+      <p>
+        Generated images appear inline in the conversation, and you can set one
+        as the character or persona avatar.
+      </p>
 
       <DocHeading level={2}>How it Works</DocHeading>
 
@@ -91,18 +166,15 @@ export function CharacterCreatorDoc() {
         containerClassName="max-w-xl mx-auto"
       />
 
-      <p>
-        You may add multiple scenes depending on your style.
-      </p>
+      <p>You may add multiple scenes depending on your style.</p>
 
       {/* ⭐ NEW SECTION — AVATAR ⭐ */}
       <DocHeading level={2}>Character Avatar</DocHeading>
 
       <p>
         During creation, you can also assign an avatar to visually represent
-        your character. This can be a piece of reference art, a portrait, or
-        any suitable image that helps set the mood and identity of the
-        character.
+        your character. This can be a piece of reference art, a portrait, or any
+        suitable image that helps set the mood and identity of the character.
       </p>
 
       <DocImage
@@ -124,7 +196,8 @@ export function CharacterCreatorDoc() {
       <DocHeading level={2}>Add Reference Material</DocHeading>
 
       <p>
-        At any point, you can attach:
+        Use the <strong>+</strong> menu to add context to your message. You can
+        attach:
       </p>
 
       <ul>
@@ -143,6 +216,13 @@ export function CharacterCreatorDoc() {
         Reference material helps the AI maintain tone, style, and character
         consistency.
       </Callout>
+
+      <DocHeading level={2}>Streaming responses</DocHeading>
+      <p>
+        The Creator streams its replies in real time. If you need to stop
+        generation, you can tap the stop button in the input bar and edit your
+        prompt.
+      </p>
 
       <DocHeading level={2}>Live Preview</DocHeading>
 

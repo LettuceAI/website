@@ -1,550 +1,1016 @@
 import { motion } from "framer-motion";
-import { History, Brain, Sparkles, BookOpen, Image, Zap, Monitor, Bug, Heart, Download, ExternalLink, Volume2 } from "lucide-react";
+import {
+  History,
+  Brain,
+  Sparkles,
+  BookOpen,
+  Image,
+  Zap,
+  Monitor,
+  Bug,
+  Heart,
+  Download,
+  ExternalLink,
+  Volume2,
+  Users,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Navbar, Footer } from "@/components/landing";
 
 export function ChangelogPage() {
-    return (
-        <>
-            <Navbar />
-            <main className="min-h-screen pt-24 pb-16">
-                <div className="max-w-3xl mx-auto px-6">
-                    {/* Header */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
-                        className="text-center mb-16"
-                    >
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
-                            <History className="w-4 h-4 text-primary" />
-                            <span className="text-sm text-primary font-medium">Changelog</span>
-                        </div>
-                        <h1 className="text-4xl sm:text-5xl font-bold mb-4">
-                            What's New
-                        </h1>
-                        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                            Track updates, improvements, and fixes across LettuceAI releases.
-                        </p>
-                        <div className="flex items-center justify-center gap-3 mt-6">
-                            <Button asChild className="gap-2">
-                                <Link to="/download">
-                                    <Download className="w-4 h-4" />
-                                    Download Latest Version
-                                </Link>
-                            </Button>
-                            <Button asChild variant="outline" className="gap-2">
-                                <a href="https://github.com/LettuceAI/mobile-app" target="_blank" rel="noopener noreferrer">
-                                    <ExternalLink className="w-4 h-4" />
-                                    GitHub Repository
-                                </a>
-                            </Button>
-                        </div>
-                    </motion.div>
-                    
-                    {/* Android Release & Desktop Beta 2 */}
-                    <motion.article
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: 0.05 }}
-                      className="prose prose-invert max-w-none mb-16"
-                    >
-                      {/* Release Header */}
-                      <div className="not-prose mb-8 pb-6 border-b border-border/30">
-                        <div className="flex items-center gap-3 mb-2">
-                          <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
-                            Android Release & Desktop Beta 2
-                          </span>
-                          <span className="text-muted-foreground text-sm">
-                            January 4, 2026
-                          </span>
-                        </div>
-                        <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
-                          Text-to-Speech, AI Character Creator, Reply Helper, Sync, Accessibility Upgrades & Voice Playback
-                        </h2>
-                        <p className="text-muted-foreground">
-                          This release brings LettuceAI to Android along with the second desktop beta update.
-                          It introduces Text-to-Speech voices, reply generation assistance, encrypted device-to-device sync,
-                          enhanced accessibility features, and per-character voice playback controls.
-                          These updates focus on expressiveness, comfort, and smoother roleplay workflows.
-                        </p>
-                      </div>
-                      
-                      <section className="mb-10">
-                        <div className="flex items-center gap-3 mb-4 not-prose">
-                          <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center shrink-0">
-                            <Sparkles className="w-4 h-4 text-purple-400" />
-                          </div>
-                          <span className="text-xl font-semibold text-white">AI Character Creator</span>
-                        </div>
-                      
-                        <p>
-                          The AI Character Creator helps you build fully-formed characters through conversation.
-                          Instead of filling forms, you describe the character you have in mind, and the Creator
-                          guides you step-by-step through details like personality, backstory, style, and scenes.
-                        </p>
-                      
-                        <ul>
-                          <li>Conversational guided character creation</li>
-                          <li>Automatic field filling (name, traits, description, etc.)</li>
-                          <li>Optional starting scenes to define tone</li>
-                          <li>Attach avatars & reference material</li>
-                        </ul>
-                      
-                        <p>
-                          You can stop at any time, everything remains editable in the manual editor.
-                        </p>
-                      
-                        <p className="text-muted-foreground text-sm">
-                          The Creator uses your default app model.
-                        </p>
-                      </section>
-                    
-                      {/* Text-to-Speech */}
-                      <section className="mb-10">
-                        <div className="flex items-center gap-3 mb-4 not-prose">
-                          <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
-                            <Volume2 className="w-4 h-4 text-primary" />
-                          </div>
-                          <span className="text-xl font-semibold text-white">Text-to-Speech Voices</span>
-                        </div>
-                    
-                        <p>
-                          Characters can now speak using natural-sounding generated voices. You can assign a voice per-character
-                          and optionally enable automatic playback for new replies.
-                        </p>
-                    
-                        <ul>
-                          <li><strong>Device TTS</strong> – uses your system’s built-in voice engine</li>
-                          <li><strong>ElevenLabs</strong> – natural voice synthesis with custom voice support</li>
-                          <li><strong>Gemini TTS</strong> – neural speech generation with custom voice support</li>
-                        </ul>
-                    
-                        <p>
-                          You can also create custom voices with style descriptions and reuse them across characters.
-                        </p>
-                    
-                        <p className="text-muted-foreground text-sm">
-                          Generated audio is cached locally to reduce repeated regenerations.
-                        </p>
-                      </section>
-                    
-                      {/* Reply Helper */}
-                      <section className="mb-10">
-                        <div className="flex items-center gap-3 mb-4 not-prose">
-                          <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
-                            <Sparkles className="w-4 h-4 text-amber-400" />
-                          </div>
-                          <span className="text-xl font-semibold text-white">Reply Helper</span>
-                        </div>
-                    
-                        <p>
-                          Sometimes it’s hard to think of what to say next. Reply Helper can generate a suggested reply
-                          for your current message — either starting from scratch or expanding the text you already wrote.
-                        </p>
-                    
-                        <ul>
-                          <li><strong>Use my text as base</strong> — improve or complete your draft</li>
-                          <li><strong>Write something new</strong> — generate a fresh reply</li>
-                          <li><strong>Regenerate</strong> — try multiple suggestions</li>
-                        </ul>
-                    
-                        <p className="text-muted-foreground text-sm">
-                          Reply Helper uses your default app model.
-                        </p>
-                      </section>
-                    
-                      {/* Sync */}
-                      <section className="mb-10">
-                        <div className="flex items-center gap-3 mb-4 not-prose">
-                          <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center shrink-0">
-                            <History className="w-4 h-4 text-blue-400" />
-                          </div>
-                          <span className="text-xl font-semibold text-white">Encrypted Device Sync</span>
-                        </div>
-                    
-                        <p>
-                          Sync lets you transfer your data securely between your own devices without accounts or cloud storage.
-                        </p>
-                    
-                        <ul>
-                          <li>Peer-to-peer encrypted transfer</li>
-                          <li>No servers or permanent connections</li>
-                          <li>You start sync manually when needed</li>
-                        </ul>
-                    
-                        <p>
-                          One device hosts a session, the other joins with a code. Once connected,
-                          your data is synced directly between devices.
-                        </p>
-                      </section>
-                    
-                      {/* Accessibility */}
-                      <section className="mb-10">
-                        <div className="flex items-center gap-3 mb-4 not-prose">
-                          <div className="w-8 h-8 rounded-lg bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0">
-                            <Heart className="w-4 h-4 text-green-400" />
-                          </div>
-                          <span className="text-xl font-semibold text-white">Accessibility Improvements</span>
-                        </div>
-                    
-                        <p>
-                          Accessibility options now include sound and haptic feedback for key chat events such as sending,
-                          successful replies, and errors.
-                        </p>
-                    
-                        <ul>
-                          <li>Per-event volume controls</li>
-                          <li>Optional haptic feedback with selectable intensity</li>
-                          <li>Lightweight and non-intrusive</li>
-                        </ul>
-                      </section>
-                    
-                      {/* Character Voice Playback */}
-                      <section className="mb-10">
-                        <h3>Per-Message Voice Playback</h3>
-                    
-                        <p>
-                          You can now play voice audio for individual messages — or enable autoplay so your character
-                          always speaks when replying.
-                        </p>
-                    
-                        <ul>
-                          <li>Assign a default voice per character</li>
-                          <li>Optional autoplay</li>
-                          <li>Manual playback button per message</li>
-                        </ul>
-                      </section>
-                    
-                      {/* Scene Directions */}
-                      <section className="mb-10">
-                        <h3>Scene Directions</h3>
-                    
-                        <p>
-                          Scenes now support private “direction” notes that are hidden from the chat UI and used only
-                          to guide model behaviour during the opening context of a scene.
-                        </p>
-                      </section>
-                    
-                      {/* General Improvements */}
-                      <section className="mb-10">
-                        <h3>General Improvements</h3>
-                        <ul>
-                          <li>Improved character editing workflow</li>
-                          <li>Better consistency across Android & Desktop</li>
-                          <li>Internal cleanup & UI polish</li>
-                        </ul>
-                      </section>
-                    
-                      {/* Bug Fixes */}
-                      <section className="mb-10">
-                        <div className="flex items-center gap-3 mb-4 not-prose">
-                          <div className="w-8 h-8 rounded-lg bg-red-500/10 border border-red-500/30 flex items-center justify-center shrink-0">
-                            <Bug className="w-4 h-4 text-red-400" />
-                          </div>
-                          <span className="text-xl font-semibold text-white">Bug Fixes & Behaviour Improvements</span>
-                        </div>
-                    
-                        <ul>
-                          <li>Reasoning now works correctly with the Google Gemini endpoint</li>
-                          <li>Fixed an issue where Dynamic Memory processing could cancel when switching pages</li>
-                          <li>Fixed an issue where characters could be duplicated unexpectedly</li>
-                          <li>Added a retry button to the embedding download screen</li>
-                          <li>Fixed Backup settings failing to load existing backups</li>
-                          <li>Redesigned the Edit Model page into a single-page layout</li>
-                          <li>Disabled reasoning controls for the Mistral endpoint</li>
-                          <li>Optimised entry animations in Settings</li>
-                          <li>Optimised Markdown rendering performance</li>
-                          <li>Added support for <code>(...)</code> and <code>[...]</code> as italic formatting shortcuts</li>
-                          <li>Added Scene Directions to help guide starting scene behaviour</li>
-                        </ul>
-                      </section>
-                    </motion.article>
+  return (
+    <>
+      <Navbar />
+      <main className="min-h-screen pt-24 pb-16">
+        <div className="max-w-3xl mx-auto px-6">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-16"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
+              <History className="w-4 h-4 text-primary" />
+              <span className="text-sm text-primary font-medium">
+                Changelog
+              </span>
+            </div>
+            <h1 className="text-4xl sm:text-5xl font-bold mb-4">What's New</h1>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Track updates, improvements, and fixes across LettuceAI releases.
+            </p>
+            <div className="flex items-center justify-center gap-3 mt-6">
+              <Button asChild className="gap-2">
+                <Link to="/download">
+                  <Download className="w-4 h-4" />
+                  Download Latest Version
+                </Link>
+              </Button>
+              <Button asChild variant="outline" className="gap-2">
+                <a
+                  href="https://github.com/LettuceAI/mobile-app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  GitHub Repository
+                </a>
+              </Button>
+            </div>
+          </motion.div>
 
-                    {/* Beta 6.2 Release */}
-                    <motion.article
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
-                        className="prose prose-invert max-w-none mb-16"
-                    >
-                        {/* Release Header */}
-                        <div className="not-prose mb-8 pb-6 border-b border-border/30">
-                            <div className="flex items-center gap-3 mb-2">
-                                <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
-                                    v1.0-beta.6.2
-                                </span>
-                                <span className="text-muted-foreground text-sm">
-                                    December 24, 2025
-                                </span>
-                            </div>
-                            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
-                                Backup Fixes, Provider Expansion & Extended Timeout
-                            </h2>
-                            <p className="text-muted-foreground">
-                                Beta 6.2 is a stability and compatibility update focused on fixing critical backup issues, expanding provider support with Ollama and LM Studio, and improving reasoning model compatibility.
-                            </p>
-                        </div>
+          {/* Android 1.1.0 & Desktop Beta 3 update */}
+          <motion.article
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.05 }}
+            className="prose prose-invert max-w-none mb-16"
+          >
+            {/* Release Header */}
+            <div className="not-prose mb-8 pb-6 border-b border-border/30">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
+                  Android 1.1.0 & Desktop Beta 3 update
+                </span>
+                <span className="text-muted-foreground text-sm">
+                  January 31, 2026
+                </span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                Discovery, Group Chats, Smart Creator, Prompt Editor & Local
+                Inference
+              </h2>
+              <p className="text-muted-foreground">
+                This update brings Discovery, multi-character chats, a
+                redesigned Smart Creator, and deeper local inference controls
+                across Android and Desktop. It also includes a broad set of UI,
+                stability, and workflow refinements shipped through January 31,
+                2026.
+              </p>
+            </div>
 
-                        {/* Bug Fixes */}
-                        <section className="mb-10">
-                            <div className="flex items-center gap-3 mb-4 not-prose">
-                                <div className="w-8 h-8 rounded-lg bg-red-500/10 border border-red-500/30 flex items-center justify-center shrink-0">
-                                    <Bug className="w-4 h-4 text-red-400" />
-                                </div>
-                                <span className="text-xl font-semibold text-white">Bug Fixes</span>
-                            </div>
-                            <ul>
-                                <li><strong>Fixed backup issues</strong> where data wasn't fully saved</li>
-                                <li><strong>Fixed characters losing context</strong> after restore</li>
-                                <li><strong>Fixed OpenRouter & MistralAI reasoning</strong> to work correctly with reasoning-capable models</li>
-                                <li><strong>Fixed backups with images</strong> not loading properly</li>
-                            </ul>
-                        </section>
-
-                        {/* New Features */}
-                        <section className="mb-10">
-                            <div className="flex items-center gap-3 mb-4 not-prose">
-                                <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
-                                    <Sparkles className="w-4 h-4 text-primary" />
-                                </div>
-                                <span className="text-xl font-semibold text-white">New Features</span>
-                            </div>
-                            <ul>
-                                <li><strong>Added Ollama & LM Studio endpoint support</strong> for locally hosted models</li>
-                                <li><strong>Added custom OpenAI / Anthropic-compatible endpoints</strong> for flexible API integration</li>
-                                <li><strong>Increased request timeout</strong> from 2 minutes to 15 minutes for better handling of slow models and reasoning tasks</li>
-                            </ul>
-                        </section>
-                    </motion.article>
-
-                    {/* Beta 6 Release */}
-                    <motion.article
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
-                        className="prose prose-invert max-w-none"
-                    >
-                        {/* Release Header */}
-                        <div className="not-prose mb-8 pb-6 border-b border-border/30">
-                            <div className="flex items-center gap-3 mb-2">
-                                <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
-                                    v1.0-beta.6
-                                </span>
-                                <span className="text-muted-foreground text-sm">
-                                    December 21, 2025
-                                </span>
-                            </div>
-                            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
-                                Dynamic Memory v2, Lorebooks, In-Chat Image Generation & Major Performance Improvements
-                            </h2>
-                            <p className="text-muted-foreground">
-                                Beta 6 is a major systems and UX update focused on memory accuracy, world consistency, creative flexibility, and performance. It's designed to make long conversations faster, more coherent, and easier to control, while expanding what's possible inside a single chat.
-                            </p>
-                        </div>
-
-                        {/* Dynamic Memory v2 */}
-                        <section className="mb-10">
-                            <div className="flex items-center gap-3 mb-4 not-prose">
-                                <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
-                                    <Brain className="w-4 h-4 text-primary" />
-                                </div>
-                                <span className="text-xl font-semibold text-white">Dynamic Memory v2</span>
-                            </div>
-                            <p>
-                                Dynamic Memory has been significantly upgraded with faster, more responsive memory handling, higher recall accuracy, improved behavior in long-running chats, and better stability across multiple memory cycles.
-                            </p>
-                            <p>
-                                Dynamic Memory v2 is designed to scale cleanly as conversations grow.
-                            </p>
-                        </section>
-
-                        {/* New Embedding Model */}
-                        <section className="mb-10">
-                            <div className="flex items-center gap-3 mb-4 not-prose">
-                                <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center shrink-0">
-                                    <Sparkles className="w-4 h-4 text-blue-400" />
-                                </div>
-                                <span className="text-xl font-semibold text-white">New Embedding Model</span>
-                            </div>
-                            <p>
-                                A new embedding model now powers memory retrieval in Beta 6. It is approximately 50% smaller than the previous model, runs faster during inference, and supports up to 4096 tokens (previously 512).
-                            </p>
-                            <p>
-                                Existing memories remain compatible. No migration required.
-                            </p>
-                        </section>
-
-                        {/* Context Enrichment */}
-                        <section className="mb-10">
-                            <div className="flex items-center gap-3 mb-4 not-prose">
-                                <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center shrink-0">
-                                    <Zap className="w-4 h-4 text-purple-400" />
-                                </div>
-                                <span className="text-xl font-semibold text-white">Context Enrichment <span className="text-sm font-normal text-muted-foreground">(Experimental)</span></span>
-                            </div>
-                            <p>
-                                An experimental Context Enrichment feature has been introduced. It enhances memory queries using the new embedding model, improves recall accuracy in follow-up messages, and reduces ambiguity during semantic search.
-                            </p>
-                            <p className="text-muted-foreground text-sm">
-                                This feature is currently experimental and may evolve in future releases.
-                            </p>
-                        </section>
-
-                        {/* Lorebooks */}
-                        <section className="mb-10">
-                            <div className="flex items-center gap-3 mb-4 not-prose">
-                                <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
-                                    <BookOpen className="w-4 h-4 text-amber-400" />
-                                </div>
-                                <span className="text-xl font-semibold text-white">Lorebooks</span>
-                            </div>
-                            <p>
-                                Lorebooks introduce a structured way to inject world, character, and knowledge information
-                                into chats. Define locations, factions, rules, history, and concepts. Lore entries are automatically injected when relevant and treated as established canon.
-                            </p>
-                            <p>
-                                Lorebooks improve consistency across scenes and long roleplay sessions while staying
-                                separate from character memory.
-                            </p>
-                        </section>
-
-                        {/* In-Chat Image Generation */}
-                        <section className="mb-10">
-                            <div className="flex items-center gap-3 mb-4 not-prose">
-                                <div className="w-8 h-8 rounded-lg bg-pink-500/10 border border-pink-500/30 flex items-center justify-center shrink-0">
-                                    <Image className="w-4 h-4 text-pink-400" />
-                                </div>
-                                <span className="text-xl font-semibold text-white">In-Chat Image Generation</span>
-                            </div>
-                            <p>
-                                Images can now be generated directly inside conversations. This is supported for models
-                                that expose image generation capabilities, enabling visual storytelling and richer creative workflows directly within the chat flow.
-                            </p>
-                        </section>
-
-                        {/* Model & API Improvements */}
-                        <section className="mb-10">
-                            <div className="flex items-center gap-3 mb-4 not-prose">
-                                <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shrink-0">
-                                    <Zap className="w-4 h-4 text-cyan-400" />
-                                </div>
-                                <span className="text-xl font-semibold text-white">Model & API Improvements</span>
-                            </div>
-                            <ul>
-                                <li>Added support for the <strong>Chutes API endpoint</strong></li>
-                                <li>Introduced an <strong>OpenAI-compatible API endpoint</strong> with extensive customization including custom user/assistant role names and flexible chat completion behavior</li>
-                                <li>Added <strong>Reasoning support</strong> for models that expose reasoning tokens</li>
-                            </ul>
-                        </section>
-
-                        {/* Chat & Workflow Improvements */}
-                        <section className="mb-10">
-                            <h3>Chat & Workflow Improvements</h3>
-                            <p>
-                                <strong>Rewind to Here:</strong> Resume conversations from any previous user message.
-                                Explore alternate paths without losing history.
-                            </p>
-                            <p>
-                                <strong>Redesigned Chat Settings:</strong> A new Chat Settings panel designed based on user feedback and suggestions.
-                            </p>
-                        </section>
-
-                        {/* UI & Layout Improvements */}
-                        <section className="mb-10">
-                            <h3>UI & Layout Improvements</h3>
-                            <ul>
-                                <li>Redesigned Character Cards for better clarity and hierarchy</li>
-                                <li>Chat Header memory button now shows memory status and usage</li>
-                                <li>Improved consistency across chat, settings, and character screens</li>
-                                <li>Refined spacing, typography, and interaction feedback</li>
-                                <li>Reduced visual noise in frequently used views</li>
-                                <li>Redesigned chat history layout for readability</li>
-                            </ul>
-                        </section>
-
-                        {/* Desktop Builds */}
-                        <section className="mb-10">
-                            <div className="flex items-center gap-3 mb-4 not-prose">
-                                <div className="w-8 h-8 rounded-lg bg-zinc-700/50 border border-zinc-600/50 flex items-center justify-center shrink-0">
-                                    <Monitor className="w-4 h-4 text-zinc-300" />
-                                </div>
-                                <span className="text-xl font-semibold text-white">Desktop Builds</span>
-                            </div>
-                            <p>
-                                LettuceAI continues to be available as beta desktop builds alongside the mobile app.
-                            </p>
-                            <ul>
-                                <li><strong>Windows:</strong> .msi installer, .exe portable build</li>
-                                <li><strong>Linux:</strong> .AppImage, .deb, .rpm</li>
-                            </ul>
-                            <p className="text-muted-foreground text-sm">
-                                Desktop builds are still considered beta while platform-specific issues are being refined.
-                                Functionality generally matches the mobile app unless otherwise noted.
-                            </p>
-                        </section>
-
-                        {/* Performance Improvements */}
-                        <section className="mb-10">
-                            <h3>Performance Improvements</h3>
-                            <ul>
-                                <li>Long chats now load up to <strong>~8× faster</strong></li>
-                                <li>Character list on the homepage loads faster and scrolls more smoothly</li>
-                                <li>Improved internal state handling and caching logic</li>
-                                <li>Backup system robustness significantly improved</li>
-                            </ul>
-                        </section>
-
-                        {/* Bug Fixes */}
-                        <section className="mb-10">
-                            <div className="flex items-center gap-3 mb-4 not-prose">
-                                <div className="w-8 h-8 rounded-lg bg-red-500/10 border border-red-500/30 flex items-center justify-center shrink-0">
-                                    <Bug className="w-4 h-4 text-red-400" />
-                                </div>
-                                <span className="text-xl font-semibold text-white">Bug Fixes</span>
-                            </div>
-                            <ul>
-                                <li>Fixed an issue where Dynamic Memory could get stuck after cycle 2</li>
-                                <li>Fixed an app freeze caused by corrupted or invalid backup files</li>
-                                <li>Fixed an incorrect Google API endpoint URL</li>
-                            </ul>
-                        </section>
-
-                        {/* Thank You */}
-                        <section className="not-prose mt-12 p-6 rounded-2xl bg-linear-to-br from-primary/10 to-primary/5 border border-primary/20">
-                            <div className="flex items-center gap-3 mb-3">
-                                <Heart className="w-5 h-5 text-primary shrink-0" />
-                                <span className="text-lg font-semibold text-white">Thank You</span>
-                            </div>
-                            <p className="text-muted-foreground">
-                                Beta 6 is a foundational release that strengthens LettuceAI's core systems while expanding both creative and technical flexibility. Your feedback continues to shape
-                                LettuceAI into a deeply customizable, privacy-first AI companion built for
-                                long-term conversations and roleplay.
-                            </p>
-                            <a
-                                href="https://github.com/LettuceAI/mobile-app/compare/1.0-beta.5...1.0-beta.6"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-block mt-4 text-sm text-primary hover:underline"
-                            >
-                                View full changelog on GitHub →
-                            </a>
-                        </section>
-
-                        {/* Bottom Download CTA */}
-                        <div className="not-prose mt-12 text-center">
-                            <Button asChild size="lg" className="gap-2">
-                                <Link to="/download">
-                                    <Download className="w-4 h-4" />
-                                    Download LettuceAI
-                                </Link>
-                            </Button>
-                        </div>
-                    </motion.article>
+            {/* Discovery */}
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-pink-500/10 border border-pink-500/30 flex items-center justify-center shrink-0">
+                  <Image className="w-4 h-4 text-pink-400" />
                 </div>
-            </main>
-            <Footer />
-        </>
-    );
+                <span className="text-xl font-semibold text-white">
+                  Discovery
+                </span>
+              </div>
+              <p className="text-muted-foreground">
+                A brand-new Discovery system powered by Character Tavern. Browse
+                trending, popular, and newest cards or search directly, preview
+                details before importing, and keep Pure Mode enabled to
+                automatically filter NSFW results (with blurred avatars until
+                you add a character).
+              </p>
+            </section>
+
+            {/* Group Chats */}
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center shrink-0">
+                  <Users className="w-4 h-4 text-blue-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Group Chats
+                </span>
+              </div>
+              <p className="text-muted-foreground">
+                A brand-new chat mode that lets multiple characters share one
+                conversation. The app selects the next speaker automatically (or
+                you can @mention to force a character), and roleplay groups can
+                start with custom scenes. Long sessions are more stable with
+                improved abort handling and streaming fixes.
+              </p>
+            </section>
+
+            {/* Smart Creator */}
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center shrink-0">
+                  <Sparkles className="w-4 h-4 text-purple-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Smart Creator
+                </span>
+              </div>
+              <p className="text-muted-foreground">
+                The creation flow is now goal-based with streaming and expanded
+                entity support.
+              </p>
+
+              <ul>
+                <li>
+                  Smart Creator now supports Characters, Personas, and Lorebooks
+                  with a new goal selector and preview modes
+                </li>
+                <li>Streaming responses and inline previews during creation</li>
+                <li>
+                  Smart Tool Selection toggle added, with manual tool presets
+                  and per-tool control in Advanced Settings
+                </li>
+                <li>
+                  Image generation support with model selection in Advanced
+                  Settings
+                </li>
+                <li>Smart Creator previews for Personas and Lorebooks</li>
+              </ul>
+            </section>
+
+            {/* Help Me Reply */}
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center shrink-0">
+                  <Sparkles className="w-4 h-4 text-emerald-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Help Me Reply
+                </span>
+              </div>
+              <p className="text-muted-foreground">
+                Reply suggestions now stream and are configurable for different
+                styles.
+              </p>
+              <ul>
+                <li>
+                  Help Me Reply now supports streaming, conversation/roleplay
+                  styles, and max token settings
+                </li>
+                <li>
+                  Help Me Reply settings now allow per-feature model selection
+                </li>
+              </ul>
+            </section>
+
+            {/* Prompting System */}
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
+                  <BookOpen className="w-4 h-4 text-amber-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Prompting System
+                </span>
+              </div>
+              <p className="text-muted-foreground">
+                Prompts are now entry-based with presets, mobile editing, and
+                clearer system controls.
+              </p>
+
+              <ul>
+                <li>
+                  Prompt Editor redesigned to be entry-based, with auto-scroll
+                  and mobile renaming
+                </li>
+                <li>
+                  Per-entry roles and injection controls (including in-chat
+                  entries) for modular templates
+                </li>
+                <li>System Prompt presets can be imported and exported</li>
+                <li>
+                  System Prompts UI redesigned and model-level prompts removed
+                </li>
+                <li>
+                  Added <code>{"{{user}}"}</code> placeholder support and
+                  updated scene directions
+                </li>
+              </ul>
+            </section>
+
+            {/* Import/Export */}
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
+                  <BookOpen className="w-4 h-4 text-amber-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Import & Export
+                </span>
+              </div>
+              <p className="text-muted-foreground">
+                Expanded format support for sharing and migrating characters and
+                personas.
+              </p>
+
+              <ul>
+                <li>Unified Entity Card (UEC) import/export support</li>
+                <li>Chara Card v1, v2, and v3 import support</li>
+                <li>Export characters as UEC, Chara Card v2 and v3</li>
+                <li>Personas can now be exported from the Library</li>
+              </ul>
+            </section>
+
+            {/* Local Inference */}
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shrink-0">
+                  <Zap className="w-4 h-4 text-cyan-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Local Inference
+                </span>
+              </div>
+              <p className="text-muted-foreground">
+                Stronger local model support with advanced controls and
+                stability fixes.
+              </p>
+
+              <ul>
+                <li>Built-in llama.cpp runtime for desktop builds</li>
+                <li>Ollama now uses native endpoints</li>
+                <li>
+                  Automatic context length recommendations to prevent hardware
+                  crashes
+                </li>
+                <li>
+                  Toggle to merge same-role messages for Ollama/llama.cpp
+                  compatibility
+                </li>
+                <li>
+                  Advanced settings for local inference and support for
+                  &lt;think&gt; tags
+                </li>
+                <li>
+                  CUDA support attempted for llama.cpp (currently disabled)
+                </li>
+              </ul>
+            </section>
+
+            {/* UI, UX & Stability */}
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0">
+                  <Heart className="w-4 h-4 text-green-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  UI, UX & Stability
+                </span>
+              </div>
+              <p className="text-muted-foreground">
+                Wide-ranging refinements across settings, editors, and
+                performance.
+              </p>
+
+              <ul>
+                <li>Redesigned Advanced Settings and Dynamic Memory pages</li>
+                <li>
+                  Creation menu refreshed and full-screen scene editor added
+                </li>
+                <li>
+                  Improved persona selector and chat settings model selector
+                  menu
+                </li>
+                <li>
+                  Long-press reordering for Lorebook and System Prompt entries
+                  on mobile
+                </li>
+                <li>
+                  Redesigned toasts with unsaved changes protection (sticky +
+                  mobile bottom)
+                </li>
+                <li>
+                  Fixed avatar display inconsistencies and Usage page text
+                  overflow
+                </li>
+                <li>
+                  Bottom navigation simplified with larger icons and hidden
+                  labels
+                </li>
+                <li>
+                  Dynamic Memory now works correctly after 120+ messages, with
+                  fixed counters
+                </li>
+                <li>
+                  Fixed Mistral reasoning parameter handling and custom endpoint
+                  base URL display
+                </li>
+                <li>
+                  Cost calculation fixes with a new recalc option in Advanced
+                  Settings
+                </li>
+                <li>
+                  ONNX Runtime downgraded for broader device compatibility
+                </li>
+                <li>
+                  Logging improved with a diagnostics section and global error
+                  integration
+                </li>
+                <li>Embedding model load now has additional fail-safes</li>
+              </ul>
+            </section>
+          </motion.article>
+
+          {/* Android Release & Desktop Beta 2 */}
+          <motion.article
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="prose prose-invert max-w-none mb-16"
+          >
+            {/* Release Header */}
+            <div className="not-prose mb-8 pb-6 border-b border-border/30">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
+                  Android Release & Desktop Beta 2
+                </span>
+                <span className="text-muted-foreground text-sm">
+                  January 4, 2026
+                </span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                Text-to-Speech, AI Character Creator, Reply Helper, Sync,
+                Accessibility Upgrades & Voice Playback
+              </h2>
+              <p className="text-muted-foreground">
+                This release brings LettuceAI to Android along with the second
+                desktop beta update. It introduces Text-to-Speech voices, reply
+                generation assistance, encrypted device-to-device sync, enhanced
+                accessibility features, and per-character voice playback
+                controls. These updates focus on expressiveness, comfort, and
+                smoother roleplay workflows.
+              </p>
+            </div>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center shrink-0">
+                  <Sparkles className="w-4 h-4 text-purple-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  AI Character Creator
+                </span>
+              </div>
+
+              <p>
+                The AI Character Creator helps you build fully-formed characters
+                through conversation. Instead of filling forms, you describe the
+                character you have in mind, and the Creator guides you
+                step-by-step through details like personality, backstory, style,
+                and scenes.
+              </p>
+
+              <ul>
+                <li>Conversational guided character creation</li>
+                <li>
+                  Automatic field filling (name, traits, description, etc.)
+                </li>
+                <li>Optional starting scenes to define tone</li>
+                <li>Attach avatars & reference material</li>
+              </ul>
+
+              <p>
+                You can stop at any time, everything remains editable in the
+                manual editor.
+              </p>
+
+              <p className="text-muted-foreground text-sm">
+                The Creator uses your default app model.
+              </p>
+            </section>
+
+            {/* Text-to-Speech */}
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
+                  <Volume2 className="w-4 h-4 text-primary" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Text-to-Speech Voices
+                </span>
+              </div>
+
+              <p>
+                Characters can now speak using natural-sounding generated
+                voices. You can assign a voice per-character and optionally
+                enable automatic playback for new replies.
+              </p>
+
+              <ul>
+                <li>
+                  <strong>Device TTS</strong> – uses your system’s built-in
+                  voice engine
+                </li>
+                <li>
+                  <strong>ElevenLabs</strong> – natural voice synthesis with
+                  custom voice support
+                </li>
+                <li>
+                  <strong>Gemini TTS</strong> – neural speech generation with
+                  custom voice support
+                </li>
+              </ul>
+
+              <p>
+                You can also create custom voices with style descriptions and
+                reuse them across characters.
+              </p>
+
+              <p className="text-muted-foreground text-sm">
+                Generated audio is cached locally to reduce repeated
+                regenerations.
+              </p>
+            </section>
+
+            {/* Reply Helper */}
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
+                  <Sparkles className="w-4 h-4 text-amber-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Reply Helper
+                </span>
+              </div>
+
+              <p>
+                Sometimes it’s hard to think of what to say next. Reply Helper
+                can generate a suggested reply for your current message — either
+                starting from scratch or expanding the text you already wrote.
+              </p>
+
+              <ul>
+                <li>
+                  <strong>Use my text as base</strong> — improve or complete
+                  your draft
+                </li>
+                <li>
+                  <strong>Write something new</strong> — generate a fresh reply
+                </li>
+                <li>
+                  <strong>Regenerate</strong> — try multiple suggestions
+                </li>
+              </ul>
+
+              <p className="text-muted-foreground text-sm">
+                Reply Helper uses your default app model.
+              </p>
+            </section>
+
+            {/* Sync */}
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center shrink-0">
+                  <History className="w-4 h-4 text-blue-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Encrypted Device Sync
+                </span>
+              </div>
+
+              <p>
+                Sync lets you transfer your data securely between your own
+                devices without accounts or cloud storage.
+              </p>
+
+              <ul>
+                <li>Peer-to-peer encrypted transfer</li>
+                <li>No servers or permanent connections</li>
+                <li>You start sync manually when needed</li>
+              </ul>
+
+              <p>
+                One device hosts a session, the other joins with a code. Once
+                connected, your data is synced directly between devices.
+              </p>
+            </section>
+
+            {/* Accessibility */}
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0">
+                  <Heart className="w-4 h-4 text-green-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Accessibility Improvements
+                </span>
+              </div>
+
+              <p>
+                Accessibility options now include sound and haptic feedback for
+                key chat events such as sending, successful replies, and errors.
+              </p>
+
+              <ul>
+                <li>Per-event volume controls</li>
+                <li>Optional haptic feedback with selectable intensity</li>
+                <li>Lightweight and non-intrusive</li>
+              </ul>
+            </section>
+
+            {/* Character Voice Playback */}
+            <section className="mb-10">
+              <h3>Per-Message Voice Playback</h3>
+
+              <p>
+                You can now play voice audio for individual messages — or enable
+                autoplay so your character always speaks when replying.
+              </p>
+
+              <ul>
+                <li>Assign a default voice per character</li>
+                <li>Optional autoplay</li>
+                <li>Manual playback button per message</li>
+              </ul>
+            </section>
+
+            {/* Scene Directions */}
+            <section className="mb-10">
+              <h3>Scene Directions</h3>
+
+              <p>
+                Scenes now support private “direction” notes that are hidden
+                from the chat UI and used only to guide model behaviour during
+                the opening context of a scene.
+              </p>
+            </section>
+
+            {/* General Improvements */}
+            <section className="mb-10">
+              <h3>General Improvements</h3>
+              <ul>
+                <li>Improved character editing workflow</li>
+                <li>Better consistency across Android & Desktop</li>
+                <li>Internal cleanup & UI polish</li>
+              </ul>
+            </section>
+
+            {/* Bug Fixes */}
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-red-500/10 border border-red-500/30 flex items-center justify-center shrink-0">
+                  <Bug className="w-4 h-4 text-red-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Bug Fixes & Behaviour Improvements
+                </span>
+              </div>
+
+              <ul>
+                <li>
+                  Reasoning now works correctly with the Google Gemini endpoint
+                </li>
+                <li>
+                  Fixed an issue where Dynamic Memory processing could cancel
+                  when switching pages
+                </li>
+                <li>
+                  Fixed an issue where characters could be duplicated
+                  unexpectedly
+                </li>
+                <li>Added a retry button to the embedding download screen</li>
+                <li>Fixed Backup settings failing to load existing backups</li>
+                <li>
+                  Redesigned the Edit Model page into a single-page layout
+                </li>
+                <li>Disabled reasoning controls for the Mistral endpoint</li>
+                <li>Optimised entry animations in Settings</li>
+                <li>Optimised Markdown rendering performance</li>
+                <li>
+                  Added support for <code>(...)</code> and <code>[...]</code> as
+                  italic formatting shortcuts
+                </li>
+                <li>
+                  Added Scene Directions to help guide starting scene behaviour
+                </li>
+              </ul>
+            </section>
+          </motion.article>
+
+          {/* Beta 6.2 Release */}
+          <motion.article
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="prose prose-invert max-w-none mb-16"
+          >
+            {/* Release Header */}
+            <div className="not-prose mb-8 pb-6 border-b border-border/30">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
+                  v1.0-beta.6.2
+                </span>
+                <span className="text-muted-foreground text-sm">
+                  December 24, 2025
+                </span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                Backup Fixes, Provider Expansion & Extended Timeout
+              </h2>
+              <p className="text-muted-foreground">
+                Beta 6.2 is a stability and compatibility update focused on
+                fixing critical backup issues, expanding provider support with
+                Ollama and LM Studio, and improving reasoning model
+                compatibility.
+              </p>
+            </div>
+
+            {/* Bug Fixes */}
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-red-500/10 border border-red-500/30 flex items-center justify-center shrink-0">
+                  <Bug className="w-4 h-4 text-red-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Bug Fixes
+                </span>
+              </div>
+              <ul>
+                <li>
+                  <strong>Fixed backup issues</strong> where data wasn't fully
+                  saved
+                </li>
+                <li>
+                  <strong>Fixed characters losing context</strong> after restore
+                </li>
+                <li>
+                  <strong>Fixed OpenRouter & MistralAI reasoning</strong> to
+                  work correctly with reasoning-capable models
+                </li>
+                <li>
+                  <strong>Fixed backups with images</strong> not loading
+                  properly
+                </li>
+              </ul>
+            </section>
+
+            {/* New Features */}
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
+                  <Sparkles className="w-4 h-4 text-primary" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  New Features
+                </span>
+              </div>
+              <ul>
+                <li>
+                  <strong>Added Ollama & LM Studio endpoint support</strong> for
+                  locally hosted models
+                </li>
+                <li>
+                  <strong>
+                    Added custom OpenAI / Anthropic-compatible endpoints
+                  </strong>{" "}
+                  for flexible API integration
+                </li>
+                <li>
+                  <strong>Increased request timeout</strong> from 2 minutes to
+                  15 minutes for better handling of slow models and reasoning
+                  tasks
+                </li>
+              </ul>
+            </section>
+          </motion.article>
+
+          {/* Beta 6 Release */}
+          <motion.article
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="prose prose-invert max-w-none"
+          >
+            {/* Release Header */}
+            <div className="not-prose mb-8 pb-6 border-b border-border/30">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
+                  v1.0-beta.6
+                </span>
+                <span className="text-muted-foreground text-sm">
+                  December 21, 2025
+                </span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                Dynamic Memory v2, Lorebooks, In-Chat Image Generation & Major
+                Performance Improvements
+              </h2>
+              <p className="text-muted-foreground">
+                Beta 6 is a major systems and UX update focused on memory
+                accuracy, world consistency, creative flexibility, and
+                performance. It's designed to make long conversations faster,
+                more coherent, and easier to control, while expanding what's
+                possible inside a single chat.
+              </p>
+            </div>
+
+            {/* Dynamic Memory v2 */}
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
+                  <Brain className="w-4 h-4 text-primary" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Dynamic Memory v2
+                </span>
+              </div>
+              <p>
+                Dynamic Memory has been significantly upgraded with faster, more
+                responsive memory handling, higher recall accuracy, improved
+                behavior in long-running chats, and better stability across
+                multiple memory cycles.
+              </p>
+              <p>
+                Dynamic Memory v2 is designed to scale cleanly as conversations
+                grow.
+              </p>
+            </section>
+
+            {/* New Embedding Model */}
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center shrink-0">
+                  <Sparkles className="w-4 h-4 text-blue-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  New Embedding Model
+                </span>
+              </div>
+              <p>
+                A new embedding model now powers memory retrieval in Beta 6. It
+                is approximately 50% smaller than the previous model, runs
+                faster during inference, and supports up to 4096 tokens
+                (previously 512).
+              </p>
+              <p>Existing memories remain compatible. No migration required.</p>
+            </section>
+
+            {/* Context Enrichment */}
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center shrink-0">
+                  <Zap className="w-4 h-4 text-purple-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Context Enrichment{" "}
+                  <span className="text-sm font-normal text-muted-foreground">
+                    (Experimental)
+                  </span>
+                </span>
+              </div>
+              <p>
+                An experimental Context Enrichment feature has been introduced.
+                It enhances memory queries using the new embedding model,
+                improves recall accuracy in follow-up messages, and reduces
+                ambiguity during semantic search.
+              </p>
+              <p className="text-muted-foreground text-sm">
+                This feature is currently experimental and may evolve in future
+                releases.
+              </p>
+            </section>
+
+            {/* Lorebooks */}
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
+                  <BookOpen className="w-4 h-4 text-amber-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Lorebooks
+                </span>
+              </div>
+              <p>
+                Lorebooks introduce a structured way to inject world, character,
+                and knowledge information into chats. Define locations,
+                factions, rules, history, and concepts. Lore entries are
+                automatically injected when relevant and treated as established
+                canon.
+              </p>
+              <p>
+                Lorebooks improve consistency across scenes and long roleplay
+                sessions while staying separate from character memory.
+              </p>
+            </section>
+
+            {/* In-Chat Image Generation */}
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-pink-500/10 border border-pink-500/30 flex items-center justify-center shrink-0">
+                  <Image className="w-4 h-4 text-pink-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  In-Chat Image Generation
+                </span>
+              </div>
+              <p>
+                Images can now be generated directly inside conversations. This
+                is supported for models that expose image generation
+                capabilities, enabling visual storytelling and richer creative
+                workflows directly within the chat flow.
+              </p>
+            </section>
+
+            {/* Model & API Improvements */}
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shrink-0">
+                  <Zap className="w-4 h-4 text-cyan-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Model & API Improvements
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Added support for the <strong>Chutes API endpoint</strong>
+                </li>
+                <li>
+                  Introduced an <strong>OpenAI-compatible API endpoint</strong>{" "}
+                  with extensive customization including custom user/assistant
+                  role names and flexible chat completion behavior
+                </li>
+                <li>
+                  Added <strong>Reasoning support</strong> for models that
+                  expose reasoning tokens
+                </li>
+              </ul>
+            </section>
+
+            {/* Chat & Workflow Improvements */}
+            <section className="mb-10">
+              <h3>Chat & Workflow Improvements</h3>
+              <p>
+                <strong>Rewind to Here:</strong> Resume conversations from any
+                previous user message. Explore alternate paths without losing
+                history.
+              </p>
+              <p>
+                <strong>Redesigned Chat Settings:</strong> A new Chat Settings
+                panel designed based on user feedback and suggestions.
+              </p>
+            </section>
+
+            {/* UI & Layout Improvements */}
+            <section className="mb-10">
+              <h3>UI & Layout Improvements</h3>
+              <ul>
+                <li>
+                  Redesigned Character Cards for better clarity and hierarchy
+                </li>
+                <li>
+                  Chat Header memory button now shows memory status and usage
+                </li>
+                <li>
+                  Improved consistency across chat, settings, and character
+                  screens
+                </li>
+                <li>Refined spacing, typography, and interaction feedback</li>
+                <li>Reduced visual noise in frequently used views</li>
+                <li>Redesigned chat history layout for readability</li>
+              </ul>
+            </section>
+
+            {/* Desktop Builds */}
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-zinc-700/50 border border-zinc-600/50 flex items-center justify-center shrink-0">
+                  <Monitor className="w-4 h-4 text-zinc-300" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Desktop Builds
+                </span>
+              </div>
+              <p>
+                LettuceAI continues to be available as beta desktop builds
+                alongside the mobile app.
+              </p>
+              <ul>
+                <li>
+                  <strong>Windows:</strong> .msi installer, .exe portable build
+                </li>
+                <li>
+                  <strong>Linux:</strong> .AppImage, .deb, .rpm
+                </li>
+              </ul>
+              <p className="text-muted-foreground text-sm">
+                Desktop builds are still considered beta while platform-specific
+                issues are being refined. Functionality generally matches the
+                mobile app unless otherwise noted.
+              </p>
+            </section>
+
+            {/* Performance Improvements */}
+            <section className="mb-10">
+              <h3>Performance Improvements</h3>
+              <ul>
+                <li>
+                  Long chats now load up to <strong>~8× faster</strong>
+                </li>
+                <li>
+                  Character list on the homepage loads faster and scrolls more
+                  smoothly
+                </li>
+                <li>Improved internal state handling and caching logic</li>
+                <li>Backup system robustness significantly improved</li>
+              </ul>
+            </section>
+
+            {/* Bug Fixes */}
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-red-500/10 border border-red-500/30 flex items-center justify-center shrink-0">
+                  <Bug className="w-4 h-4 text-red-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Bug Fixes
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Fixed an issue where Dynamic Memory could get stuck after
+                  cycle 2
+                </li>
+                <li>
+                  Fixed an app freeze caused by corrupted or invalid backup
+                  files
+                </li>
+                <li>Fixed an incorrect Google API endpoint URL</li>
+              </ul>
+            </section>
+
+            {/* Thank You */}
+            <section className="not-prose mt-12 p-6 rounded-2xl bg-linear-to-br from-primary/10 to-primary/5 border border-primary/20">
+              <div className="flex items-center gap-3 mb-3">
+                <Heart className="w-5 h-5 text-primary shrink-0" />
+                <span className="text-lg font-semibold text-white">
+                  Thank You
+                </span>
+              </div>
+              <p className="text-muted-foreground">
+                Beta 6 is a foundational release that strengthens LettuceAI's
+                core systems while expanding both creative and technical
+                flexibility. Your feedback continues to shape LettuceAI into a
+                deeply customizable, privacy-first AI companion built for
+                long-term conversations and roleplay.
+              </p>
+              <a
+                href="https://github.com/LettuceAI/mobile-app/compare/1.0-beta.5...1.0-beta.6"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block mt-4 text-sm text-primary hover:underline"
+              >
+                View full changelog on GitHub →
+              </a>
+            </section>
+
+            {/* Bottom Download CTA */}
+            <div className="not-prose mt-12 text-center">
+              <Button asChild size="lg" className="gap-2">
+                <Link to="/download">
+                  <Download className="w-4 h-4" />
+                  Download LettuceAI
+                </Link>
+              </Button>
+            </div>
+          </motion.article>
+        </div>
+      </main>
+      <Footer />
+    </>
+  );
 }
