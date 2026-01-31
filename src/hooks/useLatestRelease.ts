@@ -41,9 +41,9 @@ interface GitHubRelease {
 
 export function useLatestRelease(): ReleaseInfo {
   const [release] = useState<ReleaseInfo>({
-    version: "v1.0.0",
+    version: "v1.1.0",
     isPrerelease: false,
-    publishedAt: "2026-01-04T20:11:00Z",
+    publishedAt: "2026-01-31T20:15:07Z",
     downloads: {
       android:
         "https://github.com/LettuceAI/mobile-app/releases/download/1.1.0/lettuceai-1-1-0-android.apk",
