@@ -55,7 +55,7 @@ export function useLatestRelease(): ReleaseInfo {
         rpm: "https://github.com/LettuceAI/mobile-app/releases/download/1.1.0/lettuceai_1.0.0-beta-3.x86_64.rpm",
       },
     },
-    releaseUrl: "https://github.com/LettuceAI/mobile-app/releases/tag/1.0.0",
+    releaseUrl: "https://github.com/LettuceAI/mobile-app/releases/tag/1.1.0",
     loading: false,
     error: null,
   });
