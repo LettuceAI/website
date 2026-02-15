@@ -141,7 +141,7 @@ export function DownloadPage() {
                     </p>
                     {platform.status === "available" && !release.loading && (
                       <p className="text-xs text-muted-foreground/70 mt-1">
-                        {platform.name === "Android" ? "1.1.0" : "1.0.0.beta.3"}
+                        {platform.name === "Android" ? "1.2.0" : "1.0.0.beta.4"}
                         {" • "}
                         {formatDate(release.publishedAt)}
                       </p>

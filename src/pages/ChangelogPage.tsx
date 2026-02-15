@@ -50,7 +50,7 @@ export function ChangelogPage() {
               </Button>
               <Button asChild variant="outline" className="gap-2">
                 <a
-                  href="https://github.com/LettuceAI/mobile-app"
+                  href="https://github.com/LettuceAI/app"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -61,11 +61,385 @@ export function ChangelogPage() {
             </div>
           </motion.div>
 
-          {/* Android 1.1.0 & Desktop Beta 3 update */}
+          {/* Android 1.2.0 & Desktop Beta 4 release */}
           <motion.article
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.05 }}
+            className="prose prose-invert max-w-none mb-16"
+          >
+            <div className="not-prose mb-8 pb-6 border-b border-border/30">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
+                  Android 1.2.0 & Desktop Beta 4 release
+                </span>
+                <span className="text-muted-foreground text-sm">
+                  February 15, 2026
+                </span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                Desktop UX Overhaul, Prompt Runtime Controls, Dynamic Memory
+                Upgrades & ONNX Reliability
+              </h2>
+              <p className="text-muted-foreground">
+                Major investment in desktop UX and character creation flow, a
+                significantly expanded prompt system, broad chat stability and
+                performance hardening, and continued ONNX runtime reliability
+                work across desktop, Android, and Windows.
+              </p>
+            </div>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
+                  <Sparkles className="w-4 h-4 text-primary" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Highlights
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Major investment in desktop UX, especially the Create
+                  Character flow
+                </li>
+                <li>
+                  Significant expansion of the prompt system with a Prompt
+                  Structure Viewer and runtime prompt injection controls
+                </li>
+                <li>
+                  Broad chat stability and performance hardening with large
+                  dynamic-memory improvements
+                </li>
+                <li>
+                  Continued embedding and ONNX runtime reliability work across
+                  desktop, Android, and Windows
+                </li>
+                <li>
+                  Expanded provider and model ecosystem, including NVIDIA NIM,
+                  plus safer import behavior
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-pink-500/10 border border-pink-500/30 flex items-center justify-center shrink-0">
+                  <Monitor className="w-4 h-4 text-pink-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Desktop UI and Character Creation Redesign
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Added responsive desktop layouts across character creation
+                  steps
+                </li>
+                <li>
+                  Reworked character creation step order to improve setup flow
+                </li>
+                <li>
+                  Redesigned character extras inputs for clearer, faster editing
+                </li>
+                <li>
+                  Improved character create/edit with fallback-model selector
+                  support
+                </li>
+                <li>
+                  Fixed create-step ordering and navigation consistency issues
+                </li>
+                <li>
+                  Added metadata handling improvements for imported cards and
+                  avatar URL behavior
+                </li>
+                <li>
+                  Added lorebook import support in character creation workflows
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
+                  <BookOpen className="w-4 h-4 text-amber-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Prompt System Upgrades
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Added Prompt Structure Viewer in the system prompt editor to
+                  preview message composition
+                </li>
+                <li>Added conditional prompt injection mode</li>
+                <li>Added interval prompt injection mode</li>
+                <li>
+                  Added runtime option to condense prompts into a single system
+                  message
+                </li>
+                <li>
+                  Fixed prompt import behavior to correctly respect
+                  <code>prompt_order</code>
+                </li>
+                <li>
+                  Fixed drag-and-drop reorder bugs in the prompt entry editor
+                </li>
+                <li>Improved prompt import UX and editor predictability</li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center shrink-0">
+                  <Users className="w-4 h-4 text-blue-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Chat, Group Chat, and UI
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Added shared ChatLayout for persistent background behavior
+                  across chat sub-routes
+                </li>
+                <li>Added shared GroupChatLayout with lifted data loading</li>
+                <li>Added branch-to-group-chat action from message actions</li>
+                <li>Added lorebook usage visibility per message</li>
+                <li>
+                  Added safe-area padding fixes for chat footer and bottom menu
+                </li>
+                <li>Removed unwanted dark overlay above background images</li>
+                <li>
+                  Fixed chat search back-button sizing and related UI polish
+                </li>
+                <li>
+                  Improved session back-stack handling across settings/history
+                  navigation
+                </li>
+                <li>
+                  Fixed persona selection conflicts during scroll interactions
+                </li>
+                <li>
+                  Removed duplicate dismiss controls in chat memories error
+                  state
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0">
+                  <Bug className="w-4 h-4 text-green-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Chat Stability and Performance
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Fixed dynamic-memory listener leak during async chat setup
+                </li>
+                <li>Bounded attachment cache growth in session hooks</li>
+                <li>
+                  Ignored stale attachment loads after chat state transitions
+                </li>
+                <li>
+                  Fixed cleanup of jump-to-message RAF and timeout resources
+                </li>
+                <li>Improved message memo checks with derived display props</li>
+                <li>Reduced attachment diff cost in chat memoization</li>
+                <li>Added fallback model retry logic with usage attribution</li>
+                <li>
+                  Disabled fallback attempts when no fallback model is
+                  configured
+                </li>
+                <li>Added swap-places mode with role-aware generation</li>
+                <li>
+                  Reverted one streaming animation performance change after
+                  validation feedback
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shrink-0">
+                  <Brain className="w-4 h-4 text-cyan-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Dynamic Memory System
+                </span>
+              </div>
+              <ul>
+                <li>Added cursor-delta summarization of new messages</li>
+                <li>
+                  Added self-healing cursor behavior after deletes/rewinds
+                </li>
+                <li>
+                  Added deduplication by cosine similarity at memory creation
+                </li>
+                <li>Added adaptive decay rate based on access count</li>
+                <li>Added category tagging for memories</li>
+                <li>
+                  Added hybrid retrieval using similarity, recency, and access
+                  frequency
+                </li>
+                <li>Added configurable retrieval selection limit</li>
+                <li>Added smart and cosine retrieval strategies</li>
+                <li>Added memory panel category filter chips</li>
+                <li>
+                  Added memory activity log redesign with timeline and
+                  collapsible UX
+                </li>
+                <li>
+                  Auto-refresh of memory views after dynamic-memory completion
+                </li>
+                <li>Enforced gating behavior for dynamic-memory manual mode</li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center shrink-0">
+                  <Zap className="w-4 h-4 text-purple-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Embeddings, ONNX Runtime, and Android
+                </span>
+              </div>
+              <ul>
+                <li>Fixed ONNX runtime bundling and dylib path handling</li>
+                <li>
+                  Fixed dev rebuild-loop behavior tied to ONNX runtime
+                  integration
+                </li>
+                <li>
+                  Pinned and standardized dylib preloading and path behavior
+                </li>
+                <li>
+                  Ensured Android ONNX resource directory and packaging
+                  consistency
+                </li>
+                <li>
+                  Improved desktop guards around ONNX runtime initialization
+                </li>
+                <li>
+                  Improved handling of ORT init result variants and booleans
+                </li>
+                <li>
+                  Added pre-step for embedding download and runtime ORT fetch
+                </li>
+                <li>
+                  Extracted Windows DLL dependencies for ONNX runtime packaging
+                </li>
+                <li>Locked ORT version to 2.0.0-rc.10</li>
+                <li>
+                  Added embedding model v3 support and multi-version management
+                </li>
+                <li>
+                  Added experimental keep-loaded embedding runtime with cache
+                  reset on version switch
+                </li>
+                <li>
+                  Fixed Android post-regenerate WebView freeze and tracing
+                  consistency
+                </li>
+                <li>Made Android ONNX runtime init deterministic</li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center shrink-0">
+                  <Image className="w-4 h-4 text-emerald-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Providers, Models, Endpoints, and Security
+                </span>
+              </div>
+              <ul>
+                <li>Added NVIDIA NIM provider</li>
+                <li>Added custom-provider tool-choice mode configurability</li>
+                <li>Added OpenRouter free-model toggle in model selector</li>
+                <li>Improved model selector search and suggestions</li>
+                <li>
+                  Added custom endpoint config persistence and auth/model-fetch
+                  mapping controls
+                </li>
+                <li>
+                  Hid llama.cpp provider on mobile onboarding/settings where
+                  unsupported
+                </li>
+                <li>
+                  Added security toggle to disable remote avatar downloads on
+                  card import
+                </li>
+                <li>
+                  Disabled Chutes API key validation where it blocked onboarding
+                  flows
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-orange-500/10 border border-orange-500/30 flex items-center justify-center shrink-0">
+                  <Heart className="w-4 h-4 text-orange-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Lorebooks, Usage, Sync, and Tooling
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Added world-info import/export and creation import action
+                </li>
+                <li>
+                  Added character card metadata support and lorebook import path
+                  improvements
+                </li>
+                <li>Added new pure mode content filtering system</li>
+                <li>
+                  Added app-time tracking backend support and analytics view
+                </li>
+                <li>Enforced host-authoritative manifest diff in sync logic</li>
+                <li>
+                  Improved DB reset error surfacing and reset-in-place behavior
+                </li>
+                <li>Migrated workflows to Blacksmith</li>
+                <li>
+                  Switched workflows to Bun and refreshed README/tooling docs
+                </li>
+                <li>Added libclang dependency for Windows CI builds</li>
+                <li>
+                  Removed duplicate Cargo libraries and cleaned project config
+                </li>
+                <li>
+                  Added <code>.gitignore</code> updates and docs-folder ignore
+                  adjustments
+                </li>
+                <li>Fixed Tailwind warning noise in UI build paths</li>
+              </ul>
+            </section>
+
+            <p className="not-prose">
+              <a
+                href="https://github.com/LettuceAI/app/releases/tag/1.2.0"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View full release on GitHub →
+              </a>
+            </p>
+          </motion.article>
+
+          {/* Android 1.1.0 & Desktop Beta 3 update */}
+          <motion.article
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
             className="prose prose-invert max-w-none mb-16"
           >
             {/* Release Header */}
