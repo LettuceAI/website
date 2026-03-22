@@ -61,11 +61,327 @@ export function ChangelogPage() {
             </div>
           </motion.div>
 
-          {/* Android 1.2.0 & Desktop Beta 4 release */}
+          {/* Android 1.3.0 & Desktop release update */}
           <motion.article
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.05 }}
+            className="prose prose-invert max-w-none mb-16"
+          >
+            <div className="not-prose mb-8 pb-6 border-b border-border/30">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
+                  Android 1.3.0 & Desktop release update
+                </span>
+                <span className="text-muted-foreground text-sm">
+                  March 22, 2026
+                </span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                Images 2.0, Built-In Local AI, Sync 2.0 & Full Chat
+                Customization
+              </h2>
+              <p className="text-muted-foreground">
+                This release overhauls LettuceAI&apos;s image system, expands
+                the local model ecosystem with built-in llama.cpp and a
+                hardware-aware HuggingFace browser, rewrites sync, and ships a
+                broad set of chat, UI, performance, and architecture upgrades
+                across Android and Desktop.
+              </p>
+            </div>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
+                  <Sparkles className="w-4 h-4 text-primary" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Highlights
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Images 2.0 redesign with scene-based generation, reusable
+                  library assets, and avatar editing
+                </li>
+                <li>
+                  Built-in llama.cpp runtime with GPU support, image generation,
+                  and native tool calling
+                </li>
+                <li>
+                  New HuggingFace GGUF browser with hardware-aware compatibility
+                  estimates
+                </li>
+                <li>
+                  Large chat upgrade covering group chats, templates, memory,
+                  and streaming reliability
+                </li>
+                <li>
+                  Full sync rewrite, deeper UI customization, and a major
+                  internal architecture refactor
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center shrink-0">
+                  <Image className="w-4 h-4 text-emerald-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Images 2.0
+                </span>
+              </div>
+              <p className="text-muted-foreground">
+                Image generation is now a first-class part of the app instead of
+                a side flow.
+              </p>
+              <ul>
+                <li>Added full image generation support for chat and scenes</li>
+                <li>
+                  Introduced Image Language so any LLM can trigger image
+                  generation by writing scene prompts after responses
+                </li>
+                <li>
+                  Unified all avatars, backgrounds, and generated images inside
+                  one reusable library
+                </li>
+                <li>
+                  Added avatar generation and avatar editing with image models
+                </li>
+                <li>
+                  Added reusable reference images and text for Characters and
+                  Personas during scene generation
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center shrink-0">
+                  <Zap className="w-4 h-4 text-purple-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Local AI & Model Ecosystem
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Added a built-in llama.cpp runtime with support for NVIDIA,
+                  AMD, Intel GPUs, and Apple Silicon
+                </li>
+                <li>
+                  Expanded runtime customization for local inference workflows
+                </li>
+                <li>
+                  Added image generation and tool calling support to the local
+                  runtime
+                </li>
+                <li>
+                  Added a HuggingFace model browser for searching and exploring
+                  GGUF models
+                </li>
+                <li>
+                  Introduced hardware-aware compatibility checks with estimates
+                  for context length, quantization, and KV cache usage
+                </li>
+                <li>
+                  Added a detailed scoring breakdown for model recommendations
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center shrink-0">
+                  <Users className="w-4 h-4 text-blue-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Chat & Roleplay System
+                </span>
+              </div>
+              <ul>
+                <li>Increased the default max output token limit to 2048</li>
+                <li>
+                  Added proper memory rewind when branching chats and scene
+                  editing per session
+                </li>
+                <li>
+                  Improved streaming stability, abort handling, and multimodal
+                  attachment reliability
+                </li>
+                <li>
+                  Reworked group chats with configurable speaker selection modes
+                  for LLM, heuristic, and round-robin turn management
+                </li>
+                <li>
+                  Added per-character mute, lorebooks, pinned messages, and
+                  typing haptics in group chats
+                </li>
+                <li>
+                  Added reusable chat templates for preconfigured single-chat
+                  setups
+                </li>
+                <li>
+                  Improved Dynamic Memory with missing-tag repair, cancelable
+                  memory cycles, and a no-tool-calling mode for unsupported
+                  models
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-pink-500/10 border border-pink-500/30 flex items-center justify-center shrink-0">
+                  <Monitor className="w-4 h-4 text-pink-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  UI / UX & Customization
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Added a full chat appearance system with controls for font
+                  size, text colors, card colors, background blur, and more
+                </li>
+                <li>Added multiple appearance presets for faster setup</li>
+                <li>
+                  Redesigned chat history, persona editor, character editor, and
+                  model editor
+                </li>
+                <li>
+                  Added grid view support in the model browser and persona
+                  nicknames
+                </li>
+                <li>
+                  Added full multi-language support with auto-detection and a
+                  language selector
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
+                  <History className="w-4 h-4 text-amber-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Sync, Storage & Data
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Rebuilt sync to compare client state and transfer only missing
+                  or outdated data instead of sending everything
+                </li>
+                <li>
+                  Reduced bandwidth use and improved sync reliability with the
+                  new diff-based flow
+                </li>
+                <li>Added chat package import and export support</li>
+                <li>
+                  Added SillyTavern <code>.jsonl</code> import support
+                </li>
+                <li>
+                  Unified export flows for lorebooks, system prompts, and model
+                  configurations
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shrink-0">
+                  <Brain className="w-4 h-4 text-cyan-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Platform & Performance
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Experimental iOS and macOS support is now available, though
+                  some features remain unstable
+                </li>
+                <li>
+                  Optimized Android ONNX Runtime packaging and added a crash
+                  logger for fallback logging coverage
+                </li>
+                <li>
+                  Refactored image delivery to use the Tauri Asset Protocol
+                  instead of IPC, reducing memory use and lag
+                </li>
+                <li>
+                  Reduced UI jank in image-heavy flows and the HuggingFace
+                  browser
+                </li>
+                <li>
+                  Improved lazy loading, rendering performance, and GPU fallback
+                  stability
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-orange-500/10 border border-orange-500/30 flex items-center justify-center shrink-0">
+                  <BookOpen className="w-4 h-4 text-orange-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Internal Architecture
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Modularized the chat system into execution, memory, scene
+                  generation, and reply-helper layers
+                </li>
+                <li>
+                  Added typed internal persistence and removed legacy command
+                  hops
+                </li>
+                <li>
+                  Reorganized the app around feature-based module grouping with
+                  cleaner bootstrap boundaries
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0">
+                  <Bug className="w-4 h-4 text-green-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Fixes & Stability
+                </span>
+              </div>
+              <ul>
+                <li>Fixed provider credential routing issues</li>
+                <li>Fixed chat resend and duplicate-message behavior</li>
+                <li>Fixed scene and lorebook import bugs</li>
+                <li>Improved accessibility contrast and layout behavior</li>
+                <li>Improved mobile keyboard handling</li>
+                <li>Improved crash logging reliability</li>
+              </ul>
+            </section>
+
+            <p className="not-prose">
+              <a
+                href="https://github.com/LettuceAI/app/releases"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View full release on GitHub →
+              </a>
+            </p>
+          </motion.article>
+
+          {/* Android 1.2.0 & Desktop Beta 4 release */}
+          <motion.article
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
             className="prose prose-invert max-w-none mb-16"
           >
             <div className="not-prose mb-8 pb-6 border-b border-border/30">
