@@ -6,7 +6,7 @@
 export const links = {
     discord: "https://discord.gg/745bEttw2r",
     github: "https://github.com/LettuceAI",
-    githubRepo: "https://github.com/LettuceAI/mobile-app",
+    githubRepo: "https://github.com/LettuceAI/app",
 } as const;
 
 export type LinkKey = keyof typeof links;
