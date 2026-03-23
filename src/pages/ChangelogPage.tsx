@@ -61,11 +61,139 @@ export function ChangelogPage() {
             </div>
           </motion.div>
 
-          {/* Android 1.3.0 & Desktop release update */}
+          {/* Android 1.3.1 & Desktop 1.0.1 update */}
           <motion.article
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.05 }}
+            className="prose prose-invert max-w-none mb-16"
+          >
+            <div className="not-prose mb-8 pb-6 border-b border-border/30">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
+                  Android 1.3.1 & Desktop 1.0.1 update
+                </span>
+                <span className="text-muted-foreground text-sm">
+                  March 23, 2026
+                </span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                Stability Fixes, Scene Writing Options & PNG Character Cards
+              </h2>
+              <p className="text-muted-foreground">
+                This release focuses on bug fixes, small quality-of-life
+                upgrades, and a few targeted additions for scene writing,
+                reference text generation, and character card compatibility.
+              </p>
+            </div>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
+                  <Sparkles className="w-4 h-4 text-primary" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Highlights
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Added Scene Description Writer and Reference Text Writer LLM
+                  options
+                </li>
+                <li>Added support for PNG-based Character Cards</li>
+                <li>
+                  Fixed message images, scene toggles, sync loading, and text
+                  color application issues
+                </li>
+                <li>
+                  Improved unsaved-changes toast behavior and chat appearance
+                  preview consistency on mobile
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0">
+                  <Bug className="w-4 h-4 text-green-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">Fixes</span>
+              </div>
+              <ul>
+                <li>
+                  Fixed memories resetting when pressing Enter during editing
+                </li>
+                <li>Bundled feedback sounds directly into the app binaries</li>
+                <li>Fixed the Sync page so it loads correctly again</li>
+                <li>Fixed Character Creation reset behavior after creation</li>
+                <li>
+                  Fixed regenerated images so they display correctly inside
+                  messages
+                </li>
+                <li>
+                  Fixed scene generation so it respects the disable toggle
+                </li>
+                <li>
+                  Fixed text color application on the Colors settings page
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-pink-500/10 border border-pink-500/30 flex items-center justify-center shrink-0">
+                  <Heart className="w-4 h-4 text-pink-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Improvements
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Unsaved changes toasts now stay dismissed until the next leave
+                  attempt
+                </li>
+                <li>
+                  The Chat Appearance preview now uses the same overlay as scene
+                  editing on mobile
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
+                  <BookOpen className="w-4 h-4 text-amber-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">New</span>
+              </div>
+              <ul>
+                <li>
+                  Added a Scene Description Writer LLM option for better scene
+                  writing
+                </li>
+                <li>Added a Reference Text Writer LLM option</li>
+                <li>Added support for PNG-based Character Cards</li>
+              </ul>
+            </section>
+
+            <p className="not-prose">
+              <a
+                href="https://github.com/LettuceAI/app/releases"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View full release on GitHub →
+              </a>
+            </p>
+          </motion.article>
+
+          {/* Android 1.3.0 & Desktop release update */}
+          <motion.article
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
             className="prose prose-invert max-w-none mb-16"
           >
             <div className="not-prose mb-8 pb-6 border-b border-border/30">

@@ -33,6 +33,8 @@ type Platform = {
   badgeClassName?: string;
   version: string;
   description: string;
+  note?: string;
+  noteHref?: string;
   actions: PlatformButton[];
   githubUrl: string;
 };
@@ -147,12 +149,12 @@ export function DownloadPage() {
       icon: Smartphone,
       status: "available",
       badge: "Release",
-      version: "Android 1.3.0",
+      version: "Android 1.3.1",
       description: "Download the APK directly from our GitHub releases.",
       actions: [
         {
           label: "APK",
-          href: "https://github.com/LettuceAI/app/releases/download/android-dev-170-1-aeab0b3/android-universal-release.apk",
+          href: "https://github.com/LettuceAI/app/releases/download/android-release-1.3.1/android-universal-release.apk",
         },
       ],
       githubUrl: "https://github.com/LettuceAI/app/releases",
@@ -162,22 +164,24 @@ export function DownloadPage() {
       icon: Monitor,
       status: "available",
       badge: "Release",
-      version: "Release",
+      version: "1.0.1",
       description:
         "Pick the runtime that matches your machine. Windows downloads are provided as .exe installers.",
+      note: "NVIDIA build requires CUDA to already be installed.",
+      noteHref: "https://developer.nvidia.com/cuda-downloads",
       actions: [
         {
           label: "CPU",
-          href: "https://github.com/LettuceAI/app/releases/download/desktop-release-1-1-8b9a145/windows-cpu.zip",
+          href: "https://github.com/LettuceAI/app/releases/download/desktop-release-1.0.1/windows-cpu.zip",
         },
         {
           label: "NVIDIA",
-          href: "https://github.com/LettuceAI/app/releases/download/desktop-release-1-1-8b9a145/windows-cuda.zip",
+          href: "https://github.com/LettuceAI/app/releases/download/desktop-release-1.0.1/windows-cuda.zip",
           variant: "outline",
         },
         {
           label: "Vulkan",
-          href: "https://github.com/LettuceAI/app/releases/download/desktop-release-1-1-8b9a145/windows-vulkan.zip",
+          href: "https://github.com/LettuceAI/app/releases/download/desktop-release-1.0.1/windows-vulkan.zip",
           variant: "outline",
         },
       ],
@@ -188,22 +192,22 @@ export function DownloadPage() {
       icon: Terminal,
       status: "available",
       badge: "Release",
-      version: "Release",
+      version: "1.0.1",
       description:
         "Choose the runtime that matches your machine. Linux downloads are provided as .deb packages.",
       actions: [
         {
           label: "CPU",
-          href: "https://github.com/LettuceAI/app/releases/download/desktop-release-1-1-8b9a145/linux-cpu.zip",
+          href: "https://github.com/LettuceAI/app/releases/download/desktop-release-1.0.1/linux-cpu.zip",
         },
         {
           label: "NVIDIA",
-          href: "https://github.com/LettuceAI/app/releases/download/desktop-release-1-1-8b9a145/linux-cuda.zip",
+          href: "https://github.com/LettuceAI/app/releases/download/desktop-release-1.0.1/linux-cuda.zip",
           variant: "outline",
         },
         {
           label: "Vulkan",
-          href: "https://github.com/LettuceAI/app/releases/download/desktop-release-1-1-8b9a145/linux-vulkan.zip",
+          href: "https://github.com/LettuceAI/app/releases/download/desktop-release-1.0.1/linux-vulkan.zip",
           variant: "outline",
         },
       ],
@@ -215,21 +219,53 @@ export function DownloadPage() {
       status: "available",
       badge: "EXPERIMENTAL",
       badgeClassName: "bg-red-500/20 text-red-400",
-      version: "Release",
+      version: "1.0.1",
       description:
         "Download the standard CPU build or the Metal build for Apple Silicon. macOS downloads are provided as .dmg installers.",
+      note: "Requires macOS 13 or higher.",
       actions: [
         {
           label: "CPU",
-          href: "https://github.com/LettuceAI/app/releases/download/desktop-release-1-1-8b9a145/macos-cpu.dmg",
+          href: "https://github.com/LettuceAI/app/releases/download/desktop-release-1.0.1/macos-cpu.dmg",
         },
         {
           label: "Metal",
-          href: "https://github.com/LettuceAI/app/releases/download/desktop-release-1-1-8b9a145/macos-metal.dmg",
+          href: "https://github.com/LettuceAI/app/releases/download/desktop-release-1.0.1/macos-metal.dmg",
           variant: "outline",
         },
       ],
       githubUrl: "https://github.com/LettuceAI/app/releases",
+    },
+  ];
+
+  const systemRequirements = [
+    {
+      name: "Android",
+      os: "Android 12 or higher",
+      ram: "2GB minimum for basic remote-provider use, 4GB recommended",
+      storage: "2 GB free storage",
+      notes: "APK install",
+    },
+    {
+      name: "Windows",
+      os: "Windows 10/11",
+      ram: "2GB minimum for basic remote-provider use, 4GB recommended",
+      storage: "2 GB free storage",
+      notes: "CUDA required for NVIDIA build",
+    },
+    {
+      name: "Linux",
+      os: "Modern 64-bit distribution",
+      ram: "2GB minimum for basic remote-provider use, 4GB recommended",
+      storage: "2 GB free storage",
+      notes: ".deb package",
+    },
+    {
+      name: "macOS",
+      os: "macOS 13 or higher",
+      ram: "2GB minimum for basic remote-provider use, 4GB recommended",
+      storage: "2 GB free storage",
+      notes: "Apple Silicon recommended for Metal",
     },
   ];
 
@@ -418,7 +454,8 @@ export function DownloadPage() {
       if (hardwareType === "nvidia") {
         return {
           title: "You should install the Windows NVIDIA build.",
-          description: "This is the right build for NVIDIA GPUs on Windows.",
+          description:
+            "This is the right build for NVIDIA GPUs on Windows. Make sure CUDA is already installed on your device before using it.",
           action: getAction("Windows", "NVIDIA"),
         };
       }
@@ -572,6 +609,24 @@ export function DownloadPage() {
                     {platform.status === "available" && (
                       <p className="mt-1 text-xs text-muted-foreground/70">
                         {platform.version}
+                      </p>
+                    )}
+                    {platform.note && (
+                      <p className="mt-2 text-xs text-amber-300/90">
+                        {platform.note}
+                        {platform.noteHref && (
+                          <>
+                            {" "}
+                            <a
+                              href={platform.noteHref}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="underline underline-offset-2 hover:text-amber-200"
+                            >
+                              Download CUDA
+                            </a>
+                          </>
+                        )}
                       </p>
                     )}
                   </div>
@@ -1052,41 +1107,56 @@ export function DownloadPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="mt-12 p-6 rounded-xl bg-zinc-900/30 border border-border/30"
+            className="mt-12 overflow-hidden rounded-xl border border-border/30 bg-zinc-900/30"
           >
-            <h3 className="text-lg font-semibold mb-4">System Requirements</h3>
-            <div className="grid gap-6 text-sm sm:grid-cols-2 xl:grid-cols-4">
-              <div>
-                <h4 className="font-medium text-white mb-2">Android</h4>
-                <ul className="space-y-1 text-muted-foreground">
-                  <li>• Android 10.0 or higher</li>
-                  <li>• 300MB free storage</li>
-                  <li>• Internet connection</li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-medium text-white mb-2">Windows</h4>
-                <ul className="space-y-1 text-muted-foreground">
-                  <li>• Windows 10/11</li>
-                  <li>• 1GB RAM minimum</li>
-                  <li>• 300MB free storage</li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-medium text-white mb-2">Linux</h4>
-                <ul className="space-y-1 text-muted-foreground">
-                  <li>• 1GB RAM minimum</li>
-                  <li>• 300MB free storage</li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-medium text-white mb-2">macOS</h4>
-                <ul className="space-y-1 text-muted-foreground">
-                  <li>• macOS 12 or higher</li>
-                  <li>• Apple Silicon recommended for Metal</li>
-                  <li>• 300MB free storage</li>
-                </ul>
-              </div>
+            <div className="border-b border-border/30 px-6 py-5">
+              <h3 className="text-lg font-semibold text-white">
+                System Requirements
+              </h3>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Baseline specs for the standard CPU builds.
+              </p>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="min-w-full text-left text-sm">
+                <thead className="bg-zinc-950/50 text-xs uppercase tracking-wide text-zinc-500">
+                  <tr>
+                    <th className="px-6 py-3 font-medium">Platform</th>
+                    <th className="px-6 py-3 font-medium">OS</th>
+                    <th className="px-6 py-3 font-medium">RAM</th>
+                    <th className="px-6 py-3 font-medium">Storage</th>
+                    <th className="px-6 py-3 font-medium">Notes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {systemRequirements.map((platform) => (
+                    <tr
+                      key={platform.name}
+                      className="border-t border-border/25 align-top"
+                    >
+                      <td className="px-6 py-4 font-medium text-white">
+                        {platform.name}
+                      </td>
+                      <td className="px-6 py-4 text-muted-foreground">
+                        {platform.os}
+                      </td>
+                      <td className="px-6 py-4 text-muted-foreground">
+                        {platform.ram}
+                      </td>
+                      <td className="px-6 py-4 text-muted-foreground">
+                        {platform.storage}
+                      </td>
+                      <td className="px-6 py-4 text-muted-foreground">
+                        {platform.notes}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="border-t border-border/30 px-6 py-4 text-sm text-muted-foreground">
+              If you plan to run local LLMs, expect to need more RAM, storage,
+              and in most cases a compatible GPU runtime.
             </div>
           </motion.div>
         </div>
