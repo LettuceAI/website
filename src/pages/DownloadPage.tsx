@@ -1,15 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import {
-  ArrowDown,
-  CheckCircle,
-  Download,
-  ExternalLink,
-  Laptop,
-  Monitor,
-  Smartphone,
-  Terminal,
-} from "lucide-react";
+import { ArrowDown, CheckCircle, Download, ExternalLink } from "lucide-react";
+import { DiAndroid, DiApple, DiLinux, DiWindows } from "react-icons/di";
 import { useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Navbar, Footer } from "@/components/landing";
@@ -28,6 +20,7 @@ type PlatformButton = {
 };
 
 type Platform = {
+  key: "android" | "windows" | "linux" | "macos";
   name: string;
   icon: React.ComponentType<{ className?: string }>;
   status: "available" | "coming-soon";
@@ -265,8 +258,9 @@ export function DownloadPage() {
 
   const platforms: Platform[] = [
     {
+      key: "android",
       name: "Android",
-      icon: Smartphone,
+      icon: DiAndroid,
       status: androidActions.length > 0 ? "available" : "coming-soon",
       badge: requestedChannel === "dev" ? "DEV" : "Release",
       version: androidVersionLabel,
@@ -278,8 +272,9 @@ export function DownloadPage() {
       githubUrl: androidReleaseUrl,
     },
     {
+      key: "windows",
       name: "Windows",
-      icon: Monitor,
+      icon: DiWindows,
       status: windowsActions.length > 0 ? "available" : "coming-soon",
       badge: desktopBadge,
       version: desktopVersionLabel,
@@ -291,8 +286,9 @@ export function DownloadPage() {
       githubUrl: desktopReleaseUrl,
     },
     {
+      key: "linux",
       name: "Linux",
-      icon: Terminal,
+      icon: DiLinux,
       status: linuxActions.length > 0 ? "available" : "coming-soon",
       badge: desktopBadge,
       version: desktopVersionLabel,
@@ -302,8 +298,9 @@ export function DownloadPage() {
       githubUrl: desktopReleaseUrl,
     },
     {
+      key: "macos",
       name: "macOS",
-      icon: Laptop,
+      icon: DiApple,
       status: macActions.length > 0 ? "available" : "coming-soon",
       badge: requestedChannel === "dev" ? "DEV" : "EXPERIMENTAL",
       badgeClassName:
@@ -318,6 +315,15 @@ export function DownloadPage() {
       githubUrl: desktopReleaseUrl,
     },
   ];
+  const featuredPlatform =
+    requestedPlatform === null
+      ? null
+      : platforms.find((platform) => platform.key === requestedPlatform) ?? null;
+  const otherPlatforms =
+    featuredPlatform === null
+      ? platforms
+      : platforms.filter((platform) => platform.key !== featuredPlatform.key);
+
   const systemRequirements = [
     {
       name: "Android",
@@ -467,6 +473,121 @@ export function DownloadPage() {
     }
     return null;
   })();
+
+  const renderPlatformCard = (
+    platform: Platform,
+    options?: { featured?: boolean; delay?: number },
+  ) => {
+    const featured = options?.featured ?? false;
+    const delay = options?.delay ?? 0;
+
+    return (
+      <motion.div
+        key={platform.name}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.45, delay }}
+        className={`relative rounded-2xl border p-6 ${
+          platform.status === "available"
+            ? featured
+              ? "bg-primary/14 border-primary/55 shadow-[0_0_0_1px_rgba(132,204,22,0.08),0_28px_60px_rgba(24,39,10,0.28)]"
+              : "bg-zinc-900/50 border-primary/30"
+            : "bg-zinc-900/30 border-border/30"
+        }`}
+      >
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+          <div
+            className={`h-14 w-14 shrink-0 rounded-xl flex items-center justify-center ${
+              platform.status === "available"
+                ? "bg-primary/10 border border-primary/30"
+                : "bg-zinc-800 border border-border/30"
+            }`}
+          >
+            <platform.icon
+              className={`h-7 w-7 ${
+                platform.status === "available"
+                  ? "text-primary"
+                  : "text-muted-foreground"
+              }`}
+            />
+          </div>
+
+          <div className="flex-1">
+            <div className="mb-1 flex items-center gap-3">
+              <h3 className="text-xl font-semibold text-white">{platform.name}</h3>
+              {platform.status === "available" ? (
+                <span
+                  className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium ${
+                    platform.badgeClassName ?? "bg-green-500/20 text-green-400"
+                  }`}
+                >
+                  <CheckCircle className="h-3 w-3" />
+                  {platform.badge}
+                </span>
+              ) : (
+                <span className="rounded-full bg-zinc-800 px-2 py-0.5 text-xs font-medium text-muted-foreground">
+                  Coming Soon
+                </span>
+              )}
+            </div>
+            <p className="text-muted-foreground">{platform.description}</p>
+            {platform.status === "available" ? (
+              <p className="mt-1 text-xs text-muted-foreground/70">{platform.version}</p>
+            ) : null}
+            {platform.note ? (
+              <p className="mt-2 text-xs text-amber-300/90">
+                {platform.note}
+                {platform.noteHref ? (
+                  <>
+                    {" "}
+                    <a
+                      href={platform.noteHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline underline-offset-2 hover:text-amber-200"
+                    >
+                      Download CUDA
+                    </a>
+                  </>
+                ) : null}
+              </p>
+            ) : null}
+          </div>
+
+          <div className="shrink-0 flex flex-wrap items-center gap-2">
+            {platform.status === "available" ? (
+              <>
+                {platform.actions.map((action, actionIndex) => (
+                  <Button
+                    key={`${platform.name}-${action.label}`}
+                    asChild
+                    variant={action.variant ?? (actionIndex === 0 ? "default" : "outline")}
+                    className="gap-2"
+                  >
+                    <a href={action.href}>
+                      <Download className="h-4 w-4" />
+                      {action.label}
+                    </a>
+                  </Button>
+                ))}
+                <Button asChild variant="outline" size="icon">
+                  <a href={platform.githubUrl} target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="h-4 w-4" />
+                  </a>
+                </Button>
+              </>
+            ) : (
+              <Button asChild variant="outline">
+                <a href={platform.githubUrl} target="_blank" rel="noopener noreferrer">
+                  View releases
+                </a>
+              </Button>
+            )}
+          </div>
+        </div>
+      </motion.div>
+    );
+  };
 
   const recommendation: Recommendation = (() => {
     if (devicePlatform === "android") {
@@ -661,120 +782,23 @@ export function DownloadPage() {
           </motion.div>
 
           <div id="downloads" className="grid gap-6">
-            {platforms.map((platform, index) => (
-              <motion.div
-                key={platform.name}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`relative rounded-2xl border p-6 ${
-                  platform.status === "available"
-                    ? requestedPlatform !== null && ((requestedPlatform === "android" && platform.name === "Android") || requestedPlatform === platform.name.toLowerCase())
-                      ? "bg-primary/12 border-primary/45 ring-1 ring-primary/30"
-                      : "bg-zinc-900/50 border-primary/30"
-                    : "bg-zinc-900/30 border-border/30"
-                }`}
-              >
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-                  <div
-                    className={`h-14 w-14 shrink-0 rounded-xl flex items-center justify-center ${
-                      platform.status === "available"
-                        ? "bg-primary/10 border border-primary/30"
-                        : "bg-zinc-800 border border-border/30"
-                    }`}
-                  >
-                    <platform.icon
-                      className={`h-7 w-7 ${
-                        platform.status === "available"
-                          ? "text-primary"
-                          : "text-muted-foreground"
-                      }`}
-                    />
-                  </div>
+            {featuredPlatform ? renderPlatformCard(featuredPlatform, { featured: true, delay: 0.04 }) : null}
 
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-1">
-                      <h3 className="text-xl font-semibold text-white">
-                        {platform.name}
-                      </h3>
-                      {platform.status === "available" ? (
-                        <span
-                          className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium ${
-                            platform.badgeClassName ??
-                            "bg-green-500/20 text-green-400"
-                          }`}
-                        >
-                          <CheckCircle className="w-3 h-3" />
-                          {platform.badge}
-                        </span>
-                      ) : (
-                        <span className="rounded-full bg-zinc-800 px-2 py-0.5 text-xs font-medium text-muted-foreground">
-                          Coming Soon
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-muted-foreground">
-                      {platform.description}
-                    </p>
-                    {platform.status === "available" && (
-                      <p className="mt-1 text-xs text-muted-foreground/70">
-                        {platform.version}
-                      </p>
-                    )}
-                    {platform.note && (
-                      <p className="mt-2 text-xs text-amber-300/90">
-                        {platform.note}
-                        {platform.noteHref && (
-                          <>
-                            {" "}
-                            <a
-                              href={platform.noteHref}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="underline underline-offset-2 hover:text-amber-200"
-                            >
-                              Download CUDA
-                            </a>
-                          </>
-                        )}
-                      </p>
-                    )}
-                  </div>
+            {featuredPlatform ? (
+              <div className="my-2 flex items-center gap-4 px-1">
+                <div className="h-px flex-1 bg-border/50" />
+                <span className="text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground/80">
+                  Other downloads
+                </span>
+                <div className="h-px flex-1 bg-border/50" />
+              </div>
+            ) : null}
 
-                  <div className="shrink-0 flex items-center gap-2 flex-wrap">
-                    {platform.status === "available" && (
-                      <>
-                        {platform.actions.map((action, actionIndex) => (
-                          <Button
-                            key={`${platform.name}-${action.label}`}
-                            asChild
-                            variant={
-                              action.variant ??
-                              (actionIndex === 0 ? "default" : "outline")
-                            }
-                            className="gap-2"
-                          >
-                            <a href={action.href}>
-                              <Download className="w-4 h-4" />
-                              {action.label}
-                            </a>
-                          </Button>
-                        ))}
-                        <Button asChild variant="outline" size="icon">
-                          <a
-                            href={platform.githubUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <ExternalLink className="w-4 h-4" />
-                          </a>
-                        </Button>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+            {otherPlatforms.map((platform, index) =>
+              renderPlatformCard(platform, {
+                delay: featuredPlatform ? 0.1 + index * 0.08 : index * 0.1,
+              }),
+            )}
           </div>
 
           <motion.section
