@@ -10,8 +10,10 @@ import {
   Smartphone,
   Terminal,
 } from "lucide-react";
+import { useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Navbar, Footer } from "@/components/landing";
+import { useLatestRelease, type ReleaseChannel } from "../hooks/useLatestRelease";
 
 const linuxGpuCheckCommand =
   "lspci | grep -iE 'vga|3d|display' | sed 's/.*: //' | awk '{if(/NVIDIA|GeForce|Quadro|RTX|GTX/){print \"Nvidia \"$0; d=1} else if(/AMD|ATI|Radeon/){print \"AMD \"$0; d=1}} END{if(!d) print \"no GPU (integrated only)\"}'";
@@ -129,12 +131,44 @@ function CopyCodeBlock({ label, code }: CopyCodeBlockProps) {
 }
 
 export function DownloadPage() {
+  const [searchParams] = useSearchParams();
+  const requestedPlatformParam = searchParams.get("platform");
+  const requestedChannel: ReleaseChannel =
+    searchParams.get("channel") === "dev" ? "dev" : "release";
+  const requestedReleaseTag = searchParams.get("release")?.trim() || "";
+  const requestedVersion = searchParams.get("version")?.trim() || "";
+  const fallbackReleaseUrl =
+    searchParams.get("fallback")?.trim() || "https://github.com/LettuceAI/app/releases";
+  const isInAppUpdate = searchParams.get("source") === "in-app-update";
+
+  const requestedPlatform =
+    requestedPlatformParam === "android" ||
+    requestedPlatformParam === "windows" ||
+    requestedPlatformParam === "linux" ||
+    requestedPlatformParam === "macos"
+      ? requestedPlatformParam
+      : null;
+
   const [devicePlatform, setDevicePlatform] = useState<
     "android" | "desktop" | null
-  >(null);
+  >(
+    requestedPlatform === "android"
+      ? "android"
+      : requestedPlatform === "windows" ||
+          requestedPlatform === "linux" ||
+          requestedPlatform === "macos"
+        ? "desktop"
+        : null,
+  );
   const [desktopOs, setDesktopOs] = useState<
     "linux" | "windows" | "macos" | null
-  >(null);
+  >(
+    requestedPlatform === "windows" ||
+      requestedPlatform === "linux" ||
+      requestedPlatform === "macos"
+      ? requestedPlatform
+      : null,
+  );
   const [wantsLocalLlm, setWantsLocalLlm] = useState<"yes" | "no" | null>(null);
   const [hardwareType, setHardwareType] = useState<
     "cpu" | "amd" | "nvidia" | "unknown" | null
@@ -143,101 +177,147 @@ export function DownloadPage() {
     null,
   );
 
+  const isRequestedAndroid = requestedPlatform === "android";
+  const isRequestedDesktop =
+    requestedPlatform === "windows" ||
+    requestedPlatform === "linux" ||
+    requestedPlatform === "macos";
+
+  const androidRelease = useLatestRelease({
+    family: "android",
+    channel: requestedChannel,
+    releaseTag: isRequestedAndroid ? requestedReleaseTag || undefined : undefined,
+  });
+  const desktopRelease = useLatestRelease({
+    family: "desktop",
+    channel: requestedChannel,
+    releaseTag: isRequestedDesktop ? requestedReleaseTag || undefined : undefined,
+  });
+
+  const androidActions: PlatformButton[] = androidRelease.downloads.android
+    ? [
+        {
+          label: "APK",
+          href: androidRelease.downloads.android,
+        },
+      ]
+    : [];
+
+  const windowsActions: PlatformButton[] = [];
+  if (desktopRelease.downloads.windows?.cpu) {
+    windowsActions.push({ label: "CPU", href: desktopRelease.downloads.windows.cpu });
+  }
+  if (desktopRelease.downloads.windows?.cuda) {
+    windowsActions.push({
+      label: "NVIDIA",
+      href: desktopRelease.downloads.windows.cuda,
+      variant: "outline",
+    });
+  }
+  if (desktopRelease.downloads.windows?.vulkan) {
+    windowsActions.push({
+      label: "Vulkan",
+      href: desktopRelease.downloads.windows.vulkan,
+      variant: "outline",
+    });
+  }
+
+  const linuxActions: PlatformButton[] = [];
+  if (desktopRelease.downloads.linux?.cpu) {
+    linuxActions.push({ label: "CPU", href: desktopRelease.downloads.linux.cpu });
+  }
+  if (desktopRelease.downloads.linux?.cuda) {
+    linuxActions.push({
+      label: "NVIDIA",
+      href: desktopRelease.downloads.linux.cuda,
+      variant: "outline",
+    });
+  }
+  if (desktopRelease.downloads.linux?.vulkan) {
+    linuxActions.push({
+      label: "Vulkan",
+      href: desktopRelease.downloads.linux.vulkan,
+      variant: "outline",
+    });
+  }
+
+  const macActions: PlatformButton[] = [];
+  if (desktopRelease.downloads.macos?.cpu) {
+    macActions.push({ label: "CPU", href: desktopRelease.downloads.macos.cpu });
+  }
+  if (desktopRelease.downloads.macos?.metal) {
+    macActions.push({
+      label: "Metal",
+      href: desktopRelease.downloads.macos.metal,
+      variant: "outline",
+    });
+  }
+
+  const androidVersionLabel = androidRelease.version
+    ? `Android ${androidRelease.version}`
+    : requestedVersion
+      ? `Android ${requestedVersion}`
+      : "Android";
+  const desktopVersionLabel = desktopRelease.version || requestedVersion || "";
+  const desktopBadge = requestedChannel === "dev" ? "DEV" : "Release";
+  const desktopReleaseUrl = desktopRelease.releaseUrl || fallbackReleaseUrl;
+  const androidReleaseUrl = androidRelease.releaseUrl || fallbackReleaseUrl;
+
   const platforms: Platform[] = [
     {
       name: "Android",
       icon: Smartphone,
-      status: "available",
-      badge: "Release",
-      version: "Android 1.3.1",
-      description: "Download the APK directly from our GitHub releases.",
-      actions: [
-        {
-          label: "APK",
-          href: "https://github.com/LettuceAI/app/releases/download/android-release-1.3.1/android-universal-release.apk",
-        },
-      ],
-      githubUrl: "https://github.com/LettuceAI/app/releases",
+      status: androidActions.length > 0 ? "available" : "coming-soon",
+      badge: requestedChannel === "dev" ? "DEV" : "Release",
+      version: androidVersionLabel,
+      description:
+        requestedChannel === "dev"
+          ? "Download the latest Android dev APK build directly from our release channel."
+          : "Download the latest Android APK build directly from our release channel.",
+      actions: androidActions,
+      githubUrl: androidReleaseUrl,
     },
     {
       name: "Windows",
       icon: Monitor,
-      status: "available",
-      badge: "Release",
-      version: "1.0.1",
+      status: windowsActions.length > 0 ? "available" : "coming-soon",
+      badge: desktopBadge,
+      version: desktopVersionLabel,
       description:
-        "Pick the runtime that matches your machine. Windows downloads are provided as .exe installers.",
+        "Pick the runtime that matches your machine. Windows downloads are provided as .zip bundles.",
       note: "NVIDIA build requires CUDA to already be installed.",
       noteHref: "https://developer.nvidia.com/cuda-downloads",
-      actions: [
-        {
-          label: "CPU",
-          href: "https://github.com/LettuceAI/app/releases/download/desktop-release-1.0.1/windows-cpu.zip",
-        },
-        {
-          label: "NVIDIA",
-          href: "https://github.com/LettuceAI/app/releases/download/desktop-release-1.0.1/windows-cuda.zip",
-          variant: "outline",
-        },
-        {
-          label: "Vulkan",
-          href: "https://github.com/LettuceAI/app/releases/download/desktop-release-1.0.1/windows-vulkan.zip",
-          variant: "outline",
-        },
-      ],
-      githubUrl: "https://github.com/LettuceAI/app/releases",
+      actions: windowsActions,
+      githubUrl: desktopReleaseUrl,
     },
     {
       name: "Linux",
       icon: Terminal,
-      status: "available",
-      badge: "Release",
-      version: "1.0.1",
+      status: linuxActions.length > 0 ? "available" : "coming-soon",
+      badge: desktopBadge,
+      version: desktopVersionLabel,
       description:
-        "Choose the runtime that matches your machine. Linux downloads are provided as .deb packages.",
-      actions: [
-        {
-          label: "CPU",
-          href: "https://github.com/LettuceAI/app/releases/download/desktop-release-1.0.1/linux-cpu.zip",
-        },
-        {
-          label: "NVIDIA",
-          href: "https://github.com/LettuceAI/app/releases/download/desktop-release-1.0.1/linux-cuda.zip",
-          variant: "outline",
-        },
-        {
-          label: "Vulkan",
-          href: "https://github.com/LettuceAI/app/releases/download/desktop-release-1.0.1/linux-vulkan.zip",
-          variant: "outline",
-        },
-      ],
-      githubUrl: "https://github.com/LettuceAI/app/releases",
+        "Choose the runtime that matches your machine. Linux downloads are provided as .zip bundles.",
+      actions: linuxActions,
+      githubUrl: desktopReleaseUrl,
     },
     {
       name: "macOS",
       icon: Laptop,
-      status: "available",
-      badge: "EXPERIMENTAL",
-      badgeClassName: "bg-red-500/20 text-red-400",
-      version: "1.0.1",
+      status: macActions.length > 0 ? "available" : "coming-soon",
+      badge: requestedChannel === "dev" ? "DEV" : "EXPERIMENTAL",
+      badgeClassName:
+        requestedChannel === "dev"
+          ? "bg-primary/20 text-primary"
+          : "bg-red-500/20 text-red-400",
+      version: desktopVersionLabel,
       description:
         "Download the standard CPU build or the Metal build for Apple Silicon. macOS downloads are provided as .dmg installers.",
       note: "Requires macOS 13 or higher.",
-      actions: [
-        {
-          label: "CPU",
-          href: "https://github.com/LettuceAI/app/releases/download/desktop-release-1.0.1/macos-cpu.dmg",
-        },
-        {
-          label: "Metal",
-          href: "https://github.com/LettuceAI/app/releases/download/desktop-release-1.0.1/macos-metal.dmg",
-          variant: "outline",
-        },
-      ],
-      githubUrl: "https://github.com/LettuceAI/app/releases",
+      actions: macActions,
+      githubUrl: desktopReleaseUrl,
     },
   ];
-
   const systemRequirements = [
     {
       name: "Android",
@@ -538,6 +618,34 @@ export function DownloadPage() {
             </p>
           </motion.div>
 
+
+
+          {isInAppUpdate && (
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, delay: 0.08 }}
+              className="mb-8 rounded-2xl border border-primary/20 bg-primary/8 p-5 text-left"
+            >
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <div className="text-sm font-semibold text-white">Update ready</div>
+                  <div className="mt-1 text-sm text-muted-foreground">
+                    {requestedVersion
+                      ? `We highlighted the ${requestedPlatform ?? "matching"} download for v${requestedVersion}.`
+                      : "We highlighted the matching download for your device below."}
+                  </div>
+                </div>
+                <Button asChild variant="outline" className="gap-2 self-start">
+                  <a href="#downloads">
+                    Jump to downloads
+                    <ArrowDown className="w-4 h-4" />
+                  </a>
+                </Button>
+              </div>
+            </motion.div>
+          )}
+
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -561,7 +669,9 @@ export function DownloadPage() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className={`relative rounded-2xl border p-6 ${
                   platform.status === "available"
-                    ? "bg-zinc-900/50 border-primary/30"
+                    ? requestedPlatform !== null && ((requestedPlatform === "android" && platform.name === "Android") || requestedPlatform === platform.name.toLowerCase())
+                      ? "bg-primary/12 border-primary/45 ring-1 ring-primary/30"
+                      : "bg-zinc-900/50 border-primary/30"
                     : "bg-zinc-900/30 border-border/30"
                 }`}
               >
