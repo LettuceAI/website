@@ -84,13 +84,21 @@ export const images = {
     capabilities:
       "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiE7iLisBS3XDOMPNhgrUjbZp9fWTYnCuB0v4wx",
     avatarGenerationUI:
-      "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiECGvKNndKF5jgO0T3epcX6SBoEmPVManwqhUN",
+      "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEKx51RCjUThaiVjQ5lFnW8C6uS7RMmf4pPb9t",
     avatarGenerationResult:
-      "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEY8StHI9CRKc9fpLjm375Owaivx1hsy0nkVrM",
+      "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEGqSZXlvZNz7b9S6JOnaWIErcYV8jTRAoKUtB",
     generatedAvatarInUI:
       "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEXaYo9zhURCmJTLy5bkWoeHzN28xMVBZ4s6f7",
     imageGenerationInChat:
       "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEAlauYJv6HVGa4JAWoXSTlxK7bywCNnupM92j",
+    imageGenerationSettings:
+      "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEov95OMxgeUAy1BckbI0oS8FO2ihTxv7GqEl9",
+    scenePromptApprovalSheet:
+      "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiE39hd88QQBzq82mPK4fsNVJMRDrejSU1A9Zan",
+    sceneGenerationResult:
+      "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiE80xZv9qFdHBKrgh7YW2EbSeyfUJVmjDRkonu",
+    designReferenceDraftingUI:
+      "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEQHqKK0g9vKmiI437oLMurRteET6N0XOnDfwW",
   },
 
   sync: {
