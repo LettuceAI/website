@@ -38,6 +38,7 @@ import {
   ReplyHelperDoc,
   TTSDoc,
   CharacterCreatorDoc,
+  ChatTemplatesDoc,
 } from "@/pages/docs";
 import Snowfall from "react-snowfall";
 import { SnowProvider, useSnow } from "@/contexts/SnowContext";
@@ -87,6 +88,7 @@ function AppContent() {
             <Route path="help-me-reply" element={<ReplyHelperDoc />} />
             <Route path="tts" element={<TTSDoc />} />
             <Route path="characters" element={<CharactersDoc />} />
+            <Route path="chat-templates" element={<ChatTemplatesDoc />} />
             <Route path="group-chats" element={<GroupChatsDoc />} />
             <Route path="discovery" element={<DiscoveryDoc />} />
             <Route path="memory" element={<MemoryDoc />} />

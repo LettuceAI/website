@@ -18,3 +18,4 @@ export { AccessibilityDoc } from "./AccessibilityDoc";
 export { ReplyHelperDoc } from "./ReplyHelperDoc";
 export { TTSDoc } from "./TTSDoc";
 export { CharacterCreatorDoc } from "./CharacterCreatorDoc";
+export { ChatTemplatesDoc } from "./ChatTemplatesDoc";

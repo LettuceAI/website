@@ -15,6 +15,7 @@ import {
   BookOpen,
   Compass,
   Users,
+  MessageSquare,
 } from "lucide-react";
 import { Wheelchair } from "./WheelChairIcon";
 
@@ -118,6 +119,18 @@ export const docsNav = [
           "personality",
           "avatar",
           "system prompt",
+        ],
+      },
+      {
+        title: "Chat Templates",
+        href: "/docs/chat-templates",
+        icon: MessageSquare,
+        keywords: [
+          "chat template",
+          "starter",
+          "opening messages",
+          "conversation starter",
+          "scene",
         ],
       },
       {
