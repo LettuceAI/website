@@ -14,41 +14,39 @@ export function ModelsDoc() {
 
       <p>
         Models are the AI systems that generate the responses you see when you
-        chat. When you type a message, a model is what reads it, understands the
-        context, and writes the reply.
+        chat. When you type a message, a model reads the request, looks at the
+        context it was given, and writes the reply.
       </p>
 
       <p>
-        These are sometimes called <strong>LLMs (Large Language Models)</strong>
-        . In LettuceAI we simply call them <strong>"Models"</strong> to keep
-        things simple.
+        These are sometimes called <strong>LLMs</strong>. In LettuceAI we just
+        call them <strong>models</strong>.
       </p>
 
       <DocHeading level={2}>What is a model?</DocHeading>
 
       <p>
-        A model is the "brain" that produces text. When you send a message, your
-        message is sent to the provider you selected, the provider runs the
-        model, and the model generates a reply which is sent back to you.
+        A model is the part that actually produces text. When you send a
+        message, your provider runs the model, and the model sends the answer
+        back to LettuceAI.
       </p>
 
       <p>
-        Different models can behave differently. Some may be better at creative
-        writing, some at reasoning, some respond faster, and some cost less to
-        use.
+        Different models behave differently. Some are better at creative
+        writing, some at reasoning, some are faster, and some are cheaper.
       </p>
 
       <Callout>
-        You don’t need to understand the technical details — choosing a model
-        just means choosing which AI style and behaviour you prefer.
+        You do not need to understand the full math. In practice, choosing a
+        model mostly means choosing the quality, tone, speed, and price you
+        want.
       </Callout>
 
       <DocHeading level={2}>What is an LLM?</DocHeading>
 
       <p>
-        LLM stands for <strong>Large Language Model</strong>. This is simply the
-        technical name for the type of AI behind these models. In practice,
-        "model" and "LLM" mean almost the same thing.
+        LLM stands for <strong>Large Language Model</strong>. That is just the
+        technical name for this kind of text-generating AI.
       </p>
 
       <DocHeading level={2}>Why choose different models?</DocHeading>
@@ -63,64 +61,258 @@ export function ModelsDoc() {
       </ul>
 
       <p>
-        There is no single "best" model. You can switch at any time depending on
-        what you prefer.
+        There is no single best model for everyone. You can switch depending on
+        what kind of conversation you want.
       </p>
 
       <DocHeading level={2}>Do I need to configure anything?</DocHeading>
 
       <p>
-        Not necessarily. If you’re unsure which model to use, the default
-        options work well for most conversations. You can always change models
-        later without losing chats or memory.
+        Not necessarily. If you are unsure which model to use, the default
+        options work fine for most conversations. You can change models later
+        without losing chats or memory.
       </p>
-
-      {/* ===== PARAMETERS ===== */}
 
       <DocHeading level={2}>Model Parameters</DocHeading>
 
       <p>
-        Some models allow additional settings that control how replies are
-        generated. These options are optional (most users will never need to
-        change them) but they can be useful if you want more control over how
-        the AI behaves.
+        Some models expose extra settings that change how they generate replies.
+        Most users do not need to touch them, but it helps to know what they
+        mean.
       </p>
+
+      <DocHeading level={3}>How generation works, simplified</DocHeading>
+
+      <p>
+        The model does not write the whole answer in one go. It generates text
+        one step at a time.
+      </p>
+
+      <p>
+        At each step, it looks at many possible next words or tokens and asks
+        "which one is most likely here?"
+      </p>
+
+      <p>
+        Example: if the text so far is <code>The cat sat on the</code>, the
+        model will usually think words like <code>mat</code>, <code>floor</code>
+        , or <code>chair</code> make more sense than something random like{" "}
+        <code>galaxy</code>.
+      </p>
+
+      <p>
+        Then it has to pick one. Temperature, Top-K, and Top-P change how safe
+        or adventurous that pick can be.
+      </p>
+
+      <Callout title="Important" type="info">
+        These settings do not make the model smarter. They only change how it
+        chooses between possible next words.
+      </Callout>
 
       <DocHeading level={3}>Temperature</DocHeading>
 
-      <p>Temperature controls how varied the model’s responses can be.</p>
+      <p>
+        Temperature is the main setting for how{" "}
+        <strong>predictable vs random</strong> the output feels.
+      </p>
 
       <ul>
-        <li><strong>Lower values:</strong> safer, more predictable replies</li>
-        <li><strong>Higher values:</strong> more creative or experimental replies</li>
+        <li>
+          <strong>Lower temperature:</strong> safer, more stable, more
+          repetitive
+        </li>
+        <li>
+          <strong>Higher temperature:</strong> more creative, looser, more
+          chaotic
+        </li>
       </ul>
 
       <p>
-        If you want consistent behaviour, keep this low. If you want more
-        imaginative results, increase it slightly.
+        Example prompt: <code>The wizard opened the ancient</code>
       </p>
+
+      <p>
+        With <strong>lower temperature</strong>, the model is more likely to
+        continue with something obvious like <code>door</code>,{" "}
+        <code>book</code>, or <code>chest</code>.
+      </p>
+
+      <p>
+        With <strong>higher temperature</strong>, it is more willing to choose
+        something less expected like <code>gateway</code>, <code>tomb</code>, or{" "}
+        <code>void</code>.
+      </p>
+
+      <p>
+        Lower temperature usually feels more consistent. Higher temperature can
+        feel more vivid, but also more weird or off-track.
+      </p>
+
+      <Callout title="Beginner advice" type="success">
+        If you only want one creativity setting, use Temperature and leave Top-K
+        and Top-P alone.
+      </Callout>
+
+      <DocHeading level={3}>Top-K (if supported)</DocHeading>
+
+      <p>
+        Top-K is a <strong>hard limit</strong> on how many next-word options the
+        model is allowed to consider.
+      </p>
+
+      <p>
+        Example: if <code>Top-K = 5</code>, the model keeps only the 5 most
+        likely next options and ignores everything else.
+      </p>
+
+      <table className="min-w-full text-sm my-6">
+        <thead>
+          <tr className="border-b border-border/50">
+            <th className="text-left py-2 px-4">Rank</th>
+            <th className="text-left py-2 px-4">Possible next word</th>
+            <th className="text-left py-2 px-4">Kept?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr className="border-b border-border/10">
+            <td className="py-2 px-4">1</td>
+            <td className="py-2 px-4 font-medium">door</td>
+            <td className="py-2 px-4">Yes</td>
+          </tr>
+          <tr className="border-b border-border/10">
+            <td className="py-2 px-4">2</td>
+            <td className="py-2 px-4 font-medium">book</td>
+            <td className="py-2 px-4">Yes</td>
+          </tr>
+          <tr className="border-b border-border/10">
+            <td className="py-2 px-4">3</td>
+            <td className="py-2 px-4 font-medium">chest</td>
+            <td className="py-2 px-4">Yes</td>
+          </tr>
+          <tr className="border-b border-border/10">
+            <td className="py-2 px-4">4</td>
+            <td className="py-2 px-4 font-medium">hall</td>
+            <td className="py-2 px-4">Yes</td>
+          </tr>
+          <tr className="border-b border-border/10">
+            <td className="py-2 px-4">5</td>
+            <td className="py-2 px-4 font-medium">room</td>
+            <td className="py-2 px-4">Yes</td>
+          </tr>
+          <tr>
+            <td className="py-2 px-4">6+</td>
+            <td className="py-2 px-4 font-medium">void / galaxy / thunder</td>
+            <td className="py-2 px-4">No</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        So if the best options are <code>door</code>, <code>book</code>,{" "}
+        <code>chest</code>, <code>hall</code>, and <code>room</code>, the model
+        must choose from those. A weirder option that ranked much lower is not
+        even allowed into the final choice pool.
+      </p>
+
+      <p>
+        Top-K is useful when you want a <strong>strict cap</strong> on how wide
+        the model's choice pool can be.
+      </p>
+
+      <p>Not all providers support this setting.</p>
 
       <DocHeading level={3}>Top-P</DocHeading>
 
       <p>
-        Top-P controls how many possible words the model is allowed to consider
-        when generating a reply.
+        Top-P, also called <strong>nucleus sampling</strong>, is similar to
+        Top-K but more flexible.
       </p>
 
       <p>
-        Instead of controlling “creativity” directly, it sets a probability
-        cutoff. The model will only choose from the most likely next-words that
-        together make up that probability.
+        Instead of saying "keep exactly 5 options", Top-P says "keep enough of
+        the likely options to cover most of the probability."
+      </p>
+
+      <p>
+        Example: if <code>Top-P = 0.90</code>, the model keeps adding likely
+        next words until the combined likelihood reaches about 90%. Some moments
+        might only need a few obvious options. Other moments might need many
+        more.
+      </p>
+
+      <table className="min-w-full text-sm my-6">
+        <thead>
+          <tr className="border-b border-border/50">
+            <th className="text-left py-2 px-4">Word</th>
+            <th className="text-left py-2 px-4">Chance</th>
+            <th className="text-left py-2 px-4">Running total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr className="border-b border-border/10">
+            <td className="py-2 px-4 font-medium">door</td>
+            <td className="py-2 px-4">30%</td>
+            <td className="py-2 px-4">30%</td>
+          </tr>
+          <tr className="border-b border-border/10">
+            <td className="py-2 px-4 font-medium">book</td>
+            <td className="py-2 px-4">20%</td>
+            <td className="py-2 px-4">50%</td>
+          </tr>
+          <tr className="border-b border-border/10">
+            <td className="py-2 px-4 font-medium">chest</td>
+            <td className="py-2 px-4">15%</td>
+            <td className="py-2 px-4">65%</td>
+          </tr>
+          <tr className="border-b border-border/10">
+            <td className="py-2 px-4 font-medium">hall</td>
+            <td className="py-2 px-4">10%</td>
+            <td className="py-2 px-4">75%</td>
+          </tr>
+          <tr className="border-b border-border/10">
+            <td className="py-2 px-4 font-medium">room</td>
+            <td className="py-2 px-4">8%</td>
+            <td className="py-2 px-4">83%</td>
+          </tr>
+          <tr className="border-b border-border/10">
+            <td className="py-2 px-4 font-medium">gate</td>
+            <td className="py-2 px-4">4%</td>
+            <td className="py-2 px-4">87%</td>
+          </tr>
+          <tr>
+            <td className="py-2 px-4 font-medium">tomb</td>
+            <td className="py-2 px-4">3%</td>
+            <td className="py-2 px-4">90%</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        In that example, the model stops at <code>tomb</code> because the total
+        has reached 90%. Lower-ranked words after that are ignored.
       </p>
 
       <ul>
         <li>
-          <strong>Lower Top-P:</strong> the model only considers a few very
-          likely words, so replies are safer and more focused
+          <strong>Lower Top-P:</strong> fewer options survive, so replies feel
+          safer
         </li>
         <li>
-          <strong>Higher Top-P:</strong> the model considers a wider range of
-          possible words, which can make replies more varied
+          <strong>Higher Top-P:</strong> more options survive, so replies feel
+          looser
+        </li>
+      </ul>
+
+      <p>The short version is:</p>
+
+      <ul>
+        <li>
+          <strong>Top-K:</strong> how many options can survive?
+        </li>
+        <li>
+          <strong>Top-P:</strong> how much of the likely option space should
+          survive?
         </li>
       </ul>
 
@@ -136,66 +328,70 @@ export function ModelsDoc() {
 
       <DocHeading level={3}>Max Output Tokens</DocHeading>
 
-      <p>This setting controls the maximum length of the model’s reply.</p>
+      <p>This setting controls the maximum length of the model's reply.</p>
 
       <ul>
-        <li><strong>Lower values:</strong> shorter answers</li>
-        <li><strong>Higher values:</strong> longer answers</li>
+        <li>
+          <strong>Lower values:</strong> shorter answers
+        </li>
+        <li>
+          <strong>Higher values:</strong> longer answers
+        </li>
       </ul>
 
       <p>
-        This is useful if you want to prevent the model from writing very long
-        messages.
+        Example: if you keep getting giant walls of text, lower this. If the AI
+        keeps cutting itself off too early, raise it.
       </p>
 
       <DocHeading level={3}>Presence Penalty</DocHeading>
 
       <p>
-        Presence penalty tells the model to avoid repeating the same topics or
-        ideas. Increasing this value encourages the model to introduce new
-        information instead of staying on the same subject.
+        Presence penalty pushes the model to bring in new ideas instead of
+        staying on the same topic.
+      </p>
+
+      <p>
+        Example: if the AI keeps circling around the same scene or thought,
+        raising presence penalty can make it introduce something new.
       </p>
 
       <DocHeading level={3}>Frequency Penalty</DocHeading>
 
-      <p>
-        Frequency penalty reduces repeated wording. If the model keeps repeating
-        the same phrases or sentences, increasing this value helps prevent that.
-      </p>
-
-      <DocHeading level={3}>Top-K (if supported)</DocHeading>
+      <p>Frequency penalty tries to reduce repeated wording.</p>
 
       <p>
-        Top-K limits how many possible next-words the model is allowed to choose
-        from. Smaller values restrict choice more strongly.
+        Example: if the model keeps repeating the same phrases, sentence shapes,
+        or favorite words, a higher frequency penalty can help break that habit.
       </p>
-
-      <p>Not all providers support this setting.</p>
 
       <DocHeading level={2}>Reasoning Mode</DocHeading>
 
       <p>
-        Some models support a special reasoning mode. This allows the AI to
-        spend extra time thinking through complex problems before replying. It
-        is mainly useful for coding, analysis, planning, or logic tasks.
+        Some models support a special reasoning mode. This lets the AI spend
+        more effort on difficult tasks before replying.
       </p>
 
       <p>
-        Different providers expose reasoning differently. LettuceAI groups them
-        into four types:
+        It is mostly useful for coding, planning, analysis, and logic-heavy
+        tasks. For normal conversation or roleplay, you usually do not need it.
+      </p>
+
+      <p>
+        Different providers expose reasoning in different ways. LettuceAI groups
+        them into four types:
       </p>
 
       <ul>
         <li>
           <strong>Effort:</strong> you choose how hard the model should think
-          (for example: low / medium / high)
         </li>
         <li>
           <strong>Budget-only:</strong> you set a token limit for reasoning
         </li>
         <li>
           <strong>Dynamic:</strong> the provider supports both effort and
-          budget, but only one may be active at a time
+          budget, but only one can be active at a time
         </li>
         <li>
           <strong>None:</strong> reasoning controls are not available
@@ -207,14 +403,9 @@ export function ModelsDoc() {
         request.
       </Callout>
 
-      <p>
-        For everyday conversation, reasoning mode is not required. It is an
-        optional feature for more better roleplaying experiences in some use-cases.
-      </p>
-      
-      <Callout title="Models with Built-In Reasoning" type="warning" >
-        Some AI models have built-in reasoning capabilities. 
-        As a result, your settings may be ignored if the provider does not offer control over the built-in reasoning.
+      <Callout title="Models with Built-In Reasoning" type="warning">
+        Some AI models have built-in reasoning behavior. In those cases, your
+        settings may be ignored if the provider does not expose control over it.
       </Callout>
     </motion.article>
   );

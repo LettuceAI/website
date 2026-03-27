@@ -22,6 +22,7 @@ import {
   DocsIndex,
   InstallationDoc,
   QuickStartDoc,
+  AIBasicsDoc,
   ApiKeysDoc,
   ProvidersDoc,
   CharactersDoc,
@@ -79,6 +80,7 @@ function AppContent() {
             <Route index element={<DocsIndex />} />
             <Route path="installation" element={<InstallationDoc />} />
             <Route path="quickstart" element={<QuickStartDoc />} />
+            <Route path="ai-basics" element={<AIBasicsDoc />} />
             <Route path="api-keys" element={<ApiKeysDoc />} />
             <Route path="providers" element={<ProvidersDoc />} />
             <Route path="models" element={<ModelsDoc />} />
