@@ -119,6 +119,21 @@ export const images = {
       "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiE53SZxpVkj1OFweHxr0VqnPGAcDWCdgEpml3K",
   },
 
+  systemPrompts: {
+    templateSourceSelection:
+      "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEk7rXOtNIHUl6r78TbaLPjui1K5EfoCqge3SR",
+    conditionsBuilder:
+      "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEJFJJLD3QzmGRuHMUw96s2tbYxETkejcg13FO",
+    entryStackOverview:
+      "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiE2qFvXJ0CPqXAWsoHbY7GZ0FzOUpuygEvIwme",
+    promptEntryTimingAndConditions:
+      "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiElfgB1pR7C73dLiJV9kSZtR4oG2cbhwPzgNan",
+    conditionExplanationOutput:
+      "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEgZDBt5z1uLhxGKCwTQRqZ4bmt2ikFOrvslNd",
+    renderedPromptPreview:
+      "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEBCG3T2Xeaxpi2W1v7t9cGgFBwm4kZdrEyDTJ",
+  },
+
   tts: {
     providers:
       "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEjKX4qbefClpeDuryxBRsUFaKGm9Jk3d017LH",
