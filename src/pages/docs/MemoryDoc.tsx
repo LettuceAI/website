@@ -20,6 +20,29 @@ export function MemoryDoc() {
         every turn.
       </p>
 
+      <DocHeading level={2}>Memory in plain English</DocHeading>
+      <p>
+        Memory is how LettuceAI helps the AI remember important old details
+        without resending your entire chat every time.
+      </p>
+
+      <ul>
+        <li>
+          <strong>Manual Memory</strong>: you write fixed notes and the AI sees
+          them every turn
+        </li>
+        <li>
+          <strong>Dynamic Memory</strong>: the app tries to pull back the most
+          relevant old details automatically
+        </li>
+      </ul>
+
+      <Callout type="info" title="What most users need to know">
+        If you want simple control, use Manual Memory. If you want longer chats
+        with less babysitting, use Dynamic Memory. The deeper retrieval and
+        maintenance details below are mostly for advanced users.
+      </Callout>
+
       <p>
         There are two operating modes. Manual Memory is explicit and
         predictable. Dynamic Memory is selective: it stores many facts
@@ -84,6 +107,13 @@ export function MemoryDoc() {
         Dynamic Memory is not one giant prompt block. It is a small local memory
         subsystem with three main pieces of state:
       </p>
+
+      <Callout type="info" title="Quick translation">
+        If terms like <strong>embeddings</strong>,{" "}
+        <strong>semantic retrieval</strong>, or <strong>cosine mode</strong>{" "}
+        sound too technical, the simple version is: the app compares meaning,
+        tries to find relevant old memories, and injects only the useful ones.
+      </Callout>
 
       <ul>
         <li>

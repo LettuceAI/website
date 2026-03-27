@@ -1,3 +1,4 @@
+import { Callout } from "@/components/docs/Callout";
 import { DocHeading } from "@/components/docs/DocHeading";
 import { motion } from "framer-motion";
 
@@ -15,6 +16,27 @@ export function LorebooksDoc() {
         Lorebooks define persistent world canon, character background, and rules
         that apply across chats and sessions.
       </p>
+
+      <DocHeading level={2}>In plain English</DocHeading>
+      <p>
+        A lorebook is a set of permanent notes that the AI can look up when
+        certain words or topics appear.
+      </p>
+
+      <ul>
+        <li>
+          Use lorebooks for world facts, backstory, factions, locations, and
+          rules
+        </li>
+        <li>Use memory for evolving story events and relationship changes</li>
+        <li>Use lorebooks when something should stay stable across chats</li>
+      </ul>
+
+      <Callout type="info" title="Simple difference">
+        <strong>Lorebook</strong> means "fixed reference information."{" "}
+        <strong>Memory</strong> means "things the app learned or saved from the
+        conversation."
+      </Callout>
 
       <p>
         Lorebook content is written by you and remains attached to a character
