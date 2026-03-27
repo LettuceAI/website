@@ -1,6 +1,7 @@
 import { Callout } from "@/components/docs/Callout";
 import { DocHeading } from "@/components/docs/DocHeading";
 import { DocImage } from "@/components/docs/DocImage";
+import { images } from "@/config/images";
 import { motion } from "framer-motion";
 
 export function MemoryDoc() {
@@ -100,7 +101,7 @@ export function MemoryDoc() {
       </ul>
 
       <DocImage
-        src="/docs/graphs/memory-state-overview-v1.svg"
+        src={images.memory.memoryStateOverview}
         alt="Diagram showing the three main pieces of Dynamic Memory state"
         caption="Dynamic Memory keeps three kinds of state: the memory entries themselves, a rolling context summary, and a cycle log that tracks processed ranges."
         containerClassName="mx-auto max-w-5xl"
@@ -134,7 +135,7 @@ export function MemoryDoc() {
       </ul>
 
       <DocImage
-        src="/docs/graphs/memory-turn-flow-v1.svg"
+        src={images.memory.memoryTurnFlow}
         alt="Diagram showing the per-turn Dynamic Memory flow"
         caption="Per-turn retrieval is narrow: build the prompt, pull only relevant memories if Dynamic Memory is active, send the final prompt, then save the reply."
         containerClassName="mx-auto max-w-5xl"
@@ -167,7 +168,7 @@ export function MemoryDoc() {
       </p>
 
       <DocImage
-        src="/docs/graphs/memory-heat-lifecycle-v1.svg"
+        src={images.memory.memoryHeatLifeCycle}
         alt="Diagram showing how a memory moves between hot and cold states"
         caption="Heat changes over time. Retrieved memories stay fresh, neglected ones cool down, and cold memories can become hot again when they are found later."
         containerClassName="mx-auto max-w-5xl"
@@ -200,7 +201,7 @@ export function MemoryDoc() {
       </ol>
 
       <DocImage
-        src="/docs/graphs/memory-retrieval-flow-v1.svg"
+        src={images.memory.memoryRetrievalFlow}
         alt="Diagram showing the retrieval decision path"
         caption="The retrieval pass starts with semantic search over hot memories and only falls back to cold-storage keyword matching when the semantic pass comes up empty."
         containerClassName="mx-auto max-w-6xl"
@@ -244,7 +245,7 @@ export function MemoryDoc() {
       </p>
 
       <DocImage
-        src="/docs/graphs/memory-maintenance-cycle-v1.svg"
+        src={images.memory.memoryMaintenanceCycle}
         alt="Diagram showing the Dynamic Memory maintenance cycle"
         caption="The background cycle is separate from the live chat turn: it summarizes a new window, runs memory tools, and advances the stored cursor."
         containerClassName="mx-auto max-w-5xl"

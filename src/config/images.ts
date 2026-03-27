@@ -28,6 +28,14 @@ export const images = {
     featherless: `https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiENVcWbuA3hVcAIWJ9gtzT0D1KL6vpeBY7XZfR`,
     nanogpt: `https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiE9vfRvjnOqX2jKv1NyFE6ATZbzRdLmxlchJVB`,
   },
+  
+  memory: {
+    memoryHeatLifeCycle: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEBCTJVYXeaxpi2W1v7t9cGgFBwm4kZdrEyDTJ",
+    memoryMaintenanceCycle: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiELhtqdUum4E1s7fKcbIrtgJlMzOkUhDv6GqQX",
+    memoryTurnFlow: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiE29TgWm0CPqXAWsoHbY7GZ0FzOUpuygEvIwme",
+    memoryStateOverview: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiExmjHl3mUkw2MN5G1QtVTFbq6Audpci7RZUDX",
+    memoryRetrievalFlow: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEhN9IRQYy8QKsz1bUcRixZ7tHBO4qoCruLYPV",
+  },
 
   quickStart: {
     step1:
