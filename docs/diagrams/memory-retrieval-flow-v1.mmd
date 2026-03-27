@@ -1,0 +1,28 @@
+%%{init: {'theme':'dark','themeVariables':{
+  'background':'transparent',
+  'primaryColor':'#1f2b22',
+  'primaryTextColor':'#f4f4f5',
+  'primaryBorderColor':'#4ade80',
+  'lineColor':'#7dd3a6',
+  'secondaryColor':'#18181b',
+  'secondaryTextColor':'#e4e4e7',
+  'secondaryBorderColor':'#52525b',
+  'tertiaryColor':'#111827',
+  'tertiaryTextColor':'#f4f4f5',
+  'tertiaryBorderColor':'#22c55e',
+  'fontSize':'22px'
+}, 'flowchart': {
+  'nodeSpacing': 44,
+  'rankSpacing': 70,
+  'curve': 'basis'
+}}}%%
+flowchart LR
+  A[Build search query] --> B[Semantic search over hot<br/>and pinned memories]
+  B --> C{Useful match found?}
+  C -- Yes --> D[Inject best matches]
+  C -- No --> E[Keyword fallback over<br/>cold memories]
+  E --> F{Cold match found?}
+  F -- Yes --> G[Promote cold memory<br/>back to hot]
+  F -- No --> H[Inject nothing]
+  G --> D
+  D --> I[Mark retrieved memories<br/>as accessed]

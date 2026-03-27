@@ -1,0 +1,26 @@
+%%{init: {'theme':'dark','themeVariables':{
+  'background':'transparent',
+  'primaryColor':'#1f2b22',
+  'primaryTextColor':'#f4f4f5',
+  'primaryBorderColor':'#4ade80',
+  'lineColor':'#7dd3a6',
+  'secondaryColor':'#18181b',
+  'secondaryTextColor':'#e4e4e7',
+  'secondaryBorderColor':'#52525b',
+  'tertiaryColor':'#111827',
+  'tertiaryTextColor':'#f4f4f5',
+  'tertiaryBorderColor':'#22c55e',
+  'fontSize':'22px'
+}, 'flowchart': {
+  'nodeSpacing': 42,
+  'rankSpacing': 68,
+  'curve': 'basis'
+}}}%%
+flowchart LR
+  A[User sends a message] --> B[Build prompt from recent chat,<br/>system prompt, persona,<br/>and lorebook]
+  B --> C{Dynamic Memory active?}
+  C -- Yes --> D[Retrieve only relevant memories]
+  C -- No --> E[Use recent chat only]
+  D --> F[Send final prompt to model]
+  E --> F
+  F --> G[Save assistant reply]

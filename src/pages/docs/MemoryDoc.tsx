@@ -1,5 +1,6 @@
 import { Callout } from "@/components/docs/Callout";
 import { DocHeading } from "@/components/docs/DocHeading";
+import { DocImage } from "@/components/docs/DocImage";
 import { motion } from "framer-motion";
 
 export function MemoryDoc() {
@@ -13,416 +14,391 @@ export function MemoryDoc() {
       <DocHeading level={1}>Memory System</DocHeading>
 
       <p className="lead">
-        LettuceAI’s Memory System lets the AI remember important information
-        across long conversations without constantly resending your entire chat
-        history.
+        LettuceAI keeps long conversations coherent by separating recent chat
+        context from long-term memory. It does not replay your entire history on
+        every turn.
       </p>
 
       <p>
-        Instead of relying only on recent messages, LettuceAI can store,
-        retrieve, and reuse information over time, even across very long
-        sessions. There are two ways this can work, depending on how much
-        control you want.
+        There are two operating modes. Manual Memory is explicit and
+        predictable. Dynamic Memory is selective: it stores many facts
+        internally, retrieves only the most useful ones per turn, and
+        periodically maintains that memory set in the background.
       </p>
 
-      <DocHeading level={2}>Manual Mode</DocHeading>
-      <div className="text-sm text-muted-foreground mb-4">
-        <em>Used when Dynamic Memory is disabled.</em>
-      </div>
+      <Callout type="info" title="Direct and group chats">
+        Direct chats and group chats can use different Dynamic Memory settings.
+        Direct chats also depend on the character using Dynamic Memory, while
+        group chats use the memory mode selected for that group session.
+      </Callout>
 
+      <DocHeading level={2}>Modes at a glance</DocHeading>
+
+      <table className="min-w-full text-sm my-6">
+        <thead>
+          <tr className="border-b border-border/50">
+            <th className="text-left py-2 px-4">Mode</th>
+            <th className="text-left py-2 px-4">How it works</th>
+            <th className="text-left py-2 px-4">Best for</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr className="border-b border-border/10">
+            <td className="py-2 px-4 font-medium">Manual</td>
+            <td className="py-2 px-4">
+              You maintain a fixed list of memories that is injected every turn.
+            </td>
+            <td className="py-2 px-4">
+              Short chats, strict control, small stable fact sets.
+            </td>
+          </tr>
+          <tr>
+            <td className="py-2 px-4 font-medium">Dynamic</td>
+            <td className="py-2 px-4">
+              LettuceAI stores embeddings, retrieves relevant items, and runs a
+              maintenance cycle every few new messages.
+            </td>
+            <td className="py-2 px-4">
+              Long-running chats, roleplay continuity, lower prompt growth.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <DocHeading level={2}>Manual Memory</DocHeading>
       <p>
-        Manual Mode works like a fixed instruction list that the AI always sees.
+        Manual Memory behaves like a fixed note sheet. The model sees the full
+        manual memory list on every turn, alongside the recent conversation
+        window.
+      </p>
+
+      <ul>
+        <li>You write the memories yourself.</li>
+        <li>The list stays stable until you edit or delete it.</li>
+        <li>Prompt cost grows with the number and size of manual memories.</li>
+      </ul>
+
+      <DocHeading level={2}>Dynamic Memory</DocHeading>
+      <p>
+        Dynamic Memory is not one giant prompt block. It is a small local memory
+        subsystem with three main pieces of state:
       </p>
 
       <ul>
         <li>
-          <strong>What you do</strong>: You write memory entries yourself.
+          <strong>Memory entries</strong>: short factual items with embeddings,
+          heat state, access counts, optional pinning, and a category tag.
         </li>
         <li>
-          <strong>What the AI sees</strong>: Every memory you’ve written is
-          included in every message.
+          <strong>Context summary</strong>: a compressed summary of processed
+          conversation windows.
         </li>
         <li>
-          <strong>Result</strong>: The AI behaves very consistently, but memory
-          size directly reduces how much room is left for conversation.
+          <strong>Memory events</strong>: a log of each maintenance cycle so the
+          app knows what range of messages has already been processed.
         </li>
       </ul>
 
+      <DocImage
+        src="/docs/graphs/memory-state-overview-v1.svg"
+        alt="Diagram showing the three main pieces of Dynamic Memory state"
+        caption="Dynamic Memory keeps three kinds of state: the memory entries themselves, a rolling context summary, and a cycle log that tracks processed ranges."
+        containerClassName="mx-auto max-w-5xl"
+        className="mx-auto max-h-[16rem] object-contain md:max-h-[20rem]"
+      />
+
+      <DocHeading level={3}>What happens on each chat turn</DocHeading>
       <p>
-        This mode is best when you want absolute predictability and a small,
-        stable set of facts.
+        When you send a message, LettuceAI first builds the normal prompt from
+        recent conversation, system prompts, persona data, and lorebook content.
+        If Dynamic Memory is active, it also runs memory retrieval.
       </p>
 
       <ul>
         <li>
-          <strong>Good for</strong>: System prompts, character definitions,
-          strict rules.
+          By default, retrieval uses a <strong>smart</strong> strategy: semantic
+          search over hot memories plus a small recency/frequency bias.
         </li>
         <li>
-          <strong>Not ideal for</strong>: Long chats, evolving stories, or
-          learning over time.
+          You can switch to <strong>cosine</strong> mode for pure similarity
+          ranking.
+        </li>
+        <li>
+          Only the retrieved memories are injected into the prompt, not the full
+          memory database.
+        </li>
+        <li>
+          Retrieved memories are marked as accessed, which refreshes their heat
+          and can promote cold items back to hot.
         </li>
       </ul>
 
-      <DocHeading level={2}>Dynamic Mode</DocHeading>
-      <div className="text-sm text-muted-foreground mb-4">
-        <em>Used when Dynamic Memory is enabled.</em>
-      </div>
+      <DocImage
+        src="/docs/graphs/memory-turn-flow-v1.svg"
+        alt="Diagram showing the per-turn Dynamic Memory flow"
+        caption="Per-turn retrieval is narrow: build the prompt, pull only relevant memories if Dynamic Memory is active, send the final prompt, then save the reply."
+        containerClassName="mx-auto max-w-5xl"
+        className="mx-auto max-h-[16rem] object-contain md:max-h-[20rem]"
+      />
 
-      <p>Dynamic Mode lets LettuceAI manage memory automatically.</p>
-
+      <DocHeading level={3}>Hot vs cold memory</DocHeading>
       <p>
-        Instead of sending everything every time, the system stores many
-        memories internally and injects only what is relevant to the current
-        message.
+        Each dynamic entry has an importance score. Hot memories are eligible
+        for semantic retrieval. Cold memories remain stored but are normally
+        excluded from semantic search.
       </p>
 
-      <DocHeading level={3}>How to Think About It</DocHeading>
-      <p>Think of Dynamic Memory like a brain:</p>
       <ul>
-        <li>Important things stay easy to recall.</li>
-        <li>Unused details slowly fade.</li>
-        <li>Forgotten details can come back if they become relevant again.</li>
+        <li>
+          <strong>Hot</strong>: active working memory for semantic retrieval.
+        </li>
+        <li>
+          <strong>Cold</strong>: archived locally and available mainly through
+          keyword fallback.
+        </li>
+        <li>
+          <strong>Pinned</strong>: protected from decay and forced to stay hot.
+        </li>
       </ul>
 
-      <DocHeading level={3}>Unified Storage</DocHeading>
       <p>
-        Manual memories and automatically learned memories live in the same
+        Cooling does not delete a memory by itself. It only changes whether the
+        entry participates in normal semantic retrieval.
+      </p>
+
+      <DocImage
+        src="/docs/graphs/memory-heat-lifecycle-v1.svg"
+        alt="Diagram showing how a memory moves between hot and cold states"
+        caption="Heat changes over time. Retrieved memories stay fresh, neglected ones cool down, and cold memories can become hot again when they are found later."
+        containerClassName="mx-auto max-w-5xl"
+        className="mx-auto max-h-[18rem] object-contain md:max-h-[22rem]"
+      />
+
+      <DocHeading level={3}>How retrieval actually works</DocHeading>
+      <p>
+        The retrieval path is more selective than older descriptions of the
         system.
       </p>
-      <p>
-        Manually added memories start as highly important, but they still follow
-        the same rules unless you pin them.
-      </p>
-
-      <DocHeading level={3}>Memory Importance & Cooling</DocHeading>
-      <p>
-        Every memory has an importance score between <strong>0.0</strong> and{" "}
-        <strong>1.0</strong>.
-      </p>
-
-      <ul>
-        <li>
-          <strong>Hot memories</strong>: Actively searched using meaning-based
-          matching.
-        </li>
-        <li>
-          <strong>Importance fading</strong>: If a memory is not used for a
-          while, its importance is gradually reduced.
-        </li>
-        <li>
-          <strong>Cold memories</strong>: When importance drops below 0.3,
-          memories move to cold storage. They are not searched by meaning, but
-          are still safely stored.
-        </li>
-      </ul>
-
-      <p>
-        If a cold memory is found via keyword search, it immediately becomes hot
-        again.
-      </p>
-
-      <p>
-        Memories are not deleted automatically. Cooling only affects how likely
-        a memory is to be used, not whether it exists.
-      </p>
-      <p>
-        In the Memory list, items are sorted by heat: pinned memories first,
-        then hot memories, and cold memories last.
-      </p>
-
-      <DocHeading level={3}>Automatic Memory Creation</DocHeading>
-      <p>Dynamic Mode continuously evaluates the conversation.</p>
 
       <ol>
         <li>
-          <strong>Monitoring</strong>: Every N messages, recent conversation is
-          reviewed.
+          The app embeds the search query locally. With context enrichment
+          enabled, that query can include more than just the latest message.
         </li>
         <li>
-          <strong>Summarization</strong>: A background model summarizes what
-          matters.
+          It searches <strong>hot and pinned</strong> memories semantically.
         </li>
         <li>
-          <strong>Decision</strong>: The system may create, update, merge, or
-          delete memories.
+          In smart mode, it may also surface a recent hot memory or a frequently
+          used hot memory to stabilize recall.
         </li>
         <li>
-          <strong>Budget control</strong>: If memory size grows too large, less
-          useful memories cool down.
+          If nothing useful is found, it falls back to a keyword scan over{" "}
+          <strong>cold</strong> memories.
+        </li>
+        <li>Any cold memory that is retrieved becomes hot again.</li>
+      </ol>
+
+      <DocImage
+        src="/docs/graphs/memory-retrieval-flow-v1.svg"
+        alt="Diagram showing the retrieval decision path"
+        caption="The retrieval pass starts with semantic search over hot memories and only falls back to cold-storage keyword matching when the semantic pass comes up empty."
+        containerClassName="mx-auto max-w-6xl"
+        className="mx-auto max-h-[24rem] object-contain md:max-h-[28rem]"
+      />
+
+      <Callout type="info" title="Important">
+        Dynamic Memory does not search every stored memory semantically on every
+        turn. The hot/cold split is a core part of how it stays fast and cheap.
+      </Callout>
+
+      <DocHeading level={3}>Background maintenance cycle</DocHeading>
+      <p>
+        Retrieval happens every turn. Memory maintenance does not. Instead, the
+        app waits until enough new user or assistant messages have accumulated
+        since the last processed window.
+      </p>
+
+      <ol>
+        <li>
+          After the configured message interval, LettuceAI selects the next
+          unsummarized conversation window.
+        </li>
+        <li>
+          A summarisation model generates a merged summary for that new window.
+        </li>
+        <li>
+          A tool-driven pass can <strong>create</strong>,{" "}
+          <strong>delete</strong>, <strong>pin</strong>, or{" "}
+          <strong>unpin</strong> memory entries.
+        </li>
+        <li>
+          The app stores the updated summary, the new memory set, and the event
+          cursor so the next cycle continues from the right point.
         </li>
       </ol>
 
-      <DocHeading level={2}>Embedding Model (v2)</DocHeading>
       <p>
-        Dynamic Memory relies on an embedding model to understand what memories
-        are <em>about</em>, not just what words they contain.
+        Manual retries can force another maintenance pass even if the normal
+        interval has not been reached yet.
       </p>
 
-      <p>
-        LettuceAI v2 uses a newer embedding model designed specifically for
-        long-running conversations and roleplay scenarios.
-      </p>
+      <DocImage
+        src="/docs/graphs/memory-maintenance-cycle-v1.svg"
+        alt="Diagram showing the Dynamic Memory maintenance cycle"
+        caption="The background cycle is separate from the live chat turn: it summarizes a new window, runs memory tools, and advances the stored cursor."
+        containerClassName="mx-auto max-w-5xl"
+        className="mx-auto max-h-[18rem] object-contain md:max-h-[22rem]"
+      />
 
-      <DocHeading level={3}>What embeddings do</DocHeading>
-      <p>
-        An embedding model converts text into numerical vectors that represent
-        meaning. Similar ideas end up close together, even if they use different
-        wording.
-      </p>
+      <DocHeading level={3}>Decay, budgets, and deletion</DocHeading>
+      <p>Dynamic Memory uses multiple controls, not just one:</p>
 
       <ul>
-        <li>“He hates crowded places”</li>
-        <li>“Large groups make him anxious”</li>
+        <li>
+          <strong>Decay rate</strong>: lowers the importance of hot, unpinned
+          memories across maintenance cycles.
+        </li>
+        <li>
+          <strong>Cold threshold</strong>: entries below this threshold move to
+          cold storage.
+        </li>
+        <li>
+          <strong>Hot memory token budget</strong>: if too many hot memories are
+          active, older unpinned ones are demoted to cold.
+        </li>
+        <li>
+          <strong>Max entries</strong>: if the memory set grows too large, the
+          least recently used unpinned memories can be trimmed entirely.
+        </li>
       </ul>
 
       <p>
-        Even though these sentences share few words, the embedding model
-        understands that they describe the same idea.
+        That last point matters: Dynamic Memory can delete or soft-delete
+        entries during maintenance. Cooling alone is not deletion, but the full
+        system is allowed to remove memories when it decides they are stale,
+        wrong, or lower priority than newer ones.
       </p>
 
-      <DocHeading level={3}>Embedding Model: v1 vs v2</DocHeading>
+      <DocHeading level={2}>Embedding models</DocHeading>
+      <p>
+        Dynamic Memory depends on a local embedding model so the app can compare
+        meaning, not just exact wording.
+      </p>
 
       <p>
-        lettuce-emb-512d-v2 is a new embedding model designed specifically for
-        Dynamic Memory. It is smaller, faster, and supports significantly larger
-        context sizes.
+        <strong>v3</strong> is the current default. Older <strong>v1</strong>{" "}
+        and <strong>v2</strong> installs may still exist on some devices, but
+        they are now legacy variants.
       </p>
 
       <table className="min-w-full text-sm my-6">
         <thead>
           <tr className="border-b border-border/50">
-            <th className="text-left py-2 px-4">Aspect</th>
-            <th className="text-left py-2 px-4">v1 (lettuce-emb-512d-v1)</th>
-            <th className="text-left py-2 px-4">v2 (lettuce-emb-512d-v2)</th>
+            <th className="text-left py-2 px-4">Version</th>
+            <th className="text-left py-2 px-4">Status</th>
+            <th className="text-left py-2 px-4">Context support</th>
+            <th className="text-left py-2 px-4">Notes</th>
           </tr>
         </thead>
         <tbody>
           <tr className="border-b border-border/10">
-            <td className="py-2 px-4 font-medium">Max input context</td>
+            <td className="py-2 px-4 font-medium">v1</td>
+            <td className="py-2 px-4">Legacy</td>
             <td className="py-2 px-4">512 tokens</td>
+            <td className="py-2 px-4">
+              Oldest model. Limited long-context support.
+            </td>
+          </tr>
+          <tr className="border-b border-border/10">
+            <td className="py-2 px-4 font-medium">v2</td>
+            <td className="py-2 px-4">Legacy</td>
             <td className="py-2 px-4">Up to 4096 tokens</td>
-          </tr>
-          <tr className="border-b border-border/10">
-            <td className="py-2 px-4 font-medium">Model size</td>
-            <td className="py-2 px-4">~220 MB</td>
-            <td className="py-2 px-4">~121 MB</td>
-          </tr>
-          <tr className="border-b border-border/10">
-            <td className="py-2 px-4 font-medium">Inference speed</td>
-            <td className="py-2 px-4">Baseline</td>
-            <td className="py-2 px-4">Faster (lower latency)</td>
-          </tr>
-          <tr className="border-b border-border/10">
-            <td className="py-2 px-4 font-medium">Long-context stability</td>
-            <td className="py-2 px-4">Limited</td>
-            <td className="py-2 px-4">Improved</td>
+            <td className="py-2 px-4">
+              Major improvement over v1. Still older than the current default.
+            </td>
           </tr>
           <tr>
-            <td className="py-2 px-4 font-medium">Memory relevance</td>
-            <td className="py-2 px-4">More drift over time</td>
-            <td className="py-2 px-4">More stable ranking</td>
+            <td className="py-2 px-4 font-medium">v3</td>
+            <td className="py-2 px-4">Current default</td>
+            <td className="py-2 px-4">Up to 4096 tokens</td>
+            <td className="py-2 px-4">
+              Recommended for new installs and upgrades.
+            </td>
           </tr>
         </tbody>
       </table>
 
       <p>
-        v2 allows larger memory chunks to be embedded directly, reducing the
-        need for aggressive summarization and improving recall accuracy.
+        On supported versions, you can set the local embedding capacity to 1024,
+        2048, or 4096 tokens depending on your memory quality and performance
+        preferences.
       </p>
 
+      <DocHeading level={3}>Context enrichment</DocHeading>
       <p>
-        Existing memories remain compatible. No manual migration is required.
-      </p>
-
-      <DocHeading level={3}>Context Enrichment (v2 only)</DocHeading>
-
-      <p>
-        lettuce-emb-512d-v2 uses <strong>context enrichment</strong> when
-        generating embeddings.
-      </p>
-
-      <p>
-        Instead of embedding only the latest user message, v2 embeds a short
-        conversational window that includes:
+        Context enrichment improves retrieval by embedding a short contextual
+        slice instead of only the latest message. That helps when the newest
+        user line contains pronouns, callbacks, or implied references.
       </p>
 
       <ul>
-        <li>The latest user message</li>
-        <li>The previous assistant response</li>
+        <li>Better follow-up recall</li>
+        <li>Better disambiguation of names and pronouns</li>
+        <li>Better stability when the conversation jumps topics quickly</li>
       </ul>
 
-      <p>
-        This provides additional semantic context and reduces ambiguity during
-        memory retrieval.
-      </p>
-
-      <p>In practice, this improves:</p>
-
-      <ul>
-        <li>Recall accuracy for follow-up questions</li>
-        <li>
-          Detection of implied references (“that”, “him”, “what we said
-          earlier”)
-        </li>
-        <li>Stability when conversations alternate rapidly between topics</li>
-      </ul>
-
-      <p>
-        Context enrichment is only available in v2 due to its larger supported
-        context size and improved embedding stability.
-      </p>
-
-      <DocHeading level={3}>Why Embedding Models matter for memory</DocHeading>
-      <p>
-        In Dynamic Mode, the embedding model decides which memories are
-        considered “related” to your current message.
-      </p>
-
-      <p>A better embedding model means:</p>
-      <ul>
-        <li>Fewer random callbacks to irrelevant details</li>
-        <li>More consistent character behavior</li>
-        <li>Cleaner separation between scenes and timelines</li>
-      </ul>
-
-      <DocHeading level={3}>Local-first design</DocHeading>
-      <p>
-        Embeddings are generated and stored locally. They are never sent to
-        providers unless a memory is actually injected into the prompt.
-      </p>
-
-      <p>This keeps Dynamic Memory fast, cheap, and privacy-friendly.</p>
-
-      <Callout type="info" title="Important">
-        Changing models or providers does not invalidate your memories.
-        Embeddings are provider-agnostic and remain usable across chats.
+      <Callout type="success" title="Local-first">
+        Embeddings are generated and stored locally. Providers only see memory
+        text if that memory is actually injected into the prompt for a turn.
       </Callout>
 
-      <DocHeading level={2}>How Memories Are Retrieved</DocHeading>
-      <p>When you send a message, memory retrieval happens in two steps:</p>
+      <DocHeading level={2}>Token usage and cost</DocHeading>
+      <p>Dynamic Memory usually reduces prompt growth, but it is not free.</p>
 
-      <ol>
-        <li>
-          <strong>Semantic search</strong>: Finds hot memories related by
-          meaning.
-        </li>
-        <li>
-          <strong>Keyword fallback</strong>: Searches all memories if nothing
-          relevant is found.
-        </li>
-      </ol>
-
-      <DocHeading level={3}>Pinning</DocHeading>
-      <p>Pinned memories never decay.</p>
-      <p>Use pinning for facts that must always be remembered:</p>
       <ul>
-        <li>Core character traits</li>
-        <li>Permanent rules</li>
-        <li>Critical world information</li>
+        <li>
+          Retrieved memories still cost tokens when they are injected into a
+          prompt.
+        </li>
+        <li>
+          The summarisation and memory-tool passes also consume tokens on the
+          summarisation model you selected.
+        </li>
+        <li>
+          Manual Memory has the simplest behavior, but its prompt cost rises
+          linearly because the whole memory list is sent every turn.
+        </li>
       </ul>
 
-      <DocHeading level={2}>Context Window</DocHeading>
       <p>
-        The context window controls how many recent messages the AI can directly
-        see.
+        The reason Dynamic Memory is usually cheaper is not that it costs
+        nothing. It is cheaper because it sends a small relevant subset most of
+        the time instead of replaying everything.
       </p>
 
-      <table className="min-w-full text-sm my-6">
-        <thead>
-          <tr className="border-b border-border/50">
-            <th className="text-left py-2 px-4">Feature</th>
-            <th className="text-left py-2 px-4">Manual Mode</th>
-            <th className="text-left py-2 px-4">Dynamic Mode</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr className="border-b border-border/10">
-            <td className="py-2 px-4 font-medium">Visible messages</td>
-            <td className="py-2 px-4">Last N messages</td>
-            <td className="py-2 px-4">Last N messages</td>
-          </tr>
-          <tr className="border-b border-border/10">
-            <td className="py-2 px-4 font-medium">Primary memory source</td>
-            <td className="py-2 px-4">Chat history</td>
-            <td className="py-2 px-4">Memory system</td>
-          </tr>
-          <tr>
-            <td className="py-2 px-4 font-medium">Pinned messages</td>
-            <td className="py-2 px-4">Count toward the limit</td>
-            <td className="py-2 px-4">Always included</td>
-          </tr>
-        </tbody>
-      </table>
+      <DocHeading level={2}>Managing memories</DocHeading>
+      <p>You still keep control, even in Dynamic Mode.</p>
 
-      <Callout type="info" title="Important">
-        In Dynamic Mode, anything outside the context window that is not stored
-        in memory is effectively forgotten.
-      </Callout>
-
-      <DocHeading level={2}>Cost & Token Usage</DocHeading>
-      <p>
-        Language models charge based on how many tokens they process per
-        message. This includes chat history, system instructions, and injected
-        memories.
-      </p>
-
-      <DocHeading level={4}>Manual Mode</DocHeading>
-      <ul>
-        <li>All memories are sent with every message.</li>
-        <li>Token usage increases linearly as memories grow.</li>
-        <li>Larger memory lists leave less room for conversation.</li>
-      </ul>
-
-      <DocHeading level={4}>Dynamic Mode</DocHeading>
-      <ul>
-        <li>Only a small, relevant subset of memories is injected.</li>
-        <li>Most memories stay local and cost nothing unless retrieved.</li>
-        <li>Smaller context windows significantly reduce per-message cost.</li>
-      </ul>
-
-      <Callout type="info" title="Why Dynamic Memory Exists">
-        Dynamic Memory keeps conversations coherent while preventing token usage
-        from growing without bound.
-      </Callout>
-
-      <DocHeading level={3}>Managing Memories</DocHeading>
-
-      <DocHeading level={4}>Manual Mode</DocHeading>
       <ul>
         <li>
-          <strong>Add</strong>: Use the Memory Panel.
+          In Manual Mode, you add, edit, and delete the fixed list yourself.
         </li>
         <li>
-          <strong>Edit</strong>: Modify existing entries directly.
-        </li>
-        <li>
-          <strong>Delete</strong>: Remove memories that are no longer relevant.
+          In Dynamic Mode, you can review entries, pin important ones, delete
+          incorrect ones, and manually add missing facts.
         </li>
       </ul>
 
-      <DocHeading level={4}>Dynamic Mode</DocHeading>
+      <DocHeading level={2}>Which mode should you use?</DocHeading>
       <ul>
         <li>
-          <strong>Pin</strong>: Prevent important memories from losing
-          importance.
+          <strong>Use Manual Memory</strong> if you want a short, stable, always
+          visible rule list.
         </li>
         <li>
-          <strong>Delete</strong>: Remove incorrect or unwanted memories.
-        </li>
-        <li>
-          <strong>Add</strong>: Manually insert memories when the system misses
-          something.
-        </li>
-      </ul>
-
-      <DocHeading level={2}>Which Mode Should I Use?</DocHeading>
-      <ul>
-        <li>
-          <strong>Manual Mode</strong>: Strict control, short conversations.
-        </li>
-        <li>
-          <strong>Dynamic Mode</strong>: Long-term continuity with minimal cost.
+          <strong>Use Dynamic Memory</strong> if you want better continuity
+          across long conversations without letting prompt size grow forever.
         </li>
       </ul>
     </motion.article>

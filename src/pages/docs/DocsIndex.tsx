@@ -69,7 +69,7 @@ export function DocsIndex() {
                         Memory System
                     </h3>
                     <p className="text-sm text-muted-foreground mb-3">
-                        Understand how our infinite memory works.
+                        Understand how adaptive long-term memory works.
                     </p>
                     <span className="text-sm text-primary flex items-center gap-1">
                         Explore <ArrowRight className="w-4 h-4" />

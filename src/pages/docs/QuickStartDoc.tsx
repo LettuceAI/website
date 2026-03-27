@@ -109,7 +109,7 @@ export function QuickStartDoc() {
                 <ul>
                     <li>
                         <strong>Dynamic Memory (Recommended):</strong> Uses a local embedding model
-                        to summarize and retrieve relevant context automatically.
+                        to retrieve relevant context and maintain long-term memory automatically.
                     </li>
                     <li>
                         <strong>Manual Memory:</strong> You explicitly control what gets remembered.

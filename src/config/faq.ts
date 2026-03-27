@@ -72,12 +72,12 @@ export const faqCategories: FAQCategory[] = [
             {
                 question: "How does the memory system work?",
                 answer:
-                    "LettuceAI automatically summarizes important parts of conversations and stores them as long-term memory. When relevant, this information is injected back into prompts so the AI remembers key events, relationships, and facts.",
+                    "LettuceAI stores long-term memory locally, retrieves only the most relevant entries during a chat turn, and periodically summarizes new conversation windows in the background. This helps it remember key events, relationships, and facts without replaying the whole chat every time.",
             },
             {
                 question: "Does memory increase token usage?",
                 answer:
-                    "No. The memory system is designed to reduce token usage by summarizing and selectively injecting only what is relevant, instead of replaying entire chat histories.",
+                    "Sometimes, yes. Retrieved memories and background summarization still use tokens. Dynamic Memory is usually cheaper than replaying an entire long chat because it injects a small relevant subset instead of everything.",
             },
             {
                 question: "Can I control or edit memories?",

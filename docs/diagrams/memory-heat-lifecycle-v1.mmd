@@ -1,0 +1,29 @@
+%%{init: {'theme':'dark','themeVariables':{
+  'background':'transparent',
+  'primaryColor':'#1f2b22',
+  'primaryTextColor':'#f4f4f5',
+  'primaryBorderColor':'#4ade80',
+  'lineColor':'#7dd3a6',
+  'secondaryColor':'#18181b',
+  'secondaryTextColor':'#e4e4e7',
+  'secondaryBorderColor':'#52525b',
+  'tertiaryColor':'#111827',
+  'tertiaryTextColor':'#f4f4f5',
+  'tertiaryBorderColor':'#22c55e',
+  'fontSize':'22px'
+}, 'flowchart': {
+  'nodeSpacing': 44,
+  'rankSpacing': 70,
+  'curve': 'basis'
+}}}%%
+flowchart LR
+  A[Hot memory] --> B[Retrieved and accessed]
+  B --> C[Stays hot and refreshed]
+  A --> D[Ignored across maintenance cycles]
+  D --> E[Importance decays]
+  E --> F{Below cold threshold
+or over budget?}
+  F -- Yes --> G[Move to cold storage]
+  F -- No --> C
+  G --> H[Keyword match or retrieval]
+  H --> A
