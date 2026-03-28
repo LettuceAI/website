@@ -331,30 +331,40 @@ export function DownloadPage() {
     }
   }
 
+  const macIntelGroupActions: PlatformButton[] = [];
+  if (macIntelCpuAction) {
+    macIntelGroupActions.push({ ...macIntelCpuAction, label: "CPU" });
+  }
+  if (macIntelMetalAction) {
+    macIntelGroupActions.push({ ...macIntelMetalAction, label: "Metal" });
+  }
+
+  const macAppleSiliconGroupActions: PlatformButton[] = [];
+  if (macAppleSiliconCpuAction) {
+    macAppleSiliconGroupActions.push({
+      ...macAppleSiliconCpuAction,
+      label: "CPU",
+    });
+  }
+  if (macAppleSiliconMetalAction) {
+    macAppleSiliconGroupActions.push({
+      ...macAppleSiliconMetalAction,
+      label: "Metal",
+    });
+  }
+
   const macActionGroups: PlatformActionGroup[] | undefined =
     hasSplitMacDownloads
       ? [
           {
             title: "Intel (x64)",
             description: "For Intel-based Macs.",
-            actions: [
-              macIntelCpuAction ? { ...macIntelCpuAction, label: "CPU" } : null,
-              macIntelMetalAction
-                ? { ...macIntelMetalAction, label: "Metal" }
-                : null,
-            ].filter((action): action is PlatformButton => action !== null),
+            actions: macIntelGroupActions,
           },
           {
             title: "Apple Silicon (arm64)",
             description: "For M1, M2, M3, and newer Macs.",
-            actions: [
-              macAppleSiliconCpuAction
-                ? { ...macAppleSiliconCpuAction, label: "CPU" }
-                : null,
-              macAppleSiliconMetalAction
-                ? { ...macAppleSiliconMetalAction, label: "Metal" }
-                : null,
-            ].filter((action): action is PlatformButton => action !== null),
+            actions: macAppleSiliconGroupActions,
           },
         ].filter((group) => group.actions.length > 0)
       : undefined;
