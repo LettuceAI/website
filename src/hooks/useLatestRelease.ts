@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
-const RELEASES_API_URL = "https://api.github.com/repos/LettuceAI/app/releases?per_page=40";
+const RELEASES_API_URL =
+  "https://api.github.com/repos/LettuceAI/app/releases?per_page=40";
 
 export type ReleaseChannel = "release" | "dev";
 export type ReleaseFamily = "android" | "desktop";
@@ -20,6 +21,10 @@ export interface PlatformDownloads {
   macos?: {
     cpu?: string;
     metal?: string;
+    intelCpu?: string;
+    intelMetal?: string;
+    appleSiliconCpu?: string;
+    appleSiliconMetal?: string;
   };
 }
 
@@ -63,7 +68,11 @@ function getPrefix(family: ReleaseFamily, channel: ReleaseChannel): string {
   return `${family}-${channel}-`;
 }
 
-function parseVersion(tag: string, family: ReleaseFamily, channel: ReleaseChannel): string {
+function parseVersion(
+  tag: string,
+  family: ReleaseFamily,
+  channel: ReleaseChannel,
+): string {
   const prefix = getPrefix(family, channel);
   if (!tag.startsWith(prefix)) return tag;
 
@@ -77,7 +86,11 @@ function parseVersion(tag: string, family: ReleaseFamily, channel: ReleaseChanne
   return payload;
 }
 
-function scoreTag(tag: string, family: ReleaseFamily, channel: ReleaseChannel): number[] | null {
+function scoreTag(
+  tag: string,
+  family: ReleaseFamily,
+  channel: ReleaseChannel,
+): number[] | null {
   const prefix = getPrefix(family, channel);
   if (!tag.startsWith(prefix)) return null;
 
@@ -160,23 +173,54 @@ function mapAssets(assets: ReleaseAsset[]): PlatformDownloads {
     if (name === "macos-metal.dmg") {
       downloads.macos ??= {};
       downloads.macos.metal = asset.browser_download_url;
+      continue;
+    }
+
+    if (name === "macos-x64-cpu.dmg") {
+      downloads.macos ??= {};
+      downloads.macos.intelCpu = asset.browser_download_url;
+      continue;
+    }
+
+    if (name === "macos-x64-metal.dmg") {
+      downloads.macos ??= {};
+      downloads.macos.intelMetal = asset.browser_download_url;
+      continue;
+    }
+
+    if (name === "macos-arm64-cpu.dmg") {
+      downloads.macos ??= {};
+      downloads.macos.appleSiliconCpu = asset.browser_download_url;
+      continue;
+    }
+
+    if (name === "macos-arm64-metal.dmg") {
+      downloads.macos ??= {};
+      downloads.macos.appleSiliconMetal = asset.browser_download_url;
     }
   }
 
   return downloads;
 }
 
-function hasFamilyDownloads(downloads: PlatformDownloads, family: ReleaseFamily): boolean {
+function hasFamilyDownloads(
+  downloads: PlatformDownloads,
+  family: ReleaseFamily,
+): boolean {
   if (family === "android") return typeof downloads.android === "string";
   return Boolean(
     downloads.windows?.cpu ||
-      downloads.windows?.cuda ||
-      downloads.windows?.vulkan ||
-      downloads.linux?.cpu ||
-      downloads.linux?.cuda ||
-      downloads.linux?.vulkan ||
-      downloads.macos?.cpu ||
-      downloads.macos?.metal,
+    downloads.windows?.cuda ||
+    downloads.windows?.vulkan ||
+    downloads.linux?.cpu ||
+    downloads.linux?.cuda ||
+    downloads.linux?.vulkan ||
+    downloads.macos?.cpu ||
+    downloads.macos?.metal ||
+    downloads.macos?.intelCpu ||
+    downloads.macos?.intelMetal ||
+    downloads.macos?.appleSiliconCpu ||
+    downloads.macos?.appleSiliconMetal,
   );
 }
 

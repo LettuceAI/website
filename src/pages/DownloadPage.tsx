@@ -5,7 +5,10 @@ import { DiAndroid, DiApple, DiLinux, DiWindows } from "react-icons/di";
 import { useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Navbar, Footer } from "@/components/landing";
-import { useLatestRelease, type ReleaseChannel } from "../hooks/useLatestRelease";
+import {
+  useLatestRelease,
+  type ReleaseChannel,
+} from "../hooks/useLatestRelease";
 
 const linuxGpuCheckCommand =
   "lspci | grep -iE 'vga|3d|display' | sed 's/.*: //' | awk '{if(/NVIDIA|GeForce|Quadro|RTX|GTX/){print \"Nvidia \"$0; d=1} else if(/AMD|ATI|Radeon/){print \"AMD \"$0; d=1}} END{if(!d) print \"no GPU (integrated only)\"}'";
@@ -17,6 +20,12 @@ type PlatformButton = {
   label: string;
   href: string;
   variant?: "default" | "outline";
+};
+
+type PlatformActionGroup = {
+  title: string;
+  description: string;
+  actions: PlatformButton[];
 };
 
 type Platform = {
@@ -31,6 +40,7 @@ type Platform = {
   note?: string;
   noteHref?: string;
   actions: PlatformButton[];
+  actionGroups?: PlatformActionGroup[];
   githubUrl: string;
 };
 
@@ -131,7 +141,8 @@ export function DownloadPage() {
   const requestedReleaseTag = searchParams.get("release")?.trim() || "";
   const requestedVersion = searchParams.get("version")?.trim() || "";
   const fallbackReleaseUrl =
-    searchParams.get("fallback")?.trim() || "https://github.com/LettuceAI/app/releases";
+    searchParams.get("fallback")?.trim() ||
+    "https://github.com/LettuceAI/app/releases";
   const isInAppUpdate = searchParams.get("source") === "in-app-update";
 
   const requestedPlatform =
@@ -179,12 +190,16 @@ export function DownloadPage() {
   const androidRelease = useLatestRelease({
     family: "android",
     channel: requestedChannel,
-    releaseTag: isRequestedAndroid ? requestedReleaseTag || undefined : undefined,
+    releaseTag: isRequestedAndroid
+      ? requestedReleaseTag || undefined
+      : undefined,
   });
   const desktopRelease = useLatestRelease({
     family: "desktop",
     channel: requestedChannel,
-    releaseTag: isRequestedDesktop ? requestedReleaseTag || undefined : undefined,
+    releaseTag: isRequestedDesktop
+      ? requestedReleaseTag || undefined
+      : undefined,
   });
 
   const androidActions: PlatformButton[] = androidRelease.downloads.android
@@ -198,7 +213,10 @@ export function DownloadPage() {
 
   const windowsActions: PlatformButton[] = [];
   if (desktopRelease.downloads.windows?.cpu) {
-    windowsActions.push({ label: "CPU", href: desktopRelease.downloads.windows.cpu });
+    windowsActions.push({
+      label: "CPU",
+      href: desktopRelease.downloads.windows.cpu,
+    });
   }
   if (desktopRelease.downloads.windows?.cuda) {
     windowsActions.push({
@@ -217,7 +235,10 @@ export function DownloadPage() {
 
   const linuxActions: PlatformButton[] = [];
   if (desktopRelease.downloads.linux?.cpu) {
-    linuxActions.push({ label: "CPU", href: desktopRelease.downloads.linux.cpu });
+    linuxActions.push({
+      label: "CPU",
+      href: desktopRelease.downloads.linux.cpu,
+    });
   }
   if (desktopRelease.downloads.linux?.cuda) {
     linuxActions.push({
@@ -235,16 +256,108 @@ export function DownloadPage() {
   }
 
   const macActions: PlatformButton[] = [];
-  if (desktopRelease.downloads.macos?.cpu) {
-    macActions.push({ label: "CPU", href: desktopRelease.downloads.macos.cpu });
+  const hasSplitMacDownloads = Boolean(
+    desktopRelease.downloads.macos?.intelCpu ||
+    desktopRelease.downloads.macos?.intelMetal ||
+    desktopRelease.downloads.macos?.appleSiliconCpu ||
+    desktopRelease.downloads.macos?.appleSiliconMetal,
+  );
+  const macIntelCpuAction = desktopRelease.downloads.macos?.intelCpu
+    ? {
+        label: "Intel CPU",
+        href: desktopRelease.downloads.macos.intelCpu as string,
+      }
+    : desktopRelease.downloads.macos?.cpu
+      ? { label: "CPU", href: desktopRelease.downloads.macos.cpu }
+      : null;
+  const macIntelMetalAction = desktopRelease.downloads.macos?.intelMetal
+    ? {
+        label: "Intel Metal",
+        href: desktopRelease.downloads.macos.intelMetal as string,
+        variant: "outline" as const,
+      }
+    : null;
+  const macAppleSiliconCpuAction = desktopRelease.downloads.macos
+    ?.appleSiliconCpu
+    ? {
+        label: "Apple Silicon CPU",
+        href: desktopRelease.downloads.macos.appleSiliconCpu as string,
+        variant: "outline" as const,
+      }
+    : desktopRelease.downloads.macos?.cpu
+      ? { label: "CPU", href: desktopRelease.downloads.macos.cpu }
+      : null;
+  const macAppleSiliconMetalAction = desktopRelease.downloads.macos
+    ?.appleSiliconMetal
+    ? {
+        label: "Apple Silicon Metal",
+        href: desktopRelease.downloads.macos.appleSiliconMetal as string,
+        variant: "outline" as const,
+      }
+    : desktopRelease.downloads.macos?.metal
+      ? {
+          label: "Metal",
+          href: desktopRelease.downloads.macos.metal,
+          variant: "outline" as const,
+        }
+      : null;
+
+  if (hasSplitMacDownloads) {
+    if (macIntelCpuAction) {
+      macActions.push(macIntelCpuAction);
+    }
+    if (macIntelMetalAction) {
+      macActions.push(macIntelMetalAction);
+    }
+    if (macAppleSiliconCpuAction) {
+      macActions.push(macAppleSiliconCpuAction);
+    }
+    if (macAppleSiliconMetalAction) {
+      macActions.push(macAppleSiliconMetalAction);
+    }
+  } else {
+    if (desktopRelease.downloads.macos?.cpu) {
+      macActions.push({
+        label: "CPU",
+        href: desktopRelease.downloads.macos.cpu,
+      });
+    }
+    if (desktopRelease.downloads.macos?.metal) {
+      macActions.push({
+        label: "Metal",
+        href: desktopRelease.downloads.macos.metal,
+        variant: "outline",
+      });
+    }
   }
-  if (desktopRelease.downloads.macos?.metal) {
-    macActions.push({
-      label: "Metal",
-      href: desktopRelease.downloads.macos.metal,
-      variant: "outline",
-    });
-  }
+
+  const macActionGroups: PlatformActionGroup[] | undefined =
+    hasSplitMacDownloads
+      ? [
+          {
+            title: "Intel (x64)",
+            description: "For Intel-based Macs.",
+            actions: [
+              macIntelCpuAction ? { ...macIntelCpuAction, label: "CPU" } : null,
+              macIntelMetalAction
+                ? { ...macIntelMetalAction, label: "Metal" }
+                : null,
+            ].filter((action): action is PlatformButton => action !== null),
+          },
+          {
+            title: "Apple Silicon (arm64)",
+            description: "For M1, M2, M3, and newer Macs.",
+            actions: [
+              macAppleSiliconCpuAction
+                ? { ...macAppleSiliconCpuAction, label: "CPU" }
+                : null,
+              macAppleSiliconMetalAction
+                ? { ...macAppleSiliconMetalAction, label: "Metal" }
+                : null,
+            ].filter((action): action is PlatformButton => action !== null),
+          },
+        ].filter((group) => group.actions.length > 0)
+      : undefined;
 
   const androidVersionLabel = androidRelease.version
     ? `Android ${androidRelease.version}`
@@ -302,23 +415,23 @@ export function DownloadPage() {
       name: "macOS",
       icon: DiApple,
       status: macActions.length > 0 ? "available" : "coming-soon",
-      badge: requestedChannel === "dev" ? "DEV" : "EXPERIMENTAL",
-      badgeClassName:
-        requestedChannel === "dev"
-          ? "bg-primary/20 text-primary"
-          : "bg-red-500/20 text-red-400",
+      badge: requestedChannel === "dev" ? "DEV" : "Release",
+      badgeClassName: undefined,
       version: desktopVersionLabel,
-      description:
-        "Download the standard CPU build or the Metal build for Apple Silicon. macOS downloads are provided as .dmg installers.",
+      description: hasSplitMacDownloads
+        ? "macOS downloads are split by architecture. Pick Intel (x64) or Apple Silicon (arm64)."
+        : "Download the standard CPU build or the Metal build for macOS. Downloads are provided as .dmg installers.",
       note: "Requires macOS 13 or higher.",
       actions: macActions,
+      actionGroups: macActionGroups,
       githubUrl: desktopReleaseUrl,
     },
   ];
   const featuredPlatform =
     requestedPlatform === null
       ? null
-      : platforms.find((platform) => platform.key === requestedPlatform) ?? null;
+      : (platforms.find((platform) => platform.key === requestedPlatform) ??
+        null);
   const otherPlatforms =
     featuredPlatform === null
       ? platforms
@@ -351,7 +464,9 @@ export function DownloadPage() {
       os: "macOS 13 or higher",
       ram: "2GB minimum for basic remote-provider use, 4GB recommended",
       storage: "2 GB free storage",
-      notes: "Apple Silicon recommended for Metal",
+      notes: hasSplitMacDownloads
+        ? "Intel (x64) and Apple Silicon (arm64) .dmg installers"
+        : "CPU and Metal .dmg installers",
     },
   ];
 
@@ -415,7 +530,8 @@ export function DownloadPage() {
       step === "hardware" &&
       devicePlatform === "desktop" &&
       desktopOs &&
-      wantsLocalLlm === "yes"
+      (wantsLocalLlm === "yes" ||
+        (desktopOs === "macos" && wantsLocalLlm !== null))
     ) {
       setHardwareType(null);
       setMacChip(null);
@@ -440,15 +556,19 @@ export function DownloadPage() {
           ? "active"
           : "complete",
     hardware:
-      devicePlatform !== "desktop" || wantsLocalLlm !== "yes"
+      devicePlatform !== "desktop" ||
+      desktopOs === null ||
+      wantsLocalLlm === null
         ? "pending"
         : desktopOs === "macos"
           ? macChip === null
             ? "active"
             : "complete"
-          : hardwareType === null
-            ? "active"
-            : "complete",
+          : wantsLocalLlm !== "yes"
+            ? "pending"
+            : hardwareType === null
+              ? "active"
+              : "complete",
   } as const;
 
   const activeQuestion = (() => {
@@ -466,7 +586,7 @@ export function DownloadPage() {
     if (
       devicePlatform === "desktop" &&
       desktopOs === "macos" &&
-      wantsLocalLlm === "yes" &&
+      wantsLocalLlm !== null &&
       macChip === null
     ) {
       return "hardware";
@@ -495,7 +615,7 @@ export function DownloadPage() {
             : "bg-zinc-900/30 border-border/30"
         }`}
       >
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
           <div
             className={`h-14 w-14 shrink-0 rounded-xl flex items-center justify-center ${
               platform.status === "available"
@@ -514,7 +634,9 @@ export function DownloadPage() {
 
           <div className="flex-1">
             <div className="mb-1 flex items-center gap-3">
-              <h3 className="text-xl font-semibold text-white">{platform.name}</h3>
+              <h3 className="text-xl font-semibold text-white">
+                {platform.name}
+              </h3>
               {platform.status === "available" ? (
                 <span
                   className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium ${
@@ -532,7 +654,9 @@ export function DownloadPage() {
             </div>
             <p className="text-muted-foreground">{platform.description}</p>
             {platform.status === "available" ? (
-              <p className="mt-1 text-xs text-muted-foreground/70">{platform.version}</p>
+              <p className="mt-1 text-xs text-muted-foreground/70">
+                {platform.version}
+              </p>
             ) : null}
             {platform.note ? (
               <p className="mt-2 text-xs text-amber-300/90">
@@ -557,34 +681,87 @@ export function DownloadPage() {
           <div className="shrink-0 flex flex-wrap items-center gap-2">
             {platform.status === "available" ? (
               <>
-                {platform.actions.map((action, actionIndex) => (
-                  <Button
-                    key={`${platform.name}-${action.label}`}
-                    asChild
-                    variant={action.variant ?? (actionIndex === 0 ? "default" : "outline")}
-                    className="gap-2"
-                  >
-                    <a href={action.href}>
-                      <Download className="h-4 w-4" />
-                      {action.label}
-                    </a>
-                  </Button>
-                ))}
+                {!platform.actionGroups?.length
+                  ? platform.actions.map((action, actionIndex) => (
+                      <Button
+                        key={`${platform.name}-${action.label}`}
+                        asChild
+                        variant={
+                          action.variant ??
+                          (actionIndex === 0 ? "default" : "outline")
+                        }
+                        className="gap-2"
+                      >
+                        <a href={action.href}>
+                          <Download className="h-4 w-4" />
+                          {action.label}
+                        </a>
+                      </Button>
+                    ))
+                  : null}
                 <Button asChild variant="outline" size="icon">
-                  <a href={platform.githubUrl} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={platform.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <ExternalLink className="h-4 w-4" />
                   </a>
                 </Button>
               </>
             ) : (
               <Button asChild variant="outline">
-                <a href={platform.githubUrl} target="_blank" rel="noopener noreferrer">
+                <a
+                  href={platform.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   View releases
                 </a>
               </Button>
             )}
           </div>
         </div>
+
+        {platform.status === "available" && platform.actionGroups?.length ? (
+          <div className="mt-5 grid gap-3 sm:grid-cols-2">
+            {platform.actionGroups.map((group) => (
+              <div
+                key={`${platform.name}-${group.title}`}
+                className="rounded-xl border border-border/40 bg-zinc-950/45 p-4"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <div className="text-sm font-medium text-white">
+                      {group.title}
+                    </div>
+                    <div className="mt-1 text-xs text-muted-foreground">
+                      {group.description}
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {group.actions.map((action, actionIndex) => (
+                    <Button
+                      key={`${platform.name}-${group.title}-${action.label}`}
+                      asChild
+                      variant={
+                        action.variant ??
+                        (actionIndex === 0 ? "default" : "outline")
+                      }
+                      className="gap-2"
+                    >
+                      <a href={action.href}>
+                        <Download className="h-4 w-4" />
+                        {action.label}
+                      </a>
+                    </Button>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : null}
       </motion.div>
     );
   };
@@ -622,10 +799,16 @@ export function DownloadPage() {
       }
 
       return {
-        title: "You should install the macOS CPU build.",
+        title:
+          macChip === "apple-silicon"
+            ? "You should install the Apple Silicon CPU build."
+            : "You should install the Intel CPU build.",
         description:
           "If you are not running local LLMs, the CPU build is the right default.",
-        action: getAction("macOS", "CPU"),
+        action:
+          macChip === "apple-silicon"
+            ? (macAppleSiliconCpuAction ?? getAction("macOS", "CPU"))
+            : (macIntelCpuAction ?? getAction("macOS", "CPU")),
       };
     }
 
@@ -693,19 +876,22 @@ export function DownloadPage() {
     if (desktopOs === "macos") {
       if (macChip === "apple-silicon") {
         return {
-          title: "You should install the macOS Metal build.",
+          title: "You should install the Apple Silicon Metal build.",
           description:
             "Metal is the right choice for Apple Silicon Macs and MacBooks.",
-          action: getAction("macOS", "Metal"),
+          action:
+            macAppleSiliconMetalAction ??
+            macAppleSiliconCpuAction ??
+            getAction("macOS", "Metal"),
         };
       }
 
       if (macChip === "intel") {
         return {
-          title: "You should install the macOS CPU build.",
+          title: "You should install the Intel CPU build.",
           description:
-            "Intel-based Macs should use the CPU build instead of Metal.",
-          action: getAction("macOS", "CPU"),
+            "Intel-based Macs should use the x64 CPU build by default.",
+          action: macIntelCpuAction ?? getAction("macOS", "CPU"),
         };
       }
     }
@@ -739,8 +925,6 @@ export function DownloadPage() {
             </p>
           </motion.div>
 
-
-
           {isInAppUpdate && (
             <motion.div
               initial={{ opacity: 0, y: 14 }}
@@ -750,7 +934,9 @@ export function DownloadPage() {
             >
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <div className="text-sm font-semibold text-white">Update ready</div>
+                  <div className="text-sm font-semibold text-white">
+                    Update ready
+                  </div>
                   <div className="mt-1 text-sm text-muted-foreground">
                     {requestedVersion
                       ? `We highlighted the ${requestedPlatform ?? "matching"} download for v${requestedVersion}.`
@@ -782,7 +968,12 @@ export function DownloadPage() {
           </motion.div>
 
           <div id="downloads" className="grid gap-6">
-            {featuredPlatform ? renderPlatformCard(featuredPlatform, { featured: true, delay: 0.04 }) : null}
+            {featuredPlatform
+              ? renderPlatformCard(featuredPlatform, {
+                  featured: true,
+                  delay: 0.04,
+                })
+              : null}
 
             {featuredPlatform ? (
               <div className="my-2 flex items-center gap-4 px-1">
@@ -901,7 +1092,8 @@ export function DownloadPage() {
                       !(
                         devicePlatform === "desktop" &&
                         desktopOs &&
-                        wantsLocalLlm === "yes"
+                        (wantsLocalLlm === "yes" ||
+                          (desktopOs === "macos" && wantsLocalLlm !== null))
                       ))
                   }
                   className={`inline-flex items-center gap-2 rounded-md border px-3 py-2 text-sm ${
@@ -986,7 +1178,7 @@ export function DownloadPage() {
                       />
                       <ChoiceCard
                         title="MacOS"
-                        description="For Macbook and Mac desktop systems."
+                        description="For Intel (x64) and Apple Silicon (arm64) Macs."
                         selected={desktopOs === "macos"}
                         onClick={() => setDesktopOsChoice("macos")}
                       />
@@ -1116,22 +1308,22 @@ export function DownloadPage() {
                     className="rounded-lg border border-border/40 bg-zinc-950/45 p-5"
                   >
                     <p className="text-sm font-medium text-white">
-                      Are you on Intel based Mac/Macbook or Apple Silicon?
+                      Is your Mac Intel (x64) or Apple Silicon (arm64)?
                     </p>
                     <p className="mt-1 text-sm text-muted-foreground">
-                      Apple Silicon should use Metal. Intel Macs should stay on
-                      CPU.
+                      Apple Silicon uses the arm64 builds. Intel Macs use the
+                      x64 builds.
                     </p>
                     <div className="mt-5 grid gap-3 sm:grid-cols-2">
                       <ChoiceCard
-                        title="Intel"
-                        description="Use the CPU build."
+                        title="Intel (x64)"
+                        description="Use the x64 macOS builds."
                         selected={macChip === "intel"}
                         onClick={() => setMacChip("intel")}
                       />
                       <ChoiceCard
-                        title="Apple Silicon"
-                        description="Use the Metal build."
+                        title="Apple Silicon (arm64)"
+                        description="Use the arm64 macOS builds."
                         selected={macChip === "apple-silicon"}
                         onClick={() => setMacChip("apple-silicon")}
                       />
@@ -1220,7 +1412,7 @@ export function DownloadPage() {
                 },
                 {
                   title: "Metal",
-                  body: "Use this on Apple Silicon Macs for the accelerated macOS build.",
+                  body: "Use this on macOS if you want the accelerated build. Apple Silicon is the best fit, while Intel Macs should usually start with the CPU build.",
                 },
               ].map((item, index) => (
                 <motion.div
