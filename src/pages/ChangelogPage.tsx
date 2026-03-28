@@ -61,6 +61,230 @@ export function ChangelogPage() {
             </div>
           </motion.div>
 
+          {/* Android 1.3.3 & Desktop 1.0.3 update */}
+          <motion.article
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.02 }}
+            className="prose prose-invert max-w-none mb-16"
+          >
+            <div className="not-prose mb-8 pb-6 border-b border-border/30">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
+                  Android 1.3.3 & Desktop 1.0.3 update
+                </span>
+                <span className="text-muted-foreground text-sm">
+                  March 29, 2026
+                </span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                Sync Reliability, Provider Streaming Controls & Timeout
+                Consistency
+              </h2>
+              <p className="text-muted-foreground">
+                This update fixes a sync regression affecting some devices, adds
+                per-provider streaming controls, and standardizes API request
+                timeouts across the app.
+              </p>
+            </div>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0">
+                  <Bug className="w-4 h-4 text-green-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">Fixes</span>
+              </div>
+              <ul>
+                <li>
+                  Fixed a sync issue where some devices failed to apply data
+                  from other devices due to replaying stale local sync payloads
+                  from older app versions
+                </li>
+                <li>
+                  After updating, the app rebuilds its local sync state once and
+                  continues syncing using the current data format
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
+                  <BookOpen className="w-4 h-4 text-amber-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Changes
+                </span>
+              </div>
+              <ul>
+                <li>Providers now have independent streaming toggles</li>
+                <li>
+                  Streaming can be enabled or disabled per officially supported
+                  provider
+                </li>
+                <li>
+                  Features that require non-streaming, such as dynamic memory
+                  flows, continue to enforce it where needed
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-pink-500/10 border border-pink-500/30 flex items-center justify-center shrink-0">
+                  <Heart className="w-4 h-4 text-pink-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Improvements
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Normalized API request timeouts to <strong>30 minutes</strong>{" "}
+                  across the app
+                </li>
+                <li>
+                  This removes inconsistent timeout behavior between chat,
+                  memory, creation, group chat, and transport flows
+                </li>
+                <li>Improves reliability for long-running requests</li>
+              </ul>
+            </section>
+
+            <p className="not-prose">
+              <a
+                href="https://github.com/LettuceAI/app/releases"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View full release on GitHub →
+              </a>
+            </p>
+          </motion.article>
+
+          {/* Android 1.3.2 & Desktop 1.0.2 update */}
+          <motion.article
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.025 }}
+            className="prose prose-invert max-w-none mb-16"
+          >
+            <div className="not-prose mb-8 pb-6 border-b border-border/30">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
+                  Android 1.3.2 & Desktop 1.0.2 update
+                </span>
+                <span className="text-muted-foreground text-sm">
+                  March 27, 2026
+                </span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                Security Fixes, Image Generation Providers & System Prompt Tools
+              </h2>
+              <p className="text-muted-foreground">
+                This update fixes two medium-severity security issues and adds
+                new image generation integrations, prompt tooling, and a set of
+                quality-of-life improvements across Android and Desktop.
+              </p>
+            </div>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-red-500/10 border border-red-500/30 flex items-center justify-center shrink-0">
+                  <Bug className="w-4 h-4 text-red-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Security
+                </span>
+              </div>
+              <p className="text-muted-foreground">
+                Two medium-severity security issues were fixed in this release.
+                Updating is strongly recommended.
+              </p>
+              <ul>
+                <li>
+                  Fixed a backup import path traversal issue that could allow
+                  arbitrary file writes
+                </li>
+                <li>
+                  Fixed a local media path traversal issue that could allow
+                  unintended file reads, writes, or deletions
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
+                  <BookOpen className="w-4 h-4 text-amber-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">New</span>
+              </div>
+              <ul>
+                <li>
+                  Added AUTOMATIC1111 and Stability AI support for image
+                  generation
+                </li>
+                <li>Added an update checker</li>
+                <li>Added Injection Rules for System Prompts</li>
+                <li>Added inline code text coloring</li>
+                <li>Added the ability to delete images</li>
+                <li>
+                  Added Scene Generation modes: <code>manual</code>,{" "}
+                  <code>ask first</code>, and <code>automatic</code>
+                </li>
+                <li>Added an About App page in Settings</li>
+                <li>Added Debug Mode</li>
+                <li>Added a Reddit button</li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-pink-500/10 border border-pink-500/30 flex items-center justify-center shrink-0">
+                  <Heart className="w-4 h-4 text-pink-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">
+                  Improvements
+                </span>
+              </div>
+              <ul>
+                <li>Redesigned the Image Generation Settings page</li>
+                <li>Redesigned the System Prompts entry editor</li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-8 h-8 rounded-lg bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0">
+                  <Sparkles className="w-4 h-4 text-green-400" />
+                </div>
+                <span className="text-xl font-semibold text-white">Fixes</span>
+              </div>
+              <ul>
+                <li>AI reference drafts now inherit model settings</li>
+                <li>
+                  Fixed an issue where the UI could get stuck if generation was
+                  canceled mid-process
+                </li>
+                <li>
+                  Character import now accepts <code>.uec</code> files again
+                </li>
+              </ul>
+            </section>
+
+            <p className="not-prose">
+              <a
+                href="https://github.com/LettuceAI/app/releases"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View full release on GitHub →
+              </a>
+            </p>
+          </motion.article>
+
           {/* Android 1.3.1 & Desktop 1.0.1 update */}
           <motion.article
             initial={{ opacity: 0, y: 20 }}
