@@ -47,6 +47,11 @@ import {
 import Snowfall from "react-snowfall";
 import { SnowProvider, useSnow } from "@/contexts/SnowContext";
 
+function ExternalRedirect({ url }: { url: string }) {
+  window.location.replace(url);
+  return null;
+}
+
 function AnimatedRoutes() {
   const location = useLocation();
 
