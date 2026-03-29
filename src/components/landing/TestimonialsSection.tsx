@@ -120,39 +120,30 @@ const fifthColumn = testimonials.slice(0, 3); // Reuse first testimonials for 5t
 
 export function TestimonialsSection() {
     return (
-        <section className="relative py-24 sm:py-32 overflow-hidden bg-[#050505]">
-            {/* Subtle gradient background */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div
-                    className="absolute left-1/2 top-0 -translate-x-1/2 w-150 h-100 rounded-full opacity-10 blur-[120px]"
-                    style={{
-                        background: 'radial-gradient(circle, rgba(136, 192, 87, 0.4) 0%, transparent 70%)',
-                    }}
-                />
-            </div>
-
+        <section className="relative py-16 sm:py-20 overflow-hidden bg-[#050505]">
             <div className="relative z-10 w-full px-6">
                 {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, amount: 0.2 }}
                     transition={{ duration: 0.5 }}
-                    className="text-center mb-16"
+                    className="text-center mb-12"
                 >
-                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-white">
-                        Loved by the <span className="text-primary">Community</span>
-                    </h2>
-                    <p className="text-muted-foreground text-lg">
-                        See what our users are saying about LettuceAI
+                    <p className="text-primary text-sm font-medium tracking-wide uppercase mb-3">
+                        Community
                     </p>
+                    <h2 className="text-3xl sm:text-4xl font-bold text-white">
+                        What users are{" "}
+                        <span className="font-display italic text-primary">saying</span>
+                    </h2>
                 </motion.div>
 
                 {/* Testimonials Columns */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, amount: 0.2 }}
                     transition={{ duration: 0.5, delay: 0.2 }}
                     className="flex justify-center gap-6 mask-[linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] max-h-175 overflow-hidden"
                 >

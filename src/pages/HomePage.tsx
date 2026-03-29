@@ -2,6 +2,8 @@ import {
     Navbar,
     HeroSection,
     FeaturesSection,
+    HowItWorksSection,
+    CapabilitiesSection,
     ProvidersSection,
     TrustSection,
     TestimonialsSection,
@@ -15,9 +17,11 @@ export function HomePage() {
         <>
             <Navbar />
             <HeroSection />
-            <FeaturesSection />
-            <ProvidersSection />
             <TrustSection />
+            <FeaturesSection />
+            <CapabilitiesSection />
+            <HowItWorksSection />
+            <ProvidersSection />
             <TestimonialsSection />
             <FAQSection />
             <CTASection />

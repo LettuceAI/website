@@ -1,6 +1,8 @@
 export { Navbar } from "./Navbar";
 export { HeroSection } from "./HeroSection";
 export { FeaturesSection } from "./FeaturesSection";
+export { HowItWorksSection } from "./HowItWorksSection";
+export { CapabilitiesSection } from "./CapabilitiesSection";
 export { ProvidersSection } from "./ProvidersSection";
 export { TrustSection } from "./TrustSection";
 export { TestimonialsSection } from "./TestimonialsSection";

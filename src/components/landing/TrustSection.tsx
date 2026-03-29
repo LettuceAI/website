@@ -7,13 +7,13 @@ export function TrustSection() {
 
     return (
         <section className="bg-[#050505]">
-            <div className="py-20 sm:py-24">
+            <div className="py-12 sm:py-16">
                 <div className="mx-auto max-w-5xl px-6">
                     <h2 className="sr-only">LettuceAI in stats</h2>
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
+                        viewport={{ once: true, amount: 0.3 }}
                         transition={{ duration: 0.5 }}
                         className="grid grid-cols-2 gap-6 md:grid-cols-4 items-center"
                     >

@@ -54,7 +54,7 @@ function MarqueeRow({ direction = "left", speed = 30 }: { direction?: "left" | "
 
 export function ProvidersSection() {
     return (
-        <section id="providers" className="relative py-24 sm:py-32 overflow-hidden bg-[#050505]">
+        <section id="providers" className="relative py-16 sm:py-20 overflow-hidden bg-[#050505]">
             {/* Subtle gradient orb */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div
@@ -74,13 +74,14 @@ export function ProvidersSection() {
                     transition={{ duration: 0.5 }}
                     className="text-center max-w-3xl mx-auto px-4 mb-12"
                 >
-                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-                        Every Provider,{" "}
-                        <span className="bg-linear-to-r from-primary to-emerald-400 bg-clip-text text-transparent">
-                            One App
-                        </span>
+                    <p className="text-primary text-sm font-medium tracking-wide uppercase mb-3">
+                        Providers
+                    </p>
+                    <h2 className="text-3xl sm:text-4xl font-bold mb-3">
+                        <span className="text-white">Every provider, </span>
+                        <span className="font-display italic text-primary">one app</span>
                     </h2>
-                    <p className="text-lg text-muted-foreground">
+                    <p className="text-base text-muted-foreground">
                         Connect to 20+ AI providers. Use your existing API keys and switch between models instantly.
                     </p>
                 </motion.div>
@@ -95,7 +96,7 @@ export function ProvidersSection() {
                 <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, amount: 0.2 }}
                     transition={{ duration: 0.5, delay: 0.3 }}
                     className="text-center mt-12 px-4"
                 >
