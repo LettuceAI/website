@@ -1,4 +1,5 @@
 import { SEO } from "@/components/common/SEO";
+import { softwareSchema } from "@/config/schemas";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
 import { Download, ChevronDown, ExternalLink, Copy, Check } from "lucide-react";
@@ -261,6 +262,7 @@ export function DownloadPage() {
         title="Download"
         description="Download LettuceAI for Android, Windows, macOS, and Linux. Free, open source AI chat with long-term memory."
         path="/download"
+        jsonLd={softwareSchema}
       />
       <main className="min-h-screen bg-[#050505] relative overflow-hidden">
         {/* Background atmosphere — gradient glow */}

@@ -1,4 +1,5 @@
 import { SEO } from "@/components/common/SEO";
+import { buildFaqSchema } from "@/config/schemas";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { ChevronDown, MessageCircle } from "lucide-react";
@@ -76,6 +77,7 @@ export function FAQPage() {
             title="FAQ"
             description="Frequently asked questions about LettuceAI — setup, providers, memory, privacy, and more."
             path="/faq"
+            jsonLd={buildFaqSchema(faqCategories.flatMap((c) => c.faqs))}
         />
         <main className="min-h-screen bg-[#050505] pt-28 pb-16">
             <div className="max-w-3xl mx-auto px-6 sm:px-10">

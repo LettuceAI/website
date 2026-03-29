@@ -13,9 +13,16 @@ interface SEOProps {
     description?: string;
     path?: string;
     noIndex?: boolean;
+    jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-export function SEO({ title, description, path = "", noIndex }: SEOProps) {
+export function SEO({
+    title,
+    description,
+    path = "",
+    noIndex,
+    jsonLd,
+}: SEOProps) {
     const fullTitle = title
         ? `${title} — ${DEFAULTS.siteName}`
         : `${DEFAULTS.siteName} — Private, User-Controlled AI Chat`;
@@ -41,6 +48,12 @@ export function SEO({ title, description, path = "", noIndex }: SEOProps) {
             <meta name="twitter:image" content={DEFAULTS.image} />
 
             {noIndex && <meta name="robots" content="noindex,nofollow" />}
+
+            {jsonLd && (
+                <script type="application/ld+json">
+                    {JSON.stringify(jsonLd)}
+                </script>
+            )}
         </Helmet>
     );
 }

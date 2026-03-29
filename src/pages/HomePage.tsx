@@ -1,5 +1,10 @@
 import { SEO } from "@/components/common/SEO";
 import {
+    organizationSchema,
+    softwareSchema,
+    websiteSchema,
+} from "@/config/schemas";
+import {
     HeroSection,
     TrustSection,
     MemoryShowcase,
@@ -16,7 +21,10 @@ import {
 export function HomePage() {
     return (
         <>
-            <SEO path="/" />
+            <SEO
+                path="/"
+                jsonLd={[organizationSchema, softwareSchema, websiteSchema]}
+            />
             <HeroSection />
             <TrustSection />
             <MemoryShowcase />
