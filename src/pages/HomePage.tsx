@@ -1,31 +1,36 @@
+import { SEO } from "@/components/common/SEO";
 import {
-    Navbar,
     HeroSection,
-    FeaturesSection,
-    HowItWorksSection,
-    CapabilitiesSection,
-    ProvidersSection,
     TrustSection,
+    MemoryShowcase,
+    FeaturesSection,
+    CapabilitiesSection,
+    PullQuote,
+    ProvidersSection,
+    ColorBreak,
     TestimonialsSection,
     FAQSection,
     CTASection,
-    Footer,
 } from "@/components/landing";
 
 export function HomePage() {
     return (
         <>
-            <Navbar />
+            <SEO path="/" />
             <HeroSection />
             <TrustSection />
+            <MemoryShowcase />
+            <div className="max-w-6xl mx-auto px-6 sm:px-10">
+                <div className="h-px bg-white/[0.06]" />
+            </div>
             <FeaturesSection />
             <CapabilitiesSection />
-            <HowItWorksSection />
+            <PullQuote />
             <ProvidersSection />
+            <ColorBreak />
             <TestimonialsSection />
             <FAQSection />
             <CTASection />
-            <Footer />
         </>
     );
 }

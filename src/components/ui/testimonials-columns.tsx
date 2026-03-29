@@ -38,31 +38,29 @@ export const TestimonialsColumn = (props: {
                     ease: "linear",
                     repeatType: "loop",
                 }}
-                className="flex flex-col gap-6 pb-6"
+                style={{ willChange: "transform" }}
+                className="flex flex-col gap-4 pb-4"
             >
                 {[
                     ...new Array(2).fill(0).map((_, index) => (
                         <React.Fragment key={index}>
-                            {props.testimonials.map(({ text, name, role }, i) => (
+                            {props.testimonials.map(({ text, name }, i) => (
                                 <div
-                                    className="p-6 sm:p-8 rounded-2xl bg-card/20 border border-border/30 max-w-xs w-full backdrop-blur-sm"
+                                    className="p-4 sm:p-5 rounded-xl bg-white/[0.02] border border-white/[0.06] max-w-xs w-full"
                                     key={i}
                                 >
-                                    <p className="text-muted-foreground leading-relaxed mb-6">
+                                    <p className="text-[13px] text-white/40 leading-relaxed mb-3">
                                         "{text}"
                                     </p>
-                                    <div className="flex items-center gap-3">
+                                    <div className="flex items-center gap-2.5">
                                         <div
-                                            className="h-12 w-12 rounded-full flex items-center justify-center
-                                            bg-border/20 ring-2 ring-border/30
-                                            text-sm font-semibold text-white/80 select-none"
+                                            className="h-7 w-7 rounded-full flex items-center justify-center
+                                            bg-white/[0.06]
+                                            text-[10px] font-semibold text-white/50 select-none"
                                         >
                                             {getInitials(name)}
                                         </div>
-                                        <div className="flex flex-col">
-                                            <div className="font-semibold text-white">{name}</div>
-                                            <div className="text-sm text-muted-foreground">{role}</div>
-                                        </div>
+                                        <span className="text-[12px] font-medium text-white/50">{name}</span>
                                     </div>
                                 </div>
                             ))}

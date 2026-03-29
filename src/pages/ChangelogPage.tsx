@@ -1,3 +1,4 @@
+import { SEO } from "@/components/common/SEO";
 import { motion } from "framer-motion";
 import {
   History,
@@ -9,71 +10,64 @@ import {
   Monitor,
   Bug,
   Heart,
-  Download,
-  ExternalLink,
   Volume2,
   Users,
 } from "lucide-react";
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Navbar, Footer } from "@/components/landing";
+import { useNavigate } from "react-router-dom";
+import { ShimmerButton } from "@/components/ui/shimmer-button";
 
 export function ChangelogPage() {
+  const navigate = useNavigate();
   return (
     <>
-      <Navbar />
-      <main className="min-h-screen pt-24 pb-16">
-        <div className="max-w-3xl mx-auto px-6">
+      <SEO
+        title="Changelog"
+        description="Track updates, improvements, and fixes across LettuceAI releases."
+        path="/changelog"
+      />
+      <main className="min-h-screen bg-[#050505] pt-28 pb-16">
+        <div className="max-w-3xl mx-auto px-6 sm:px-10">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-center mb-16"
+            className="mb-14"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
-              <History className="w-4 h-4 text-primary" />
-              <span className="text-sm text-primary font-medium">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-8 h-px bg-primary/40" />
+              <span className="text-primary text-[11px] font-semibold uppercase tracking-[0.2em]">
                 Changelog
               </span>
             </div>
-            <h1 className="text-4xl sm:text-5xl font-bold mb-4">What's New</h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-4">
+              What's{" "}
+              <span className="font-display italic text-primary">new</span>
+            </h1>
+            <p className="text-[15px] text-white/35 leading-[1.7] max-w-xl mb-6">
               Track updates, improvements, and fixes across LettuceAI releases.
             </p>
-            <div className="flex items-center justify-center gap-3 mt-6">
-              <Button asChild className="gap-2">
-                <Link to="/download">
-                  <Download className="w-4 h-4" />
-                  Download Latest Version
-                </Link>
-              </Button>
-              <Button asChild variant="outline" className="gap-2">
-                <a
-                  href="https://github.com/LettuceAI/app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <ExternalLink className="w-4 h-4" />
-                  GitHub Repository
-                </a>
-              </Button>
-            </div>
+            <ShimmerButton
+              className="h-10 px-6 text-sm"
+              onClick={() => navigate("/download")}
+            >
+              Download Latest Version
+            </ShimmerButton>
           </motion.div>
 
           {/* Android 1.3.3 & Desktop 1.0.3 update */}
           <motion.article
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.02 }}
-            className="prose prose-invert max-w-none mb-16"
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="prose prose-invert max-w-none mb-14"
           >
-            <div className="not-prose mb-8 pb-6 border-b border-border/30">
+            <div className="not-prose mb-8 pb-6 border-b border-white/[0.06]">
               <div className="flex items-center gap-3 mb-2">
-                <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
+                <span className="px-3 py-1 rounded-full bg-primary/10 text-primary/80 text-xs font-medium border border-primary/15">
                   Android 1.3.3 & Desktop 1.0.3 update
                 </span>
-                <span className="text-muted-foreground text-sm">
+                <span className="text-white/25 text-xs">
                   March 29, 2026
                 </span>
               </div>
@@ -81,7 +75,7 @@ export function ChangelogPage() {
                 Sync Reliability, Provider Streaming Controls & Timeout
                 Consistency
               </h2>
-              <p className="text-muted-foreground">
+              <p className="text-white/35">
                 This update fixes a sync regression affecting some devices, adds
                 per-provider streaming controls, and standardizes API request
                 timeouts across the app.
@@ -90,10 +84,10 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0">
                   <Bug className="w-4 h-4 text-green-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">Fixes</span>
+                <span className="text-base font-semibold text-white/80">Fixes</span>
               </div>
               <ul>
                 <li>
@@ -110,10 +104,10 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
                   <BookOpen className="w-4 h-4 text-amber-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Changes
                 </span>
               </div>
@@ -132,10 +126,10 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-pink-500/10 border border-pink-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-pink-500/10 border border-pink-500/30 flex items-center justify-center shrink-0">
                   <Heart className="w-4 h-4 text-pink-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Improvements
                 </span>
               </div>
@@ -166,23 +160,24 @@ export function ChangelogPage() {
           {/* Android 1.3.2 & Desktop 1.0.2 update */}
           <motion.article
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.025 }}
-            className="prose prose-invert max-w-none mb-16"
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0 }}
+            transition={{ duration: 0.5 }}
+            className="prose prose-invert max-w-none mb-14"
           >
-            <div className="not-prose mb-8 pb-6 border-b border-border/30">
+            <div className="not-prose mb-8 pb-6 border-b border-white/[0.06]">
               <div className="flex items-center gap-3 mb-2">
-                <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
+                <span className="px-3 py-1 rounded-full bg-primary/10 text-primary/80 text-xs font-medium border border-primary/15">
                   Android 1.3.2 & Desktop 1.0.2 update
                 </span>
-                <span className="text-muted-foreground text-sm">
+                <span className="text-white/25 text-xs">
                   March 27, 2026
                 </span>
               </div>
               <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
                 Security Fixes, Image Generation Providers & System Prompt Tools
               </h2>
-              <p className="text-muted-foreground">
+              <p className="text-white/35">
                 This update fixes two medium-severity security issues and adds
                 new image generation integrations, prompt tooling, and a set of
                 quality-of-life improvements across Android and Desktop.
@@ -191,14 +186,14 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-red-500/10 border border-red-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-red-500/10 border border-red-500/30 flex items-center justify-center shrink-0">
                   <Bug className="w-4 h-4 text-red-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Security
                 </span>
               </div>
-              <p className="text-muted-foreground">
+              <p className="text-white/35">
                 Two medium-severity security issues were fixed in this release.
                 Updating is strongly recommended.
               </p>
@@ -216,10 +211,10 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
                   <BookOpen className="w-4 h-4 text-amber-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">New</span>
+                <span className="text-base font-semibold text-white/80">New</span>
               </div>
               <ul>
                 <li>
@@ -242,10 +237,10 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-pink-500/10 border border-pink-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-pink-500/10 border border-pink-500/30 flex items-center justify-center shrink-0">
                   <Heart className="w-4 h-4 text-pink-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Improvements
                 </span>
               </div>
@@ -257,10 +252,10 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0">
                   <Sparkles className="w-4 h-4 text-green-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">Fixes</span>
+                <span className="text-base font-semibold text-white/80">Fixes</span>
               </div>
               <ul>
                 <li>AI reference drafts now inherit model settings</li>
@@ -288,23 +283,24 @@ export function ChangelogPage() {
           {/* Android 1.3.1 & Desktop 1.0.1 update */}
           <motion.article
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.05 }}
-            className="prose prose-invert max-w-none mb-16"
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0 }}
+            transition={{ duration: 0.5 }}
+            className="prose prose-invert max-w-none mb-14"
           >
-            <div className="not-prose mb-8 pb-6 border-b border-border/30">
+            <div className="not-prose mb-8 pb-6 border-b border-white/[0.06]">
               <div className="flex items-center gap-3 mb-2">
-                <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
+                <span className="px-3 py-1 rounded-full bg-primary/10 text-primary/80 text-xs font-medium border border-primary/15">
                   Android 1.3.1 & Desktop 1.0.1 update
                 </span>
-                <span className="text-muted-foreground text-sm">
+                <span className="text-white/25 text-xs">
                   March 23, 2026
                 </span>
               </div>
               <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
                 Stability Fixes, Scene Writing Options & PNG Character Cards
               </h2>
-              <p className="text-muted-foreground">
+              <p className="text-white/35">
                 This release focuses on bug fixes, small quality-of-life
                 upgrades, and a few targeted additions for scene writing,
                 reference text generation, and character card compatibility.
@@ -313,10 +309,10 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
                   <Sparkles className="w-4 h-4 text-primary" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Highlights
                 </span>
               </div>
@@ -339,10 +335,10 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0">
                   <Bug className="w-4 h-4 text-green-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">Fixes</span>
+                <span className="text-base font-semibold text-white/80">Fixes</span>
               </div>
               <ul>
                 <li>
@@ -366,10 +362,10 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-pink-500/10 border border-pink-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-pink-500/10 border border-pink-500/30 flex items-center justify-center shrink-0">
                   <Heart className="w-4 h-4 text-pink-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Improvements
                 </span>
               </div>
@@ -387,10 +383,10 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
                   <BookOpen className="w-4 h-4 text-amber-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">New</span>
+                <span className="text-base font-semibold text-white/80">New</span>
               </div>
               <ul>
                 <li>
@@ -416,16 +412,17 @@ export function ChangelogPage() {
           {/* Android 1.3.0 & Desktop release update */}
           <motion.article
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="prose prose-invert max-w-none mb-16"
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0 }}
+            transition={{ duration: 0.5 }}
+            className="prose prose-invert max-w-none mb-14"
           >
-            <div className="not-prose mb-8 pb-6 border-b border-border/30">
+            <div className="not-prose mb-8 pb-6 border-b border-white/[0.06]">
               <div className="flex items-center gap-3 mb-2">
-                <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
+                <span className="px-3 py-1 rounded-full bg-primary/10 text-primary/80 text-xs font-medium border border-primary/15">
                   Android 1.3.0 & Desktop release update
                 </span>
-                <span className="text-muted-foreground text-sm">
+                <span className="text-white/25 text-xs">
                   March 22, 2026
                 </span>
               </div>
@@ -433,7 +430,7 @@ export function ChangelogPage() {
                 Images 2.0, Built-In Local AI, Sync 2.0 & Full Chat
                 Customization
               </h2>
-              <p className="text-muted-foreground">
+              <p className="text-white/35">
                 This release overhauls LettuceAI&apos;s image system, expands
                 the local model ecosystem with built-in llama.cpp and a
                 hardware-aware HuggingFace browser, rewrites sync, and ships a
@@ -444,10 +441,10 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
                   <Sparkles className="w-4 h-4 text-primary" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Highlights
                 </span>
               </div>
@@ -477,14 +474,14 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center shrink-0">
                   <Image className="w-4 h-4 text-emerald-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Images 2.0
                 </span>
               </div>
-              <p className="text-muted-foreground">
+              <p className="text-white/35">
                 Image generation is now a first-class part of the app instead of
                 a side flow.
               </p>
@@ -510,10 +507,10 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-purple-500/10 border border-purple-500/30 flex items-center justify-center shrink-0">
                   <Zap className="w-4 h-4 text-purple-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Local AI & Model Ecosystem
                 </span>
               </div>
@@ -545,10 +542,10 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-blue-500/10 border border-blue-500/30 flex items-center justify-center shrink-0">
                   <Users className="w-4 h-4 text-blue-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Chat & Roleplay System
                 </span>
               </div>
@@ -584,10 +581,10 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-pink-500/10 border border-pink-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-pink-500/10 border border-pink-500/30 flex items-center justify-center shrink-0">
                   <Monitor className="w-4 h-4 text-pink-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   UI / UX & Customization
                 </span>
               </div>
@@ -614,10 +611,10 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
                   <History className="w-4 h-4 text-amber-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Sync, Storage & Data
                 </span>
               </div>
@@ -643,10 +640,10 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shrink-0">
                   <Brain className="w-4 h-4 text-cyan-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Platform & Performance
                 </span>
               </div>
@@ -676,10 +673,10 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-orange-500/10 border border-orange-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-orange-500/10 border border-orange-500/30 flex items-center justify-center shrink-0">
                   <BookOpen className="w-4 h-4 text-orange-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Internal Architecture
                 </span>
               </div>
@@ -701,10 +698,10 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0">
                   <Bug className="w-4 h-4 text-green-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Fixes & Stability
                 </span>
               </div>
@@ -732,16 +729,17 @@ export function ChangelogPage() {
           {/* Android 1.2.0 & Desktop Beta 4 release */}
           <motion.article
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="prose prose-invert max-w-none mb-16"
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0 }}
+            transition={{ duration: 0.5 }}
+            className="prose prose-invert max-w-none mb-14"
           >
-            <div className="not-prose mb-8 pb-6 border-b border-border/30">
+            <div className="not-prose mb-8 pb-6 border-b border-white/[0.06]">
               <div className="flex items-center gap-3 mb-2">
-                <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
+                <span className="px-3 py-1 rounded-full bg-primary/10 text-primary/80 text-xs font-medium border border-primary/15">
                   Android 1.2.0 & Desktop Beta 4 release
                 </span>
-                <span className="text-muted-foreground text-sm">
+                <span className="text-white/25 text-xs">
                   February 15, 2026
                 </span>
               </div>
@@ -749,7 +747,7 @@ export function ChangelogPage() {
                 Desktop UX Overhaul, Prompt Runtime Controls, Dynamic Memory
                 Upgrades & ONNX Reliability
               </h2>
-              <p className="text-muted-foreground">
+              <p className="text-white/35">
                 Major investment in desktop UX and character creation flow, a
                 significantly expanded prompt system, broad chat stability and
                 performance hardening, and continued ONNX runtime reliability
@@ -759,10 +757,10 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
                   <Sparkles className="w-4 h-4 text-primary" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Highlights
                 </span>
               </div>
@@ -792,10 +790,10 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-pink-500/10 border border-pink-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-pink-500/10 border border-pink-500/30 flex items-center justify-center shrink-0">
                   <Monitor className="w-4 h-4 text-pink-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Desktop UI and Character Creation Redesign
                 </span>
               </div>
@@ -829,10 +827,10 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
                   <BookOpen className="w-4 h-4 text-amber-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Prompt System Upgrades
                 </span>
               </div>
@@ -860,10 +858,10 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-blue-500/10 border border-blue-500/30 flex items-center justify-center shrink-0">
                   <Users className="w-4 h-4 text-blue-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Chat, Group Chat, and UI
                 </span>
               </div>
@@ -898,10 +896,10 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0">
                   <Bug className="w-4 h-4 text-green-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Chat Stability and Performance
                 </span>
               </div>
@@ -933,10 +931,10 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shrink-0">
                   <Brain className="w-4 h-4 text-cyan-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Dynamic Memory System
                 </span>
               </div>
@@ -970,10 +968,10 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-purple-500/10 border border-purple-500/30 flex items-center justify-center shrink-0">
                   <Zap className="w-4 h-4 text-purple-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Embeddings, ONNX Runtime, and Android
                 </span>
               </div>
@@ -1020,10 +1018,10 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center shrink-0">
                   <Image className="w-4 h-4 text-emerald-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Providers, Models, Endpoints, and Security
                 </span>
               </div>
@@ -1053,10 +1051,10 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-orange-500/10 border border-orange-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-orange-500/10 border border-orange-500/30 flex items-center justify-center shrink-0">
                   <Heart className="w-4 h-4 text-orange-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Lorebooks, Usage, Sync, and Tooling
                 </span>
               </div>
@@ -1106,17 +1104,18 @@ export function ChangelogPage() {
           {/* Android 1.1.0 & Desktop Beta 3 update */}
           <motion.article
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="prose prose-invert max-w-none mb-16"
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0 }}
+            transition={{ duration: 0.5 }}
+            className="prose prose-invert max-w-none mb-14"
           >
             {/* Release Header */}
-            <div className="not-prose mb-8 pb-6 border-b border-border/30">
+            <div className="not-prose mb-8 pb-6 border-b border-white/[0.06]">
               <div className="flex items-center gap-3 mb-2">
-                <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
+                <span className="px-3 py-1 rounded-full bg-primary/10 text-primary/80 text-xs font-medium border border-primary/15">
                   Android 1.1.0 & Desktop Beta 3 update
                 </span>
-                <span className="text-muted-foreground text-sm">
+                <span className="text-white/25 text-xs">
                   January 31, 2026
                 </span>
               </div>
@@ -1124,7 +1123,7 @@ export function ChangelogPage() {
                 Discovery, Group Chats, Smart Creator, Prompt Editor & Local
                 Inference
               </h2>
-              <p className="text-muted-foreground">
+              <p className="text-white/35">
                 This update brings Discovery, multi-character chats, a
                 redesigned Smart Creator, and deeper local inference controls
                 across Android and Desktop. It also includes a broad set of UI,
@@ -1136,14 +1135,14 @@ export function ChangelogPage() {
             {/* Discovery */}
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-pink-500/10 border border-pink-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-pink-500/10 border border-pink-500/30 flex items-center justify-center shrink-0">
                   <Image className="w-4 h-4 text-pink-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Discovery
                 </span>
               </div>
-              <p className="text-muted-foreground">
+              <p className="text-white/35">
                 A brand-new Discovery system powered by Character Tavern. Browse
                 trending, popular, and newest cards or search directly, preview
                 details before importing, and keep Pure Mode enabled to
@@ -1155,14 +1154,14 @@ export function ChangelogPage() {
             {/* Group Chats */}
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-blue-500/10 border border-blue-500/30 flex items-center justify-center shrink-0">
                   <Users className="w-4 h-4 text-blue-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Group Chats
                 </span>
               </div>
-              <p className="text-muted-foreground">
+              <p className="text-white/35">
                 A brand-new chat mode that lets multiple characters share one
                 conversation. The app selects the next speaker automatically (or
                 you can @mention to force a character), and roleplay groups can
@@ -1174,14 +1173,14 @@ export function ChangelogPage() {
             {/* Smart Creator */}
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-purple-500/10 border border-purple-500/30 flex items-center justify-center shrink-0">
                   <Sparkles className="w-4 h-4 text-purple-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Smart Creator
                 </span>
               </div>
-              <p className="text-muted-foreground">
+              <p className="text-white/35">
                 The creation flow is now goal-based with streaming and expanded
                 entity support.
               </p>
@@ -1207,14 +1206,14 @@ export function ChangelogPage() {
             {/* Help Me Reply */}
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center shrink-0">
                   <Sparkles className="w-4 h-4 text-emerald-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Help Me Reply
                 </span>
               </div>
-              <p className="text-muted-foreground">
+              <p className="text-white/35">
                 Reply suggestions now stream and are configurable for different
                 styles.
               </p>
@@ -1232,14 +1231,14 @@ export function ChangelogPage() {
             {/* Prompting System */}
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
                   <BookOpen className="w-4 h-4 text-amber-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Prompting System
                 </span>
               </div>
-              <p className="text-muted-foreground">
+              <p className="text-white/35">
                 Prompts are now entry-based with presets, mobile editing, and
                 clearer system controls.
               </p>
@@ -1267,14 +1266,14 @@ export function ChangelogPage() {
             {/* Import/Export */}
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
                   <BookOpen className="w-4 h-4 text-amber-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Import & Export
                 </span>
               </div>
-              <p className="text-muted-foreground">
+              <p className="text-white/35">
                 Expanded format support for sharing and migrating characters and
                 personas.
               </p>
@@ -1290,14 +1289,14 @@ export function ChangelogPage() {
             {/* Local Inference */}
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shrink-0">
                   <Zap className="w-4 h-4 text-cyan-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Local Inference
                 </span>
               </div>
-              <p className="text-muted-foreground">
+              <p className="text-white/35">
                 Stronger local model support with advanced controls and
                 stability fixes.
               </p>
@@ -1326,14 +1325,14 @@ export function ChangelogPage() {
             {/* UI, UX & Stability */}
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0">
                   <Heart className="w-4 h-4 text-green-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   UI, UX & Stability
                 </span>
               </div>
-              <p className="text-muted-foreground">
+              <p className="text-white/35">
                 Wide-ranging refinements across settings, editors, and
                 performance.
               </p>
@@ -1390,17 +1389,18 @@ export function ChangelogPage() {
           {/* Android Release & Desktop Beta 2 */}
           <motion.article
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="prose prose-invert max-w-none mb-16"
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0 }}
+            transition={{ duration: 0.5 }}
+            className="prose prose-invert max-w-none mb-14"
           >
             {/* Release Header */}
-            <div className="not-prose mb-8 pb-6 border-b border-border/30">
+            <div className="not-prose mb-8 pb-6 border-b border-white/[0.06]">
               <div className="flex items-center gap-3 mb-2">
-                <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
+                <span className="px-3 py-1 rounded-full bg-primary/10 text-primary/80 text-xs font-medium border border-primary/15">
                   Android Release & Desktop Beta 2
                 </span>
-                <span className="text-muted-foreground text-sm">
+                <span className="text-white/25 text-xs">
                   January 4, 2026
                 </span>
               </div>
@@ -1408,7 +1408,7 @@ export function ChangelogPage() {
                 Text-to-Speech, AI Character Creator, Reply Helper, Sync,
                 Accessibility Upgrades & Voice Playback
               </h2>
-              <p className="text-muted-foreground">
+              <p className="text-white/35">
                 This release brings LettuceAI to Android along with the second
                 desktop beta update. It introduces Text-to-Speech voices, reply
                 generation assistance, encrypted device-to-device sync, enhanced
@@ -1420,10 +1420,10 @@ export function ChangelogPage() {
 
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-purple-500/10 border border-purple-500/30 flex items-center justify-center shrink-0">
                   <Sparkles className="w-4 h-4 text-purple-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   AI Character Creator
                 </span>
               </div>
@@ -1450,7 +1450,7 @@ export function ChangelogPage() {
                 manual editor.
               </p>
 
-              <p className="text-muted-foreground text-sm">
+              <p className="text-white/25 text-xs">
                 The Creator uses your default app model.
               </p>
             </section>
@@ -1458,10 +1458,10 @@ export function ChangelogPage() {
             {/* Text-to-Speech */}
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
                   <Volume2 className="w-4 h-4 text-primary" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Text-to-Speech Voices
                 </span>
               </div>
@@ -1492,7 +1492,7 @@ export function ChangelogPage() {
                 reuse them across characters.
               </p>
 
-              <p className="text-muted-foreground text-sm">
+              <p className="text-white/25 text-xs">
                 Generated audio is cached locally to reduce repeated
                 regenerations.
               </p>
@@ -1501,10 +1501,10 @@ export function ChangelogPage() {
             {/* Reply Helper */}
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
                   <Sparkles className="w-4 h-4 text-amber-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Reply Helper
                 </span>
               </div>
@@ -1528,7 +1528,7 @@ export function ChangelogPage() {
                 </li>
               </ul>
 
-              <p className="text-muted-foreground text-sm">
+              <p className="text-white/25 text-xs">
                 Reply Helper uses your default app model.
               </p>
             </section>
@@ -1536,10 +1536,10 @@ export function ChangelogPage() {
             {/* Sync */}
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-blue-500/10 border border-blue-500/30 flex items-center justify-center shrink-0">
                   <History className="w-4 h-4 text-blue-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Encrypted Device Sync
                 </span>
               </div>
@@ -1564,10 +1564,10 @@ export function ChangelogPage() {
             {/* Accessibility */}
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0">
                   <Heart className="w-4 h-4 text-green-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Accessibility Improvements
                 </span>
               </div>
@@ -1624,10 +1624,10 @@ export function ChangelogPage() {
             {/* Bug Fixes */}
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-red-500/10 border border-red-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-red-500/10 border border-red-500/30 flex items-center justify-center shrink-0">
                   <Bug className="w-4 h-4 text-red-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Bug Fixes & Behaviour Improvements
                 </span>
               </div>
@@ -1666,24 +1666,25 @@ export function ChangelogPage() {
           {/* Beta 6.2 Release */}
           <motion.article
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="prose prose-invert max-w-none mb-16"
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0 }}
+            transition={{ duration: 0.5 }}
+            className="prose prose-invert max-w-none mb-14"
           >
             {/* Release Header */}
-            <div className="not-prose mb-8 pb-6 border-b border-border/30">
+            <div className="not-prose mb-8 pb-6 border-b border-white/[0.06]">
               <div className="flex items-center gap-3 mb-2">
-                <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
+                <span className="px-3 py-1 rounded-full bg-primary/10 text-primary/80 text-xs font-medium border border-primary/15">
                   v1.0-beta.6.2
                 </span>
-                <span className="text-muted-foreground text-sm">
+                <span className="text-white/25 text-xs">
                   December 24, 2025
                 </span>
               </div>
               <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
                 Backup Fixes, Provider Expansion & Extended Timeout
               </h2>
-              <p className="text-muted-foreground">
+              <p className="text-white/35">
                 Beta 6.2 is a stability and compatibility update focused on
                 fixing critical backup issues, expanding provider support with
                 Ollama and LM Studio, and improving reasoning model
@@ -1694,10 +1695,10 @@ export function ChangelogPage() {
             {/* Bug Fixes */}
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-red-500/10 border border-red-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-red-500/10 border border-red-500/30 flex items-center justify-center shrink-0">
                   <Bug className="w-4 h-4 text-red-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Bug Fixes
                 </span>
               </div>
@@ -1723,10 +1724,10 @@ export function ChangelogPage() {
             {/* New Features */}
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
                   <Sparkles className="w-4 h-4 text-primary" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   New Features
                 </span>
               </div>
@@ -1753,17 +1754,18 @@ export function ChangelogPage() {
           {/* Beta 6 Release */}
           <motion.article
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0 }}
+            transition={{ duration: 0.5 }}
             className="prose prose-invert max-w-none"
           >
             {/* Release Header */}
-            <div className="not-prose mb-8 pb-6 border-b border-border/30">
+            <div className="not-prose mb-8 pb-6 border-b border-white/[0.06]">
               <div className="flex items-center gap-3 mb-2">
-                <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
+                <span className="px-3 py-1 rounded-full bg-primary/10 text-primary/80 text-xs font-medium border border-primary/15">
                   v1.0-beta.6
                 </span>
-                <span className="text-muted-foreground text-sm">
+                <span className="text-white/25 text-xs">
                   December 21, 2025
                 </span>
               </div>
@@ -1771,7 +1773,7 @@ export function ChangelogPage() {
                 Dynamic Memory v2, Lorebooks, In-Chat Image Generation & Major
                 Performance Improvements
               </h2>
-              <p className="text-muted-foreground">
+              <p className="text-white/35">
                 Beta 6 is a major systems and UX update focused on memory
                 accuracy, world consistency, creative flexibility, and
                 performance. It's designed to make long conversations faster,
@@ -1783,10 +1785,10 @@ export function ChangelogPage() {
             {/* Dynamic Memory v2 */}
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
                   <Brain className="w-4 h-4 text-primary" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Dynamic Memory v2
                 </span>
               </div>
@@ -1805,10 +1807,10 @@ export function ChangelogPage() {
             {/* New Embedding Model */}
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-blue-500/10 border border-blue-500/30 flex items-center justify-center shrink-0">
                   <Sparkles className="w-4 h-4 text-blue-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   New Embedding Model
                 </span>
               </div>
@@ -1824,12 +1826,12 @@ export function ChangelogPage() {
             {/* Context Enrichment */}
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-purple-500/10 border border-purple-500/30 flex items-center justify-center shrink-0">
                   <Zap className="w-4 h-4 text-purple-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Context Enrichment{" "}
-                  <span className="text-sm font-normal text-muted-foreground">
+                  <span className="text-sm font-normal text-white/35">
                     (Experimental)
                   </span>
                 </span>
@@ -1840,7 +1842,7 @@ export function ChangelogPage() {
                 improves recall accuracy in follow-up messages, and reduces
                 ambiguity during semantic search.
               </p>
-              <p className="text-muted-foreground text-sm">
+              <p className="text-white/25 text-xs">
                 This feature is currently experimental and may evolve in future
                 releases.
               </p>
@@ -1849,10 +1851,10 @@ export function ChangelogPage() {
             {/* Lorebooks */}
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
                   <BookOpen className="w-4 h-4 text-amber-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Lorebooks
                 </span>
               </div>
@@ -1872,10 +1874,10 @@ export function ChangelogPage() {
             {/* In-Chat Image Generation */}
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-pink-500/10 border border-pink-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-pink-500/10 border border-pink-500/30 flex items-center justify-center shrink-0">
                   <Image className="w-4 h-4 text-pink-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   In-Chat Image Generation
                 </span>
               </div>
@@ -1890,10 +1892,10 @@ export function ChangelogPage() {
             {/* Model & API Improvements */}
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shrink-0">
                   <Zap className="w-4 h-4 text-cyan-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Model & API Improvements
                 </span>
               </div>
@@ -1950,10 +1952,10 @@ export function ChangelogPage() {
             {/* Desktop Builds */}
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-zinc-700/50 border border-zinc-600/50 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-zinc-700/50 border border-zinc-600/50 flex items-center justify-center shrink-0">
                   <Monitor className="w-4 h-4 text-zinc-300" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Desktop Builds
                 </span>
               </div>
@@ -1969,7 +1971,7 @@ export function ChangelogPage() {
                   <strong>Linux:</strong> .AppImage, .deb, .rpm
                 </li>
               </ul>
-              <p className="text-muted-foreground text-sm">
+              <p className="text-white/25 text-xs">
                 Desktop builds are still considered beta while platform-specific
                 issues are being refined. Functionality generally matches the
                 mobile app unless otherwise noted.
@@ -1995,10 +1997,10 @@ export function ChangelogPage() {
             {/* Bug Fixes */}
             <section className="mb-10">
               <div className="flex items-center gap-3 mb-4 not-prose">
-                <div className="w-8 h-8 rounded-lg bg-red-500/10 border border-red-500/30 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-md bg-red-500/10 border border-red-500/30 flex items-center justify-center shrink-0">
                   <Bug className="w-4 h-4 text-red-400" />
                 </div>
-                <span className="text-xl font-semibold text-white">
+                <span className="text-base font-semibold text-white/80">
                   Bug Fixes
                 </span>
               </div>
@@ -2023,7 +2025,7 @@ export function ChangelogPage() {
                   Thank You
                 </span>
               </div>
-              <p className="text-muted-foreground">
+              <p className="text-white/35">
                 Beta 6 is a foundational release that strengthens LettuceAI's
                 core systems while expanding both creative and technical
                 flexibility. Your feedback continues to shape LettuceAI into a
@@ -2042,17 +2044,16 @@ export function ChangelogPage() {
 
             {/* Bottom Download CTA */}
             <div className="not-prose mt-12 text-center">
-              <Button asChild size="lg" className="gap-2">
-                <Link to="/download">
-                  <Download className="w-4 h-4" />
-                  Download LettuceAI
-                </Link>
-              </Button>
+              <ShimmerButton
+                className="h-10 px-6 text-sm"
+                onClick={() => navigate("/download")}
+              >
+                Download LettuceAI
+              </ShimmerButton>
             </div>
           </motion.article>
         </div>
       </main>
-      <Footer />
     </>
   );
 }

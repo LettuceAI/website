@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { BookOpen, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import { FallingPattern } from "@/components/ui/falling-pattern";
 
 export function CTASection() {
@@ -41,19 +42,19 @@ export function CTASection() {
                             className="h-11 px-6 gap-2 border-border/50 hover:border-primary/50 hover:bg-primary/5"
                             asChild
                         >
-                            <a href="/docs">
+                            <Link to="/docs">
                                 <BookOpen className="w-4 h-4" />
                                 Docs
-                            </a>
+                            </Link>
                         </Button>
                         <Button
                             className="h-11 px-6 gap-2 bg-white text-black hover:bg-white/90"
                             asChild
                         >
-                            <a href="/download">
+                            <Link to="/download">
                                 <Download className="w-4 h-4" />
                                 Download
-                            </a>
+                            </Link>
                         </Button>
                     </motion.div>
                 </div>

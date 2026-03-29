@@ -1,10 +1,8 @@
+import { SEO } from "@/components/common/SEO";
 import { motion } from "framer-motion";
 import { ExternalLink, Key, Zap, Shield } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Navbar, Footer } from "@/components/landing";
 import { images } from "@/config/images";
 
-// Provider data with descriptions
 const providers = [
     {
         name: "OpenAI",
@@ -113,22 +111,35 @@ const benefits = [
 export function ProvidersPage() {
     return (
         <>
-            <Navbar />
-            <main className="min-h-screen pt-24 pb-16">
-                <div className="max-w-6xl mx-auto px-6">
+            <SEO
+                title="Providers"
+                description="Connect LettuceAI with 20+ AI providers — OpenAI, Anthropic, Google Gemini, DeepSeek, Mistral, Groq, and more."
+                path="/providers"
+            />
+            <main className="min-h-screen bg-[#050505] pt-28 pb-16">
+                <div className="max-w-[1440px] mx-auto px-6 sm:px-10">
                     {/* Header */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}
-                        className="text-center mb-16"
+                        className="mb-14"
                     >
-                        <h1 className="text-4xl sm:text-5xl font-bold mb-4">
-                            Supported Providers
+                        <div className="flex items-center gap-3 mb-6">
+                            <div className="w-8 h-px bg-primary/40" />
+                            <span className="text-primary text-[11px] font-semibold uppercase tracking-[0.2em]">
+                                Providers
+                            </span>
+                        </div>
+                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-4">
+                            20+ AI providers,{" "}
+                            <span className="font-display italic text-primary">
+                                your keys
+                            </span>
                         </h1>
-                        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                            Connect to any of these providers using your own API keys.
-                            Switch models anytime without losing context.
+                        <p className="text-[15px] text-white/35 leading-[1.7] max-w-xl">
+                            Connect to any provider using your own API keys.
+                            Switch models anytime without losing context. No middleman, no markup.
                         </p>
                     </motion.div>
 
@@ -137,69 +148,85 @@ export function ProvidersPage() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.1 }}
-                        className="grid sm:grid-cols-3 gap-4 mb-16"
+                        className="grid sm:grid-cols-3 gap-4 mb-14"
                     >
                         {benefits.map((benefit) => (
                             <div
                                 key={benefit.title}
-                                className="p-5 rounded-xl bg-zinc-900/50 border border-border/30"
+                                className="group p-5 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.12] transition-colors"
                             >
-                                <benefit.icon className="w-6 h-6 text-primary mb-3" />
-                                <h3 className="font-semibold text-white mb-1">{benefit.title}</h3>
-                                <p className="text-sm text-muted-foreground">{benefit.description}</p>
+                                <benefit.icon className="w-5 h-5 text-primary/70 mb-3" />
+                                <h3 className="text-[14px] font-semibold text-white mb-1.5">
+                                    {benefit.title}
+                                </h3>
+                                <p className="text-[13px] text-white/30 leading-relaxed">
+                                    {benefit.description}
+                                </p>
                             </div>
                         ))}
                     </motion.div>
 
                     {/* Providers Grid */}
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {providers.map((provider, index) => (
-                            <motion.div
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                        className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3"
+                    >
+                        {providers.map((provider) => (
+                            <a
                                 key={provider.name}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.4, delay: 0.1 + index * 0.05 }}
-                                className="group p-5 rounded-xl bg-zinc-900/30 border border-border/30 hover:border-primary/30 transition-colors"
+                                href={provider.docUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group flex items-center gap-4 p-4 rounded-xl bg-white/[0.01] border border-white/[0.06] hover:border-primary/20 hover:bg-white/[0.03] transition-all"
                             >
-                                <div className="flex items-start gap-4">
-                                    <div className="w-12 h-12 rounded-lg bg-zinc-800 flex items-center justify-center shrink-0">
-                                        <img
-                                            src={provider.logo}
-                                            alt={provider.name}
-                                            className="w-8 h-8 object-contain brightness-0 invert opacity-70 group-hover:opacity-100 transition-opacity"
-                                        />
-                                    </div>
-                                    <div className="flex-1 min-w-0">
-                                        <h3 className="font-semibold text-white mb-1">{provider.name}</h3>
-                                        <p className="text-sm text-muted-foreground mb-3">{provider.description}</p>
-                                        <Button asChild variant="ghost" size="sm" className="h-8 px-3 gap-1.5 text-xs">
-                                            <a href={provider.docUrl} target="_blank" rel="noopener noreferrer">
-                                                View Docs
-                                                <ExternalLink className="w-3 h-3" />
-                                            </a>
-                                        </Button>
-                                    </div>
+                                <div className="w-10 h-10 rounded-lg bg-white/[0.04] flex items-center justify-center shrink-0">
+                                    <img
+                                        src={provider.logo}
+                                        alt={provider.name}
+                                        className="w-6 h-6 object-contain brightness-0 invert opacity-50 group-hover:opacity-80 transition-opacity"
+                                    />
                                 </div>
-                            </motion.div>
+                                <div className="flex-1 min-w-0">
+                                    <div className="flex items-center gap-2">
+                                        <h3 className="text-[13px] font-semibold text-white/80 group-hover:text-white transition-colors">
+                                            {provider.name}
+                                        </h3>
+                                        <ExternalLink className="w-3 h-3 text-white/15 group-hover:text-white/30 transition-colors shrink-0" />
+                                    </div>
+                                    <p className="text-[12px] text-white/25 leading-relaxed mt-0.5 truncate">
+                                        {provider.description}
+                                    </p>
+                                </div>
+                            </a>
                         ))}
-                    </div>
+                    </motion.div>
 
                     {/* Custom Provider Note */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ duration: 0.5, delay: 0.5 }}
-                        className="mt-12 p-6 rounded-xl bg-zinc-900/30 border border-border/30 text-center"
+                        transition={{ duration: 0.5, delay: 0.3 }}
+                        className="mt-10 p-6 rounded-xl border border-white/[0.06] bg-white/[0.01]"
                     >
-                        <h3 className="font-semibold text-white mb-2">Custom Providers</h3>
-                        <p className="text-muted-foreground">
-                            Any OpenAI-compatible endpoint works with LettuceAI.
-                            Add your own local models, self-hosted instances, or other API providers.
-                        </p>
+                        <div className="flex items-start gap-4">
+                            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
+                                <Zap className="w-5 h-5 text-primary/60" />
+                            </div>
+                            <div>
+                                <h3 className="text-[14px] font-semibold text-white mb-1">
+                                    Custom Providers
+                                </h3>
+                                <p className="text-[13px] text-white/30 leading-relaxed">
+                                    Any OpenAI-compatible endpoint works with LettuceAI.
+                                    Add your own local models, self-hosted instances, or other API providers.
+                                </p>
+                            </div>
+                        </div>
                     </motion.div>
                 </div>
             </main>
-            <Footer />
         </>
     );
 }

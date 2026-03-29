@@ -1,14 +1,14 @@
+import { SEO } from "@/components/common/SEO";
 import { motion } from "framer-motion";
 import { Home, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
-import { Navbar, Footer } from "@/components/landing";
 
 export function NotFoundPage() {
     return (
         <>
-            <Navbar />
+            <SEO title="Page Not Found" noIndex />
             <main className="min-h-screen flex items-center justify-center px-6">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -46,7 +46,6 @@ export function NotFoundPage() {
                     </div>
                 </motion.div>
             </main>
-            <Footer />
         </>
     );
 }

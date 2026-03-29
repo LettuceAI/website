@@ -116,6 +116,15 @@
     --radius-2xl: calc(var(--radius) + 8px);
     --radius-3xl: calc(var(--radius) + 12px);
     --radius-4xl: calc(var(--radius) + 16px);
+
+    /* App UI demo colors — enables bg-surface, text-fg, border-fg etc. */
+    --color-surface: #050505;
+    --color-surface-el: #0a0a0a;
+    --color-fg: #ffffff;
+    --color-nav: #0a0a0a;
+    --color-danger: #ef4444;
+    --color-warning: #f59e0b;
+    --color-info: #3b82f6;
 }
 
 @layer base {
@@ -131,48 +140,92 @@
     }
 }
 
-/* Aurora Background Animation */
-.aurora-bg {
+/* Hero vertical lines — thin white lines with bottom fade + primary glow */
+.hero-grid {
+  background-image:
+    radial-gradient(
+      ellipse 50% 40% at 50% 30%,
+      rgba(136, 192, 87, 0.04) 0%,
+      transparent 100%
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.06) 0px,
+      rgba(255, 255, 255, 0.06) 1.5px,
+      transparent 1.5px,
+      transparent 40px
+    );
+  mask-image: linear-gradient(to bottom, black 0%, black 20%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 20%, transparent 100%);
+}
+
+/* One accent line that pulses subtly */
+.hero-grid::after {
+  content: "";
   position: absolute;
   inset: 0;
-  background: 
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(136, 192, 87, 0.3), transparent),
-    radial-gradient(ellipse 60% 40% at 80% 60%, rgba(16, 185, 129, 0.2), transparent),
-    radial-gradient(ellipse 70% 50% at 20% 80%, rgba(34, 197, 94, 0.15), transparent);
-  animation: aurora 15s ease-in-out infinite;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 199px,
+      rgba(136, 192, 87, 0.08) 199px,
+      rgba(136, 192, 87, 0.08) 200px,
+      transparent 200px,
+      transparent 400px
+    );
+  mask-image: linear-gradient(to bottom, black 0%, transparent 60%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 60%);
+  animation: accentPulse 4s ease-in-out infinite;
 }
 
-@keyframes aurora {
-  0%, 100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-  25% {
-    opacity: 0.8;
-    transform: translateY(-2%) scale(1.02);
-  }
-  50% {
-    opacity: 1;
-    transform: translateY(0) scale(1.05);
-  }
-  75% {
-    opacity: 0.85;
-    transform: translateY(1%) scale(1.02);
-  }
+@keyframes accentPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
 }
 
-/* Gradient Text Animation */
-@keyframes gradient-x {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
+/* Shimmer button animation */
+@keyframes shimmer-slide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
-.animate-gradient-x {
-  animation: gradient-x 3s ease infinite;
+/* Spotlight mouse-follow gradient */
+.spotlight {
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(136, 192, 87, 0.06),
+    transparent 40%
+  );
+}
+
+/* ── App UI demo: typing dot animation ── */
+@keyframes dotPulse {
+  0%, 100% { opacity: 0.2; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+.typing-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background-color: #d1d5db;
+  animation: dotPulse 1.2s ease-in-out infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+/* Noise grain texture overlay — adds depth, kills flat CSS look */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
 }
 
 @layer base {

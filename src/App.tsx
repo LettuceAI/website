@@ -5,7 +5,10 @@ import {
   useLocation,
   Navigate,
 } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
+import { AnimatePresence, motion } from "framer-motion";
 import { ScrollToTop } from "@/components/common/ScrollToTop";
+import { Layout } from "@/components/layout/Layout";
 import {
   HomePage,
   DownloadPage,
@@ -44,6 +47,35 @@ import {
 import Snowfall from "react-snowfall";
 import { SnowProvider, useSnow } from "@/contexts/SnowContext";
 
+function AnimatedRoutes() {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={location.pathname}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.15, ease: "easeInOut" }}
+        style={{ minHeight: "100vh" }}
+      >
+        <Routes location={location}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/download" element={<DownloadPage />} />
+          <Route path="/providers" element={<ProvidersPage />} />
+          <Route path="/faq" element={<FAQPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/terms" element={<TermsPage />} />
+          <Route path="/license" element={<LicensePage />} />
+          <Route path="/changelog" element={<ChangelogPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
 function AppContent() {
   const { snowEnabled, isHolidaySeason } = useSnow();
   const location = useLocation();
@@ -64,60 +96,56 @@ function AppContent() {
           snowflakeCount={150}
         />
       )}
-      <main className="dark min-h-screen bg-background text-foreground">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/download" element={<DownloadPage />} />
-          <Route path="/providers" element={<ProvidersPage />} />
-          <Route path="/faq" element={<FAQPage />} />
-          <Route path="/privacy" element={<PrivacyPage />} />
-          <Route path="/terms" element={<TermsPage />} />
-          <Route path="/license" element={<LicensePage />} />
-          <Route path="/changelog" element={<ChangelogPage />} />
-
-          {/* Docs Routes */}
-          <Route path="/docs" element={<DocsLayout />}>
-            <Route index element={<DocsIndex />} />
-            <Route path="installation" element={<InstallationDoc />} />
-            <Route path="quickstart" element={<QuickStartDoc />} />
-            <Route path="ai-basics" element={<AIBasicsDoc />} />
-            <Route path="api-keys" element={<ApiKeysDoc />} />
-            <Route path="providers" element={<ProvidersDoc />} />
-            <Route path="models" element={<ModelsDoc />} />
-            <Route path="images" element={<ImageGenerationDoc />} />
-            <Route path="sync" element={<SyncDoc />} />
-            <Route path="accessibility" element={<AccessibilityDoc />} />
-            <Route path="help-me-reply" element={<ReplyHelperDoc />} />
-            <Route path="tts" element={<TTSDoc />} />
-            <Route path="characters" element={<CharactersDoc />} />
-            <Route path="chat-templates" element={<ChatTemplatesDoc />} />
-            <Route path="group-chats" element={<GroupChatsDoc />} />
-            <Route path="discovery" element={<DiscoveryDoc />} />
-            <Route path="memory" element={<MemoryDoc />} />
-            <Route path="lorebooks" element={<LorebooksDoc />} />
-            <Route path="personas" element={<PersonasDoc />} />
-            <Route path="system-prompts" element={<SystemPromptsDoc />} />
-            <Route path="smart-creator" element={<CharacterCreatorDoc />} />
-            <Route
-              path="character-creator"
-              element={<Navigate to="/docs/smart-creator\" replace />}
-            />
-          </Route>
-
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </main>
+      <div className="dark grain min-h-screen bg-background text-foreground">
+        {isDocsPage ? (
+          <Routes location={location}>
+            <Route path="/docs" element={<DocsLayout />}>
+              <Route index element={<DocsIndex />} />
+              <Route path="installation" element={<InstallationDoc />} />
+              <Route path="quickstart" element={<QuickStartDoc />} />
+              <Route path="ai-basics" element={<AIBasicsDoc />} />
+              <Route path="api-keys" element={<ApiKeysDoc />} />
+              <Route path="providers" element={<ProvidersDoc />} />
+              <Route path="models" element={<ModelsDoc />} />
+              <Route path="images" element={<ImageGenerationDoc />} />
+              <Route path="sync" element={<SyncDoc />} />
+              <Route path="accessibility" element={<AccessibilityDoc />} />
+              <Route path="help-me-reply" element={<ReplyHelperDoc />} />
+              <Route path="tts" element={<TTSDoc />} />
+              <Route path="characters" element={<CharactersDoc />} />
+              <Route path="chat-templates" element={<ChatTemplatesDoc />} />
+              <Route path="group-chats" element={<GroupChatsDoc />} />
+              <Route path="discovery" element={<DiscoveryDoc />} />
+              <Route path="memory" element={<MemoryDoc />} />
+              <Route path="lorebooks" element={<LorebooksDoc />} />
+              <Route path="personas" element={<PersonasDoc />} />
+              <Route path="system-prompts" element={<SystemPromptsDoc />} />
+              <Route path="smart-creator" element={<CharacterCreatorDoc />} />
+              <Route
+                path="character-creator"
+                element={<Navigate to="/docs/smart-creator" replace />}
+              />
+            </Route>
+          </Routes>
+        ) : (
+          <Layout>
+            <AnimatedRoutes />
+          </Layout>
+        )}
+      </div>
     </>
   );
 }
 
 export function App() {
   return (
-    <BrowserRouter>
-      <SnowProvider>
-        <AppContent />
-      </SnowProvider>
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <SnowProvider>
+          <AppContent />
+        </SnowProvider>
+      </BrowserRouter>
+    </HelmetProvider>
   );
 }
 

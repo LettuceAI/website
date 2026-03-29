@@ -30,3 +30,5 @@ Disallow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://lettuceai.app/sitemap.xml

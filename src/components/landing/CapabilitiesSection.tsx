@@ -1,95 +1,101 @@
 import { motion } from "framer-motion";
 import {
     BookOpen,
-    Volume2,
-    Layers,
     MessageCircle,
+    Wand2,
     RefreshCw,
     ShieldCheck,
-    Wand2,
     Code,
+    Mic,
+    Search,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
-const capabilities = [
+const capabilities: { icon: LucideIcon; name: string; desc: string }[] = [
+    {
+        icon: Search,
+        name: "Discovery",
+        desc: "Browse thousands of community-created characters. Import, remix, and make them yours.",
+    },
+    {
+        icon: Mic,
+        name: "Text-to-Speech",
+        desc: "4+ TTS providers. Custom voices, auto-play, and per-character voice settings.",
+    },
     {
         icon: BookOpen,
-        title: "Lorebooks",
-        desc: "World-building entries that activate contextually",
-    },
-    {
-        icon: Volume2,
-        title: "Text-to-Speech",
-        desc: "Hear characters speak with multiple TTS providers",
-    },
-    {
-        icon: Layers,
-        title: "System Prompts",
-        desc: "Advanced prompts with conditional logic",
+        name: "Lorebooks",
+        desc: "World-building entries that activate contextually based on keywords and conditions.",
     },
     {
         icon: MessageCircle,
-        title: "Reply Helper",
-        desc: "AI-suggested responses for inspiration",
+        name: "Reply Helper",
+        desc: "AI-suggested responses when you're stuck — pick from multiple options or regenerate.",
     },
     {
         icon: Wand2,
-        title: "Personas",
-        desc: "Define how you appear to characters",
+        name: "Personas",
+        desc: "Define how you appear to your characters — name, backstory, writing style.",
     },
     {
         icon: RefreshCw,
-        title: "Device Sync",
-        desc: "Sync characters and chats across devices",
+        name: "Device Sync",
+        desc: "Sync characters and chats across all your devices over local network.",
     },
     {
         icon: ShieldCheck,
-        title: "Fully Private",
-        desc: "No accounts, no telemetry, data stays local",
+        name: "Fully Private",
+        desc: "No accounts, no telemetry, no data collection. Everything stays on device.",
     },
     {
         icon: Code,
-        title: "Open Source",
-        desc: "Transparent, community-driven, AGPL-3.0",
+        name: "Open Source",
+        desc: "Transparent, community-driven, AGPL-3.0. Audit every line of code.",
     },
 ];
 
+
 export function CapabilitiesSection() {
     return (
-        <section className="py-12 sm:py-16 bg-[#050505]">
-            <div className="max-w-6xl mx-auto px-6">
+        <section className="bg-[#050505] py-16 sm:py-20 border-t border-white/[0.04]">
+            <div className="max-w-[1440px] mx-auto px-6 sm:px-10">
+                <motion.p
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4 }}
+                    className="text-white/25 text-xs font-medium uppercase tracking-[0.15em] mb-8 text-center"
+                >
+                    Everything else you need
+                </motion.p>
+
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
+                    viewport={{ once: true, amount: 0.1 }}
                     transition={{ duration: 0.5 }}
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"
                 >
-                    {/* Compact header */}
-                    <p className="text-center text-muted-foreground text-sm mb-8">
-                        Plus lorebooks, text-to-speech, system prompts, personas,
-                        sync, and more —
-                    </p>
+                    {capabilities.map((cap) => (
+                        <div
+                            key={cap.name}
+                            className="group relative rounded-xl border border-white/[0.06] bg-white/[0.015] p-5 hover:border-white/[0.12] hover:bg-white/[0.03] transition-all duration-300 overflow-hidden"
+                        >
+                            <div className="absolute top-0 left-5 right-5 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                    {/* Grid */}
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
-                        {capabilities.map((cap) => (
-                            <div
-                                key={cap.title}
-                                className="group flex items-start gap-3 p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.04] hover:border-primary/15 hover:bg-white/[0.04] transition-all duration-400"
-                            >
-                                <div className="shrink-0 w-8 h-8 rounded-lg bg-primary/8 flex items-center justify-center mt-0.5">
-                                    <cap.icon className="w-3.5 h-3.5 text-primary/80" />
-                                </div>
-                                <div className="min-w-0">
-                                    <h3 className="font-medium text-white text-sm leading-tight">
-                                        {cap.title}
-                                    </h3>
-                                    <p className="text-[11px] text-muted-foreground leading-snug mt-0.5">
-                                        {cap.desc}
-                                    </p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                            <cap.icon
+                                size={18}
+                                strokeWidth={2}
+                                className="text-primary/50 mb-3 group-hover:text-primary/80 transition-colors"
+                            />
+                            <h3 className="text-[14px] font-semibold text-white mb-1.5">
+                                {cap.name}
+                            </h3>
+                            <p className="text-[12px] text-white/30 leading-[1.65] group-hover:text-white/40 transition-colors">
+                                {cap.desc}
+                            </p>
+                        </div>
+                    ))}
                 </motion.div>
             </div>
         </section>

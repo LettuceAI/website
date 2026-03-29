@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { images } from "@/config/images";
 
-// Provider logos with their display names
 const providers = [
     { name: "OpenAI", logo: images.providers.openai },
     { name: "Anthropic", logo: images.providers.anthropic },
@@ -19,13 +18,18 @@ const providers = [
     { name: "NanoGPT", logo: images.providers.nanogpt },
 ];
 
-function MarqueeRow({ direction = "left", speed = 30 }: { direction?: "left" | "right"; speed?: number }) {
-    const duplicatedProviders = [...providers, ...providers];
-
+function MarqueeRow({
+    direction = "left",
+    speed = 30,
+}: {
+    direction?: "left" | "right";
+    speed?: number;
+}) {
+    const duplicated = [...providers, ...providers];
     return (
-        <div className="flex overflow-hidden mask-[linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+        <div className="flex overflow-hidden mask-[linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
             <motion.div
-                className="flex gap-8 py-4"
+                className="flex gap-4 py-2"
                 animate={{
                     x: direction === "left" ? ["0%", "-50%"] : ["-50%", "0%"],
                 }}
@@ -35,15 +39,15 @@ function MarqueeRow({ direction = "left", speed = 30 }: { direction?: "left" | "
                     ease: "linear",
                 }}
             >
-                {duplicatedProviders.map((provider, index) => (
+                {duplicated.map((p, i) => (
                     <div
-                        key={`${provider.name}-${index}`}
-                        className="shrink-0 flex items-center justify-center w-40 h-20 px-6 rounded-xl bg-card/50 border border-border/50 hover:border-primary/30 hover:bg-card transition-all duration-300 group"
+                        key={`${p.name}-${i}`}
+                        className="shrink-0 flex items-center justify-center w-32 h-14 px-4 rounded-lg border border-white/[0.04] bg-white/[0.015] hover:border-white/[0.1] transition-all duration-300 group"
                     >
                         <img
-                            src={provider.logo}
-                            alt={provider.name}
-                            className="max-h-10 max-w-full object-contain opacity-60 group-hover:opacity-100 transition-opacity duration-300 brightness-0 invert group-hover:brightness-100 group-hover:invert-0"
+                            src={p.logo}
+                            alt={p.name}
+                            className="max-h-7 max-w-full object-contain opacity-35 group-hover:opacity-75 transition-opacity duration-300 brightness-0 invert group-hover:brightness-100 group-hover:invert-0"
                         />
                     </div>
                 ))}
@@ -54,56 +58,44 @@ function MarqueeRow({ direction = "left", speed = 30 }: { direction?: "left" | "
 
 export function ProvidersSection() {
     return (
-        <section id="providers" className="relative py-16 sm:py-20 overflow-hidden bg-[#050505]">
-            {/* Subtle gradient orb */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div
-                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-100 rounded-full opacity-10 blur-[100px]"
-                    style={{
-                        background: 'radial-gradient(circle, rgba(136, 192, 87, 0.5) 0%, transparent 70%)',
-                    }}
-                />
-            </div>
-
+        <section className="relative py-16 sm:py-20 overflow-hidden bg-[#050505]">
             <div className="relative z-10">
-                {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
+                    viewport={{ once: true, amount: 0.3 }}
                     transition={{ duration: 0.5 }}
-                    className="text-center max-w-3xl mx-auto px-4 mb-12"
+                    className="max-w-6xl mx-auto px-6 sm:px-10 mb-8"
                 >
-                    <p className="text-primary text-sm font-medium tracking-wide uppercase mb-3">
-                        Providers
-                    </p>
-                    <h2 className="text-3xl sm:text-4xl font-bold mb-3">
-                        <span className="text-white">Every provider, </span>
-                        <span className="font-display italic text-primary">one app</span>
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="w-8 h-px bg-primary/40" />
+                        <span className="text-primary text-[11px] font-semibold uppercase tracking-[0.2em]">
+                            Providers
+                        </span>
+                    </div>
+                    <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                        Every major AI provider
                     </h2>
-                    <p className="text-base text-muted-foreground">
-                        Connect to 20+ AI providers. Use your existing API keys and switch between models instantly.
+                    <p className="text-sm text-white/30 mt-2 max-w-md">
+                        Connect your own API keys. No middleman, no markup,
+                        switch between models instantly.
                     </p>
                 </motion.div>
 
-                {/* Marquee */}
-                <div className="space-y-4">
-                    <MarqueeRow direction="left" speed={40} />
-                    <MarqueeRow direction="right" speed={35} />
+                <div className="space-y-2">
+                    <MarqueeRow direction="left" speed={45} />
+                    <MarqueeRow direction="right" speed={38} />
                 </div>
 
-                {/* Additional Info */}
-                <motion.div
+                <motion.p
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
-                    viewport={{ once: true, amount: 0.2 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                    className="text-center mt-12 px-4"
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.2 }}
+                    className="text-center mt-6 text-[11px] text-white/20"
                 >
-                    <p className="text-sm text-muted-foreground">
-                        ...and many more. Add any OpenAI-compatible endpoint.
-                    </p>
-                </motion.div>
+                    + any OpenAI-compatible endpoint
+                </motion.p>
             </div>
         </section>
     );

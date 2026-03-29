@@ -1,240 +1,519 @@
+import { SEO } from "@/components/common/SEO";
 import { motion } from "framer-motion";
-import { Shield, ArrowRight } from "lucide-react";
-import { Navbar, Footer } from "@/components/landing";
+import { Link } from "react-router-dom";
 
 export function PrivacyPage() {
     return (
         <>
-            <Navbar />
-            <main className="min-h-screen pt-24 pb-16">
-                <div className="max-w-3xl mx-auto px-6">
-                    {/* Header */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
-                        className="mb-12"
-                    >
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
-                            <Shield className="w-4 h-4 text-primary" />
-                            <span className="text-sm text-primary font-medium">Privacy Policy</span>
-                        </div>
-                        <h1 className="text-4xl sm:text-5xl font-bold mb-4">
-                            Your Privacy Matters
-                        </h1>
-                        <p className="text-lg text-muted-foreground">
-                            Last updated: December 2025
+        <SEO
+            title="Privacy Policy"
+            description="LettuceAI Privacy Policy — learn how your data stays local and what we do and do not collect."
+            path="/privacy"
+        />
+        <main className="min-h-screen bg-[#050505] pt-28 pb-20">
+            <div className="max-w-3xl mx-auto px-6 sm:px-10">
+                {/* Header */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="mb-12"
+                >
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className="w-8 h-px bg-primary/40" />
+                        <span className="text-primary text-[11px] font-semibold uppercase tracking-[0.2em]">
+                            Legal
+                        </span>
+                    </div>
+                    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-4">
+                        Privacy{" "}
+                        <span className="font-display italic text-primary">
+                            Policy
+                        </span>
+                    </h1>
+                    <p className="text-[15px] text-white/35">
+                        Effective Date: March 29, 2026
+                    </p>
+                </motion.div>
+
+                {/* Content */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
+                    className="space-y-8"
+                >
+                    {/* Intro */}
+                    <p className="text-[15px] text-white/45 leading-[1.8]">
+                        This Privacy Policy explains what LettuceAI ("we," "us,"
+                        or "our") does and does not collect in connection with
+                        LettuceAI. LettuceAI is an open source, local-first app.
+                        In ordinary use, your chats, characters, prompts,
+                        images, settings, API keys, and similar app content are
+                        stored on your device, not on our servers.
+                    </p>
+
+                    {/* 1. Contact */}
+                    <Section title="1. Contact">
+                        <p>
+                            If you have privacy questions, contact:
                         </p>
-                    </motion.div>
+                        <p className="mt-2">
+                            <span className="text-white/60">LettuceAI</span>
+                            <br />
+                            <a
+                                href="mailto:lettuceai.app@gmail.com"
+                                className="text-primary/70 hover:text-primary transition-colors"
+                            >
+                                lettuceai.app@gmail.com
+                            </a>
+                        </p>
+                    </Section>
 
-                    {/* Content */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
-                        className="prose prose-invert prose-green max-w-none"
-                    >
-                        <div className="space-y-8">
+                    {/* 2. What We Generally Do Not Collect */}
+                    <Section title="2. What We Generally Do Not Collect">
+                        <p>
+                            We do not operate LettuceAI as a hosted account
+                            service. As a result, we generally do not receive or
+                            store:
+                        </p>
+                        <ul>
+                            <li>Your chats or roleplay history</li>
+                            <li>
+                                Your characters, personas, lorebooks, prompts,
+                                or templates
+                            </li>
+                            <li>
+                                Your locally stored images, avatars, or
+                                attachments
+                            </li>
+                            <li>
+                                Your provider API keys or model settings, unless
+                                you separately send them to us
+                            </li>
+                            <li>
+                                Your local backups, unless you separately send
+                                them to us
+                            </li>
+                        </ul>
+                        <p className="mt-3">
+                            Because we generally do not possess that information,
+                            we usually cannot access it, export it, correct it,
+                            delete it for you, or provide it to third parties.
+                        </p>
+                    </Section>
 
-                            {/* Overview */}
-                            <section className="p-6 rounded-xl bg-zinc-900/30 border border-border/30">
-                                <h2 className="text-xl font-semibold text-white mb-4">Overview</h2>
-                                <p className="text-muted-foreground leading-relaxed">
-                                    LettuceAI is designed with privacy in mind. We believe your data belongs to you,
-                                    and we build our application around local-first storage and user-controlled data.
-                                </p>
-                            </section>
+                    {/* 3. Information Stored Locally */}
+                    <Section title="3. Information Stored Locally On Your Device">
+                        <p>
+                            LettuceAI stores most app data locally on your
+                            device. Depending on how you use the app, that may
+                            include:
+                        </p>
+                        <ul>
+                            <li>
+                                Chats, prompts, memory data, and message history
+                            </li>
+                            <li>
+                                Characters, personas, lorebooks, scenes, and
+                                templates
+                            </li>
+                            <li>
+                                Images, avatars, attachments, generated media,
+                                and downloaded models
+                            </li>
+                            <li>
+                                App settings, accessibility settings, and
+                                appearance preferences
+                            </li>
+                            <li>
+                                Provider credentials, including API keys, base
+                                URLs, headers, and model selections
+                            </li>
+                            <li>
+                                Voice provider settings and cached preview audio
+                            </li>
+                            <li>
+                                Local logs, usage records, and app activity data
+                            </li>
+                        </ul>
+                        <p className="mt-3">
+                            That local device data is controlled by you, subject
+                            to your device security, backups, and the policies
+                            of any third-party services you choose to use.
+                        </p>
+                    </Section>
 
-                            {/* User Accounts */}
-                            <section className="p-6 rounded-xl bg-zinc-900/30 border border-border/30">
-                                <h2 className="text-xl font-semibold text-white mb-4">User Accounts</h2>
-                                <p className="text-muted-foreground leading-relaxed">
-                                    LettuceAI does not require user accounts. We do not collect names, email addresses,
-                                    usernames, or other identifiers to track or identify users.
-                                </p>
-                            </section>
+                    {/* 4. No App Payments */}
+                    <Section title="4. No App Payments">
+                        <p>
+                            We do not charge users for access to the LettuceAI
+                            app itself. If you choose to connect third-party AI,
+                            voice, or other providers through the app, those
+                            providers may charge you directly under their own
+                            pricing and terms. We do not process those payments
+                            and do not receive those usage charges on behalf of
+                            those providers.
+                        </p>
+                    </Section>
 
-                            {/* Data Storage */}
-                            <section className="p-6 rounded-xl bg-zinc-900/30 border border-border/30">
-                                <h2 className="text-xl font-semibold text-white mb-4">Data Storage</h2>
-                                <ul className="space-y-3 text-muted-foreground">
-                                    <li className="flex items-start gap-3">
-                                        <span className="text-primary mt-1">•</span>
-                                        <span>
-                                            <strong className="text-white">Local-Only Storage:</strong> Conversations,
-                                            characters, settings, and memories are stored on your device.
-                                        </span>
-                                    </li>
-                                    <li className="flex items-start gap-3">
-                                        <span className="text-primary mt-1">•</span>
-                                        <span>
-                                            <strong className="text-white">No Cloud Sync:</strong> LettuceAI does not upload,
-                                            sync, or back up your data to external servers.
-                                        </span>
-                                    </li>
-                                    <li className="flex items-start gap-3">
-                                        <span className="text-primary mt-1">•</span>
-                                        <span>
-                                            <strong className="text-white">Full Control:</strong> You can export or delete
-                                            your data at any time directly from the app.
-                                        </span>
-                                    </li>
-                                </ul>
-                            </section>
+                    {/* 5. Information We May Receive */}
+                    <Section title="5. Information We May Receive">
+                        <p>
+                            We may receive limited information in the following
+                            cases:
+                        </p>
 
-                            {/* Analytics & Telemetry */}
-                            <section className="p-6 rounded-xl bg-zinc-900/30 border border-border/30">
-                                <h2 className="text-xl font-semibold text-white mb-4">
-                                    Analytics & Telemetry
-                                </h2>
-                                <p className="text-muted-foreground leading-relaxed">
-                                    LettuceAI does not collect, transmit, or share analytics, telemetry,
-                                    usage statistics, or crash reports.
-                                </p>
-                                <p className="text-muted-foreground leading-relaxed mt-4">
-                                    For debugging and reliability purposes, the application may generate diagnostic
-                                    log files that are stored <strong className="text-white">locally on your device</strong>.
-                                    These logs never leave your device and can be deleted by you at any time.
-                                </p>
-                            </section>
+                        <h4 className="text-[14px] font-semibold text-white/70 mt-5 mb-2">
+                            A. Optional analytics
+                        </h4>
+                        <p>
+                            If the app build includes analytics and analytics
+                            are enabled in your copy of the app, we may receive
+                            limited, non-identifying usage analytics through
+                            Aptabase. As configured by us, this is intended to
+                            be limited to aggregate product analytics, such as
+                            daily user counts and basic app usage totals, rather
+                            than personally identifying user profiles. If
+                            analytics are available in your build, you may be
+                            able to disable them in the app settings.
+                        </p>
 
-                            {/* Network Usage */}
-                            <section className="p-6 rounded-xl bg-zinc-900/30 border border-border/30">
-                                <h2 className="text-xl font-semibold text-white mb-4">Network Usage</h2>
-                                <p className="text-muted-foreground leading-relaxed">
-                                    LettuceAI connects to the internet only when you explicitly use a third-party AI
-                                    provider. Requests are sent directly from your device to the selected provider.
-                                    LettuceAI does not proxy, relay, or inspect network traffic.
-                                </p>
-                            </section>
+                        <h4 className="text-[14px] font-semibold text-white/70 mt-5 mb-2">
+                            B. Support communications
+                        </h4>
+                        <p>
+                            If you email us or otherwise contact us, we will
+                            receive the information you choose to provide, such
+                            as:
+                        </p>
+                        <ul>
+                            <li>Your email address</li>
+                            <li>The contents of your message</li>
+                            <li>
+                                Any attachments, screenshots, logs, or other
+                                materials you send us
+                            </li>
+                        </ul>
 
-                            {/* API Keys */}
-                            <section className="p-6 rounded-xl bg-zinc-900/30 border border-border/30">
-                                <h2 className="text-xl font-semibold text-white mb-4">API Keys</h2>
-                                <ul className="space-y-3 text-muted-foreground">
-                                    <li className="flex items-start gap-3">
-                                        <span className="text-primary mt-1">•</span>
-                                        <span>
-                                            <strong className="text-white">Stored Locally:</strong> API keys are stored on
-                                            your device using encryption and operating-system-provided secure storage
-                                            mechanisms where available.
-                                        </span>
-                                    </li>
-                                    <li className="flex items-start gap-3">
-                                        <span className="text-primary mt-1">•</span>
-                                        <span>
-                                            <strong className="text-white">Direct Communication:</strong> Requests go
-                                            directly from your device to the AI provider.
-                                        </span>
-                                    </li>
-                                    <li className="flex items-start gap-3">
-                                        <span className="text-primary mt-1">•</span>
-                                        <span>
-                                            <strong className="text-white">No Access:</strong> LettuceAI does not access
-                                            your API keys or the content of your conversations.
-                                        </span>
-                                    </li>
-                                </ul>
-                            </section>
+                        <h4 className="text-[14px] font-semibold text-white/70 mt-5 mb-2">
+                            C. Website and download page traffic
+                        </h4>
+                        <p>
+                            If you visit lettuceai.app or any page we operate,
+                            standard web server, hosting, or CDN logs may
+                            collect technical information such as IP address,
+                            user agent, referrer, and request timestamps.
+                        </p>
+                    </Section>
 
-                            {/* Third-Party AI Providers */}
-                            <section className="p-6 rounded-xl bg-zinc-900/30 border border-border/30">
-                                <h2 className="text-xl font-semibold text-white mb-4">
-                                    Third-Party AI Providers
-                                </h2>
-                                <p className="text-muted-foreground leading-relaxed mb-4">
-                                    When using third-party AI providers, your data is handled according to the
-                                    provider’s own privacy policies and terms.
-                                </p>
-                                <p className="text-muted-foreground leading-relaxed">
-                                    LettuceAI has no control over how third-party providers process or retain data.
-                                </p>
-                            </section>
+                    {/* 6. Information Sent To Third Parties */}
+                    <Section title="6. Information Sent To Third Parties At Your Direction">
+                        <p>
+                            LettuceAI allows you to connect third-party
+                            services. When you use those features, data may be
+                            sent directly from your device to the provider you
+                            selected. If you use local models or other on-device
+                            features, your content may be processed locally on
+                            your device without being sent to a third-party
+                            provider. Depending on the feature, that may
+                            include:
+                        </p>
+                        <ul>
+                            <li>Prompts and chat messages</li>
+                            <li>
+                                Character definitions, persona details, lorebook
+                                content, and system prompts
+                            </li>
+                            <li>Images or attachments</li>
+                            <li>Model settings and inference parameters</li>
+                            <li>Voice generation input</li>
+                            <li>
+                                API keys or authentication headers needed to
+                                call the provider
+                            </li>
+                        </ul>
+                        <p className="mt-3">
+                            Third-party providers are not governed by this
+                            Privacy Policy. Their own terms and privacy policies
+                            apply.
+                        </p>
+                    </Section>
 
-                            {/* Operating System Backups */}
-                            <section className="p-6 rounded-xl bg-zinc-900/30 border border-border/30">
-                                <h2 className="text-xl font-semibold text-white mb-4">
-                                    Operating System Backups
-                                </h2>
-                                <p className="text-muted-foreground leading-relaxed">
-                                    Depending on your operating system and personal settings, application data may be
-                                    included in system-level backups or cloud sync features. These backups are managed
-                                    entirely by your operating system and are outside of LettuceAI’s control.
-                                </p>
-                            </section>
+                    {/* 7. External Services */}
+                    <Section title="7. External Services Used By The App">
+                        <p>
+                            Depending on which features you use, LettuceAI may
+                            connect to external services such as:
+                        </p>
+                        <ul>
+                            <li>
+                                AI, image, speech, or voice providers you
+                                configure
+                            </li>
+                            <li>
+                                Character Tavern for discovery browsing and
+                                character imports
+                            </li>
+                            <li>
+                                Hugging Face for model browsing and model
+                                downloads
+                            </li>
+                            <li>
+                                GitHub and our download pages for app update
+                                checks
+                            </li>
+                            <li>Optional analytics providers</li>
+                            <li>
+                                User-configured custom endpoints or self-hosted
+                                services
+                            </li>
+                        </ul>
+                        <p className="mt-3">
+                            We do not control how those third parties process
+                            data. If you use only local models and local
+                            features, some or all of those external connections
+                            may not be used for your content generation at all.
+                        </p>
+                    </Section>
 
-                            {/* Device Security */}
-                            <section className="p-6 rounded-xl bg-zinc-900/30 border border-border/30">
-                                <h2 className="text-xl font-semibold text-white mb-4">Device Security</h2>
-                                <p className="text-muted-foreground leading-relaxed">
-                                    Because all data is stored locally, the security of your data also depends on your
-                                    device and operating system. LettuceAI cannot protect against threats such as
-                                    malware, unauthorized physical access, or compromised user accounts.
-                                </p>
-                            </section>
+                    {/* 8. Backups, Sync */}
+                    <Section title="8. Backups, Sync, And Local Transfers">
+                        <p>
+                            LettuceAI includes local backup, restore, export,
+                            import, and local-network sync features. Please
+                            note:
+                        </p>
+                        <ul>
+                            <li>
+                                Exported backups may contain sensitive local app
+                                data, including chats, settings, API keys,
+                                secrets, media, and other app content
+                            </li>
+                            <li>
+                                Backups are stored where you choose to store
+                                them, such as your device, cloud storage, or
+                                file system
+                            </li>
+                            <li>
+                                Local-network sync transfers data directly
+                                between devices you connect
+                            </li>
+                        </ul>
+                        <p className="mt-3">
+                            We do not receive those backups or sync transfers
+                            unless you separately send them to us.
+                        </p>
+                    </Section>
 
-                            {/* Content Responsibility */}
-                            <section className="p-6 rounded-xl bg-zinc-900/30 border border-border/30">
-                                <h2 className="text-xl font-semibold text-white mb-4">
-                                    Content Responsibility
-                                </h2>
-                                <p className="text-muted-foreground leading-relaxed">
-                                    LettuceAI does not review, moderate, or store user-generated prompts or AI-generated
-                                    content on our servers. Users are responsible for the content they create and for
-                                    complying with the policies of any AI provider they use.
-                                </p>
-                            </section>
+                    {/* 9. Camera Access */}
+                    <Section title="9. Camera Access">
+                        <p>
+                            On supported mobile builds, the app may request
+                            camera access for QR or barcode scanning used in
+                            device sync flows. We do not use the camera for
+                            remote collection or background surveillance.
+                        </p>
+                    </Section>
 
-                            {/* Open Source Transparency */}
-                            <section className="p-6 rounded-xl bg-zinc-900/30 border border-border/30">
-                                <h2 className="text-xl font-semibold text-white mb-4">
-                                    Open Source Transparency
-                                </h2>
-                                <p className="text-muted-foreground leading-relaxed">
-                                    LettuceAI is fully open source. You can audit the code at any time to verify how
-                                    data is handled.
-                                </p>
-                                <a
-                                    href="https://github.com/LettuceAI"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-2 mt-4 text-primary hover:underline"
-                                >
-                                    View our source code on GitHub
-                                    <ArrowRight className="w-4 h-4" />
-                                </a>
-                            </section>
+                    {/* 10. How We Use Information */}
+                    <Section title="10. How We Use Information We Actually Receive">
+                        <p>
+                            If we receive information described in this Privacy
+                            Policy, we may use it to:
+                        </p>
+                        <ul>
+                            <li>
+                                Operate and improve the app, website, and
+                                download experience
+                            </li>
+                            <li>
+                                Understand app stability and product usage,
+                                where analytics are enabled
+                            </li>
+                            <li>Respond to support requests</li>
+                            <li>
+                                Maintain security and prevent abuse of the
+                                website or services we operate
+                            </li>
+                            <li>Comply with legal obligations</li>
+                        </ul>
+                    </Section>
 
-                            {/* Changes to This Policy */}
-                            <section className="p-6 rounded-xl bg-zinc-900/30 border border-border/30">
-                                <h2 className="text-xl font-semibold text-white mb-4">
-                                    Changes to This Policy
-                                </h2>
-                                <p className="text-muted-foreground leading-relaxed">
-                                    We may update this Privacy Policy from time to time. When changes are made, the
-                                    “Last updated” date at the top of this page will be updated accordingly.
-                                </p>
-                            </section>
+                    {/* 11. How We Share Information */}
+                    <Section title="11. How We Share Information">
+                        <p>
+                            We do not sell your personal information. We may
+                            share information that we actually possess only in
+                            limited circumstances, such as:
+                        </p>
+                        <ul>
+                            <li>
+                                With service providers that help us operate
+                                analytics, hosting, support, or download
+                                infrastructure
+                            </li>
+                            <li>
+                                If you ask us to assist with a support issue and
+                                provide materials for that purpose
+                            </li>
+                            <li>
+                                If required by law, legal process, or a valid
+                                governmental request, but only as to information
+                                we actually have
+                            </li>
+                        </ul>
+                        <p className="mt-3">
+                            We cannot disclose local app content we do not have.
+                        </p>
+                    </Section>
 
-                            {/* Contact */}
-                            <section className="p-6 rounded-xl bg-zinc-900/30 border border-border/30">
-                                <h2 className="text-xl font-semibold text-white mb-4">Contact</h2>
-                                <p className="text-muted-foreground leading-relaxed">
-                                    If you have questions about this Privacy Policy, you can reach us via
-                                    <a href="https://github.com/LettuceAI" target="_blank" rel="noopener noreferrer"
-                                        className="text-primary hover:underline mx-1">GitHub</a>
-                                    or
-                                    <a href="https://discord.gg/745bEttw2r" target="_blank" rel="noopener noreferrer"
-                                        className="text-primary hover:underline mx-1">Discord</a>.
-                                </p>
-                            </section>
+                    {/* 12. Data Retention */}
+                    <Section title="12. Data Retention">
+                        <p>
+                            Local app data remains on your device until you
+                            delete it, overwrite it, uninstall the app, or move
+                            it elsewhere. For information we actually receive:
+                        </p>
+                        <ul>
+                            <li>
+                                Support emails and support materials may be
+                                retained as reasonably necessary to respond and
+                                maintain records
+                            </li>
+                            <li>
+                                Analytics data may be retained according to the
+                                analytics provider's retention settings
+                            </li>
+                            <li>
+                                Website traffic logs may be retained according
+                                to hosting or infrastructure retention practices
+                            </li>
+                        </ul>
+                    </Section>
 
-                        </div>
+                    {/* 13. Security */}
+                    <Section title="13. Security">
+                        <p>
+                            No system is perfectly secure, but LettuceAI is
+                            designed to keep most user content local to the
+                            device. You are responsible for:
+                        </p>
+                        <ul>
+                            <li>Securing your device</li>
+                            <li>Protecting your backups</li>
+                            <li>Choosing strong backup passwords</li>
+                            <li>
+                                Protecting your API keys and third-party
+                                accounts
+                            </li>
+                            <li>
+                                Reviewing the privacy and security practices of
+                                the providers you connect
+                            </li>
+                        </ul>
+                    </Section>
 
-                    </motion.div>
-                </div>
-            </main>
-            <Footer />
+                    {/* 14. International Processing */}
+                    <Section title="14. International Processing">
+                        <p>
+                            If you use third-party providers or services, your
+                            data may be processed in countries other than your
+                            own according to those providers' practices. If we
+                            use third-party hosting, analytics, or support
+                            tools, information we actually receive may also be
+                            processed in other countries where those providers
+                            operate.
+                        </p>
+                    </Section>
+
+                    {/* 15. Your Rights */}
+                    <Section title="15. Your Rights">
+                        <p>
+                            Depending on your jurisdiction, you may have rights
+                            regarding personal information we control. Those
+                            rights may include the right to request access,
+                            correction, deletion, restriction, objection, or
+                            portability, subject to applicable law.
+                        </p>
+                        <p className="mt-3">
+                            Because we usually do not control your local app
+                            data, many requests about chats, characters,
+                            prompts, or other on-device content will need to be
+                            handled by you on your own device.
+                        </p>
+                        <p className="mt-3">
+                            To make a request regarding information we actually
+                            control, contact{" "}
+                            <a
+                                href="mailto:lettuceai.app@gmail.com"
+                                className="text-primary/70 hover:text-primary transition-colors"
+                            >
+                                lettuceai.app@gmail.com
+                            </a>
+                            .
+                        </p>
+                    </Section>
+
+                    {/* 16. Children's Privacy */}
+                    <Section title="16. Children's Privacy">
+                        <p>
+                            LettuceAI is not directed to children under 18, and
+                            we do not knowingly collect personal information
+                            from children under that age. If you believe a child
+                            has sent us personal information directly, contact{" "}
+                            <a
+                                href="mailto:lettuceai.app@gmail.com"
+                                className="text-primary/70 hover:text-primary transition-colors"
+                            >
+                                lettuceai.app@gmail.com
+                            </a>
+                            .
+                        </p>
+                    </Section>
+
+                    {/* 17. Changes */}
+                    <Section title="17. Changes To This Privacy Policy">
+                        <p>
+                            We may update this Privacy Policy from time to time.
+                            If we make material changes, we will post the
+                            updated version and update the Effective Date above.
+                        </p>
+                    </Section>
+
+                    {/* Footer nav */}
+                    <div className="pt-8 border-t border-white/[0.06] flex flex-wrap gap-x-6 gap-y-2">
+                        <Link
+                            to="/terms"
+                            className="text-sm text-white/30 hover:text-white/50 transition-colors"
+                        >
+                            Terms of Service
+                        </Link>
+                        <Link
+                            to="/license"
+                            className="text-sm text-white/30 hover:text-white/50 transition-colors"
+                        >
+                            License (AGPL-3.0)
+                        </Link>
+                    </div>
+                </motion.div>
+            </div>
+        </main>
         </>
+    );
+}
+
+function Section({
+    title,
+    children,
+}: {
+    title: string;
+    children: React.ReactNode;
+}) {
+    return (
+        <section className="[&>p]:text-[15px] [&>p]:text-white/45 [&>p]:leading-[1.8] [&>ul]:mt-3 [&>ul]:space-y-1.5 [&>ul]:list-none [&>ul]:pl-0 [&_li]:relative [&_li]:pl-5 [&_li]:text-[15px] [&_li]:text-white/45 [&_li]:leading-[1.8] [&_li]:before:content-[''] [&_li]:before:absolute [&_li]:before:left-0 [&_li]:before:top-[11px] [&_li]:before:w-1.5 [&_li]:before:h-1.5 [&_li]:before:rounded-full [&_li]:before:bg-primary/30">
+            <h2 className="text-lg font-semibold text-white mb-3">{title}</h2>
+            {children}
+        </section>
     );
 }

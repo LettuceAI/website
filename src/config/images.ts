@@ -11,6 +11,11 @@ export const images = {
   models: `https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiE9CgMPInOqX2jKv1NyFE6ATZbzRdLmxlchJVB`,
   characters: `https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiE7QY9dyS3XDOMPNhgrUjbZp9fWTYnCuB0v4wx`,
   memoryManager: `https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEYFTetE9CRKc9fpLjm375Owaivx1hsy0nkVrM`,
+  memoryDesktop: `https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiE5fDys4Vkj1OFweHxr0VqnPGAcDWCdgEpml3K`,
+  heroGradient: `https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiENGGaRbiA3hVcAIWJ9gtzT0D1KL6vpeBY7XZf`,
+  groupChatsDesktop: `https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiES4I8xsWfjxYOkrVMn2NmPXpy46uELTt0boAJ`,
+  imageGenDesktop: `https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiE80xZv9qFdHBKrgh7YW2EbSeyfUJVmjDRkonu`,
+  systemPromptsDesktop: `https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEk7rXOtNIHUl6r78TbaLPjui1K5EfoCqge3SR`,
 
   providers: {
     openai: `https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiE9OAPzonOqX2jKv1NyFE6ATZbzRdLmxlchJVB`,

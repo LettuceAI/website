@@ -1,4 +1,5 @@
-import { Github, Heart } from "lucide-react";
+import { FaGithub, FaDiscord } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import { images } from "@/config/images";
 import { links } from "@/config/links";
 
@@ -6,76 +7,89 @@ const footerLinks = [
     {
         title: "Product",
         links: [
-            { name: "FAQ", href: "/faq", external: false },
-            { name: "Providers", href: "/providers", external: false },
-            { name: "Download", href: "/download", external: false },
+            { name: "Download", href: "/download" },
+            { name: "Providers", href: "/providers" },
+            { name: "Changelog", href: "/changelog" },
+            { name: "FAQ", href: "/faq" },
         ],
     },
     {
-        title: "Community",
+        title: "Resources",
         links: [
-            { name: "GitHub", href: links.github, external: true },
-            { name: "Discord", href: links.discord, external: true },
-            { name: "Documentation", href: "/docs", external: false },
-            { name: "Changelog", href: "/changelog", external: false },
+            { name: "Documentation", href: "/docs" },
+            { name: "Quick Start", href: "/docs/quickstart" },
+            { name: "API Keys", href: "/docs/api-keys" },
+            { name: "Memory System", href: "/docs/memory" },
         ],
     },
     {
         title: "Legal",
         links: [
-            { name: "Privacy Policy", href: "/privacy", external: false },
-            { name: "Terms of Service", href: "/terms", external: false },
-            { name: "License (AGPL-3.0)", href: "/license", external: false },
+            { name: "Privacy Policy", href: "/privacy" },
+            { name: "Terms of Service", href: "/terms" },
+            { name: "License (AGPL-3.0)", href: "/license" },
         ],
     },
 ];
 
 export function Footer() {
     return (
-        <footer className="relative border-t border-border/50 bg-card/30 backdrop-blur-sm">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div className="grid gap-8 md:grid-cols-4">
+        <footer className="bg-[#050505] border-t border-white/[0.06]">
+            <div className="max-w-[1440px] mx-auto px-6 sm:px-10 py-12 sm:py-14">
+                <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
                     {/* Brand */}
-                    <div className="md:col-span-1">
-                        <a href="#" className="flex items-center gap-2 mb-4">
+                    <div className="lg:col-span-2">
+                        <Link to="/" className="inline-flex items-center gap-2.5 mb-4">
                             <img
                                 src={images.logo}
-                                alt="LettuceAI Logo"
-                                className="w-8 h-8"
+                                alt="LettuceAI"
+                                className="w-6 h-6"
                             />
-                            <span className="text-xl font-bold bg-primary bg-clip-text text-transparent">
+                            <span className="text-[15px] font-bold text-white tracking-tight">
                                 LettuceAI
                             </span>
-                        </a>
-                        <p className="text-sm text-muted-foreground mb-4">
-                            Open source AI roleplay companion. Your stories, your privacy, your control.
+                        </Link>
+                        <p className="text-[13px] text-white/30 leading-[1.7] max-w-xs mb-5">
+                            Open-source AI roleplay companion. No filters, no
+                            accounts, no restrictions. Your stories, your privacy.
                         </p>
-                        <a
-                            href="https://github.com/lettuce-ai"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                        >
-                            <Github className="w-4 h-4" />
-                            Star on GitHub
-                        </a>
+                        <div className="flex items-center gap-2">
+                            <a
+                                href={links.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="p-2 text-white/25 hover:text-white/60 transition-colors rounded-lg hover:bg-white/[0.04]"
+                                aria-label="GitHub"
+                            >
+                                <FaGithub size={16} />
+                            </a>
+                            <a
+                                href={links.discord}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="p-2 text-white/25 hover:text-white/60 transition-colors rounded-lg hover:bg-white/[0.04]"
+                                aria-label="Discord"
+                            >
+                                <FaDiscord size={16} />
+                            </a>
+                        </div>
                     </div>
 
-                    {/* Links */}
+                    {/* Link columns */}
                     {footerLinks.map((section) => (
                         <div key={section.title}>
-                            <h3 className="font-semibold mb-4 text-foreground">{section.title}</h3>
-                            <ul className="space-y-3">
+                            <h3 className="text-[12px] font-semibold text-white/50 uppercase tracking-[0.1em] mb-4">
+                                {section.title}
+                            </h3>
+                            <ul className="space-y-2.5">
                                 {section.links.map((link) => (
                                     <li key={link.name}>
-                                        <a
-                                            href={link.href}
-                                            target={link.external ? "_blank" : undefined}
-                                            rel={link.external ? "noopener noreferrer" : undefined}
-                                            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                                        <Link
+                                            to={link.href}
+                                            className="text-[13px] text-white/30 hover:text-white/60 transition-colors"
                                         >
                                             {link.name}
-                                        </a>
+                                        </Link>
                                     </li>
                                 ))}
                             </ul>
@@ -83,13 +97,14 @@ export function Footer() {
                     ))}
                 </div>
 
-                {/* Bottom Bar */}
-                <div className="mt-12 pt-8 border-t border-border/50 flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <p className="text-sm text-muted-foreground">
-                        © {new Date().getFullYear()} LettuceAI. Open source under AGPL-3.0.
+                {/* Bottom */}
+                <div className="mt-10 pt-6 border-t border-white/[0.04] flex flex-col sm:flex-row items-center justify-between gap-3">
+                    <p className="text-[12px] text-white/20">
+                        &copy; {new Date().getFullYear()} LettuceAI. Open source
+                        under AGPL-3.0.
                     </p>
-                    <p className="text-sm text-muted-foreground flex items-center gap-1">
-                        Made with <Heart className="w-4 h-4 text-red-500 fill-red-500" /> and 🥬 by the community
+                    <p className="text-[12px] text-white/20">
+                        Built by the community.
                     </p>
                 </div>
             </div>
