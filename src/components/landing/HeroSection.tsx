@@ -45,7 +45,7 @@ export function HeroSection() {
             <div className="hero-grid absolute inset-0 pointer-events-none z-0" />
 
 
-            <div className="relative z-10 max-w-[1440px] mx-auto px-6 sm:px-10 pt-28 sm:pt-32 lg:pt-0 lg:min-h-[100svh] flex flex-col lg:flex-row items-center lg:items-center gap-10 lg:gap-16">
+            <div className="relative z-10 max-w-[1440px] mx-auto px-6 sm:px-10 pt-28 sm:pt-32 pb-16 sm:pb-20 lg:pb-0 lg:pt-0 lg:min-h-[100svh] flex flex-col lg:flex-row items-center lg:items-center gap-10 lg:gap-16">
                 {/* ─── Left: Copy ─── */}
                 <motion.div
                     initial={{ opacity: 0, x: -30 }}
