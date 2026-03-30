@@ -14,6 +14,7 @@ import {
     ProvidersSection,
     ColorBreak,
     TestimonialsSection,
+    DocsSection,
     FAQSection,
     CTASection,
 } from "@/components/landing";
@@ -37,6 +38,7 @@ export function HomePage() {
             <ProvidersSection />
             <ColorBreak />
             <TestimonialsSection />
+            <DocsSection />
             <FAQSection />
             <CTASection />
         </>

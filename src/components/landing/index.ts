@@ -9,6 +9,7 @@ export { HowItWorksSection } from "./HowItWorksSection";
 export { ProvidersSection } from "./ProvidersSection";
 export { ColorBreak } from "./ColorBreak";
 export { TestimonialsSection } from "./TestimonialsSection";
+export { DocsSection } from "./DocsSection";
 export { FAQSection } from "./FAQSection";
 export { CTASection } from "./CTASection";
 export { Footer } from "./Footer";
