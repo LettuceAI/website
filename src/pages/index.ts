@@ -7,3 +7,4 @@ export { TermsPage } from "./TermsPage";
 export { LicensePage } from "./LicensePage";
 export { ChangelogPage } from "./ChangelogPage";
 export { NotFoundPage } from "./NotFoundPage";
+export { ConvertPage } from "./ConvertPage";

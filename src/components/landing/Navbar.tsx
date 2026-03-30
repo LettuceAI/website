@@ -10,6 +10,7 @@ import { useSnow } from "@/contexts/SnowContext";
 const NAV_LINKS = [
     { name: "Docs", href: "/docs" },
     { name: "Providers", href: "/providers" },
+    { name: "Convert", href: "/convert" },
     { name: "Changelog", href: "/changelog" },
     { name: "FAQ", href: "/faq" },
 ] as const;

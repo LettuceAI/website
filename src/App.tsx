@@ -19,6 +19,7 @@ import {
   LicensePage,
   ChangelogPage,
   NotFoundPage,
+  ConvertPage,
 } from "@/pages";
 import {
   DocsLayout,
@@ -74,6 +75,7 @@ function AnimatedRoutes() {
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/license" element={<LicensePage />} />
           <Route path="/changelog" element={<ChangelogPage />} />
+          <Route path="/convert" element={<ConvertPage />} />
           <Route path="/blog/end-of-lettuceai" element={<ExternalRedirect url="https://youtu.be/dQw4w9WgXcQ" />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

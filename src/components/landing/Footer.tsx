@@ -9,6 +9,7 @@ const footerLinks = [
         links: [
             { name: "Download", href: "/download" },
             { name: "Providers", href: "/providers" },
+            { name: "Convert", href: "/convert" },
             { name: "Changelog", href: "/changelog" },
             { name: "FAQ", href: "/faq" },
         ],
