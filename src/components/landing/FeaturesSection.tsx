@@ -154,7 +154,7 @@ export function FeaturesSection() {
 
     return (
         <section id="features" className="bg-[#050505] py-12 sm:py-16">
-            <div className="max-w-[1440px] mx-auto px-6 sm:px-10">
+            <div className="max-w-[1600px] mx-auto px-6 sm:px-10">
                 {/* Tabs at top — acts as the section header */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -212,60 +212,134 @@ export function FeaturesSection() {
                     </AnimatePresence>
                 </div>
 
-                {/* Screenshot — crossfade on tab change */}
-                <div className="relative mb-8 sm:mb-10">
-                    <div className="max-w-6xl mx-auto">
-                        <AnimatePresence mode="wait">
-                            <motion.img
-                                key={active.id + "-img"}
-                                src={active.image}
-                                alt={active.imageAlt}
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: 0.35 }}
-                                className="w-full block rounded-xl"
-                                loading="lazy"
-                                style={{
-                                    maskImage:
-                                        "linear-gradient(to bottom, black 60%, transparent 100%)",
-                                    WebkitMaskImage:
-                                        "linear-gradient(to bottom, black 60%, transparent 100%)",
-                                }}
-                            />
-                        </AnimatePresence>
-                    </div>
-                </div>
-
-                {/* Highlights — animate on tab change */}
+                {/* Screenshot with highlights on sides (desktop) or below (mobile) */}
                 <AnimatePresence mode="wait">
                     <motion.div
-                        key={active.id + "-highlights"}
+                        key={active.id + "-content"}
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6"
                     >
-                        {active.highlights.map(
-                            ({ icon: Icon, title, desc }) => (
-                                <div key={title}>
-                                    <div className="flex items-center gap-2.5 mb-2.5">
-                                        <Icon
-                                            size={16}
-                                            strokeWidth={2}
-                                            className="text-primary/70"
+                        {/* Desktop: 3-column layout — highlights | image | highlights */}
+                        <div className="hidden lg:grid lg:grid-cols-[180px_1fr_180px] lg:gap-5 xl:grid-cols-[200px_1fr_200px] xl:gap-6 items-center">
+                            {/* Left highlights */}
+                            <div className="flex flex-col gap-8">
+                                {active.highlights.slice(0, 2).map(
+                                    ({ icon: Icon, title, desc }) => (
+                                        <div key={title}>
+                                            <div className="flex items-center gap-2.5 mb-2.5">
+                                                <Icon
+                                                    size={16}
+                                                    strokeWidth={2}
+                                                    className="text-primary/70"
+                                                />
+                                                <span className="text-[14px] font-semibold text-white">
+                                                    {title}
+                                                </span>
+                                            </div>
+                                            <p className="text-[13px] text-white/35 leading-[1.65]">
+                                                {desc}
+                                            </p>
+                                        </div>
+                                    )
+                                )}
+                            </div>
+
+                            {/* Center image */}
+                            <div className="relative">
+                                <AnimatePresence mode="wait">
+                                    <motion.img
+                                        key={active.id + "-img"}
+                                        src={active.image}
+                                        alt={active.imageAlt}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ duration: 0.35 }}
+                                        className="w-full block rounded-xl"
+                                        loading="lazy"
+                                        style={{
+                                            maskImage:
+                                                "linear-gradient(to bottom, black 70%, transparent 100%)",
+                                            WebkitMaskImage:
+                                                "linear-gradient(to bottom, black 70%, transparent 100%)",
+                                        }}
+                                    />
+                                </AnimatePresence>
+                            </div>
+
+                            {/* Right highlights */}
+                            <div className="flex flex-col gap-8">
+                                {active.highlights.slice(2, 4).map(
+                                    ({ icon: Icon, title, desc }) => (
+                                        <div key={title}>
+                                            <div className="flex items-center gap-2.5 mb-2.5">
+                                                <Icon
+                                                    size={16}
+                                                    strokeWidth={2}
+                                                    className="text-primary/70"
+                                                />
+                                                <span className="text-[14px] font-semibold text-white">
+                                                    {title}
+                                                </span>
+                                            </div>
+                                            <p className="text-[13px] text-white/35 leading-[1.65]">
+                                                {desc}
+                                            </p>
+                                        </div>
+                                    )
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Mobile/Tablet: stacked layout */}
+                        <div className="lg:hidden">
+                            <div className="relative mb-8">
+                                <div className="max-w-6xl mx-auto">
+                                    <AnimatePresence mode="wait">
+                                        <motion.img
+                                            key={active.id + "-img-mobile"}
+                                            src={active.image}
+                                            alt={active.imageAlt}
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            exit={{ opacity: 0 }}
+                                            transition={{ duration: 0.35 }}
+                                            className="w-full block rounded-xl"
+                                            loading="lazy"
+                                            style={{
+                                                maskImage:
+                                                    "linear-gradient(to bottom, black 60%, transparent 100%)",
+                                                WebkitMaskImage:
+                                                    "linear-gradient(to bottom, black 60%, transparent 100%)",
+                                            }}
                                         />
-                                        <span className="text-[14px] font-semibold text-white">
-                                            {title}
-                                        </span>
-                                    </div>
-                                    <p className="text-[13px] text-white/35 leading-[1.65]">
-                                        {desc}
-                                    </p>
+                                    </AnimatePresence>
                                 </div>
-                            )
-                        )}
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                                {active.highlights.map(
+                                    ({ icon: Icon, title, desc }) => (
+                                        <div key={title}>
+                                            <div className="flex items-center gap-2.5 mb-2.5">
+                                                <Icon
+                                                    size={16}
+                                                    strokeWidth={2}
+                                                    className="text-primary/70"
+                                                />
+                                                <span className="text-[14px] font-semibold text-white">
+                                                    {title}
+                                                </span>
+                                            </div>
+                                            <p className="text-[13px] text-white/35 leading-[1.65]">
+                                                {desc}
+                                            </p>
+                                        </div>
+                                    )
+                                )}
+                            </div>
+                        </div>
                     </motion.div>
                 </AnimatePresence>
             </div>
