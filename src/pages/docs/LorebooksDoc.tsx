@@ -1,9 +1,22 @@
 import { Callout } from "@/components/docs/Callout";
 import { DocHeading } from "@/components/docs/DocHeading";
 import { motion } from "framer-motion";
+import { SEO } from "@/components/common/SEO";
+import { buildBreadcrumbSchema } from "@/config/schemas";
 
 export function LorebooksDoc() {
   return (
+    <>
+    <SEO
+      title="Lorebooks"
+      description="Define persistent world lore, character backgrounds, and rules that activate by keyword across all chats."
+      path="/docs/lorebooks"
+      jsonLd={buildBreadcrumbSchema([
+        { name: "Home", path: "/" },
+        { name: "Docs", path: "/docs" },
+        { name: "Lorebooks", path: "/docs/lorebooks" },
+      ])}
+    />
     <motion.article
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -224,5 +237,6 @@ export function LorebooksDoc() {
         </li>
       </ul>
     </motion.article>
+    </>
   );
 }

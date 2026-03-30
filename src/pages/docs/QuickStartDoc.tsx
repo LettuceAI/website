@@ -4,9 +4,22 @@ import { Callout } from "@/components/docs/Callout";
 import { DocHeading } from "@/components/docs/DocHeading";
 import { DocSplit } from "@/components/docs/DocSplit";
 import { images } from "@/config/images";
+import { SEO } from "@/components/common/SEO";
+import { buildBreadcrumbSchema } from "@/config/schemas";
 
 export function QuickStartDoc() {
   return (
+    <>
+    <SEO
+      title="Quick Start"
+      description="Set up LettuceAI in under 2 minutes — connect a provider, choose a model, and start chatting."
+      path="/docs/quickstart"
+      jsonLd={buildBreadcrumbSchema([
+        { name: "Home", path: "/" },
+        { name: "Docs", path: "/docs" },
+        { name: "Quick Start", path: "/docs/quickstart" },
+      ])}
+    />
     <motion.article
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -177,5 +190,6 @@ export function QuickStartDoc() {
         run its own servers and cannot see your conversations.
       </Callout>
     </motion.article>
+    </>
   );
 }

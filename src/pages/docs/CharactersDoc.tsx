@@ -3,9 +3,22 @@ import { DocSplit } from "@/components/docs/DocSplit";
 import { DocHeading } from "@/components/docs/DocHeading";
 import { Callout } from "@/components/docs/Callout";
 import { images } from "@/config/images";
+import { SEO } from "@/components/common/SEO";
+import { buildBreadcrumbSchema } from "@/config/schemas";
 
 export function CharactersDoc() {
   return (
+    <>
+    <SEO
+      title="Characters"
+      description="Create AI characters with personality, memory behavior, starting scenes, and support for Chara Card and UEC formats."
+      path="/docs/characters"
+      jsonLd={buildBreadcrumbSchema([
+        { name: "Home", path: "/" },
+        { name: "Docs", path: "/docs" },
+        { name: "Characters", path: "/docs/characters" },
+      ])}
+    />
     <motion.article
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -150,5 +163,6 @@ export function CharactersDoc() {
         </ul>
       </Callout>
     </motion.article>
+    </>
   );
 }

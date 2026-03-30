@@ -1,8 +1,21 @@
 import { motion } from "framer-motion";
 import { DocHeading } from "@/components/docs/DocHeading";
+import { SEO } from "@/components/common/SEO";
+import { buildBreadcrumbSchema } from "@/config/schemas";
 
 export function ProvidersDoc() {
     return (
+        <>
+        <SEO
+          title="Providers"
+          description="Understand what AI providers are and why using multiple providers gives you flexibility, better uptime, and more model choices."
+          path="/docs/providers"
+          jsonLd={buildBreadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Docs", path: "/docs" },
+            { name: "Providers", path: "/docs/providers" },
+          ])}
+        />
         <motion.article
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -55,5 +68,6 @@ export function ProvidersDoc() {
                 Using more than one means you always have a backup and more choice.
             </p>
         </motion.article>
+        </>
     );
 }

@@ -2,6 +2,7 @@ import { SEO } from "@/components/common/SEO";
 import { motion } from "framer-motion";
 import { ExternalLink, Key, Zap, Shield } from "lucide-react";
 import { images } from "@/config/images";
+import { providerListSchema } from "@/config/schemas";
 
 const providers = [
     {
@@ -115,6 +116,7 @@ export function ProvidersPage() {
                 title="Providers"
                 description="Connect LettuceAI with 20+ AI providers — OpenAI, Anthropic, Google Gemini, DeepSeek, Mistral, Groq, and more."
                 path="/providers"
+                jsonLd={providerListSchema}
             />
             <main className="min-h-screen bg-[#050505] pt-28 pb-16">
                 <div className="max-w-[1440px] mx-auto px-6 sm:px-10">

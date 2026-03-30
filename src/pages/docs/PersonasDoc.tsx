@@ -1,9 +1,22 @@
 import { motion } from "framer-motion";
 import { DocHeading } from "@/components/docs/DocHeading";
 import { Callout } from "@/components/docs/Callout";
+import { SEO } from "@/components/common/SEO";
+import { buildBreadcrumbSchema } from "@/config/schemas";
 
 export function PersonasDoc() {
   return (
+    <>
+    <SEO
+      title="Personas"
+      description="Define how you appear in conversations by creating user personas with distinct roles, tones, and perspectives."
+      path="/docs/personas"
+      jsonLd={buildBreadcrumbSchema([
+        { name: "Home", path: "/" },
+        { name: "Docs", path: "/docs" },
+        { name: "Personas", path: "/docs/personas" },
+      ])}
+    />
     <motion.article
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -103,5 +116,6 @@ export function PersonasDoc() {
         different relationships, timelines, or viewpoints.
       </Callout>
     </motion.article>
+    </>
   );
 }

@@ -24,6 +24,14 @@ export function ChangelogPage() {
         title="Changelog"
         description="Track updates, improvements, and fixes across LettuceAI releases."
         path="/changelog"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: "LettuceAI Changelog",
+          url: "https://lettuceai.app/changelog",
+          description: "Track updates, improvements, and fixes across LettuceAI releases.",
+          isPartOf: { "@type": "WebSite", name: "LettuceAI", url: "https://lettuceai.app" },
+        }}
       />
       <main className="min-h-screen bg-[#050505] pt-28 pb-16">
         <div className="max-w-3xl mx-auto px-6 sm:px-10">

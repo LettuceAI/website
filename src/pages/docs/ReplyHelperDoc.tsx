@@ -3,9 +3,22 @@ import { DocHeading } from "@/components/docs/DocHeading";
 import { Callout } from "@/components/docs/Callout";
 import { DocImage } from "@/components/docs/DocImage";
 import { images } from "@/config/images";
+import { SEO } from "@/components/common/SEO";
+import { buildBreadcrumbSchema } from "@/config/schemas";
 
 export function ReplyHelperDoc() {
   return (
+    <>
+    <SEO
+      title="Help Me Reply"
+      description="Get AI-suggested replies when stuck in conversation, with options to refine your draft or generate fresh ideas."
+      path="/docs/help-me-reply"
+      jsonLd={buildBreadcrumbSchema([
+        { name: "Home", path: "/" },
+        { name: "Docs", path: "/docs" },
+        { name: "Help Me Reply", path: "/docs/help-me-reply" },
+      ])}
+    />
     <motion.article
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -182,5 +195,6 @@ export function ReplyHelperDoc() {
         Help Me Reply uses.
       </p>
     </motion.article>
+    </>
   );
 }

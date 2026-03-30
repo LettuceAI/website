@@ -2,9 +2,22 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { DocHeading } from "@/components/docs/DocHeading";
 import { Callout } from "@/components/docs/Callout";
+import { SEO } from "@/components/common/SEO";
+import { buildBreadcrumbSchema } from "@/config/schemas";
 
 export function ChatTemplatesDoc() {
   return (
+    <>
+    <SEO
+      title="Chat Templates"
+      description="Create reusable conversation starters with multiple opening sequences, scenes, and prompt overrides for characters."
+      path="/docs/chat-templates"
+      jsonLd={buildBreadcrumbSchema([
+        { name: "Home", path: "/" },
+        { name: "Docs", path: "/docs" },
+        { name: "Chat Templates", path: "/docs/chat-templates" },
+      ])}
+    />
     <motion.article
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -194,5 +207,6 @@ export function ChatTemplatesDoc() {
         the live chat takes over from there.
       </Callout>
     </motion.article>
+    </>
   );
 }

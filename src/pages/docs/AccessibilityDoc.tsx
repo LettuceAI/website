@@ -1,9 +1,22 @@
 import { motion } from "framer-motion";
 import { DocHeading } from "@/components/docs/DocHeading";
 import { Callout } from "@/components/docs/Callout";
+import { SEO } from "@/components/common/SEO";
+import { buildBreadcrumbSchema } from "@/config/schemas";
 
 export function AccessibilityDoc() {
   return (
+    <>
+    <SEO
+      title="Accessibility"
+      description="Customize sound effects, haptic feedback, and screen reader support in LettuceAI for a comfortable experience."
+      path="/docs/accessibility"
+      jsonLd={buildBreadcrumbSchema([
+        { name: "Home", path: "/" },
+        { name: "Docs", path: "/docs" },
+        { name: "Accessibility", path: "/docs/accessibility" },
+      ])}
+    />
     <motion.article
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -118,5 +131,6 @@ export function AccessibilityDoc() {
         report it from our Discord server or from Github so we can improve accessibility for everyone.
       </Callout>
     </motion.article>
+    </>
   );
 }

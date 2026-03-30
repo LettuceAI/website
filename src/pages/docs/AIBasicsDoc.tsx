@@ -2,9 +2,22 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Callout } from "@/components/docs/Callout";
 import { DocHeading } from "@/components/docs/DocHeading";
+import { SEO } from "@/components/common/SEO";
+import { buildBreadcrumbSchema } from "@/config/schemas";
 
 export function AIBasicsDoc() {
   return (
+    <>
+    <SEO
+      title="AI Basics"
+      description="Learn what tokens, context length, models, providers, and API keys mean in plain English for beginners new to AI apps."
+      path="/docs/ai-basics"
+      jsonLd={buildBreadcrumbSchema([
+        { name: "Home", path: "/" },
+        { name: "Docs", path: "/docs" },
+        { name: "AI Basics", path: "/docs/ai-basics" },
+      ])}
+    />
     <motion.article
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -482,5 +495,6 @@ export function AIBasicsDoc() {
         <Link to="/docs/models">Models</Link>.
       </Callout>
     </motion.article>
+    </>
   );
 }

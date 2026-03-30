@@ -3,9 +3,22 @@ import { DocHeading } from "@/components/docs/DocHeading";
 import { Callout } from "@/components/docs/Callout";
 import { DocImage } from "@/components/docs/DocImage";
 import { images } from "@/config/images";
+import { SEO } from "@/components/common/SEO";
+import { buildBreadcrumbSchema } from "@/config/schemas";
 
 export function TTSDoc() {
   return (
+    <>
+    <SEO
+      title="Text-to-Speech"
+      description="Make characters speak aloud with ElevenLabs, Google Gemini TTS, or device-native voices in LettuceAI."
+      path="/docs/tts"
+      jsonLd={buildBreadcrumbSchema([
+        { name: "Home", path: "/" },
+        { name: "Docs", path: "/docs" },
+        { name: "Text-to-Speech", path: "/docs/tts" },
+      ])}
+    />
     <motion.article
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -225,5 +238,6 @@ export function TTSDoc() {
         You can clear cached audio anytime.
       </p>
     </motion.article>
+    </>
   );
 }

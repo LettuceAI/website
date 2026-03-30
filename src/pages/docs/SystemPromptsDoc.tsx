@@ -4,9 +4,22 @@ import { Callout } from "@/components/docs/Callout";
 import { CodeBlock } from "@/components/ui/CodeBlock";
 import { DocImage } from "@/components/docs/DocImage";
 import { images } from "@/config/images";
+import { SEO } from "@/components/common/SEO";
+import { buildBreadcrumbSchema } from "@/config/schemas";
 
 export function SystemPromptsDoc() {
   return (
+    <>
+    <SEO
+      title="System Prompts"
+      description="Build modular prompt templates with entries, injection rules, conditions, and runtime rendering for precise AI behavior."
+      path="/docs/system-prompts"
+      jsonLd={buildBreadcrumbSchema([
+        { name: "Home", path: "/" },
+        { name: "Docs", path: "/docs" },
+        { name: "System Prompts", path: "/docs/system-prompts" },
+      ])}
+    />
     <motion.article
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -836,5 +849,6 @@ Content rules`}</CodeBlock>
         lorebook systems carry it instead.
       </Callout>
     </motion.article>
+    </>
   );
 }

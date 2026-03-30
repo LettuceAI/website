@@ -4,9 +4,22 @@ import { DocSplit } from "@/components/docs/DocSplit";
 import { DocImage } from "@/components/docs/DocImage";
 import { Callout } from "@/components/docs/Callout";
 import { images } from "@/config/images";
+import { SEO } from "@/components/common/SEO";
+import { buildBreadcrumbSchema } from "@/config/schemas";
 
 export function DiscoveryDoc() {
   return (
+    <>
+    <SEO
+      title="Discovery"
+      description="Browse and import public characters from Character Tavern with trending, popular, and newest filters."
+      path="/docs/discovery"
+      jsonLd={buildBreadcrumbSchema([
+        { name: "Home", path: "/" },
+        { name: "Docs", path: "/docs" },
+        { name: "Discovery", path: "/docs/discovery" },
+      ])}
+    />
     <motion.article
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -116,5 +129,6 @@ export function DiscoveryDoc() {
         <li>The character appears in your Library, ready to chat.</li>
       </ol>
     </motion.article>
+    </>
   );
 }

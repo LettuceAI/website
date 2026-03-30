@@ -1,9 +1,22 @@
 import { motion } from "framer-motion";
 import { DocHeading } from "@/components/docs/DocHeading";
 import { Callout } from "@/components/docs/Callout";
+import { SEO } from "@/components/common/SEO";
+import { buildBreadcrumbSchema } from "@/config/schemas";
 
 export function ModelsDoc() {
   return (
+    <>
+    <SEO
+      title="Models"
+      description="Learn how AI models work and how to configure temperature, top-p, top-k, and other generation parameters in LettuceAI."
+      path="/docs/models"
+      jsonLd={buildBreadcrumbSchema([
+        { name: "Home", path: "/" },
+        { name: "Docs", path: "/docs" },
+        { name: "Models", path: "/docs/models" },
+      ])}
+    />
     <motion.article
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -408,5 +421,6 @@ export function ModelsDoc() {
         settings may be ignored if the provider does not expose control over it.
       </Callout>
     </motion.article>
+    </>
   );
 }

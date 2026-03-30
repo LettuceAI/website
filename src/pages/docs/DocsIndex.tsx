@@ -1,9 +1,21 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { SEO } from "@/components/common/SEO";
+import { buildBreadcrumbSchema } from "@/config/schemas";
 
 export function DocsIndex() {
   return (
+    <>
+    <SEO
+      title="Documentation"
+      description="LettuceAI documentation — guides for installation, AI providers, characters, memory, and all features."
+      path="/docs"
+      jsonLd={buildBreadcrumbSchema([
+        { name: "Home", path: "/" },
+        { name: "Docs", path: "/docs" },
+      ])}
+    />
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -134,5 +146,6 @@ export function DocsIndex() {
         </li>
       </ul>
     </motion.div>
+    </>
   );
 }

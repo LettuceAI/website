@@ -3,9 +3,22 @@ import { Link } from "react-router-dom";
 import { CodeBlock } from "@/components/ui/CodeBlock";
 import { Callout } from "@/components/docs/Callout";
 import { DocHeading } from "@/components/docs/DocHeading";
+import { SEO } from "@/components/common/SEO";
+import { buildBreadcrumbSchema } from "@/config/schemas";
 
 export function InstallationDoc() {
   return (
+    <>
+    <SEO
+      title="Installation"
+      description="Download and install LettuceAI on Android, Windows, macOS, and Linux. Build from source with Rust and Android tools."
+      path="/docs/installation"
+      jsonLd={buildBreadcrumbSchema([
+        { name: "Home", path: "/" },
+        { name: "Docs", path: "/docs" },
+        { name: "Installation", path: "/docs/installation" },
+      ])}
+    />
     <motion.article
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -156,5 +169,6 @@ npm run tauri android build`}</CodeBlock>
         provided by the Tauri script.
       </p>
     </motion.article>
+    </>
   );
 }

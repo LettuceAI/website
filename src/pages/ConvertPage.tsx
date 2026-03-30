@@ -1,4 +1,5 @@
 import { SEO } from "@/components/common/SEO";
+import { converterSchema } from "@/config/schemas";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState, useRef, useCallback } from "react";
 import {
@@ -381,6 +382,7 @@ export function ConvertPage() {
         title="Convert"
         description="Convert between PNG character cards (Chara Card v2/v3) and UEC format."
         path="/convert"
+        jsonLd={converterSchema}
       />
       <main className="min-h-screen bg-[#050505]">
         <div className="max-w-3xl mx-auto px-6 sm:px-10 pt-28 sm:pt-36 pb-20">

@@ -4,9 +4,22 @@ import { DocSplit } from "@/components/docs/DocSplit";
 import { DocImage } from "@/components/docs/DocImage";
 import { Callout } from "@/components/docs/Callout";
 import { images } from "@/config/images";
+import { SEO } from "@/components/common/SEO";
+import { buildBreadcrumbSchema } from "@/config/schemas";
 
 export function GroupChatsDoc() {
   return (
+    <>
+    <SEO
+      title="Group Chats"
+      description="Chat with multiple AI characters at once with automatic or manual speaker selection and structured roleplay."
+      path="/docs/group-chats"
+      jsonLd={buildBreadcrumbSchema([
+        { name: "Home", path: "/" },
+        { name: "Docs", path: "/docs" },
+        { name: "Group Chats", path: "/docs/group-chats" },
+      ])}
+    />
     <motion.article
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -154,5 +167,6 @@ export function GroupChatsDoc() {
         roles. Keep prompts short and let their personalities do the work.
       </Callout>
     </motion.article>
+    </>
   );
 }

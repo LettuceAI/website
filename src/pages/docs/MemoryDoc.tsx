@@ -3,9 +3,22 @@ import { DocHeading } from "@/components/docs/DocHeading";
 import { DocImage } from "@/components/docs/DocImage";
 import { images } from "@/config/images";
 import { motion } from "framer-motion";
+import { SEO } from "@/components/common/SEO";
+import { buildBreadcrumbSchema } from "@/config/schemas";
 
 export function MemoryDoc() {
   return (
+    <>
+    <SEO
+      title="Memory System"
+      description="Keep long conversations coherent with manual or dynamic memory using embedding-based retrieval and automatic maintenance."
+      path="/docs/memory"
+      jsonLd={buildBreadcrumbSchema([
+        { name: "Home", path: "/" },
+        { name: "Docs", path: "/docs" },
+        { name: "Memory System", path: "/docs/memory" },
+      ])}
+    />
     <motion.article
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -433,5 +446,6 @@ export function MemoryDoc() {
         </li>
       </ul>
     </motion.article>
+    </>
   );
 }

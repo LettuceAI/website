@@ -3,9 +3,22 @@ import { DocHeading } from "@/components/docs/DocHeading";
 import { Callout } from "@/components/docs/Callout";
 import { DocImage } from "@/components/docs/DocImage";
 import { images } from "@/config/images";
+import { SEO } from "@/components/common/SEO";
+import { buildBreadcrumbSchema } from "@/config/schemas";
 
 export function SyncDoc() {
   return (
+    <>
+    <SEO
+      title="Sync"
+      description="Transfer chats, characters, and settings between devices using end-to-end encrypted peer-to-peer sync."
+      path="/docs/sync"
+      jsonLd={buildBreadcrumbSchema([
+        { name: "Home", path: "/" },
+        { name: "Docs", path: "/docs" },
+        { name: "Sync", path: "/docs/sync" },
+      ])}
+    />
     <motion.article
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -133,5 +146,6 @@ export function SyncDoc() {
         background queue or cloud storage holding your data.
       </p>
     </motion.article>
+    </>
   );
 }

@@ -3,9 +3,22 @@ import { Callout } from "@/components/docs/Callout";
 import { DocHeading } from "@/components/docs/DocHeading";
 import { DocImage } from "@/components/docs/DocImage";
 import { images } from "@/config/images";
+import { SEO } from "@/components/common/SEO";
+import { buildBreadcrumbSchema } from "@/config/schemas";
 
 export function ImageGenerationDoc() {
   return (
+    <>
+    <SEO
+      title="Image Generation"
+      description="Generate images with scene generation, avatar creation, and design references using AUTOMATIC1111, OpenAI, Gemini, and more."
+      path="/docs/images"
+      jsonLd={buildBreadcrumbSchema([
+        { name: "Home", path: "/" },
+        { name: "Docs", path: "/docs" },
+        { name: "Image Generation", path: "/docs/images" },
+      ])}
+    />
     <motion.article
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -517,5 +530,6 @@ export function ImageGenerationDoc() {
         normal image model set up.
       </Callout>
     </motion.article>
+    </>
   );
 }

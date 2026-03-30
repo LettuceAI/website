@@ -3,9 +3,22 @@ import { DocHeading } from "@/components/docs/DocHeading";
 import { Callout } from "@/components/docs/Callout";
 import { DocImage } from "@/components/docs/DocImage";
 import { images } from "@/config/images";
+import { SEO } from "@/components/common/SEO";
+import { buildBreadcrumbSchema } from "@/config/schemas";
 
 export function CharacterCreatorDoc() {
   return (
+    <>
+    <SEO
+      title="Smart Creator"
+      description="AI-guided tool that helps you build characters, personas, and lorebooks step-by-step through natural conversation."
+      path="/docs/smart-creator"
+      jsonLd={buildBreadcrumbSchema([
+        { name: "Home", path: "/" },
+        { name: "Docs", path: "/docs" },
+        { name: "Smart Creator", path: "/docs/smart-creator" },
+      ])}
+    />
     <motion.article
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -268,5 +281,6 @@ export function CharacterCreatorDoc() {
         Think of it like a friendly co-writer helping fill in the blanks.
       </Callout>
     </motion.article>
+    </>
   );
 }

@@ -50,3 +50,51 @@ export function buildFaqSchema(
         })),
     };
 }
+
+export function buildBreadcrumbSchema(
+    items: { name: string; path: string }[]
+): Record<string, unknown> {
+    return {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: items.map((item, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            name: item.name,
+            item: `https://lettuceai.app${item.path}`,
+        })),
+    };
+}
+
+export const providerListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "LettuceAI Supported AI Providers",
+    description:
+        "AI providers supported by LettuceAI including OpenAI, Anthropic, Google Gemini, and more.",
+    numberOfItems: 20,
+    itemListElement: [
+        "OpenAI", "Anthropic", "Google Gemini", "DeepSeek", "Mistral AI",
+        "Groq", "xAI", "OpenRouter", "Moonshot", "Qwen",
+    ].map((name, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name,
+    })),
+};
+
+export const converterSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "LettuceAI Character Card Converter",
+    url: "https://lettuceai.app/convert",
+    applicationCategory: "UtilityApplication",
+    operatingSystem: "Any",
+    offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+    },
+    description:
+        "Convert between PNG character cards (Chara v2/v3) and UEC format. Free, runs entirely in your browser.",
+};

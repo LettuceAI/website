@@ -1,9 +1,22 @@
 import { motion } from "framer-motion";
 import { DocHeading } from "@/components/docs/DocHeading";
 import { Callout } from "@/components/docs/Callout";
+import { SEO } from "@/components/common/SEO";
+import { buildBreadcrumbSchema } from "@/config/schemas";
 
 export function ApiKeysDoc() {
   return (
+    <>
+    <SEO
+      title="API Keys"
+      description="How to get API keys from OpenAI, Anthropic, Google Gemini, DeepSeek, and 10+ other AI providers for LettuceAI."
+      path="/docs/api-keys"
+      jsonLd={buildBreadcrumbSchema([
+        { name: "Home", path: "/" },
+        { name: "Docs", path: "/docs" },
+        { name: "API Keys", path: "/docs/api-keys" },
+      ])}
+    />
     <motion.article
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -328,5 +341,6 @@ export function ApiKeysDoc() {
         <li>You can remove or replace keys anytime</li>
       </ul>
     </motion.article>
+    </>
   );
 }
