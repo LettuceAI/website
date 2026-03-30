@@ -210,4 +210,14 @@ export const homepageFAQs: FAQ[] = [
     answer:
       "No telemetry is collected by LettuceAI. Your chats and data stay under your control.",
   },
+  {
+    question: "Can I run models locally without an internet connection?",
+    answer:
+      "Yes. LettuceAI has llama.cpp built in, so you can load GGUF models and run them directly on your device with no server, no API key, and no internet required.",
+  },
+  {
+    question: "Does local inference work on phones too?",
+    answer:
+      "Not yet. The built-in llama.cpp engine currently runs on Windows, macOS, and Linux. Android support for local models is planned for a future release. On Android you can still use Ollama or any other local server running on your network.",
+  },
 ];
