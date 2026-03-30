@@ -342,22 +342,71 @@ export function DownloadPage() {
             </motion.div>
           )}
 
-          {/* ─── Platform cards ─── */}
+          {/* ─── Featured platform hero card ─── */}
+          {requestedPlatform && (() => {
+            const featured = sortedCards.find((c) => c.featured);
+            if (!featured) return null;
+            return (
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="mb-5"
+              >
+                <div className="rounded-xl border border-primary/25 bg-primary/[0.03] p-8 sm:p-10">
+                  <div className="flex flex-col sm:flex-row items-center gap-6">
+                    <div className="flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/[0.08] border border-primary/[0.12]">
+                      <featured.icon className="w-8 h-8 text-primary/80" />
+                    </div>
+                    <div className="flex-1 text-center sm:text-left">
+                      <h2 className="text-2xl font-bold text-white mb-1">
+                        {featured.name}
+                      </h2>
+                      <p className="text-[13px] text-white/35">
+                        {featured.req}
+                        {featured.version && (
+                          <span className="text-white/20 ml-2">{featured.version}</span>
+                        )}
+                      </p>
+                    </div>
+                    <div className="w-full sm:w-auto sm:min-w-[200px]">
+                      {featured.builds.length > 0 ? (
+                        <BuildDropdown
+                          label={featured.builds.length === 1 ? featured.builds[0].name : "Download"}
+                          builds={featured.builds}
+                        />
+                      ) : (
+                        <a
+                          href={featured.releaseUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center justify-center gap-2 h-11 w-full rounded-lg border border-white/[0.08] text-[13px] font-medium text-white/30 hover:text-white/50 hover:border-white/[0.12] transition-colors"
+                        >
+                          View releases
+                          <ExternalLink className="w-3.5 h-3.5" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })()}
+
+          {/* ─── Other platform cards ─── */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.15 }}
-            className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+            className={`grid gap-4 ${requestedPlatform ? "grid-cols-1 sm:grid-cols-3" : "grid-cols-1 sm:grid-cols-2"}`}
           >
-            {sortedCards.map((platform) => (
+            {(requestedPlatform ? sortedCards.filter((c) => !c.featured) : sortedCards).map((platform) => (
               <div
                 key={platform.key}
                 className={`flex flex-col items-center text-center rounded-xl border p-6 sm:p-8 transition-colors ${
-                  platform.featured
-                    ? "border-primary/25 bg-primary/[0.03]"
-                    : platform.builds.length > 0
-                      ? "border-white/[0.06] bg-white/[0.02] hover:border-white/[0.10]"
-                      : "border-white/[0.04] bg-white/[0.01] opacity-50"
+                  platform.builds.length > 0
+                    ? "border-white/[0.06] bg-white/[0.02] hover:border-white/[0.10]"
+                    : "border-white/[0.04] bg-white/[0.01] opacity-50"
                 }`}
               >
                 <platform.icon className="w-8 h-8 text-white/40 mb-4" />
