@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 const DEFAULTS = {
     siteName: "LettuceAI",
     description:
-        "Privacy-first AI chat with long-term memory, custom characters, and 20+ providers. Your chats, keys, and data stay on your device.",
+        "Free, open-source AI roleplay app with long-term memory, custom characters, and 20+ providers. No filters, no accounts, fully private.",
     url: "https://lettuceai.app",
     image: "https://raw.githubusercontent.com/LettuceAI/.github/refs/heads/main/profile/LettuceAI-banner.png",
 };
@@ -25,7 +25,7 @@ export function SEO({
 }: SEOProps) {
     const fullTitle = title
         ? `${title} — ${DEFAULTS.siteName}`
-        : `${DEFAULTS.siteName} — Private, User-Controlled AI Chat`;
+        : `${DEFAULTS.siteName} — Free Open-Source AI Roleplay App`;
     const desc = description || DEFAULTS.description;
     const url = `${DEFAULTS.url}${path}`;
 
