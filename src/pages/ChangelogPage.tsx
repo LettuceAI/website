@@ -63,6 +63,308 @@ export function ChangelogPage() {
             </ShimmerButton>
           </motion.div>
 
+          {/* Android 1.4.0 & Desktop 1.1.0 update */}
+          <motion.article
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="prose prose-invert max-w-none mb-14"
+          >
+            <div className="not-prose mb-8 pb-6 border-b border-white/[0.06]">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="px-3 py-1 rounded-full bg-primary/10 text-primary/80 text-xs font-medium border border-primary/15">
+                  Android 1.4.0 & Desktop 1.1.0 update
+                </span>
+                <span className="text-white/25 text-xs">
+                  April 6, 2026 • 3:38 PM GMT
+                </span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                Local AI Expansion, Dynamic Memory Upgrades & Desktop UX
+                Overhaul
+              </h2>
+              <p className="text-white/35">
+                This release is a major update focused on local AI, Dynamic
+                Memory, desktop UX, and reliability.
+              </p>
+            </div>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-7 h-7 rounded-md bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
+                  <Sparkles className="w-4 h-4 text-primary" />
+                </div>
+                <span className="text-base font-semibold text-white/80">
+                  Highlights
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Native <strong>Ollama</strong> integration joins a much more
+                  capable built-in <code>llama.cpp</code> runtime with smarter
+                  GPU offload, CPU-safe fallbacks, and better local tool
+                  calling
+                </li>
+                <li>
+                  Dynamic Memory now has clearer progress, stronger safeguards,
+                  revert support, and more reliable recovery from stale runs
+                </li>
+                <li>Added runtime fallback reports for local inference</li>
+                <li>Improved CPU fallback context and batch clamping</li>
+                <li>
+                  Prompt caching, chat settings, and session controls were
+                  expanded with cache-aware routing, better live-session sync,
+                  and a redesigned settings flow
+                </li>
+                <li>
+                  Desktop gets custom frameless window chrome, wider TopNav
+                  adoption, stronger theme-token coverage, and a redesigned
+                  Logs page
+                </li>
+                <li>
+                  Models, onboarding, networking, and platform support all
+                  received another broad pass for setup quality and runtime
+                  reliability
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-7 h-7 rounded-md bg-purple-500/10 border border-purple-500/30 flex items-center justify-center shrink-0">
+                  <Zap className="w-4 h-4 text-purple-400" />
+                </div>
+                <span className="text-base font-semibold text-white/80">
+                  Local AI & Runtime
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Added native Ollama integration and support for native Ollama
+                  tool call payloads
+                </li>
+                <li>
+                  Updated <code>llama.cpp</code> and related bindings, with
+                  better local stability and runtime behavior
+                </li>
+                <li>
+                  Reused loaded local models across concurrent requests to
+                  reduce unnecessary reloads
+                </li>
+                <li>Added runtime fallback reports for local inference</li>
+                <li>
+                  Improved CPU fallback context and batch clamping, plus
+                  CPU-safe auto-context behavior on CPU runtimes
+                </li>
+                <li>
+                  Fixed several CPU-only safety issues for local inference
+                </li>
+                <li>Added smart GPU layer offload and strict mode overrides</li>
+                <li>
+                  Added GPU layer split visibility, sampler order presets, and
+                  additional reasoning settings in the model editor
+                </li>
+                <li>
+                  Improved model load progress reporting and embedded template
+                  rendering via <code>oaicompat</code>
+                </li>
+                <li>
+                  Improved fallback behavior across local chat templating and
+                  rendering paths
+                </li>
+                <li>
+                  Hardened and stabilized local tool calling, including
+                  structured-output failure handling
+                </li>
+                <li>
+                  Shared local backend usage between runtime and context-info
+                  paths
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-7 h-7 rounded-md bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shrink-0">
+                  <Brain className="w-4 h-4 text-cyan-400" />
+                </div>
+                <span className="text-base font-semibold text-white/80">
+                  Dynamic Memory & Prompting
+                </span>
+              </div>
+              <ul>
+                <li>Added a progress bar for Dynamic Memory cycles</li>
+                <li>Allowed cancelling stale non-idle memory runs</li>
+                <li>Reconciled stale processing state on load</li>
+                <li>Improved Dynamic Memory UI state handling</li>
+                <li>Switched memory fallback protocol from JSON to XML</li>
+                <li>Hardened local tool fallback and repair logging</li>
+                <li>
+                  Added a llama sampler overwrite toggle for Dynamic Memory and
+                  increased its overwrite temperature
+                </li>
+                <li>Hardened deletion safeguards and preset behavior</li>
+                <li>Added deleted memory text to tool logs</li>
+                <li>Added revert support for memory activity cycles</li>
+                <li>
+                  Preserved Dynamic Memory settings during backup restore
+                </li>
+                <li>Added prompt cache TTL and sticky routing</li>
+                <li>Completed prompt caching support</li>
+                <li>Improved cache-aware usage and pricing tracking</li>
+                <li>Added a local RP default prompt template</li>
+                <li>
+                  Improved prompt and template compatibility with embedded GGUF
+                  templates
+                </li>
+                <li>Supported USC system prompt imports</li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-7 h-7 rounded-md bg-blue-500/10 border border-blue-500/30 flex items-center justify-center shrink-0">
+                  <Users className="w-4 h-4 text-blue-400" />
+                </div>
+                <span className="text-base font-semibold text-white/80">
+                  Chat, Scenes & Roleplay Tools
+                </span>
+              </div>
+              <ul>
+                <li>Added a chat settings drawer</li>
+                <li>Redesigned session advanced settings</li>
+                <li>Simplified session advanced settings in some flows</li>
+                <li>
+                  Restored footer focus correctly after closing the drawer
+                </li>
+                <li>
+                  Synced edited messages back into the live session cache after
+                  failures and cancels
+                </li>
+                <li>
+                  Added support for combined <code>***bold italic***</code>{" "}
+                  markdown emphasis
+                </li>
+                <li>
+                  Ignored inline image tags when scene generation is unavailable
+                </li>
+                <li>
+                  Added support for using chat background as a scene reference
+                </li>
+                <li>Added a session-specific chat background picker</li>
+                <li>
+                  Added lorebook keyword detection modes and migration support
+                  for the new detection mode
+                </li>
+                <li>Fixed lorebook query column alignment and schema issues</li>
+                <li>
+                  Improved unicode thinking parsing related to lorebooks
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-7 h-7 rounded-md bg-pink-500/10 border border-pink-500/30 flex items-center justify-center shrink-0">
+                  <Monitor className="w-4 h-4 text-pink-400" />
+                </div>
+                <span className="text-base font-semibold text-white/80">
+                  Desktop UX, Models & Visibility
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Added a runability score for <code>llama.cpp</code> models
+                  and redesigned the model editor for better horizontal space
+                  usage
+                </li>
+                <li>Kept the model editor on the same page after saving</li>
+                <li>Added a local LLM setup flow to onboarding</li>
+                <li>Improved recommended model installation flow</li>
+                <li>
+                  Fixed linking <code>mmproj</code> downloads before model
+                  creation and auto-creation of recommended installs from queue
+                  metadata
+                </li>
+                <li>Unified model selector bottom menus</li>
+                <li>Redesigned the Logs page</li>
+                <li>Added full DB operation logging</li>
+                <li>Added <code>Ctrl+Shift+L</code> shortcut for logs</li>
+                <li>Hardened logs against errors</li>
+                <li>
+                  Improved mobile overflow and desktop layout behavior in logs
+                </li>
+                <li>Added copy line(s) to the logs context menu</li>
+                <li>
+                  Normalized chat debug events for better parser compatibility
+                </li>
+                <li>
+                  Added better message, load, and runtime visibility across the
+                  app
+                </li>
+                <li>Added custom frameless titlebar and window decorations</li>
+                <li>Added window controls and drag regions to more pages</li>
+                <li>Migrated discovery pages to TopNav</li>
+                <li>Added window controls to chat sub-pages</li>
+                <li>Eliminated empty-state flashes during navigation</li>
+                <li>
+                  Connected more chat, sheet, and group chat surfaces to theme
+                  color tokens
+                </li>
+                <li>Added About page GitHub icon support</li>
+                <li>
+                  Centralized toggle-switch UI work was introduced during this
+                  cycle
+                </li>
+                <li>Added session background selection from chat UI</li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-7 h-7 rounded-md bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0">
+                  <Heart className="w-4 h-4 text-green-400" />
+                </div>
+                <span className="text-base font-semibold text-white/80">
+                  Platform, Networking & Reliability
+                </span>
+              </div>
+              <ul>
+                <li>Added LAN OpenAI gateway and Lettuce Host provider</li>
+                <li>Renamed LAN Host API to API Server</li>
+                <li>
+                  Deferred timed-out OpenRouter pricing refreshes instead of
+                  failing inline
+                </li>
+                <li>Added iOS ONNX Runtime installer workflow</li>
+                <li>
+                  Improved Windows DXGI adapter and video-memory checks
+                </li>
+                <li>Improved Windows Vulkan VRAM estimation clamps</li>
+                <li>Repaired macOS ONNX dylib acceptance</li>
+                <li>
+                  Fixed valid macOS title bar style enum usage for Tauri
+                </li>
+                <li>Updated dependencies and runtime libraries</li>
+                <li>Expanded supported thinking tag variants</li>
+                <li>Normalized thinking tags across API and local responses</li>
+                <li>Improved stacked toast behavior</li>
+                <li>Routed persona flows through the library</li>
+                <li>Removed the legacy Personas page</li>
+              </ul>
+            </section>
+
+            <p className="not-prose">
+              <a
+                href="https://github.com/LettuceAI/app/releases"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View full release on GitHub →
+              </a>
+            </p>
+          </motion.article>
+
           {/* Android 1.3.3 & Desktop 1.0.3 update */}
           <motion.article
             initial={{ opacity: 0, y: 20 }}
