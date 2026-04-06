@@ -63,6 +63,68 @@ export function ChangelogPage() {
             </ShimmerButton>
           </motion.div>
 
+          {/* Android 1.4.1 & Desktop 1.1.1 update */}
+          <motion.article
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="prose prose-invert max-w-none mb-14"
+          >
+            <div className="not-prose mb-8 pb-6 border-b border-white/[0.06]">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="px-3 py-1 rounded-full bg-primary/10 text-primary/80 text-sm font-medium border border-primary/15">
+                  Android 1.4.1 & Desktop 1.1.1 update
+                </span>
+                <span className="text-white/25 text-xs">
+                  April 6, 2026
+                </span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                macOS Titlebar Fixes, Onboarding Cleanup & Expanded Logs
+              </h2>
+              <p className="text-white/35">
+                A small follow-up update focused on desktop polish, local model
+                onboarding consistency, and better logging visibility.
+              </p>
+            </div>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-7 h-7 rounded-md bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0">
+                  <Bug className="w-4 h-4 text-green-400" />
+                </div>
+                <span className="text-base font-semibold text-white/80">
+                  Fixes
+                </span>
+              </div>
+              <ul>
+                <li>macOS title is visible again</li>
+                <li>
+                  Local model onboarding was reworked to match the built-in{" "}
+                  <code>llama.cpp</code> flow instead of creating a fake
+                  onboarding provider
+                </li>
+                <li>
+                  Exported logs now include SQLite activity and pool status
+                </li>
+                <li>
+                  Mobile-only cleanup removed the local LLM button from
+                  onboarding and is not a desktop-facing change
+                </li>
+              </ul>
+            </section>
+
+            <p className="not-prose">
+              <a
+                href="https://github.com/LettuceAI/app/releases"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View full release on GitHub →
+              </a>
+            </p>
+          </motion.article>
+
           {/* Android 1.4.0 & Desktop 1.1.0 update */}
           <motion.article
             initial={{ opacity: 0, y: 20 }}
