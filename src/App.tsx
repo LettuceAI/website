@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   BrowserRouter,
   Routes,
@@ -51,7 +52,9 @@ import Snowfall from "react-snowfall";
 import { SnowProvider, useSnow } from "@/contexts/SnowContext";
 
 function ExternalRedirect({ url }: { url: string }) {
-  window.location.replace(url);
+  useEffect(() => {
+    window.location.replace(url);
+  }, [url]);
   return null;
 }
 
@@ -86,15 +89,17 @@ function AnimatedRoutes() {
   );
 }
 
-function AppContent() {
+export function AppContent() {
   const { snowEnabled, isHolidaySeason } = useSnow();
   const location = useLocation();
   const isDocsPage = location.pathname.startsWith("/docs");
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   return (
     <>
       <ScrollToTop />
-      {isHolidaySeason && snowEnabled && !isDocsPage && (
+      {mounted && isHolidaySeason && snowEnabled && !isDocsPage && (
         <Snowfall
           style={{
             position: "fixed",

@@ -26,13 +26,14 @@ export function SnowProvider({ children }: { children: ReactNode }) {
 
     const [snowEnabled, setSnowEnabled] = useState(() => {
         if (!isHolidaySeason) return false;
-        const saved = localStorage.getItem("snowEnabled");
-        return saved !== null ? saved === "true" : true; 
+        if (typeof window === "undefined") return true;
+        const saved = window.localStorage.getItem("snowEnabled");
+        return saved !== null ? saved === "true" : true;
     });
 
     useEffect(() => {
         if (isHolidaySeason) {
-            localStorage.setItem("snowEnabled", String(snowEnabled));
+            window.localStorage.setItem("snowEnabled", String(snowEnabled));
         }
     }, [snowEnabled, isHolidaySeason]);
 
