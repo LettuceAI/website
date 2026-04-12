@@ -20,3 +20,5 @@ export { ReplyHelperDoc } from "./ReplyHelperDoc";
 export { TTSDoc } from "./TTSDoc";
 export { CharacterCreatorDoc } from "./CharacterCreatorDoc";
 export { ChatTemplatesDoc } from "./ChatTemplatesDoc";
+export { ModelBrowserDoc } from "./ModelBrowserDoc";
+export { OllamaDoc } from "./OllamaDoc";

@@ -44,6 +44,8 @@ import {
   TTSDoc,
   CharacterCreatorDoc,
   ChatTemplatesDoc,
+  ModelBrowserDoc,
+  OllamaDoc,
 } from "@/pages/docs";
 import Snowfall from "react-snowfall";
 import { SnowProvider, useSnow } from "@/contexts/SnowContext";
@@ -129,6 +131,8 @@ function AppContent() {
               <Route path="personas" element={<PersonasDoc />} />
               <Route path="system-prompts" element={<SystemPromptsDoc />} />
               <Route path="smart-creator" element={<CharacterCreatorDoc />} />
+              <Route path="model-browser" element={<ModelBrowserDoc />} />
+              <Route path="ollama" element={<OllamaDoc />} />
               <Route
                 path="character-creator"
                 element={<Navigate to="/docs/smart-creator" replace />}

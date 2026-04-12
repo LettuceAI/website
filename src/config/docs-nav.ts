@@ -17,6 +17,7 @@ import {
   Compass,
   Users,
   MessageSquare,
+  HardDrive,
 } from "lucide-react";
 import { Wheelchair } from "./WheelChairIcon";
 
@@ -99,6 +100,37 @@ export const docsNav = [
           "local",
           "endpoint",
           "custom",
+        ],
+      },
+      {
+        title: "Model Browser & Local Inference",
+        href: "/docs/model-browser",
+        icon: HardDrive,
+        keywords: [
+          "model browser",
+          "llama.cpp",
+          "llamacpp",
+          "ollama",
+          "local",
+          "gguf",
+          "download",
+          "huggingface",
+          "inference",
+          "gpu",
+          "offline",
+        ],
+      },
+      {
+        title: "Ollama",
+        href: "/docs/ollama",
+        icon: Settings,
+        keywords: [
+          "ollama",
+          "local",
+          "server",
+          "self-hosted",
+          "inference",
+          "mirostat",
         ],
       },
       {
