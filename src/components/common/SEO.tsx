@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 const DEFAULTS = {
     siteName: "LettuceAI",
     description:
-        "Free, open-source AI roleplay app with long-term memory, custom characters, and 20+ providers. No filters, no accounts, fully private.",
+        "Free, open-source AI roleplay and storytelling app with text-to-speech, scene-aware image generation, long-term memory, group chats, lorebooks, custom characters, and 20+ AI providers. Cross-platform, private, BYOK.",
     url: "https://lettuceai.app",
     image: "https://raw.githubusercontent.com/LettuceAI/.github/refs/heads/main/profile/LettuceAI-banner.png",
 };

@@ -10,22 +10,22 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>LettuceAI - Free Open-Source AI Roleplay App</title>
+  <title>LettuceAI — Free Open-Source AI Roleplay App with TTS &amp; Image Generation</title>
 
   <meta name="description"
-    content="LettuceAI is a free, open-source AI roleplay and storytelling app with long-term memory, custom characters, and 20+ AI providers. No filters, no accounts, fully private." />
+    content="LettuceAI is a free, open-source AI roleplay and storytelling app with text-to-speech, scene-aware image generation, long-term memory, group chats, lorebooks, custom characters, and 20+ AI providers. Runs on Android, Windows, macOS, and Linux. No filters, no accounts, fully private." />
 
   <meta name="keywords"
-    content="ai roleplay app, character ai alternative, ai roleplay no filter, open source ai chat, private ai roleplay, ai storytelling app, free ai roleplay, lettuceai" />
+    content="ai roleplay app, character ai alternative, sillytavern alternative, ai roleplay no filter, open source ai chat, private ai roleplay, ai storytelling app, free ai roleplay, lettuceai, ai text to speech roleplay, tts ai chat, ai image generation roleplay, scene generation ai, ai scene illustration, lorebooks ai, ai group chat, multi character ai, byok ai chat, local ai roleplay, ollama roleplay, cross platform ai, android ai roleplay, tauri ai app" />
 
   <meta name="author" content="LettuceAI" />
   <meta name="theme-color" content="#0fbd4e" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="LettuceAI — Free Open-Source AI Roleplay" />
+  <meta property="og:title" content="LettuceAI — Free Open-Source AI Roleplay with TTS &amp; Image Gen" />
   <meta property="og:description"
-    content="Free, open-source AI roleplay with long-term memory and custom characters. No filters, no accounts, 20+ providers. Your data stays on your device." />
+    content="Free, open-source AI roleplay with text-to-speech, scene-aware image generation, long-term memory, group chats, lorebooks, and 20+ AI providers. Cross-platform, private, BYOK." />
   <meta property="og:site_name" content="LettuceAI" />
   <meta property="og:url" content="https://lettuceai.app" />
   <meta property="og:image"
@@ -36,9 +36,9 @@
 
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="LettuceAI — Free Open-Source AI Roleplay" />
+  <meta name="twitter:title" content="LettuceAI — Free Open-Source AI Roleplay with TTS &amp; Image Gen" />
   <meta name="twitter:description"
-    content="Free, open-source AI roleplay with long-term memory and custom characters. No filters, no accounts, 20+ providers." />
+    content="Free, open-source AI roleplay with text-to-speech, scene-aware image generation, long-term memory, group chats, and 20+ AI providers. Cross-platform, private, BYOK." />
   <meta name="twitter:url" content="https://lettuceai.app" />
   <meta name="twitter:image"
     content="https://raw.githubusercontent.com/LettuceAI/.github/refs/heads/main/profile/LettuceAI-banner.png" />
@@ -51,10 +51,78 @@
 
   <link rel="preconnect" href="https://lhdgeo5fms.ufs.sh" />
   <link rel="preconnect" href="https://lettuceai.app" />
+
+  <!-- Baseline SoftwareApplication schema (guaranteed present without JS) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "LettuceAI",
+      "alternateName": ["Lettuce AI", "Lettuce"],
+      "url": "https://lettuceai.app",
+      "applicationCategory": "EntertainmentApplication",
+      "applicationSubCategory": "AI Roleplay & Storytelling",
+      "operatingSystem": "Android, Windows, macOS, Linux",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "description": "Free, open-source AI roleplay and storytelling app with text-to-speech, scene-aware image generation, long-term memory, group chats, lorebooks, custom characters, and 20+ AI providers. Runs locally on Android, Windows, macOS, and Linux. No filters, no accounts, no data collection.",
+      "featureList": [
+        "Text-to-speech (TTS) voice output",
+        "Scene-aware AI image generation",
+        "Character avatar generation",
+        "Long-term memory across conversations",
+        "Group chats with multiple characters",
+        "Lorebooks and world-building",
+        "Smart character creator",
+        "Personas",
+        "Visual system prompt builder",
+        "Chat templates",
+        "Character card import/export (Chara v2/v3, UEC)",
+        "20+ AI provider support",
+        "Local inference via Ollama",
+        "BYOK",
+        "100% local data storage",
+        "Cross-platform: Android, Windows, macOS, Linux",
+        "Open source (AGPL-3.0)"
+      ],
+      "license": "https://www.gnu.org/licenses/agpl-3.0.en.html"
+    }
+  </script>
 </head>
 
 <body>
-  <div id="root"></div>
+  <div id="root">
+    <noscript>
+      <h1>LettuceAI — Free Open-Source AI Roleplay App</h1>
+      <p>
+        LettuceAI is a free, open-source AI roleplay and storytelling app. It runs on
+        Android, Windows, macOS, and Linux with 100% local data storage — your chats,
+        API keys, and characters never leave your device.
+      </p>
+      <h2>Key features</h2>
+      <ul>
+        <li>Text-to-speech (TTS) voice output for your characters</li>
+        <li>Advanced AI image generation with scene-aware illustrations</li>
+        <li>Automatic character avatar generation</li>
+        <li>Long-term memory across conversations</li>
+        <li>Group chats with multiple characters in a single scene</li>
+        <li>Lorebooks and world-building entries</li>
+        <li>Smart character creator</li>
+        <li>Personas for roleplaying as yourself</li>
+        <li>Visual system prompt builder with conditional logic</li>
+        <li>Chat templates and reusable prompt presets</li>
+        <li>Character card import/export (Chara v2/v3 PNG, JSON, UEC)</li>
+        <li>20+ AI providers: OpenAI, Anthropic, Google Gemini, DeepSeek, Mistral, Groq, xAI, OpenRouter, Moonshot, Qwen, and more</li>
+        <li>Local inference via Ollama and LM Studio</li>
+        <li>BYOK — bring your own API keys</li>
+        <li>Open source (AGPL-3.0), no accounts, no filters, no telemetry</li>
+      </ul>
+      <p>
+        <a href="https://lettuceai.app/download">Download LettuceAI</a> &middot;
+        <a href="https://lettuceai.app/docs">Read the docs</a> &middot;
+        <a href="https://github.com/LettuceAI">Source on GitHub</a>
+      </p>
+    </noscript>
+  </div>
   <script type="module" src="/src/main.tsx"></script>
 </body>
 
