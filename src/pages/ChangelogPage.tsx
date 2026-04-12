@@ -63,6 +63,347 @@ export function ChangelogPage() {
             </ShimmerButton>
           </motion.div>
 
+          {/* Android 1.5.0 & Desktop 1.2.0 update */}
+          <motion.article
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="prose prose-invert max-w-none mb-14"
+          >
+            <div className="not-prose mb-8 pb-6 border-b border-white/[0.06]">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="px-3 py-1 rounded-full bg-primary/10 text-primary/80 text-sm font-medium border border-primary/15">
+                  Android 1.5.0 & Desktop 1.2.0 update
+                </span>
+                <span className="text-white/25 text-xs">
+                  April 13, 2026
+                </span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                Prompt Template Upgrades, Guided Onboarding & Sync Reliability
+              </h2>
+              <p className="text-white/35">
+                This update expands prompt-template control, improves Dynamic
+                Memory and local runtime reliability, adds a guided onboarding
+                system, and hardens sync, backup, and state consistency across
+                the app.
+              </p>
+            </div>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-7 h-7 rounded-md bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
+                  <Sparkles className="w-4 h-4 text-primary" />
+                </div>
+                <span className="text-base font-semibold text-white/80">
+                  Highlights
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Prompt templates are now typed and validated through a new
+                  backend-driven parameter engine
+                </li>
+                <li>
+                  Group chats gained editable prompt templates plus
+                  character-specific conversation and roleplay overrides
+                </li>
+                <li>
+                  Dynamic Memory is more resilient when structured output fails,
+                  with safer cancellation and stronger validation behavior for
+                  reasoning-capable models
+                </li>
+                <li>
+                  First-run onboarding has been replaced with a proper guided
+                  tour system across setup and early chat flows
+                </li>
+                <li>
+                  Sync, backup, and reload behavior were hardened to preserve
+                  newer schema fields, media references, and memory progress
+                  more reliably
+                </li>
+                <li>
+                  Turkish and Simplified Chinese are now supported, alongside
+                  broader localization coverage across the app
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-7 h-7 rounded-md bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
+                  <BookOpen className="w-4 h-4 text-amber-400" />
+                </div>
+                <span className="text-base font-semibold text-white/80">
+                  Prompts & Group Chat
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Added typed prompt templates with backend-driven validation
+                </li>
+                <li>
+                  Added a new backend parameter engine for prompt templates
+                </li>
+                <li>
+                  Added clearer required-variable and allowed-image-slot
+                  handling for templates
+                </li>
+                <li>Added editable group chat prompt templates</li>
+                <li>
+                  Added character-specific prompt overrides for group chats
+                </li>
+                <li>
+                  Added support for separate group conversation and roleplay
+                  prompt overrides per character
+                </li>
+                <li>Improved prompt and template compatibility across the app</li>
+                <li>Fixed protected prompt template type handling</li>
+                <li>Improved the prompt template editor empty state</li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-7 h-7 rounded-md bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shrink-0">
+                  <Brain className="w-4 h-4 text-cyan-400" />
+                </div>
+                <span className="text-base font-semibold text-white/80">
+                  Dynamic Memory
+                </span>
+              </div>
+              <ul>
+                <li>Added a configurable structured fallback format setting</li>
+                <li>
+                  Improved Dynamic Memory fallback behavior when ideal
+                  structured output fails
+                </li>
+                <li>
+                  Added better cancellation handling for active Dynamic Memory
+                  requests
+                </li>
+                <li>Fixed stale Dynamic Memory runs continuing after cancel</li>
+                <li>
+                  Stripped reasoning and thinking tags before summary
+                  validation
+                </li>
+                <li>
+                  Improved Dynamic Memory validation reliability for
+                  reasoning-capable models
+                </li>
+                <li>
+                  Preserved Dynamic Memory state more reliably on session saves
+                </li>
+                <li>
+                  Improved group memory update safety by reloading latest state
+                  before applying updates
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-7 h-7 rounded-md bg-purple-500/10 border border-purple-500/30 flex items-center justify-center shrink-0">
+                  <Zap className="w-4 h-4 text-purple-400" />
+                </div>
+                <span className="text-base font-semibold text-white/80">
+                  Local AI, Providers & Runtime Stability
+                </span>
+              </div>
+              <ul>
+                <li>Improved llama.cpp tool-call diagnostics</li>
+                <li>
+                  Added XML fallback parsing for malformed local tool-call
+                  outputs
+                </li>
+                <li>Added raw-output recovery for local tool calls</li>
+                <li>
+                  Fixed non-streamed llama.cpp tool calls using the wrong
+                  parsing path
+                </li>
+                <li>
+                  Improved local tool-call reliability for weaker or imperfect
+                  outputs
+                </li>
+                <li>
+                  Improved Ollama whitespace handling in streamed reasoning
+                  output
+                </li>
+                <li>
+                  Improved Ollama whitespace handling in native streaming deltas
+                </li>
+                <li>
+                  Added proper abort support for non-streaming Ollama requests
+                </li>
+                <li>Improved Gemini chat handling and overall stability</li>
+                <li>
+                  Fixed Gemini thinking and reasoning controls to better match
+                  model families
+                </li>
+                <li>
+                  Improved cross-provider chat-state stability and fallback
+                  handling
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-7 h-7 rounded-md bg-blue-500/10 border border-blue-500/30 flex items-center justify-center shrink-0">
+                  <Users className="w-4 h-4 text-blue-400" />
+                </div>
+                <span className="text-base font-semibold text-white/80">
+                  Onboarding, Sync & Data Integrity
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Replaced the old first-run tooltip with a proper guided tour
+                  system
+                </li>
+                <li>
+                  Added guided onboarding for first run, chat detail, and
+                  post-first-message flows
+                </li>
+                <li>
+                  Added a long-press hint step to the post-first-message tour
+                </li>
+                <li>
+                  Added a way to reset guided tours for retesting or reuse
+                </li>
+                <li>Improved the local GGUF model setup flow</li>
+                <li>
+                  Prevented onboarding from continuing with empty model drafts
+                </li>
+                <li>
+                  Skipped guided tours after backup restore so restored installs
+                  are not treated like fresh installs
+                </li>
+                <li>
+                  Improved sync and backup compatibility with the current
+                  storage schema
+                </li>
+                <li>
+                  Fixed newer fields not being preserved correctly across sync,
+                  export, and import
+                </li>
+                <li>
+                  Improved preservation of character design metadata in backup
+                  and sync
+                </li>
+                <li>
+                  Improved preservation of group chat prompt override references
+                  in backup and sync
+                </li>
+                <li>
+                  Improved preservation of session background paths and memory
+                  progress state
+                </li>
+                <li>
+                  Improved preservation of group-session memory progress state
+                </li>
+                <li>
+                  Expanded sync asset collection for additional referenced media
+                </li>
+                <li>
+                  Improved handling of session backgrounds, design reference
+                  images, and lorebook avatar references during sync
+                </li>
+                <li>
+                  Fixed prompt template entry export handling in backup logic
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-7 h-7 rounded-md bg-pink-500/10 border border-pink-500/30 flex items-center justify-center shrink-0">
+                  <Monitor className="w-4 h-4 text-pink-400" />
+                </div>
+                <span className="text-base font-semibold text-white/80">
+                  Reliability, Localization & Polish
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Fixed regenerated chat variants getting out of sync after
+                  refresh
+                </li>
+                <li>Improved session-state consistency after reloads</li>
+                <li>Improved memory-state consistency after saves and updates</li>
+                <li>
+                  Reduced cases where stale state could overwrite newer chat or
+                  memory data
+                </li>
+                <li>
+                  Improved overall reliability across chat, group chat, prompt
+                  resolution, and memory flows
+                </li>
+                <li>
+                  Added support for query-based API key requirements
+                </li>
+                <li>
+                  Improved provider configuration behavior in onboarding and
+                  settings
+                </li>
+                <li>
+                  Better handled provider capability differences in settings
+                  flows
+                </li>
+                <li>Added Turkish language support</li>
+                <li>Added Simplified Chinese language support</li>
+                <li>
+                  Added locale icons for Turkish and Simplified Chinese
+                </li>
+                <li>
+                  Added many missing translation keys across existing locales
+                </li>
+                <li>
+                  Improved localization coverage across onboarding, prompts,
+                  settings, and other UI flows
+                </li>
+                <li>Improved onboarding clarity and first-use guidance</li>
+                <li>Improved prompt editing UX</li>
+                <li>
+                  Improved debugging and recovery behavior around model and tool
+                  failures
+                </li>
+                <li>
+                  Added general polish across chat, memory, onboarding, and
+                  provider flows
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-7 h-7 rounded-md bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0">
+                  <Heart className="w-4 h-4 text-green-400" />
+                </div>
+                <span className="text-base font-semibold text-white/80">
+                  Changes
+                </span>
+              </div>
+              <ul>
+                <li>Removed device TTS integration</li>
+                <li>
+                  Reduced unnecessary dependency and build surface in some
+                  runtime paths
+                </li>
+              </ul>
+            </section>
+
+            <p className="not-prose">
+              <a
+                href="https://github.com/LettuceAI/app/releases"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View full release on GitHub →
+              </a>
+            </p>
+          </motion.article>
+
           {/* Android 1.4.1 & Desktop 1.1.1 update */}
           <motion.article
             initial={{ opacity: 0, y: 20 }}
