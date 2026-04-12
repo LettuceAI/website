@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import {
   BrowserRouter,
   Routes,
@@ -58,6 +58,15 @@ function ExternalRedirect({ url }: { url: string }) {
   return null;
 }
 
+const emptySubscribe = () => () => {};
+function useIsHydrated() {
+  return useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
+}
+
 function AnimatedRoutes() {
   const location = useLocation();
 
@@ -93,13 +102,12 @@ export function AppContent() {
   const { snowEnabled, isHolidaySeason } = useSnow();
   const location = useLocation();
   const isDocsPage = location.pathname.startsWith("/docs");
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  const isHydrated = useIsHydrated();
 
   return (
     <>
       <ScrollToTop />
-      {mounted && isHolidaySeason && snowEnabled && !isDocsPage && (
+      {isHydrated && isHolidaySeason && snowEnabled && !isDocsPage && (
         <Snowfall
           style={{
             position: "fixed",
