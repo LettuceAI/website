@@ -63,6 +63,285 @@ export function ChangelogPage() {
             </ShimmerButton>
           </motion.div>
 
+          {/* Android 1.5.1 & Desktop 1.2.1 update */}
+          <motion.article
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="prose prose-invert max-w-none mb-14"
+          >
+            <div className="not-prose mb-8 pb-6 border-b border-white/[0.06]">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="px-3 py-1 rounded-full bg-primary/10 text-primary/80 text-sm font-medium border border-primary/15">
+                  Android 1.5.1 & Desktop 1.2.1 update
+                </span>
+                <span className="text-white/25 text-xs">
+                  April 13, 2026
+                </span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                Dynamic Memory Expansion, Local Tooling Resilience & Logging
+              </h2>
+              <p className="text-white/35">
+                This release heavily expands Dynamic Memory for local models,
+                makes local tool calling and settings recovery more tolerant,
+                improves diagnostics, and fixes several character and group chat
+                setup regressions on desktop.
+              </p>
+            </div>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-7 h-7 rounded-md bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
+                  <Sparkles className="w-4 h-4 text-primary" />
+                </div>
+                <span className="text-base font-semibold text-white/80">
+                  Highlights
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Dynamic Memory was heavily expanded for local models with a
+                  separate local memory-manager template, experimental recursive
+                  memory loops, configurable loop caps, richer lifecycle
+                  logging, and improved revert behavior
+                </li>
+                <li>
+                  Dynamic Memory debugging is much stronger: raw cycle payloads
+                  can now be captured and inspected, and malformed local tool
+                  arguments are normalized before validation
+                </li>
+                <li>
+                  <code>llama.cpp</code> local tool calling became more
+                  tolerant again by dropping the hard dependency on native
+                  parser metadata and falling back more gracefully
+                </li>
+                <li>
+                  Settings and model configuration loading became more
+                  resilient, reducing cases where malformed model data could
+                  break provider visibility or onboarding flows
+                </li>
+                <li>
+                  Rust panics now produce dedicated panic report files instead
+                  of only blending into the main app log
+                </li>
+                <li>
+                  Character and group-chat setup regressions were fixed,
+                  including broken persistence for character group-chat prompt
+                  selections and the non-scrollable group setup page on smaller
+                  or scaled desktop displays
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-7 h-7 rounded-md bg-blue-500/10 border border-blue-500/30 flex items-center justify-center shrink-0">
+                  <Users className="w-4 h-4 text-blue-400" />
+                </div>
+                <span className="text-base font-semibold text-white/80">
+                  User-Facing Features
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Dynamic Memory now includes an experimental{" "}
+                  <code>Recursive Memory Loops</code> mode for stepwise tool
+                  execution until the model signals completion
+                </li>
+                <li>
+                  The recursive loop hard cap is configurable instead of being
+                  fixed internally
+                </li>
+                <li>
+                  Dynamic Memory activity logs have improved revert UX and can
+                  reconstruct state more accurately after reverts
+                </li>
+                <li>
+                  A separate protected prompt template now exists for local
+                  model Dynamic Memory manager behavior, and local providers are
+                  routed to it automatically
+                </li>
+                <li>
+                  Developer-mode memory logs can now expose raw Dynamic Memory
+                  step payloads for debugging malformed local model outputs
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-7 h-7 rounded-md bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0">
+                  <Bug className="w-4 h-4 text-green-400" />
+                </div>
+                <span className="text-base font-semibold text-white/80">
+                  Fixes & Stability
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Character settings now correctly persist group chat
+                  conversation and roleplay prompt-template selections
+                </li>
+                <li>
+                  Group chat creation and setup pages now scroll correctly on
+                  smaller or high-scale desktop displays because the nested flex
+                  layout no longer traps the viewport
+                </li>
+                <li>
+                  Group chat header top padding was corrected to avoid a
+                  double-offset layout issue
+                </li>
+                <li>
+                  Settings persistence and frontend settings parsing now salvage
+                  valid provider and model state more defensively when
+                  individual rows are malformed
+                </li>
+                <li>
+                  <code>llama.cpp</code> local tool parsing no longer fails
+                  early just because a template lacks native parser metadata
+                </li>
+                <li>
+                  Local malformed tool argument formats such as parameter-tag
+                  wrappers are normalized before they reach Dynamic Memory
+                  validation
+                </li>
+                <li>
+                  Rust panic handling now writes separate panic logs with
+                  backtraces for easier post-crash diagnosis
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-7 h-7 rounded-md bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shrink-0">
+                  <Brain className="w-4 h-4 text-cyan-400" />
+                </div>
+                <span className="text-base font-semibold text-white/80">
+                  Dynamic Memory & Local AI
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Local Dynamic Memory can now run in recursive tool loops
+                  rather than a single pass, which helps weaker local models
+                  that prefer iterative tool usage
+                </li>
+                <li>
+                  Recursive loop execution now emits clearer lifecycle logs
+                  covering configuration, per-iteration progress, and stop
+                  reasons
+                </li>
+                <li>
+                  Raw Dynamic Memory tool-call payloads and per-step responses
+                  can be retained for developer inspection
+                </li>
+                <li>
+                  Revert now restores memory summaries and related derived state
+                  instead of only removing memory entries
+                </li>
+                <li>
+                  Revert UI behavior in memory activity logs was refined to make
+                  cycle rollback clearer and safer
+                </li>
+                <li>
+                  Local memory-manager prompt infrastructure was split so local
+                  models can use their own protected template without changing
+                  non-local providers
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-7 h-7 rounded-md bg-pink-500/10 border border-pink-500/30 flex items-center justify-center shrink-0">
+                  <Monitor className="w-4 h-4 text-pink-400" />
+                </div>
+                <span className="text-base font-semibold text-white/80">
+                  Diagnostics & Logging
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Dedicated panic report files are now generated for Rust
+                  panics with timestamp, thread, payload, location, and
+                  backtrace data
+                </li>
+                <li>
+                  Dynamic Memory logging now includes raw tool-call capture and
+                  recursive-loop execution tracing
+                </li>
+                <li>
+                  Settings read and write logging became much more explicit,
+                  including provider and model counts plus transaction rewrite
+                  details, which helped diagnose provider configuration failures
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-7 h-7 rounded-md bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
+                  <Monitor className="w-4 h-4 text-amber-400" />
+                </div>
+                <span className="text-base font-semibold text-white/80">
+                  Desktop-Specific UX Fixes
+                </span>
+              </div>
+              <ul>
+                <li>
+                  The group chat creation flow now uses a proper nested scroll
+                  container instead of behaving like a second full-screen
+                  document inside the app shell
+                </li>
+                <li>
+                  Character prompt override selections for group chat no longer
+                  appear to save and then silently reset when the edit page is
+                  reopened
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-10">
+              <div className="flex items-center gap-3 mb-4 not-prose">
+                <div className="w-7 h-7 rounded-md bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0">
+                  <Heart className="w-4 h-4 text-green-400" />
+                </div>
+                <span className="text-base font-semibold text-white/80">
+                  Notable Technical Themes
+                </span>
+              </div>
+              <ul>
+                <li>
+                  Dynamic Memory shifted from a mostly single-pass workflow
+                  toward a more instrumented, iterative, and locally debuggable
+                  execution model
+                </li>
+                <li>
+                  Local-model tool compatibility work focused on being more
+                  permissive with malformed or partially supported outputs
+                  instead of failing fast
+                </li>
+                <li>
+                  Several fixes in this range were release-hardening patches
+                  driven by real-world failures rather than net-new product
+                  surface
+                </li>
+              </ul>
+            </section>
+
+            <p className="not-prose">
+              <a
+                href="https://github.com/LettuceAI/app/releases"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View full release on GitHub →
+              </a>
+            </p>
+          </motion.article>
+
           {/* Android 1.5.0 & Desktop 1.2.0 update */}
           <motion.article
             initial={{ opacity: 0, y: 20 }}
