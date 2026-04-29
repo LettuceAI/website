@@ -9,166 +9,149 @@ import { buildBreadcrumbSchema } from "@/config/schemas";
 export function InstallationDoc() {
   return (
     <>
-    <SEO
-      title="Installation"
-      description="Download and install LettuceAI on Android, Windows, macOS, and Linux. Build from source with Rust and Android tools."
-      path="/docs/installation"
-      jsonLd={buildBreadcrumbSchema([
-        { name: "Home", path: "/" },
-        { name: "Docs", path: "/docs" },
-        { name: "Installation", path: "/docs/installation" },
-      ])}
-    />
-    <motion.article
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="prose prose-invert max-w-none"
-    >
-      <DocHeading level={1}>Installation</DocHeading>
+      <SEO
+        title="Installation"
+        description="Install LettuceAI on Android or build it from source for desktop and mobile platforms."
+        path="/docs/installation"
+        jsonLd={buildBreadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Docs", path: "/docs" },
+          { name: "Installation", path: "/docs/installation" },
+        ])}
+      />
+      <motion.article
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="prose prose-invert max-w-none"
+      >
+        <DocHeading level={1}>Installation</DocHeading>
 
-      <p className="lead">
-        Install LettuceAI on your device and start chatting in minutes.
-      </p>
+        <p className="lead">
+          Install LettuceAI on Android, or build it yourself for desktop and mobile
+          development.
+        </p>
 
-      <DocHeading level={2}>Android</DocHeading>
-      <p>
-        The Android version is distributed as a standalone APK. Download the
-        latest release from the{" "}
-        <Link to="/download" className="text-primary hover:underline">
-          downloads page
-        </Link>{" "}
-        or directly from GitHub Releases.
-      </p>
+        <DocHeading level={2}>Android App</DocHeading>
+        <p>
+          The Android app is distributed as a standalone APK. Download the latest
+          release from the{" "}
+          <Link to="/download" className="text-primary hover:underline">
+            downloads page
+          </Link>{" "}
+          or from GitHub Releases.
+        </p>
 
-      <ol>
-        <li>Download the APK file to your device</li>
-        <li>Open the APK file</li>
-        <li>Allow installation from unknown sources if prompted</li>
-        <li>Complete the installation and launch LettuceAI</li>
-      </ol>
+        <ol>
+          <li>Download the APK file to your Android device</li>
+          <li>Open the APK file</li>
+          <li>Allow installation from unknown sources if Android prompts you</li>
+          <li>Finish installation and launch LettuceAI</li>
+        </ol>
 
-      <Callout type="info" title="Requirements">
-        Android 12 or higher is required. Make sure you have at least 2&nbsp;GB
-        of free storage available.
-      </Callout>
+        <Callout type="info" title="Requirements">
+          Android 12 or higher is required. Keep a few gigabytes of free storage
+          available for app data, models, and generated assets.
+        </Callout>
 
-      <DocHeading level={2}>Windows & Linux</DocHeading>
-      <p>
-        Native desktop apps for Windows and Linux are currently under
-        development and are not yet available for download.
-      </p>
+        <DocHeading level={2}>Desktop Builds</DocHeading>
+        <p>
+          LettuceAI also runs on Windows, macOS, and Linux, but desktop usage is
+          currently source-first rather than installer-first. If you want desktop
+          builds today, clone the repository and run the Tauri app locally.
+        </p>
 
-      <p>Join our Discord if you want updates or early testing builds.</p>
+        <DocHeading level={2}>Build from Source</DocHeading>
+        <p>
+          The project uses Bun, Tauri v2, React, and Rust. Most contributors should
+          follow the wrapper commands in the repository instead of invoking raw Tauri
+          commands directly.
+        </p>
 
-      <DocHeading level={2}>Building from Source</DocHeading>
-      <p>
-        LettuceAI is open source, but building it yourself is intended for
-        developers.
-      </p>
+        <DocHeading level={3}>Prerequisites</DocHeading>
+        <ul>
+          <li>Bun 1.1+ </li>
+          <li>Rust and Cargo</li>
+          <li>Android Studio with SDK, platform-tools, command-line tools, and NDK for Android work</li>
+          <li>Xcode for iOS work on macOS</li>
+        </ul>
 
-      <Callout type="warning" title="Advanced Setup">
-        Building from source requires Rust, Android build tools, and signing
-        keys. If you just want to use LettuceAI, we strongly recommend
-        downloading the prebuilt APK instead.
-      </Callout>
+        <DocHeading level={3}>Clone and Install</DocHeading>
+        <div className="not-prose">
+          <CodeBlock language="bash">{`git clone https://github.com/LettuceAI/mobile-app.git
+cd mobile-app
+bun install`}</CodeBlock>
+        </div>
 
-      <DocHeading level={3}>Prerequisites</DocHeading>
-      <ul>
-        <li>Rust installed (with Android targets)</li>
-        <li>Android SDK & NDK</li>
-        <li>Node.js and npm</li>
-        <li>An Android signing key</li>
-      </ul>
+        <DocHeading level={3}>Common Commands</DocHeading>
+        <div className="not-prose">
+          <CodeBlock language="bash">{`# Frontend only
+bun run dev
+bun run build
 
-      <p>Install Rust and Android targets:</p>
-      <div className="not-prose">
-        <CodeBlock language="bash">{`# Install Rust
-# Checkout the latest installation script from https://sh.rustup.rs
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# Desktop
+bun run tauri dev
+bun run tauri build
 
-# Add Android targets
-rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android`}</CodeBlock>
-      </div>
+# Linux / Wayland fallback if WebKit is unstable
+bun run tauri:dev:webkit-safe
+bun run tauri:build:webkit-safe
 
-      <p>
-        Install Android Studio and the Android SDK from the official website:
-      </p>
+# NVIDIA CUDA desktop flow
+bun run tauri:dev:cuda:auto
+bun run tauri:build:cuda:auto
 
-      <Callout type="info" title="Android SDK & NDK">
-        <a
-          href="https://developer.android.com/studio"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-primary hover:underline"
-        >
-          Android Studio & SDK – developer.android.com
-        </a>
-        <br />
-        Make sure the Android SDK, platform tools, and NDK are installed.
-      </Callout>
+# Android
+bun run tauri:android:init
+bun run tauri:android:dev
+bun run tauri:android:build
 
-      <DocHeading level={3}>Clone the Repository</DocHeading>
-      <p>Clone the LettuceAI repository from GitHub:</p>
+# iOS (macOS only)
+bun run tauri:ios:init
+bun run tauri:ios:dev:ready
+bun run tauri:ios:build:ready
 
-      <CodeBlock language="bash">{`git clone https://github.com/LettuceAI/mobile-app.git
-cd mobile-app`}</CodeBlock>
+# Checks
+bun run check`}</CodeBlock>
+        </div>
 
-      <DocHeading level={3}>Android Signing Key</DocHeading>
+        <Callout type="info" title="Windows Contributors">
+          If you prefer native Windows entry points, the repo also includes helper
+          wrappers under <code>scripts/windows/</code> in both <code>.cmd</code> and
+          PowerShell formats.
+        </Callout>
 
-      <p>
-        Android release builds require a signing key. You must provide a
-        configuration file for Gradle.
-      </p>
+        <DocHeading level={3}>Android Setup</DocHeading>
+        <p>
+          For Android development, set your SDK and NDK environment variables in your
+          shell startup files and make sure both interactive shells and build shells
+          resolve the same paths.
+        </p>
 
-      <Callout type="info" title="Signing Key Required">
-        Create a file named <code>keystore.properties</code> inside:
-        <br />
-        <code>src-tauri/gen/android/</code>
-        <br />
-        <a
-          href="https://developer.android.com/studio/publish/app-signing#generate-key "
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-primary hover:underline"
-        >
-          Generate a keystore for signing - developer.android.com
-        </a>
-      </Callout>
+        <div className="not-prose">
+          <CodeBlock language="bash">{`export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
+export ANDROID_HOME="$ANDROID_SDK_ROOT"
+export ANDROID_NDK_HOME="$ANDROID_SDK_ROOT/ndk/<your-installed-ndk>"
+export NDK_HOME="$ANDROID_NDK_HOME"
+export PATH="$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/emulator:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH"
 
-      <DocHeading level={3}>Example keystore.properties</DocHeading>
+bash -lc 'echo ANDROID_HOME=$ANDROID_HOME; echo ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT; echo ANDROID_NDK_HOME=$ANDROID_NDK_HOME; echo NDK_HOME=$NDK_HOME'`}</CodeBlock>
+        </div>
 
-      <p>Example contents:</p>
+        <Callout type="info" title="Android eSpeak Bundle">
+          Android builds automatically download the default Kokoro eSpeak bundle from
+          the project release if you do not provide your own
+          <code> KOKORO_ESPEAK_ANDROID_BUNDLE_PATH </code>
+          or <code>KOKORO_ESPEAK_ANDROID_BUNDLE_URL</code>.
+        </Callout>
 
-      <div className="not-prose">
-        <CodeBlock language="properties">{`# Android signing configuration
-# DO NOT commit this file to version control
-
-password=<key password>
-keyAlias=upload
-storeFile=<path to keystore>`}</CodeBlock>
-      </div>
-
-      <Callout type="warning" title="Keep This File Secret">
-        The <code>keystore.properties</code> file contains sensitive
-        credentials. Do not commit it to Git or share it publicly.
-      </Callout>
-
-      <DocHeading level={3}>Build Steps</DocHeading>
-
-      <div className="not-prose">
-        <CodeBlock language="bash">{`
-# Install JavaScript dependencies
-npm install
-
-# Build Android app
-npm run tauri android build`}</CodeBlock>
-      </div>
-      <p>
-        The build process produces a local Android APK and AAB, with file paths
-        provided by the Tauri script.
-      </p>
-    </motion.article>
+        <DocHeading level={3}>Notes</DocHeading>
+        <ul>
+          <li>Use the wrapper commands in the repo where possible; they encode platform-specific fixes and setup.</li>
+          <li>If you are on Linux and hit Wayland or WebKit issues, try the <code>webkit-safe</code> commands.</li>
+          <li>If Android Rust builds fail in <code>whisper-rs-sys</code>, check your NDK and CMake setup first.</li>
+        </ul>
+      </motion.article>
     </>
   );
 }
