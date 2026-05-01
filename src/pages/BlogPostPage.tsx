@@ -70,6 +70,7 @@ export function BlogPostPage() {
         title={post.title}
         description={post.excerpt}
         path={`/blog/${post.slug}`}
+        image={post.cover}
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "BlogPosting",

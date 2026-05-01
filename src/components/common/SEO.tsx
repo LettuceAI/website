@@ -12,14 +12,21 @@ interface SEOProps {
     title?: string;
     description?: string;
     path?: string;
+    image?: string;
     noIndex?: boolean;
     jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+function absoluteUrl(maybeUrl: string): string {
+    if (/^https?:\/\//i.test(maybeUrl)) return maybeUrl;
+    return `${DEFAULTS.url}${maybeUrl.startsWith("/") ? "" : "/"}${maybeUrl}`;
 }
 
 export function SEO({
     title,
     description,
     path = "",
+    image,
     noIndex,
     jsonLd,
 }: SEOProps) {
@@ -28,6 +35,7 @@ export function SEO({
         : `${DEFAULTS.siteName} — Free Open-Source AI Roleplay App`;
     const desc = description || DEFAULTS.description;
     const url = `${DEFAULTS.url}${path}`;
+    const ogImage = image ? absoluteUrl(image) : DEFAULTS.image;
 
     return (
         <Helmet>
@@ -38,14 +46,14 @@ export function SEO({
             <meta property="og:title" content={fullTitle} />
             <meta property="og:description" content={desc} />
             <meta property="og:url" content={url} />
-            <meta property="og:image" content={DEFAULTS.image} />
+            <meta property="og:image" content={ogImage} />
             <meta property="og:type" content="website" />
             <meta property="og:site_name" content={DEFAULTS.siteName} />
 
             <meta name="twitter:card" content="summary_large_image" />
             <meta name="twitter:title" content={fullTitle} />
             <meta name="twitter:description" content={desc} />
-            <meta name="twitter:image" content={DEFAULTS.image} />
+            <meta name="twitter:image" content={ogImage} />
 
             {noIndex && <meta name="robots" content="noindex,nofollow" />}
 
