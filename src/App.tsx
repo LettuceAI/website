@@ -21,6 +21,8 @@ import {
   ChangelogPage,
   NotFoundPage,
   ConvertPage,
+  BlogPage,
+  BlogPostPage,
 } from "@/pages";
 import {
   DocsLayout,
@@ -91,6 +93,8 @@ function AnimatedRoutes() {
           <Route path="/changelog" element={<ChangelogPage />} />
           <Route path="/convert" element={<ConvertPage />} />
           <Route path="/blog/end-of-lettuceai" element={<ExternalRedirect url="https://www.youtube.com/watch?v=dQw4w9WgXcQ&autoplay=1" />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:slug" element={<BlogPostPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </motion.div>

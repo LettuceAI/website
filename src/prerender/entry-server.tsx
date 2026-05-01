@@ -3,6 +3,7 @@ import { StaticRouter } from "react-router";
 import { HelmetProvider } from "react-helmet-async";
 import { AppContent } from "@/App";
 import { SnowProvider } from "@/contexts/SnowContext";
+import { getAllSlugs } from "@/lib/blog";
 
 type RenderedPage = {
   headContent: string;
@@ -42,6 +43,8 @@ export const prerenderRoutes = [
   "/docs/smart-creator",
   "/docs/model-browser",
   "/docs/ollama",
+  "/blog",
+  ...getAllSlugs().map((slug) => `/blog/${slug}`),
 ];
 
 export async function render(url: string): Promise<RenderedPage> {

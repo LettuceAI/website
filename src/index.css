@@ -135,7 +135,7 @@
     @apply font-sans bg-background text-foreground;
     }
   html {
-    @apply font-sans;
+    @apply font-sans bg-background;
     scroll-behavior: smooth;
     }
 }
@@ -363,4 +363,80 @@
   border: none;
   font-size: 0.875rem;
   color: #e4e4e7;
+}
+
+.blog-content {
+  font-size: 1.0625rem;
+}
+
+.blog-content > p:first-of-type {
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.blog-content blockquote {
+  @apply my-8 pl-6 border-l-2 border-primary/40 text-white/55;
+  font-style: normal;
+}
+
+.blog-content blockquote p {
+  margin-bottom: 0.5rem;
+}
+
+.blog-content hr {
+  @apply my-12 border-white/[0.08];
+}
+
+.blog-content h2 {
+  font-family: "Fraunces Variable", serif;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.blog-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  font-size: 0.95em;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.blog-content thead {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.blog-content th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  color: white;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.blog-content td {
+  padding: 0.75rem 1rem;
+  color: var(--color-muted-foreground);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.blog-content tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.blog-content tbody tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.blog-content .mermaid {
+  @apply my-8 p-6 rounded-2xl border border-white/[0.06] bg-white/[0.02];
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+}
+
+.blog-content .mermaid svg {
+  max-width: 100%;
+  height: auto;
 }
