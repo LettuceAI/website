@@ -74,7 +74,12 @@ for (const route of prerenderRoutes) {
         .replace(/<meta\s+property="og:url"[^>]*>\s*/i, "")
         .replace(/<meta\s+name="twitter:title"[^>]*>\s*/i, "")
         .replace(/<meta\s+name="twitter:description"[^>]*>\s*/i, "")
-        .replace(/<meta\s+name="twitter:url"[^>]*>\s*/i, "");
+        .replace(/<meta\s+name="twitter:url"[^>]*>\s*/i, "")
+        .replace(/<meta\s+property="og:image"[^>]*>\s*/i, "")
+        .replace(/<meta\s+property="og:image:width"[^>]*>\s*/i, "")
+        .replace(/<meta\s+property="og:image:height"[^>]*>\s*/i, "")
+        .replace(/<meta\s+property="og:image:alt"[^>]*>\s*/i, "")
+        .replace(/<meta\s+name="twitter:image"[^>]*>\s*/i, "");
     }
 
     html = html.replace(
