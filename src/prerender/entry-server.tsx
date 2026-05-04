@@ -43,6 +43,7 @@ export const prerenderRoutes = [
   "/docs/smart-creator",
   "/docs/model-browser",
   "/docs/ollama",
+  "/docs/companion-mode",
   "/blog",
   ...getAllSlugs().map((slug) => `/blog/${slug}`),
 ];

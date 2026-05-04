@@ -49,6 +49,7 @@ import {
   ChatTemplatesDoc,
   ModelBrowserDoc,
   OllamaDoc,
+  CompanionModeDoc,
 } from "@/pages/docs";
 import Snowfall from "react-snowfall";
 import { SnowProvider, useSnow } from "@/contexts/SnowContext";
@@ -150,6 +151,7 @@ export function AppContent() {
               <Route path="smart-creator" element={<CharacterCreatorDoc />} />
               <Route path="model-browser" element={<ModelBrowserDoc />} />
               <Route path="ollama" element={<OllamaDoc />} />
+              <Route path="companion-mode" element={<CompanionModeDoc />} />
               <Route
                 path="character-creator"
                 element={<Navigate to="/docs/smart-creator" replace />}

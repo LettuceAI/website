@@ -18,6 +18,7 @@ import {
   Users,
   MessageSquare,
   HardDrive,
+  Heart,
 } from "lucide-react";
 import { Wheelchair } from "./WheelChairIcon";
 
@@ -209,6 +210,19 @@ export const docsNav = [
         href: "/docs/system-prompts",
         icon: Settings,
         keywords: ["system", "prompt", "instructions", "behavior", "rules"],
+      },
+      {
+        title: "Companion Mode",
+        href: "/docs/companion-mode",
+        icon: Heart,
+        keywords: [
+          "companion",
+          "relationship",
+          "soul",
+          "emotion",
+          "bond",
+          "roleplay",
+        ],
       },
       {
         title: "Memory System",

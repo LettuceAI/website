@@ -22,3 +22,4 @@ export { CharacterCreatorDoc } from "./CharacterCreatorDoc";
 export { ChatTemplatesDoc } from "./ChatTemplatesDoc";
 export { ModelBrowserDoc } from "./ModelBrowserDoc";
 export { OllamaDoc } from "./OllamaDoc";
+export { CompanionModeDoc } from "./CompanionModeDoc";
