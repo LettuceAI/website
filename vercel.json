@@ -1,5 +1,5 @@
 {
-  "rewrites": [
+  "redirects": [
     {
       "source": "/",
       "has": [
@@ -9,7 +9,8 @@
           "value": "(?i).*(GPTBot|OAI-SearchBot|ChatGPT-User|ClaudeBot|Claude-Web|Claude-User|Claude-SearchBot|anthropic-ai|Google-Extended|GoogleOther|CCBot|PerplexityBot|Perplexity-User|Applebot-Extended|Meta-ExternalAgent|MistralAI-User|cohere-ai|YouBot|DuckAssistBot|Bytespider|Diffbot|Amazonbot).*"
         }
       ],
-      "destination": "/index.md"
+      "destination": "/index.md",
+      "statusCode": 302
     },
     {
       "source": "/:path((?!api/|.*\\.).+)",
@@ -20,8 +21,11 @@
           "value": "(?i).*(GPTBot|OAI-SearchBot|ChatGPT-User|ClaudeBot|Claude-Web|Claude-User|Claude-SearchBot|anthropic-ai|Google-Extended|GoogleOther|CCBot|PerplexityBot|Perplexity-User|Applebot-Extended|Meta-ExternalAgent|MistralAI-User|cohere-ai|YouBot|DuckAssistBot|Bytespider|Diffbot|Amazonbot).*"
         }
       ],
-      "destination": "/:path.md"
-    },
+      "destination": "/:path.md",
+      "statusCode": 302
+    }
+  ],
+  "rewrites": [
     { "source": "/((?!api/).*)", "destination": "/" }
   ],
   "headers": [
