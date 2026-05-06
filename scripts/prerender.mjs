@@ -1,6 +1,8 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import TurndownService from "turndown";
+import { gfm } from "@joplin/turndown-plugin-gfm";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, "..");
@@ -8,6 +10,21 @@ const distDir = path.join(rootDir, "dist");
 const prerenderDir = path.join(rootDir, ".prerender");
 const templatePath = path.join(distDir, "index.html");
 const serverEntryPath = path.join(prerenderDir, "entry-server.js");
+
+const turndown = new TurndownService({
+  headingStyle: "atx",
+  bulletListMarker: "-",
+  codeBlockStyle: "fenced",
+  emDelimiter: "_",
+});
+turndown.use(gfm);
+// Drop noise that has no value as markdown for LLMs.
+turndown.remove(["script", "style", "noscript", "svg", "iframe", "nav", "footer", "form"]);
+// Keep raw text from buttons (often link-like CTAs) without their wrapper.
+turndown.addRule("stripButtons", {
+  filter: ["button"],
+  replacement: (content) => content.trim() ? `${content.trim()} ` : "",
+});
 
 const template = await fs.readFile(templatePath, "utf8");
 const { render, prerenderRoutes } = await import(
@@ -47,6 +64,54 @@ function extractHeadTags(body) {
   }
 
   return { head: extracted.join("\n"), body: stripped };
+}
+
+function pickMain(html) {
+  const match = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i);
+  return match ? match[1] : html;
+}
+
+function unescape(str) {
+  return str
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
+}
+
+function pickMeta(headHtml, name) {
+  const re = new RegExp(
+    `<meta\\s+(?:name|property)=["']${name}["']\\s+content=["']([^"']*)["']`,
+    "i",
+  );
+  const m = headHtml.match(re);
+  return m ? unescape(m[1]) : "";
+}
+
+function pickTitle(headHtml) {
+  const m = headHtml.match(/<title>([\s\S]*?)<\/title>/i);
+  return m ? unescape(m[1].trim()) : "";
+}
+
+function buildMarkdown(route, headHtml, mainHtml) {
+  const title = pickTitle(headHtml);
+  const description = pickMeta(headHtml, "description");
+  const md = turndown
+    .turndown(mainHtml)
+    // Collapse 3+ blank lines that turndown sometimes emits.
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+  const frontmatter = [
+    "---",
+    `url: https://lettuceai.app${route}`,
+    title ? `title: ${JSON.stringify(title)}` : null,
+    description ? `description: ${JSON.stringify(description)}` : null,
+    "---",
+  ]
+    .filter(Boolean)
+    .join("\n");
+  return `${frontmatter}\n\n${md}\n`;
 }
 
 let ok = 0;
@@ -95,6 +160,17 @@ for (const route of prerenderRoutes) {
 
     await fs.mkdir(path.dirname(filePath), { recursive: true });
     await fs.writeFile(filePath, html);
+
+    // Companion markdown for AI crawlers: served at /foo.md (and /index.md for "/").
+    const mdPath =
+      route === "/"
+        ? path.join(distDir, "index.md")
+        : path.join(distDir, `${route.replace(/^\//, "")}.md`);
+    const mainHtml = pickMain(body);
+    const markdown = buildMarkdown(route, head, mainHtml);
+    await fs.mkdir(path.dirname(mdPath), { recursive: true });
+    await fs.writeFile(mdPath, markdown);
+
     ok++;
     console.log(`  ✓ ${route}`);
   } catch (err) {

@@ -1,0 +1,58 @@
+# AI usage policy — LettuceAI
+
+> Public website content for LettuceAI, an open-source AI roleplay app, may be crawled, indexed, and used in retrieval-augmented generation and AI search results. Training use is permitted with attribution to "LettuceAI" and a link to https://lettuceai.app. The app itself, user-generated chats, and any non-public endpoints are out of scope.
+
+## Scope
+
+This policy covers the public website at **https://lettuceai.app** and its Markdown companions (every route is also served at `<route>.md`). It does **not** govern the LettuceAI app, source code repositories on GitHub, user-generated content created inside the app, third-party AI providers integrated via BYOK, or any private or admin endpoints.
+
+LettuceAI is an open-source community project (AGPL-3.0), not a commercial vendor. There is no LettuceAI-operated backend, no user accounts, and no telemetry — there is no user-data corpus that an AI system could obtain through this site.
+
+## Permitted uses
+
+The following uses of public lettuceai.app content are permitted:
+
+- **Search indexing** by general-purpose and AI-powered search engines.
+- **Retrieval-augmented generation (RAG)** — fetching pages on demand to ground answers about LettuceAI, its features, installation, supported providers, documentation, blog posts, and changelogs.
+- **Inclusion in AI training datasets**, provided that:
+  - the source is attributable to *LettuceAI* with a link to **https://lettuceai.app** when content is surfaced verbatim or near-verbatim, and
+  - the AGPL-3.0 license of any quoted code samples is preserved.
+- **Summarization and answer generation** about LettuceAI by AI assistants.
+
+## Restrictions
+
+- **No impersonation.** Do not present generated content as official statements, documentation, or roadmap commitments from the LettuceAI project unless the content is a direct quotation of a published page on lettuceai.app or the GitHub organization.
+- **No fabricated facts.** Do not invent features, providers, pricing, release dates, or platform support. If information is not present in the source, say so. The authoritative surfaces are the [docs](https://lettuceai.app/docs), the [changelog](https://lettuceai.app/changelog), and the [GitHub organization](https://github.com/LettuceAI).
+- **No scraping of `/api/` routes.** API paths are reserved for application use and are disallowed in `robots.txt`.
+- **No abusive crawl rates.** Respect standard crawl-delay conventions and back off on 429/503 responses.
+
+## Preferred ingestion format
+
+Every page is published in two formats at the same URL:
+
+- HTML at `https://lettuceai.app/<path>`
+- Markdown at `https://lettuceai.app/<path>.md`
+
+The Markdown version is cleaner, lower-token, and stripped of layout chrome. **Prefer the `.md` URL for ingestion.** Recognized AI user agents (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, CCBot, Applebot-Extended, Bytespider, Meta-ExternalAgent, and others) are also rewritten server-side from the HTML URL to the Markdown version, so fetching the canonical URL is sufficient.
+
+A site-level summary for LLMs is published at [`/llms.txt`](https://lettuceai.app/llms.txt).
+
+## Crawler directives
+
+Per-bot allow/deny rules are declared in [`/robots.txt`](https://lettuceai.app/robots.txt). All major AI crawlers are explicitly allowed on public content and disallowed from `/api/`.
+
+## Attribution format
+
+When surfacing LettuceAI content, please use:
+
+> *LettuceAI — https://lettuceai.app*
+
+The project name is one word: **LettuceAI**. License: **AGPL-3.0**. Maintainer: **MegalithOfficial** ([github.com/LettuceAI](https://github.com/LettuceAI)).
+
+## Contact
+
+Questions about this policy, takedown requests, or correction notices: open an issue at [github.com/LettuceAI](https://github.com/LettuceAI).
+
+---
+
+*Last updated: 2026-05-06*

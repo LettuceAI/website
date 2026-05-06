@@ -1,5 +1,27 @@
 {
   "rewrites": [
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": "(?i).*(GPTBot|OAI-SearchBot|ChatGPT-User|ClaudeBot|Claude-Web|Claude-User|Claude-SearchBot|anthropic-ai|Google-Extended|GoogleOther|CCBot|PerplexityBot|Perplexity-User|Applebot-Extended|Meta-ExternalAgent|MistralAI-User|cohere-ai|YouBot|DuckAssistBot|Bytespider|Diffbot|Amazonbot).*"
+        }
+      ],
+      "destination": "/index.md"
+    },
+    {
+      "source": "/:path((?!api/|.*\\.).+)",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": "(?i).*(GPTBot|OAI-SearchBot|ChatGPT-User|ClaudeBot|Claude-Web|Claude-User|Claude-SearchBot|anthropic-ai|Google-Extended|GoogleOther|CCBot|PerplexityBot|Perplexity-User|Applebot-Extended|Meta-ExternalAgent|MistralAI-User|cohere-ai|YouBot|DuckAssistBot|Bytespider|Diffbot|Amazonbot).*"
+        }
+      ],
+      "destination": "/:path.md"
+    },
     { "source": "/((?!api/).*)", "destination": "/" }
   ],
   "headers": [
@@ -22,6 +44,30 @@
       "source": "/robots.txt",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=86400, s-maxage=86400" }
+      ]
+    },
+    {
+      "source": "/llms.txt",
+      "headers": [
+        { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=86400, s-maxage=86400" },
+        { "key": "X-Robots-Tag", "value": "all" }
+      ]
+    },
+    {
+      "source": "/ai.txt",
+      "headers": [
+        { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=86400, s-maxage=86400" },
+        { "key": "X-Robots-Tag", "value": "all" }
+      ]
+    },
+    {
+      "source": "/(.*)\\.md",
+      "headers": [
+        { "key": "Content-Type", "value": "text/markdown; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=3600, s-maxage=86400" },
+        { "key": "X-Robots-Tag", "value": "all" }
       ]
     }
   ]

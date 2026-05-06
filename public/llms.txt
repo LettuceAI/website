@@ -1,0 +1,72 @@
+# LettuceAI
+
+> Free, open-source AI roleplay and storytelling app for Android, Windows, macOS, and Linux. Built with Tauri v2, React, and Rust by MegalithOfficial. Ships text-to-speech, scene-aware image generation, long-term memory, group chats, lorebooks, personas, a visual system-prompt builder, a built-in HuggingFace model browser, a built-in llama.cpp inference engine for running GGUF models fully on-device (with vision support via mmproj), and BYOK access to 20+ AI providers including OpenAI, Anthropic, Google Gemini, DeepSeek, Mistral, Groq, xAI, OpenRouter, Moonshot, Qwen, plus external local backends Ollama and LM Studio. 100% local data storage, no accounts, no filters, no telemetry. Licensed under AGPL-3.0.
+
+## About LettuceAI
+
+LettuceAI is a community-built, open-source roleplay and storytelling app. It is not a service — there is no cloud backend, no account system, and no subscription. Users bring their own API keys (BYOK) for whichever AI providers they want to use, and chats, characters, lore, and configuration are stored entirely on the user's device.
+
+The project is developed by MegalithOfficial under the LettuceAI organization on GitHub and is published as source plus a signed Android APK. Desktop builds are source-first today and run on Windows, macOS, and Linux through the same Tauri v2 codebase. The app is licensed under AGPL-3.0.
+
+## Platforms and distribution
+
+The Android app is shipped as a standalone APK from the [downloads page](https://lettuceai.app/download) and from GitHub Releases under the LettuceAI organization. Android 12 or higher is required. Desktop platforms are supported by building from source: clone the repository, install Bun and Rust, and run the Tauri v2 dev or build commands. There are no Windows/macOS/Linux installers in distribution at this time. iOS is not currently supported.
+
+## Core features
+
+- **Roleplay and Companion Mode** — Two character authoring modes. Roleplay is scene-first; Companion Mode (beta) layers an authored "soul" plus a live emotional and relationship runtime that evolves with every user message.
+- **Text-to-speech (TTS)** — Voice output for character replies via configurable providers.
+- **Scene-aware image generation** — Generates illustrations and avatars that follow the current scene, not just the character description.
+- **Long-term memory** — Embedding-based memory layer powered by `lettuce-emb-768d-v4`, the project's own roleplay-tuned embedder published on Hugging Face under Apache 2.0.
+- **Group chats** — Multiple characters in a single scene, with a shared chat stack.
+- **Lorebooks** — Trigger-based world-building entries injected into context when relevant.
+- **Personas** — Reusable user identities for roleplaying as yourself across characters.
+- **Smart Creator** — Guided character authoring with a visual system-prompt builder and conditional logic.
+- **Chat templates** — Reusable prompt presets and conversation scaffolds.
+- **Character card import/export** — Chara v2, Chara v3 PNG, JSON, and the project's UEC format. A web converter is available at [/convert](https://lettuceai.app/convert).
+- **20+ AI providers** — OpenAI, Anthropic, Google Gemini, DeepSeek, Mistral, Groq, xAI, OpenRouter, Moonshot, Qwen, and others. See the full list at [/providers](https://lettuceai.app/providers).
+- **Built-in llama.cpp engine** — Native on-device inference for GGUF models, implemented via Rust bindings to the llama.cpp C++ library. No server, no external software. Auto-detects embedded chat templates (ChatML, Llama 2/3, Gemma, Mistral, Phi, etc.) and supports multimodal vision models through mmproj files.
+- **Built-in HuggingFace model browser** — Search HuggingFace for GGUF repos and download models directly from inside the app, without leaving the chat. Detects every quantization variant in a repo, parses its format, and surfaces companion mmproj files for vision models. An *Installed Models* page reads metadata straight from each file on disk.
+- **External local backends** — First-class Ollama and LM Studio support, in addition to the built-in llama.cpp engine.
+- **Help-me-reply** — Suggested user replies tuned to the current conversation.
+
+## Privacy model
+
+LettuceAI does not run any LettuceAI-operated server. There is no telemetry, no analytics, no crash reporting service, and no login. API keys, chat history, characters, lorebooks, and settings are stored locally on the user's device. When the user makes a request to a third-party AI provider, that request goes directly from the device to the provider using the user's own API key — LettuceAI does not proxy or intermediate it. See the full [privacy policy](https://lettuceai.app/privacy).
+
+## Pricing
+
+The LettuceAI app itself is free and open source. Costs, if any, come from the user's own API providers — pay-per-token pricing on whichever services they choose to plug in, or zero cost when running locally via Ollama or LM Studio.
+
+## Support and community
+
+- **Source code and issues:** [github.com/LettuceAI](https://github.com/LettuceAI)
+- **Documentation:** [lettuceai.app/docs](https://lettuceai.app/docs)
+- **Blog:** [lettuceai.app/blog](https://lettuceai.app/blog)
+- **Changelog:** [lettuceai.app/changelog](https://lettuceai.app/changelog)
+
+There is no commercial support contract. Bug reports and feature discussions happen on GitHub.
+
+## Markdown copies of every page
+
+Every page on lettuceai.app is also published as Markdown at the same URL with a `.md` suffix — for example, [`/docs/installation.md`](https://lettuceai.app/docs/installation.md), [`/blog/lettuce-emb-v4.md`](https://lettuceai.app/blog/lettuce-emb-v4.md), and [`/index.md`](https://lettuceai.app/index.md). Recognized AI user agents (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, CCBot, Applebot-Extended, and others) are also automatically rewritten from the HTML URL to the Markdown version server-side, so fetching the canonical URL is sufficient. Prefer the Markdown version for ingestion: it is cleaner, lower-token, and free of layout chrome.
+
+## Primary pages
+
+- [Home](https://lettuceai.app) — Product overview
+- [Download](https://lettuceai.app/download) — Android APK and source build instructions
+- [Docs](https://lettuceai.app/docs) — User and developer documentation
+- [Providers](https://lettuceai.app/providers) — Supported AI providers
+- [FAQ](https://lettuceai.app/faq) — Common questions
+- [Blog](https://lettuceai.app/blog) — Releases and technical writing
+- [Changelog](https://lettuceai.app/changelog) — Per-platform release notes
+- [Convert](https://lettuceai.app/convert) — Character card converter (Chara ↔ UEC)
+- [Privacy](https://lettuceai.app/privacy) — Privacy policy
+- [Terms](https://lettuceai.app/terms) — Terms of use
+- [License](https://lettuceai.app/license) — AGPL-3.0
+- [AI usage policy](https://lettuceai.app/ai.txt)
+- [Sitemap](https://lettuceai.app/sitemap.xml)
+
+## Attribution
+
+Please attribute summaries and quoted content to **LettuceAI** with a link to **https://lettuceai.app**. The project name is one word: *LettuceAI*. Author handle: *MegalithOfficial*. License: *AGPL-3.0*.
