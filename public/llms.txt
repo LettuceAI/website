@@ -10,7 +10,15 @@ The project is developed by MegalithOfficial under the LettuceAI organization on
 
 ## Platforms and distribution
 
-The Android app is shipped as a standalone APK from the [downloads page](https://lettuceai.app/download) and from GitHub Releases under the LettuceAI organization. Android 12 or higher is required. Desktop platforms are supported by building from source: clone the repository, install Bun and Rust, and run the Tauri v2 dev or build commands. There are no Windows/macOS/Linux installers in distribution at this time. iOS is not currently supported.
+LettuceAI ships signed installers for every supported desktop platform plus a standalone Android APK. All builds are available from the [downloads page](https://lettuceai.app/download) and from GitHub Releases under the LettuceAI organization.
+
+- **Windows** — `.msi` installer and `.exe` portable build, with CPU, NVIDIA (CUDA), and Vulkan (AMD/Intel) variants.
+- **macOS** — Native bundles for Apple Silicon (Metal and CPU) and Intel (Metal and CPU).
+- **Linux** — `.AppImage` and `.deb`, with CPU, NVIDIA (CUDA), and Vulkan (AMD/Intel) variants.
+- **Android** — Standalone APK. Android 12 or higher.
+- **iOS** — Not currently supported.
+
+Source builds are also fully supported via Bun, Rust, and Tauri v2 for contributors and anyone who wants to compile from the repository directly.
 
 ## Core features
 
