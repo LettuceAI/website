@@ -462,7 +462,7 @@ export function SystemPromptsDoc() {
       </p>
 
       <DocHeading level={3}>
-        8. Some runtime extras inject outside the template itself
+        7. Some runtime extras inject outside the template itself
       </DocHeading>
       <p>Not every injected message comes strictly from the entry list.</p>
 
@@ -487,7 +487,7 @@ export function SystemPromptsDoc() {
       </ul>
 
       <DocHeading level={3}>
-        9. Multimodal prompt entries are special
+        8. Multimodal prompt entries are special
       </DocHeading>
       <p>
         Scene-generation and design-reference templates can attach image payload
@@ -556,6 +556,20 @@ export function SystemPromptsDoc() {
           <strong>Lorebook</strong>: only active lorebook entries matched from
           recent conversation are rendered, not the whole lorebook database.
         </li>
+        <li>
+          <strong>Time placeholders</strong>: when an entry references them,
+          slots like <code>{"{{date}}"}</code>, <code>{"{{date_full}}"}</code>,{" "}
+          <code>{"{{weekday}}"}</code>, <code>{"{{time_hour}}"}</code>,{" "}
+          <code>{"{{time_minute}}"}</code>, <code>{"{{time_second}}"}</code>,{" "}
+          <code>{"{{time_full}}"}</code>,{" "}
+          <code>{"{{time_12hour_format}}"}</code>,{" "}
+          <code>{"{{time_timezone}}"}</code>,{" "}
+          <code>{"{{time_timezone_name}}"}</code>, and{" "}
+          <code>{"{{datetime_iso}}"}</code> resolve against the device's local
+          time at render. These are populated whether or not time awareness is
+          on, but the default templates only inject a time block when the
+          time-awareness condition is true (see Companion Mode for the toggle).
+        </li>
       </ul>
 
       <p>
@@ -615,7 +629,18 @@ export function SystemPromptsDoc() {
           provider id, input scopes, output scopes, reasoning state, and vision
           support
         </li>
+        <li>
+          time awareness state, and whether the chat is running in companion
+          mode
+        </li>
       </ul>
+
+      <p>
+        The time awareness condition lets an entry gate on whether the chat has
+        time awareness enabled (currently the per-session companion preference).
+        The default companion template uses it to inject a "Current Local Time"
+        block only when the user has turned the toggle on.
+      </p>
 
       <DocHeading level={3}>Condition composition</DocHeading>
       <p>

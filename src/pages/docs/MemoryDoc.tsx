@@ -256,6 +256,44 @@ export function MemoryDoc() {
         turn. The hot/cold split is a core part of how it stays fast and cheap.
       </Callout>
 
+      <DocHeading level={3}>Time-aware retrieval (companion mode)</DocHeading>
+      <p>
+        When a companion chat has time awareness enabled, retrieval gets an
+        extra step before scoring. The runtime parses temporal phrases out of
+        the search query (things like "yesterday", "last week", "this month",
+        "two fridays ago", "five weeks ago today", "in the last three days")
+        and resolves them to a local date range.
+      </p>
+      <ul>
+        <li>
+          If a range is detected, retrieval first narrows candidates to
+          memories whose <code>observed_at</code> timestamp falls inside that
+          range, then ranks them. If nothing falls in the range, retrieval
+          returns empty rather than padding with off-topic entries.
+        </li>
+        <li>
+          When time awareness is on, new memories created during a turn are
+          stamped with an <code>observed_at</code> taken from the latest
+          message, which is what makes temporal filtering possible later.
+          Without it, memories carry no event timestamp.
+        </li>
+        <li>
+          The ranker also adds a small lexical-overlap boost on top of cosine
+          similarity, so concrete anchors in the query (names, places) reliably
+          surface memories that mention the same things.
+        </li>
+        <li>
+          Memories that have an <code>observed_at</code> are rendered into the
+          prompt with a short "observed YYYY-MM-DD HH:MM TZ" suffix.
+        </li>
+      </ul>
+      <p>
+        Time-aware retrieval is companion-only today. Non-companion chats and
+        roleplay flows skip the temporal phrase parser and run plain semantic
+        retrieval. See <strong>Companion Mode</strong> for the per-session
+        toggle and the time placeholder list.
+      </p>
+
       <DocHeading level={3}>Background maintenance cycle</DocHeading>
       <p>
         Retrieval happens every turn. Memory maintenance does not. Instead, the
@@ -286,6 +324,13 @@ export function MemoryDoc() {
         Manual retries can force another maintenance pass even if the normal
         interval has not been reached yet.
       </p>
+
+      <Callout type="info" title="Structured fallback format">
+        Some models do not reliably emit tool calls during the memory pass. When
+        that happens, LettuceAI falls back to a structured text format (XML by
+        default, JSON optional) so it can still extract memory create, delete,
+        pin, and unpin actions from the model output.
+      </Callout>
 
       <DocImage
         src={images.memory.memoryMaintenanceCycle}
@@ -331,9 +376,9 @@ export function MemoryDoc() {
       </p>
 
       <p>
-        <strong>v3</strong> is the current default. Older <strong>v1</strong>{" "}
-        and <strong>v2</strong> installs may still exist on some devices, but
-        they are now legacy variants.
+        <strong>v4</strong> is the current default. Older <strong>v1</strong>,{" "}
+        <strong>v2</strong>, and <strong>v3</strong> installs may still exist
+        on some devices, but they are now legacy variants.
       </p>
 
       <table className="min-w-full text-sm my-6">
@@ -359,25 +404,78 @@ export function MemoryDoc() {
             <td className="py-2 px-4">Legacy</td>
             <td className="py-2 px-4">Up to 4096 tokens</td>
             <td className="py-2 px-4">
-              Major improvement over v1. Still older than the current default.
+              Major improvement over v1.
+            </td>
+          </tr>
+          <tr className="border-b border-border/10">
+            <td className="py-2 px-4 font-medium">v3</td>
+            <td className="py-2 px-4">Legacy</td>
+            <td className="py-2 px-4">Up to 4096 tokens</td>
+            <td className="py-2 px-4">
+              Previous default. Still works, but v4 is preferred for new
+              installs.
             </td>
           </tr>
           <tr>
-            <td className="py-2 px-4 font-medium">v3</td>
+            <td className="py-2 px-4 font-medium">v4</td>
             <td className="py-2 px-4">Current default</td>
             <td className="py-2 px-4">Up to 4096 tokens</td>
             <td className="py-2 px-4">
-              Recommended for new installs and upgrades.
+              768-dimension model. Recommended for new installs and upgrades.
             </td>
           </tr>
         </tbody>
       </table>
 
       <p>
-        On supported versions, you can set the local embedding capacity to 1024,
-        2048, or 4096 tokens depending on your memory quality and performance
+        On v3 and v4, you can set the local embedding capacity anywhere between
+        512 and 4096 tokens depending on your memory quality and performance
         preferences.
       </p>
+
+      <DocHeading level={3}>Downloading the embedding model</DocHeading>
+      <p>
+        Embedding models run on your device, so they have to be downloaded
+        before Dynamic Memory can work. The embedding download page walks you
+        through this in two steps:
+      </p>
+
+      <ol>
+        <li>
+          <strong>Pick a capacity</strong>: choose how many tokens of context
+          the local model should support per memory.
+          <ul className="mt-2">
+            <li>
+              <strong>1K tokens</strong>: smallest and fastest. Best for quick
+              responses and lower-end devices.
+            </li>
+            <li>
+              <strong>2K tokens</strong>: balanced default. Good quality
+              without much extra cost.
+            </li>
+            <li>
+              <strong>4K tokens</strong>: maximum context. Best memory quality,
+              uses more memory and CPU per embed.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>Download</strong>: the v4 model files (about 138 MB) are
+          fetched in the background. Progress is shown live, and you can cancel
+          or retry if the download fails.
+        </li>
+      </ol>
+
+      <p>
+        After the download finishes, the app runs a short self-test to confirm
+        embeddings work end to end before enabling Dynamic Memory. You can
+        upgrade from an older model version (v1, v2, v3) using the same flow.
+      </p>
+
+      <Callout type="info" title="Switching capacity later">
+        Capacity is chosen per install. If you want to change it later, you can
+        re-run the download flow and pick a different size.
+      </Callout>
 
       <DocHeading level={3}>Context enrichment</DocHeading>
       <p>

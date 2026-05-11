@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { DocHeading } from "@/components/docs/DocHeading";
+import { Callout } from "@/components/docs/Callout";
 import { SEO } from "@/components/common/SEO";
 import { buildBreadcrumbSchema } from "@/config/schemas";
 
@@ -26,7 +27,7 @@ export function ProvidersDoc() {
 
             <p className="lead">
                 Providers are the services that actually run the AI models.
-                LettuceAI connects to them — it doesn’t lock you into one.
+                LettuceAI connects to them. It does not lock you into one.
             </p>
 
             <DocHeading level={2}>What is a provider?</DocHeading>
@@ -67,6 +68,55 @@ export function ProvidersDoc() {
             <p>
                 Using more than one means you always have a backup and more choice.
             </p>
+
+            <DocHeading level={2}>Supported providers</DocHeading>
+            <p>
+                LettuceAI ships with built-in support for these providers. You can also add
+                a custom OpenAI-format or Anthropic-format endpoint if your provider is not
+                in this list.
+            </p>
+
+            <DocHeading level={3}>Cloud providers</DocHeading>
+            <ul>
+                <li>OpenAI</li>
+                <li>Anthropic (Claude)</li>
+                <li>Google (Gemini)</li>
+                <li>DeepSeek</li>
+                <li>Mistral AI</li>
+                <li>Groq</li>
+                <li>xAI (Grok)</li>
+                <li>OpenRouter</li>
+                <li>Moonshot AI (Kimi)</li>
+                <li>Qwen (Alibaba DashScope)</li>
+                <li>zAI (GLM)</li>
+                <li>NVIDIA NIM</li>
+                <li>Anannas AI</li>
+                <li>Featherless AI</li>
+                <li>NanoGPT</li>
+                <li>Chutes</li>
+                <li>Stability AI (image generation)</li>
+            </ul>
+
+            <DocHeading level={3}>Local providers</DocHeading>
+            <ul>
+                <li>Local (llama.cpp), the built-in engine. See the Model Browser doc.</li>
+                <li>Ollama (Local)</li>
+                <li>LM Studio (Local)</li>
+                <li>AUTOMATIC1111 (Local, image generation)</li>
+                <li>IntenseRP Next (Local)</li>
+            </ul>
+
+            <DocHeading level={3}>Custom endpoints</DocHeading>
+            <ul>
+                <li>Custom (OpenAI-format) for any OpenAI-compatible server</li>
+                <li>Custom (Anthropic-format) for any Anthropic-compatible server</li>
+            </ul>
+
+            <Callout type="info" title="Verifying a provider">
+                When you save a provider, LettuceAI can verify the API key against the
+                provider's models endpoint. If verification fails, double-check the key,
+                base URL, and any required headers.
+            </Callout>
         </motion.article>
         </>
     );

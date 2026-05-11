@@ -23,3 +23,8 @@ export { ChatTemplatesDoc } from "./ChatTemplatesDoc";
 export { ModelBrowserDoc } from "./ModelBrowserDoc";
 export { OllamaDoc } from "./OllamaDoc";
 export { CompanionModeDoc } from "./CompanionModeDoc";
+export { HostApiDoc } from "./HostApiDoc";
+export { SecurityDoc } from "./SecurityDoc";
+export { UsageDoc } from "./UsageDoc";
+export { BackupRestoreDoc } from "./BackupRestoreDoc";
+export { SpeechRecognitionDoc } from "./SpeechRecognitionDoc";

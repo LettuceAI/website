@@ -11,7 +11,7 @@ export function TTSDoc() {
     <>
     <SEO
       title="Text-to-Speech"
-      description="Make characters speak aloud with ElevenLabs, Google Gemini TTS, or device-native voices in LettuceAI."
+      description="Make characters speak aloud with ElevenLabs, Google Gemini TTS, OpenAI-compatible TTS, or local Kokoro voices in LettuceAI."
       path="/docs/tts"
       jsonLd={buildBreadcrumbSchema([
         { name: "Home", path: "/" },
@@ -58,19 +58,29 @@ export function TTSDoc() {
 
       <ul>
         <li>
-          <strong>Device TTS:</strong> uses your operating system’s built-in
-          voices
+          <strong>ElevenLabs:</strong> premium neural speech synthesis with
+          voice cloning and voice design.
         </li>
         <li>
-          <strong>ElevenLabs:</strong> premium neural speech synthesis
+          <strong>Google Gemini TTS:</strong> neural voice generation with
+          natural-sounding personas.
         </li>
         <li>
-          <strong>Google Gemini TTS:</strong> neural voice generation
+          <strong>OpenAI-compatible TTS:</strong> works with OpenAI's audio
+          endpoint and any compatible third-party server. You supply the model
+          ID, base URL, and voice ID.
+        </li>
+        <li>
+          <strong>Kokoro (local):</strong> fully offline TTS that runs on your
+          device. Voices, model weights, and the eSpeak NG phonemizer are
+          downloaded once and then used without network access.
         </li>
       </ul>
 
       <p>
-        Some providers may require an API key before use.
+        Cloud providers (ElevenLabs, Gemini TTS, OpenAI-compatible) need an API
+        key. Kokoro is local and does not need a key, but it does need its
+        assets installed and (on desktop) eSpeak NG available on your system.
       </p>
 
       <DocHeading level={2}>My Voices</DocHeading>
@@ -98,7 +108,8 @@ export function TTSDoc() {
       </ul>
 
       <Callout>
-        Custom voices work with both ElevenLabs and Gemini TTS.
+        Custom voices work with ElevenLabs, Gemini TTS, OpenAI-compatible TTS,
+        and Kokoro. Each provider exposes the controls that make sense for it.
       </Callout>
 
       <DocHeading level={2}>Creating a Voice</DocHeading>
@@ -121,6 +132,10 @@ export function TTSDoc() {
       <ul>
         <li>clone or style voices (ElevenLabs)</li>
         <li>describe vocal personality (Gemini TTS)</li>
+        <li>enter a model ID and voice ID for OpenAI-compatible endpoints</li>
+        <li>
+          pick or blend installed Kokoro voices in a dedicated editor (Kokoro)
+        </li>
       </ul>
       
       <Callout>LettuceAI recognizes and allows the use of Elevenlabs voices created through the Elevenlabs dashboard.</Callout>
@@ -218,6 +233,89 @@ export function TTSDoc() {
 
       <Callout>
         If no voice is assigned, Autoplay has no effect.
+      </Callout>
+
+      <DocHeading level={2}>Kokoro Studio</DocHeading>
+
+      <p>
+        Kokoro Studio is the management hub for the local Kokoro provider. You
+        reach it from a Kokoro audio provider in TTS settings. It handles
+        everything Kokoro needs to run offline:
+      </p>
+
+      <ul>
+        <li>
+          <strong>Model variant</strong>: pick the Kokoro model variant you want
+          to install. Switching variants triggers a new install for the chosen
+          variant and reuses the existing voice library.
+        </li>
+        <li>
+          <strong>Voice catalog</strong>: browse the available voice list,
+          filter by all or installed, search by name, and install or uninstall
+          voices one at a time or in bulk.
+        </li>
+        <li>
+          <strong>Install queue</strong>: model and voice downloads run through
+          a queue. Active and failed downloads show inline so you can retry or
+          cancel.
+        </li>
+        <li>
+          <strong>Storage stats</strong>: see how much disk Kokoro assets are
+          using and uninstall the model entirely if you want to reclaim space.
+        </li>
+        <li>
+          <strong>Try it</strong>: a built-in preview field lets you type a
+          phrase and hear any installed voice with the current model variant
+          before you assign it.
+        </li>
+        <li>
+          <strong>Saved blends</strong>: blends you create appear alongside
+          installed voices so you can preview, edit, or delete them in one
+          place.
+        </li>
+      </ul>
+
+      <Callout>
+        Kokoro assets are downloaded once and stored locally. On desktop, you
+        also need eSpeak NG installed on your system for phonemization.
+      </Callout>
+
+      <DocHeading level={2}>Voice Blending</DocHeading>
+
+      <p>
+        A Kokoro blend is a custom voice built by mixing two or more installed
+        Kokoro voices with weights. Blends are saved as regular user voices and
+        can be assigned to characters like any other voice.
+      </p>
+
+      <p>You configure a blend in the Kokoro blend editor:</p>
+
+      <ul>
+        <li>
+          <strong>Add voices</strong>: pick from the installed voice list. Each
+          voice you add starts with a weight of 50.
+        </li>
+        <li>
+          <strong>Weights</strong>: each voice has a 0 to 100 slider. Higher
+          weights pull the blend toward that voice. Voices with weight 0 are
+          skipped on save.
+        </li>
+        <li>
+          <strong>Speed</strong>: adjust playback speed between 0.5x and 2.0x.
+        </li>
+        <li>
+          <strong>Test bench</strong>: enter preview text and play the current
+          blend before saving. You can stop and replay as you tweak weights.
+        </li>
+        <li>
+          <strong>Name</strong>: each blend has a display name. It is stored
+          and listed next to your other voices.
+        </li>
+      </ul>
+
+      <Callout>
+        Blends need at least one installed voice with a non-zero weight. If
+        nothing is installed yet, open Kokoro Studio first and install a voice.
       </Callout>
 
       <DocHeading level={2}>Audio Cache</DocHeading>

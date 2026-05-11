@@ -50,6 +50,11 @@ import {
   ModelBrowserDoc,
   OllamaDoc,
   CompanionModeDoc,
+  HostApiDoc,
+  SecurityDoc,
+  UsageDoc,
+  BackupRestoreDoc,
+  SpeechRecognitionDoc,
 } from "@/pages/docs";
 import Snowfall from "react-snowfall";
 import { SnowProvider, useSnow } from "@/contexts/SnowContext";
@@ -152,6 +157,11 @@ export function AppContent() {
               <Route path="model-browser" element={<ModelBrowserDoc />} />
               <Route path="ollama" element={<OllamaDoc />} />
               <Route path="companion-mode" element={<CompanionModeDoc />} />
+              <Route path="host-api" element={<HostApiDoc />} />
+              <Route path="security" element={<SecurityDoc />} />
+              <Route path="usage" element={<UsageDoc />} />
+              <Route path="backup-restore" element={<BackupRestoreDoc />} />
+              <Route path="speech-recognition" element={<SpeechRecognitionDoc />} />
               <Route
                 path="character-creator"
                 element={<Navigate to="/docs/smart-creator" replace />}

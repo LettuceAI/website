@@ -38,6 +38,13 @@ export function CompanionModeDoc() {
           some companion-specific surfaces are still being filled in.
         </Callout>
 
+        <Callout type="success" title="Opt-in and additive">
+          Companion Mode is fully opt-in. It only activates for characters
+          whose interaction mode is set to Companion. Roleplay characters and
+          regular chats are unaffected. Nothing about Companion Mode changes
+          how non-companion chats prompt, remember, or persist data.
+        </Callout>
+
         <DocHeading level={2}>Companion Mode vs Roleplay Mode</DocHeading>
         <p>
           LettuceAI characters can be authored in one of two interaction modes.
@@ -81,25 +88,45 @@ export function CompanionModeDoc() {
           relational runtime.
         </p>
 
-        <DocHeading level={2}>The three pieces of companion state</DocHeading>
         <p>
-          It helps to think of a companion character as having three distinct
+          The mode is a per-character setting (chosen with an interaction
+          mode selector during character creation and changeable from the
+          character editor). Sessions inherit the mode from their character,
+          so the runtime treats a chat as a companion chat when either the
+          character or the session is marked <code>companion</code>. There is
+          no global "companion mode" toggle: roleplay characters keep their
+          original prompt path even when companion infrastructure is
+          installed.
+        </p>
+
+        <DocHeading level={2}>The four pieces of companion state</DocHeading>
+        <p>
+          It helps to think of a companion character as having four distinct
           layers of state. They are easy to confuse, but they serve different
           purposes.
         </p>
 
         <ul>
           <li>
-            <strong>The soul</strong> is the authored baseline: who the
-            companion is, how they tend to feel, how they regulate emotion, and
-            where the relationship starts. This is character design data, set
-            once and edited intentionally.
+            <strong>The soul (per character)</strong> is the authored baseline:
+            who the companion is, how they tend to feel, how they regulate
+            emotion, and where the relationship starts. This is character
+            design data, set once and edited intentionally. It lives on the
+            character record as a structured config (not a free-form file).
           </li>
           <li>
-            <strong>The live session state</strong> is the runtime layer: the
-            current felt and expressed emotions, what is being suppressed,
-            recent emotional momentum, and the current relationship metrics.
-            This changes with every user turn.
+            <strong>The live session state (per chat)</strong> is the runtime
+            layer: the current felt, expressed, blocked, and momentum emotion
+            vectors, the live relationship metrics, the recent driver signals,
+            and a confidence score. It is stored on the session and changes
+            with every user turn.
+          </li>
+          <li>
+            <strong>Per-turn effects</strong> are per-message diffs that
+            describe what changed on a given assistant turn: relationship
+            delta, emotion delta, signal additions and removals, and any
+            memory entries added, updated, or superseded. These power the
+            inspection UI without rereading the whole state machine.
           </li>
           <li>
             <strong>The companion memory view</strong> presents memory through
@@ -172,6 +199,16 @@ export function CompanionModeDoc() {
           relationship state on the first user turn.
         </p>
 
+        <DocHeading level={3}>Memory and prompting config</DocHeading>
+        <p>
+          The companion config also carries a small memory profile (whether
+          companion memory is enabled, retrieval limit, max entries, and
+          whether the runtime should prioritize relationship memories,
+          episodic memories, and emotional snapshots) plus optional prompting
+          overrides (a per-character companion prompt template ID and freeform
+          style notes that are injected into the prompt alongside the soul).
+        </p>
+
         <DocHeading level={2}>Live session state</DocHeading>
         <p>
           Every companion session maintains a live state that updates from the
@@ -189,7 +226,7 @@ export function CompanionModeDoc() {
             regulation traits are applied.
           </li>
           <li>
-            <strong>Blocked</strong>: what is felt but not shown — the gap
+            <strong>Blocked</strong>: what is felt but not shown: the gap
             between felt and expressed.
           </li>
           <li>
@@ -198,15 +235,27 @@ export function CompanionModeDoc() {
           </li>
           <li>
             <strong>Active drivers</strong>: the signal labels behind the
-            current state.
+            current state (for example <code>emotion:love</code>,{" "}
+            <code>emotion:conflict</code>, <code>emotion:distress</code>).
+          </li>
+          <li>
+            <strong>Confidence</strong>: how strongly the emotion classifier
+            agreed with itself on the last turn. Low confidence shows up as a
+            softer, more cautious update.
           </li>
         </ul>
+
+        <p>
+          Each axis on the felt and expressed vectors is clamped to the range
+          0 to 1. Momentum is a signed vector, so it can record direction as
+          well as magnitude.
+        </p>
 
         <DocHeading level={3}>Relationship state</DocHeading>
         <ul>
           <li>
             <strong>Closeness</strong>, <strong>trust</strong>,{" "}
-            <strong>affection</strong>, and <strong>tension</strong> — the
+            <strong>affection</strong>, and <strong>tension</strong>: the
             primary relational axes.
           </li>
           <li>
@@ -217,6 +266,10 @@ export function CompanionModeDoc() {
             <strong>Interaction count</strong> and{" "}
             <strong>last interaction time</strong>: usage metadata that helps
             the runtime apply decay correctly.
+          </li>
+          <li>
+            <strong>Preferences</strong>: per-session toggles (currently the
+            time awareness flag, described in its own section below).
           </li>
         </ul>
 
@@ -237,24 +290,43 @@ export function CompanionModeDoc() {
         <ol>
           <li>You send a message.</li>
           <li>
-            The runtime decays the previous emotional and relationship state
-            slightly toward the soul baseline.
+            The runtime decays the previous emotional state exponentially
+            toward the soul baseline based on how long it has been since the
+            last turn (the half-life is on the order of 45 minutes, scaled by
+            the soul's recovery speed). Tension decays separately, and
+            stability ticks slightly upward during calm gaps.
           </li>
           <li>
-            A local emotion classifier reads your message and produces signals
-            (affection, distress, conflict, desire, and so on).
+            The local emotion classifier reads your message and produces a
+            small set of high-confidence labels (love, caring, gratitude,
+            desire, sadness, anger, fear, and so on). Each one above its
+            threshold is mapped to a named driver signal plus a delta on the
+            ten emotion axes and the four relationship axes.
           </li>
           <li>
-            Those signals nudge the felt emotions, then the regulation profile
-            shapes them into what the companion will actually express.
+            The combined delta is scaled by the soul's volatility, applied to
+            the felt vector, and clamped. The regulation profile then derives
+            the expressed vector from the felt one (suppression pulls hurt and
+            vulnerability down, transparency lets them through, pride dampens
+            reassurance seeking, and so on). The blocked vector is the gap
+            between felt and expressed.
           </li>
           <li>
-            Relationship axes update: closeness and affection may grow, trust
-            shifts, tension may rise or recover.
+            Relationship axes update: closeness and affection drift slightly
+            upward by default on any turn, then the per-label deltas add on
+            top. Trust, tension, and stability move only in response to
+            specific signals.
           </li>
           <li>
-            The updated state is rendered into a companion-state block and
-            injected into the prompt.
+            Active drivers and momentum are recorded, interaction count is
+            incremented, and the new state is persisted to the session.
+          </li>
+          <li>
+            The runtime renders a companion-state block (soul fragments, live
+            relationship percentages, expressed tone, blocked-but-felt notes,
+            recent drivers, and a couple of regulation hints) and injects it
+            into the prompt at the <code>{`{{companion_state}}`}</code>{" "}
+            template slot.
           </li>
           <li>
             The assistant generates the reply with that live relational
@@ -262,15 +334,143 @@ export function CompanionModeDoc() {
           </li>
           <li>
             After the reply is saved, dynamic memory processing runs in the
-            background.
+            background and a per-turn effect record is written (relationship
+            delta, emotion delta, signals added or removed, memories added,
+            updated, or superseded).
           </li>
         </ol>
+
+        <Callout type="info" title="Classifier fallback is graceful">
+          If the local emotion classifier is missing or fails on a given turn,
+          the runtime logs a warning and applies a near-neutral update (a
+          small stability nudge and low confidence) instead of refusing the
+          turn. Companion chats remain usable; they just stop updating
+          emotionally until the classifier is available again.
+        </Callout>
 
         <Callout type="info" title="Felt vs expressed">
           One of the central design ideas in companion mode is that what the
           companion <em>feels</em> and what they <em>show</em> are tracked
           separately. Regulation traits like suppression and emotional
           transparency control how much of the felt state actually surfaces.
+        </Callout>
+
+        <DocHeading level={2}>Time awareness</DocHeading>
+        <p>
+          Time awareness is an opt-in per-session preference under the live
+          companion state. When it is on, the runtime gives the companion live
+          system-time grounding and starts stamping new companion memories with
+          when they happened, so questions like "what did we do last weekend"
+          can pull the right entries back.
+        </p>
+
+        <Callout type="info" title="Where to toggle it">
+          Open <strong>Chat Settings</strong> for a companion chat and flip the{" "}
+          <strong>Time Awareness</strong> switch. It is a per-session toggle
+          stored on the companion state's preferences, so each chat decides for
+          itself. The toggle is only shown for companion chats; non-companion
+          chats never read the flag.
+        </Callout>
+
+        <DocHeading level={3}>What it actually does</DocHeading>
+        <ul>
+          <li>
+            <strong>Live time in the prompt</strong>: the default companion
+            template includes a "Current Local Time" entry gated on the time
+            awareness condition. When the flag is on, that entry renders a
+            small block with the date, weekday, 24-hour and 12-hour clock,
+            timezone name and offset, and an ISO timestamp, all drawn from the
+            device's local clock at render time.
+          </li>
+          <li>
+            <strong>Time-stamped memories</strong>: new memories created during
+            the turn get an <code>observed_at</code> timestamp (and a "turn"
+            precision marker) sourced from the latest message. Without time
+            awareness, memories are created without that grounding.
+          </li>
+          <li>
+            <strong>Temporal retrieval</strong>: companion memory retrieval
+            parses phrases like "yesterday", "last week", "two fridays ago",
+            "this month", and "five weeks ago today" out of the user query.
+            When a phrase resolves to a date range, retrieval first filters
+            stored memories to those whose <code>observed_at</code> falls
+            inside that range before scoring. If nothing falls in the range,
+            the runtime stops there rather than padding with off-topic
+            entries.
+          </li>
+          <li>
+            <strong>Lexical anchor boost</strong>: with time awareness on, the
+            ranker also adds a small lexical-overlap boost on top of cosine
+            similarity, which helps tie literal anchors in the query (proper
+            nouns, place names) to memories that mention the same things.
+          </li>
+          <li>
+            <strong>Memory display</strong>: when a memory has an{" "}
+            <code>observed_at</code>, it is rendered into the prompt with a
+            short "observed YYYY-MM-DD HH:MM TZ" suffix so the model can reason
+            about chronology.
+          </li>
+        </ul>
+
+        <DocHeading level={3}>Template slots it produces</DocHeading>
+        <p>
+          Whether or not the toggle is on, the prompt renderer resolves the
+          following placeholders against the device's current local time
+          whenever a template references them:
+        </p>
+        <ul>
+          <li>
+            <code>{"{{date}}"}</code>: ISO-style date like <code>2026-05-11</code>.
+          </li>
+          <li>
+            <code>{"{{date_full}}"}</code>: long form like{" "}
+            <code>Monday, May 11, 2026</code>.
+          </li>
+          <li>
+            <code>{"{{weekday}}"}</code>: day name.
+          </li>
+          <li>
+            <code>{"{{time_hour}}"}</code>, <code>{"{{time_minute}}"}</code>,{" "}
+            <code>{"{{time_second}}"}</code>: 24-hour components.
+          </li>
+          <li>
+            <code>{"{{time_full}}"}</code>: 24-hour <code>HH:MM:SS</code> with
+            timezone offset.
+          </li>
+          <li>
+            <code>{"{{time_12hour_format}}"}</code>: 12-hour clock with AM/PM.
+          </li>
+          <li>
+            <code>{"{{time_timezone}}"}</code>: numeric offset.{" "}
+            <code>{"{{time_timezone_name}}"}</code>: zone name.
+          </li>
+          <li>
+            <code>{"{{datetime_iso}}"}</code>: full RFC 3339 timestamp.
+          </li>
+        </ul>
+        <p>
+          The shipped companion templates also reuse those slots inside the
+          dynamic summary and dynamic memory prompts, so the summarizer and the
+          memory router get the same "current local time context" line as the
+          chat reply.
+        </p>
+
+        <DocHeading level={3}>How conditions hook into it</DocHeading>
+        <p>
+          System prompt entries can gate themselves on an{" "}
+          <code>isTimeAwarenessEnabled</code> condition. That condition resolves
+          to true only when the chat is in companion mode and the per-session
+          time awareness flag is on. The default companion "Current Local Time"
+          entry uses this condition, which is why the time block disappears
+          cleanly the moment you toggle the preference off.
+        </p>
+
+        <Callout type="info" title="Scope today">
+          At the moment, time awareness is companion-only. Roleplay chats,
+          scene generation, lorebook generation, and group chats build their
+          context with this flag forced to false. The placeholders still
+          resolve there if a template uses them, but the conditional time
+          block and timestamped memories are companion-mode features.
         </Callout>
 
         <DocHeading level={2}>Companion memory</DocHeading>
@@ -287,34 +487,34 @@ export function CompanionModeDoc() {
 
         <ul>
           <li>
-            <strong>Relationship</strong> — how you and the companion relate.
+            <strong>Relationship</strong>: how you and the companion relate.
           </li>
           <li>
-            <strong>Milestone</strong> — meaningful moments in the bond.
+            <strong>Milestone</strong>: meaningful moments in the bond.
           </li>
           <li>
-            <strong>Boundary</strong> — limits or rules either side has set.
+            <strong>Boundary</strong>: limits or rules either side has set.
           </li>
           <li>
-            <strong>Preference</strong> — likes, dislikes, comforts.
+            <strong>Preference</strong>: likes, dislikes, comforts.
           </li>
           <li>
-            <strong>Profile</strong> — stable factual details.
+            <strong>Profile</strong>: stable factual details.
           </li>
           <li>
-            <strong>Routine</strong> — recurring patterns.
+            <strong>Routine</strong>: recurring patterns.
           </li>
           <li>
-            <strong>Episodic</strong> — specific events worth remembering.
+            <strong>Episodic</strong>: specific events worth remembering.
           </li>
           <li>
-            <strong>Emotional snapshot</strong> — captured emotional moments.
+            <strong>Emotional snapshot</strong>: captured emotional moments.
           </li>
         </ul>
 
         <p>
           From the memory page you can browse, filter, pin, cool, edit, or
-          delete memories the same way you would in regular Dynamic Memory —
+          delete memories the same way you would in regular Dynamic Memory,
           just with a companion-friendly category layout.
         </p>
 
@@ -325,21 +525,26 @@ export function CompanionModeDoc() {
           is stored.
         </Callout>
 
-        <DocHeading level={2}>Companion pages</DocHeading>
+        <DocHeading level={2}>Companion pages (in-chat)</DocHeading>
         <p>
           Companion mode exposes three dedicated chat-side pages so the system
-          stays inspectable instead of being a black box.
+          stays inspectable instead of being a black box. They are reachable
+          from the chat header of any session whose mode is{" "}
+          <code>companion</code>.
         </p>
 
         <ul>
           <li>
             <strong>Relationship page</strong>: live closeness, trust,
-            affection, tension, top felt and expressed emotions, and a
-            relationship-oriented memory timeline.
+            affection, tension, stability, interaction count, top felt and
+            expressed emotions, recent momentum, and the active driver
+            signals from the last turn.
           </li>
           <li>
             <strong>Memory page</strong>: the full companion memory browser
-            with category filters, pinning, cooling, and editing.
+            with category filters, search, pinning, cooling, editing, and
+            category reassignment. Each entry also shows its source role and
+            its canonicalized entity anchors when present.
           </li>
           <li>
             <strong>Soul page</strong>: in-chat soul editing and AI-assisted
@@ -363,43 +568,62 @@ export function CompanionModeDoc() {
             It can refine an existing soul based on user notes.
           </li>
           <li>
-            It uses a tool-calling flow when supported, with a JSON or XML
-            structured-output fallback for providers and local models that
-            don't expose tool calling.
+            It uses a multi-step tool-calling loop when the provider supports
+            it, with a JSON or XML structured-output fallback for providers
+            and local models that do not expose tool calling. The fallback
+            format is configurable in the Soul Writer settings.
           </li>
         </ul>
 
         <p>
-          The Soul Writer applies discrete operations — set identity, set
-          baseline affect, set regulation style, set relationship defaults —
-          rather than rewriting the whole soul blob in one go. That keeps the
-          authoring flow controllable.
+          The Soul Writer applies discrete operations rather than rewriting
+          the whole soul blob in one shot. The operation set is:{" "}
+          <code>set_identity</code>, <code>set_baseline_affect</code>,{" "}
+          <code>set_regulation_style</code>,{" "}
+          <code>set_relationship_defaults</code>, and a terminal{" "}
+          <code>done</code>. Each operation only writes the fields it
+          specifies, numeric values are clamped to the 0 to 1 range, and the
+          loop exits as soon as the model emits <code>done</code> or hits the
+          step limit. That keeps the authoring flow controllable and lets you
+          run partial refinements without losing the rest of the soul.
+        </p>
+        <p>
+          The Soul Writer is configured from the Companions hub: you can pick
+          the model used to draft souls (with a fallback to the app default
+          model), the structured-output format (JSON or XML), and a custom
+          prompt template for the Soul Writer prompt type.
         </p>
 
-        <DocHeading level={2}>Required local models</DocHeading>
+        <DocHeading level={2}>Local analysis models</DocHeading>
         <p>
-          Companion mode is gated by a small set of local models that the
-          runtime needs in order to do its work. When you switch a character
-          into companion mode, the app will check for these and prompt you to
-          download whatever is missing.
+          Companion mode leans on a small set of local models that the runtime
+          uses for analysis. When you switch a character into companion mode,
+          the character editor checks which ones are installed and surfaces a
+          "missing models" sheet so you can download whatever is missing
+          before saving. The runtime is forgiving at chat time (it degrades
+          rather than blocks), but the experience is much fuller with all
+          four present.
         </p>
 
         <ul>
           <li>
-            <strong>Embedding model</strong> — needed for memory retrieval and
-            semantic search.
+            <strong>Embedding model</strong>: needed for memory retrieval and
+            semantic search. Approximately 90 MB.
           </li>
           <li>
-            <strong>Emotion classifier</strong> — reads each user turn and
+            <strong>Emotion classifier</strong>: reads each user turn and
             produces the signal labels that drive state updates.
+            Approximately 120 MB.
           </li>
           <li>
-            <strong>NER model</strong> — entity extraction for memory
-            canonicalization.
+            <strong>Entity extractor (NER)</strong>: identifies people,
+            places, and objects so memories can be canonicalized and linked.
+            Approximately 140 MB.
           </li>
           <li>
-            <strong>Router model</strong> — local routing for memory
-            categorization decisions.
+            <strong>Memory router</strong>: decides whether new turns should
+            be stored as relationship, milestone, episodic, or other memory
+            categories. Approximately 70 MB.
           </li>
         </ul>
 
@@ -408,6 +632,41 @@ export function CompanionModeDoc() {
           device. The app uses providers only for the actual chat reply
           generation, the same as in roleplay mode.
         </Callout>
+
+        <p>
+          Downloads are managed from{" "}
+          <strong>Settings &gt; Companions</strong>. Each model has its own
+          install and uninstall control, and there is a multi-step queue page
+          for batch installs (for example when you switch a character into
+          companion mode and several models are missing at once). The queue
+          auto-starts the first download and chains the rest, with a small
+          countdown back to where you came from when it finishes.
+        </p>
+
+        <DocHeading level={2}>The Companions hub</DocHeading>
+        <p>
+          The Companions hub under <strong>Settings &gt; Companions</strong> is
+          the settings surface for the feature. It is split into two tabs:
+        </p>
+        <ul>
+          <li>
+            <strong>Models</strong>: shows the embedding model status, the
+            three analysis models (emotion, NER, router) with install or
+            uninstall buttons, an overall readiness banner, and a pointer
+            into the Dynamic Memory settings (companion chats share the same
+            memory backend).
+          </li>
+          <li>
+            <strong>Soul Writer</strong>: picks the model used to draft souls,
+            the structured-output fallback format (JSON or XML), and an
+            optional custom Soul Writer prompt template.
+          </li>
+        </ul>
+        <p>
+          Switching an individual character to companion mode happens from
+          that character's settings, not from the hub. The hub is for the
+          shared infrastructure those characters depend on.
+        </p>
 
         <DocHeading level={2}>What companion mode shares with the rest of the app</DocHeading>
         <p>

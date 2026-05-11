@@ -32,7 +32,7 @@ export function SyncDoc() {
         directly to each other over an encrypted peer-to-peer connection.
       </p>
       <Callout>
-        Sync is manual — your devices only connect while you are actively
+        Sync is manual. Your devices only connect while you are actively
         syncing. Nothing runs in the background and no data is stored online.
       </Callout>
       <DocHeading level={2}>How Sync works</DocHeading>
@@ -118,7 +118,7 @@ export function SyncDoc() {
         <strong>&quot;Connect&quot;</strong>.
       </p>
       <p>
-        If connection and authtentication is successful, Device A will request user confirmation for connection and data transfer.
+        If connection and authentication are successful, Device A will request user confirmation for connection and data transfer.
         Do not close the app until the transfer is complete.
       </p>
       <DocImage

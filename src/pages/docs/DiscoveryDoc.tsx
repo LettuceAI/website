@@ -97,17 +97,42 @@ export function DiscoveryDoc() {
 
       <DocHeading level={2}>NSFW and Pure Mode</DocHeading>
       <p>
-        If <strong>Pure Mode</strong> is enabled, NSFW cards are filtered out of
-        Discovery entirely. When Pure Mode is disabled, NSFW cards are visible
-        but their avatars are blurred until you import them.
+        Discovery respects the global <strong>Pure Mode</strong> setting, which
+        has three levels:
+      </p>
+      <ul>
+        <li>
+          <strong>Off</strong>: NSFW cards are visible. Their avatars are
+          blurred in the listing until you open them.
+        </li>
+        <li>
+          <strong>Standard</strong> (default): cards flagged as NSFW are hidden
+          from listings, search, and detail views.
+        </li>
+        <li>
+          <strong>Strict</strong>: also filters out cards whose tags or content
+          warnings hint at suggestive themes, even when not formally flagged.
+        </li>
+      </ul>
+      <p>
+        Pure Mode is enforced in the backend, so changing it takes effect for
+        every Discovery request immediately.
+      </p>
+
+      <DocHeading level={2}>Sort and filter</DocHeading>
+      <p>
+        Inside a section you can sort by newest, last updated, likes,
+        downloads, messages, views, or name. Search supports free-text queries
+        across names, taglines, and tags.
       </p>
 
       <DocHeading level={2}>What gets imported</DocHeading>
       <p>
         Importing a Discovery card creates a local character in your Library.
-        The import includes the card’s text fields, avatars, alternate
-        greetings, and lorebook data (when available). After import, everything
-        is editable like any other character.
+        The import includes the card's text fields, avatars, alternate
+        greetings, system prompt, post-history instructions, and any attached
+        lorebook. If the card ships an expression pack, that is fetched too.
+        After import, everything is editable like any other character.
       </p>
 
       <Callout type="info" title="Privacy note">

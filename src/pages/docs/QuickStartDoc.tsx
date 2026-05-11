@@ -12,7 +12,7 @@ export function QuickStartDoc() {
     <>
     <SEO
       title="Quick Start"
-      description="Set up LettuceAI in under 2 minutes — connect a provider, choose a model, and start chatting."
+      description="Set up LettuceAI in under 2 minutes. Connect a provider, choose a model, and start chatting."
       path="/docs/quickstart"
       jsonLd={buildBreadcrumbSchema([
         { name: "Home", path: "/" },
@@ -184,6 +184,33 @@ export function QuickStartDoc() {
           LettuceAI is now fully set up and running locally on your device.
         </Callout>
       </DocSplit>
+
+      <DocHeading level={2}>Where to go next</DocHeading>
+
+      <p>
+        Once you are past setup, three pages are the main hubs you will return
+        to from anywhere in the app:
+      </p>
+
+      <ul>
+        <li>
+          <strong>Onboarding</strong>: the guided flow you just finished. It
+          covers the welcome screen, provider setup, default model, and the
+          memory system choice. You can re-run pieces of it later from
+          Settings.
+        </li>
+        <li>
+          <strong>Library</strong>: a single view for everything you create
+          locally. Filter tabs cover All, Characters, Personas, Lorebooks, and
+          Images. New characters, personas, and lorebooks are created from
+          here, including the "Generate with AI" lorebook flow.
+        </li>
+        <li>
+          <strong>Search</strong>: a fast finder over your characters and
+          personas. Type to filter by name or description, then tap a result
+          to start a chat (for characters) or open the persona editor.
+        </li>
+      </ul>
 
       <Callout type="warning" title="Privacy First">
         Your API keys and chat data never leave your device. LettuceAI does not

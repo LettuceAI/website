@@ -19,6 +19,11 @@ import {
   MessageSquare,
   HardDrive,
   Heart,
+  Plug,
+  Shield,
+  BarChart3,
+  Archive,
+  Mic,
 } from "lucide-react";
 import { Wheelchair } from "./WheelChairIcon";
 
@@ -132,6 +137,20 @@ export const docsNav = [
           "self-hosted",
           "inference",
           "mirostat",
+        ],
+      },
+      {
+        title: "Host API",
+        href: "/docs/host-api",
+        icon: Plug,
+        keywords: [
+          "host api",
+          "openai compatible",
+          "local server",
+          "http",
+          "sse",
+          "integration",
+          "rest",
         ],
       },
       {
@@ -262,6 +281,20 @@ export const docsNav = [
         keywords: ["text to speech", "tts", "voice", "speak", "audio"],
       },
       {
+        title: "Speech Recognition",
+        href: "/docs/speech-recognition",
+        icon: Mic,
+        keywords: [
+          "speech",
+          "recognition",
+          "asr",
+          "whisper",
+          "voice input",
+          "dictation",
+          "microphone",
+        ],
+      },
+      {
         title: "Smart Creator",
         href: "/docs/smart-creator",
         icon: BookOpen,
@@ -271,6 +304,51 @@ export const docsNav = [
           "create character",
           "persona",
           "lorebook",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Privacy & Data",
+    items: [
+      {
+        title: "Security",
+        href: "/docs/security",
+        icon: Shield,
+        keywords: [
+          "security",
+          "pure mode",
+          "content filter",
+          "trusted certificates",
+          "analytics",
+          "privacy",
+        ],
+      },
+      {
+        title: "Usage",
+        href: "/docs/usage",
+        icon: BarChart3,
+        keywords: [
+          "usage",
+          "tokens",
+          "cost",
+          "activity",
+          "tracking",
+          "csv",
+          "stats",
+        ],
+      },
+      {
+        title: "Backup & Restore",
+        href: "/docs/backup-restore",
+        icon: Archive,
+        keywords: [
+          "backup",
+          "restore",
+          "export",
+          "import",
+          "encrypted",
+          "reset",
         ],
       },
     ],

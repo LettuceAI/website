@@ -112,16 +112,37 @@ export function GroupChatsDoc() {
       </p>
       <ol>
         <li>
-          <strong>@mentions</strong> force a specific character.
+          <strong>@mentions</strong> always win and force a specific character.
         </li>
         <li>
-          <strong>LLM selection</strong> chooses the next speaker if no mention
-          exists.
+          The configured <strong>speaker selection method</strong> for the
+          group runs next.
         </li>
         <li>
-          <strong>Heuristic fallback</strong> runs if LLM selection fails.
+          A <strong>heuristic fallback</strong> kicks in if the chosen method
+          fails or returns a muted character.
         </li>
       </ol>
+
+      <p>
+        Each group session stores its own speaker selection method. You can
+        switch between three options at any time from group settings:
+      </p>
+
+      <ul>
+        <li>
+          <strong>LLM</strong> (default): an LLM tool call picks the next
+          speaker based on the recent messages and participant descriptions.
+        </li>
+        <li>
+          <strong>Heuristic</strong>: a local scoring pass picks a speaker
+          without calling any model. Fast and offline-friendly.
+        </li>
+        <li>
+          <strong>Round robin</strong>: the next speaker is chosen by rotating
+          through the participants, so everyone gets a turn.
+        </li>
+      </ul>
       <div className="relative -mx-6 w-[calc(100%+3rem)] px-6">
         <DocImage
           src="https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEDvEcN4Lk6KQEIaUv3RMC80pwfLYbPBhuTci9"
@@ -161,6 +182,38 @@ export function GroupChatsDoc() {
         <li>Recency (soft penalty for very recent speakers)</li>
         <li>Name mentions inside the user message</li>
       </ul>
+
+      <DocHeading level={2}>Muting participants</DocHeading>
+      <p>
+        You can mute individual characters in a group. Muted characters are
+        excluded from automatic speaker selection and are skipped by the LLM,
+        heuristic, and round robin paths. If auto-selection ever lands on a
+        muted character, the app falls back to the heuristic to pick someone
+        else.
+      </p>
+      <p>
+        Muting does not remove a character from the group. You can still target
+        a muted character directly with an @mention to force them to reply.
+      </p>
+
+      <DocHeading level={2}>Lorebooks in groups</DocHeading>
+      <p>
+        Group sessions can attach their own lorebooks separately from each
+        participant. There is also a toggle to disable the per-character
+        lorebooks entirely, so only the group-level lorebooks are active. This
+        is useful when characters come from different worlds and you want one
+        shared canon for the group only.
+      </p>
+
+      <DocHeading level={2}>Memory in group chats</DocHeading>
+      <p>
+        Each group session has its own memory mode (Manual or Dynamic), chosen
+        independently of any single character's memory setting. The dynamic
+        memory pipeline (summary window, retrieval, decay, hot/cold split, and
+        background maintenance cycle) is implemented in parallel with the
+        direct-chat pipeline and uses the same settings. See the{" "}
+        <a href="/docs/memory">Memory System</a> doc for details.
+      </p>
 
       <Callout type="info" title="Tips">
         Group chats work best when characters have distinct voices and clear

@@ -50,13 +50,13 @@ export function CharacterCreatorDoc() {
       <p>At the top of the Creator, you can switch between creation goals:</p>
       <ul>
         <li>
-          <strong>Character</strong> — build a new character profile
+          <strong>Character</strong>: build a new character profile
         </li>
         <li>
-          <strong>Persona</strong> — build a user persona for roleplay
+          <strong>Persona</strong>: build a user persona for roleplay
         </li>
         <li>
-          <strong>Lorebook</strong> — build world or setting entries
+          <strong>Lorebook</strong>: build world or setting entries
         </li>
       </ul>
       <p>
@@ -65,38 +65,30 @@ export function CharacterCreatorDoc() {
       
       <DocImage src={images.creation.helperChoose} alt="Choose creation mode" containerClassName="max-w-xl mx-auto"/>
 
-      <DocHeading level={2}>Tool selection (Smart Mode)</DocHeading>
+      <DocHeading level={2}>Settings</DocHeading>
       <p>
-        Smart Creator uses a tool system behind the scenes to apply changes like
-        setting names, writing scenes, generating images, or saving personas and
-        lorebooks.
-      </p>
-      <p>
-        In <strong>Advanced Settings → Creation Helper</strong>, you can control
-        how tools are used:
+        Smart Creator behavior is configured in{" "}
+        <strong>Settings &gt; Advanced &gt; Creation Helper</strong>:
       </p>
       <ul>
         <li>
-          <strong>Smart Tool Selection</strong> (default): the Creator asks what
-          you want to make and only loads the relevant tool set.
+          <strong>Model</strong>: which text model the Creator uses. Defaults
+          to your global default model.
         </li>
         <li>
-          <strong>Manual tool selection</strong>: disable Smart Tool Selection
-          to pick a preset or enable specific tools yourself.
+          <strong>Streaming</strong>: stream replies token by token, or wait for
+          the full response.
+        </li>
+        <li>
+          <strong>Image model</strong>: optional image model used when the
+          Creator decides to generate an avatar or visual reference.
         </li>
       </ul>
       <p>
-        Presets include <strong>All Tools</strong>, <strong>Essential</strong>,
-        and
-        <strong>Minimal</strong>. Manual mode also lets you toggle tools for
-        Characters, Personas, Lorebooks, Settings, and Image Generation.
+        Tool selection is handled automatically based on what you said you
+        wanted to create (character, persona, or lorebook), so you do not need
+        to pick a preset.
       </p>
-      <Callout type="warning" title="Manual Tool Selection">
-        Turning off Smart Tool Selection gives you full control, but it can also
-        limit what the Creator is allowed to do. If the right tools are
-        disabled, the Creator may fail to complete steps or skip parts of your
-        request.
-      </Callout>
 
       <DocHeading level={2}>Image generation</DocHeading>
       <p>

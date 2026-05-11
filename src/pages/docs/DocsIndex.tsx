@@ -9,7 +9,7 @@ export function DocsIndex() {
     <>
     <SEO
       title="Documentation"
-      description="LettuceAI documentation — guides for installation, AI providers, characters, memory, and all features."
+      description="LettuceAI documentation. Guides for installation, AI providers, characters, memory, and all features."
       path="/docs"
       jsonLd={buildBreadcrumbSchema([
         { name: "Home", path: "/" },
@@ -104,6 +104,69 @@ export function DocsIndex() {
             Explore <ArrowRight className="w-4 h-4" />
           </span>
         </Link>
+
+        <Link
+          to="/docs/images"
+          className="p-5 rounded-xl bg-zinc-900/50 border border-border/30 hover:border-primary/30 transition-colors group"
+        >
+          <h3 className="font-semibold text-white mb-2 group-hover:text-primary transition-colors">
+            Image Generation
+          </h3>
+          <p className="text-sm text-muted-foreground mb-3">
+            Generate avatars, scene art, and design references with image
+            models.
+          </p>
+          <span className="text-sm text-primary flex items-center gap-1">
+            Generate <ArrowRight className="w-4 h-4" />
+          </span>
+        </Link>
+
+        <Link
+          to="/docs/tts"
+          className="p-5 rounded-xl bg-zinc-900/50 border border-border/30 hover:border-primary/30 transition-colors group"
+        >
+          <h3 className="font-semibold text-white mb-2 group-hover:text-primary transition-colors">
+            Text-to-Speech
+          </h3>
+          <p className="text-sm text-muted-foreground mb-3">
+            Give characters a voice with ElevenLabs, Gemini TTS,
+            OpenAI-compatible TTS, or local Kokoro.
+          </p>
+          <span className="text-sm text-primary flex items-center gap-1">
+            Listen <ArrowRight className="w-4 h-4" />
+          </span>
+        </Link>
+
+        <Link
+          to="/docs/sync"
+          className="p-5 rounded-xl bg-zinc-900/50 border border-border/30 hover:border-primary/30 transition-colors group"
+        >
+          <h3 className="font-semibold text-white mb-2 group-hover:text-primary transition-colors">
+            Sync
+          </h3>
+          <p className="text-sm text-muted-foreground mb-3">
+            Move chats, characters, and settings between devices over an
+            encrypted local connection.
+          </p>
+          <span className="text-sm text-primary flex items-center gap-1">
+            Transfer <ArrowRight className="w-4 h-4" />
+          </span>
+        </Link>
+
+        <Link
+          to="/docs/accessibility"
+          className="p-5 rounded-xl bg-zinc-900/50 border border-border/30 hover:border-primary/30 transition-colors group"
+        >
+          <h3 className="font-semibold text-white mb-2 group-hover:text-primary transition-colors">
+            Accessibility
+          </h3>
+          <p className="text-sm text-muted-foreground mb-3">
+            Sound cues, haptics, voice input, and screen reader support.
+          </p>
+          <span className="text-sm text-primary flex items-center gap-1">
+            Customize <ArrowRight className="w-4 h-4" />
+          </span>
+        </Link>
       </div>
 
       {/* Features Overview */}
@@ -112,35 +175,35 @@ export function DocsIndex() {
         <li className="flex items-start gap-3">
           <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
           <span>
-            <strong className="text-white">BYOK</strong> — Use your own API keys
+            <strong className="text-white">BYOK:</strong> Use your own API keys
             from any provider
           </span>
         </li>
         <li className="flex items-start gap-3">
           <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
           <span>
-            <strong className="text-white">Privacy First</strong> — All data
+            <strong className="text-white">Privacy First:</strong> All data
             stored locally on your device
           </span>
         </li>
         <li className="flex items-start gap-3">
           <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
           <span>
-            <strong className="text-white">Smart Memory</strong> — Infinite
+            <strong className="text-white">Smart Memory:</strong> Infinite
             context without token limits
           </span>
         </li>
         <li className="flex items-start gap-3">
           <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
           <span>
-            <strong className="text-white">Custom Characters</strong> — Create
+            <strong className="text-white">Custom Characters:</strong> Create
             and customize AI personas
           </span>
         </li>
         <li className="flex items-start gap-3">
           <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
           <span>
-            <strong className="text-white">Multi-Provider</strong> — Switch
+            <strong className="text-white">Multi-Provider:</strong> Switch
             between models mid-conversation
           </span>
         </li>

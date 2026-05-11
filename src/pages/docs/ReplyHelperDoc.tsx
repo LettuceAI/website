@@ -122,7 +122,7 @@ export function ReplyHelperDoc() {
       <p>
         If you’ve already started writing something but get stuck halfway, Reply
         Helper can treat your text as a starting point. It will try to continue,
-        refine, or smooth out your message — while keeping your intent.
+        refine, or smooth out your message while keeping your intent.
       </p>
 
       <p>This is useful when:</p>
@@ -186,13 +186,41 @@ export function ReplyHelperDoc() {
       <DocHeading level={2}>Which model does Help Me Reply use?</DocHeading>
 
       <p>
-        Help Me Reply always uses your <strong>default app model</strong> to
-        generate suggestions.
+        Help Me Reply uses a dedicated model if you pick one in its settings
+        panel. If no specific model is configured, it falls back to your default
+        app model.
       </p>
 
       <p>
-        Changing your default model in settings will also change which model
-        Help Me Reply uses.
+        That means you can run a smaller or cheaper model just for reply
+        suggestions while keeping your main chat model untouched.
+      </p>
+
+      <DocHeading level={2}>Group chats</DocHeading>
+
+      <p>
+        Help Me Reply also works inside group chats. It looks at the recent
+        group conversation, sees who is speaking, and suggests what
+        <em> you </em> could say next as the user (not as one of the
+        characters). The same style, max tokens, streaming, and model settings
+        apply.
+      </p>
+
+      <DocHeading level={2}>Swap places</DocHeading>
+
+      <p>
+        If the current chat has Swap Places turned on (you play the character
+        and the AI plays your persona), Help Me Reply respects that swap. The
+        suggestion is written for whichever side you are actually playing in
+        that session.
+      </p>
+
+      <DocHeading level={2}>Turning it off</DocHeading>
+
+      <p>
+        Help Me Reply can be disabled entirely in settings. When disabled, the
+        action is hidden in the chat input and the backend rejects requests for
+        it. This is useful if you want a pure no-assist writing experience.
       </p>
     </motion.article>
     </>

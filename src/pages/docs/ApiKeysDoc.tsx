@@ -9,7 +9,7 @@ export function ApiKeysDoc() {
     <>
     <SEO
       title="API Keys"
-      description="How to get API keys from OpenAI, Anthropic, Google Gemini, DeepSeek, and 10+ other AI providers for LettuceAI."
+      description="How to get API keys from OpenAI, Anthropic, Google Gemini, DeepSeek, Groq, and 15+ other AI providers for LettuceAI."
       path="/docs/api-keys"
       jsonLd={buildBreadcrumbSchema([
         { name: "Home", path: "/" },
@@ -26,7 +26,7 @@ export function ApiKeysDoc() {
       <DocHeading level={1}>API Keys</DocHeading>
 
       <p className="lead">
-        API keys sound scary. They’re not. This page explains what they are, why
+        API keys sound scary. They are not. This page explains what they are, why
         LettuceAI uses them, and how to get one without overthinking it.
       </p>
 
@@ -247,7 +247,7 @@ export function ApiKeysDoc() {
       </ol>
 
       <DocHeading level={3}>Qwen (Alibaba DashScope)</DocHeading>
-      <p>Alibaba’s Qwen models with strong multilingual support.</p>
+      <p>Alibaba's Qwen models with strong multilingual support.</p>
       <ol>
         <li>
           Go to{" "}
@@ -277,12 +277,43 @@ export function ApiKeysDoc() {
         <li>Generate an API key</li>
       </ol>
 
-      <DocHeading level={3}>Zai</DocHeading>
-      <p>Simple, fast inference-focused provider.</p>
+      <DocHeading level={3}>zAI (GLM)</DocHeading>
+      <p>Access to GLM models through Zhipu AI's coding-focused API.</p>
       <ol>
-        <li>Go to the Zai dashboard</li>
+        <li>
+          Go to{" "}
+          <a href="https://z.ai" target="_blank" rel="noreferrer">
+            z.ai
+          </a>
+        </li>
         <li>Create or log into your account</li>
         <li>Generate an API key from settings</li>
+      </ol>
+
+      <DocHeading level={3}>NVIDIA NIM</DocHeading>
+      <p>NVIDIA-hosted inference for open and proprietary models.</p>
+      <ol>
+        <li>
+          Go to{" "}
+          <a href="https://build.nvidia.com" target="_blank" rel="noreferrer">
+            build.nvidia.com
+          </a>
+        </li>
+        <li>Sign in with an NVIDIA developer account</li>
+        <li>Open API Keys and generate a new key</li>
+      </ol>
+
+      <DocHeading level={3}>Chutes</DocHeading>
+      <p>Decentralized compute marketplace for running open models.</p>
+      <ol>
+        <li>
+          Go to{" "}
+          <a href="https://chutes.ai" target="_blank" rel="noreferrer">
+            chutes.ai
+          </a>
+        </li>
+        <li>Create an account</li>
+        <li>Open API settings and generate a key</li>
       </ol>
 
       <DocHeading level={3}>Featherless</DocHeading>

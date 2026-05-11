@@ -74,20 +74,37 @@ export function PersonasDoc() {
       </p>
       <ul>
         <li>
-          <strong>Name</strong>: How the persona is identified
+          <strong>Name</strong>: how the persona is identified
         </li>
         <li>
-          <strong>Description</strong>: Background, personality, and role
+          <strong>Nickname (optional)</strong>: short form the AI can use for
+          you in chat
         </li>
         <li>
-          <strong>Speaking style</strong>: How you talk or act in conversation
+          <strong>Description</strong>: background, personality, and role
+        </li>
+        <li>
+          <strong>Avatar (optional)</strong>: portrait with an in-app crop tool
+        </li>
+        <li>
+          <strong>Active lorebooks (optional)</strong>: lorebooks that should
+          activate whenever this persona is in use, in addition to whatever the
+          character has assigned
         </li>
       </ul>
+
+      <DocHeading level={2}>Default persona</DocHeading>
+      <p>
+        You can mark one persona as the default. The default is automatically
+        applied to new chats unless you pick something else. Existing chats are
+        not changed when you switch which persona is default.
+      </p>
 
       <DocHeading level={2}>Using personas in chats</DocHeading>
       <p>
         When starting a new conversation, you can choose which persona to use.
-        The persona remains active for the entire chat unless you change it.
+        The persona remains active for the entire chat unless you change it
+        from chat settings.
       </p>
       <p>
         Switching personas changes your role, not the character's memory or

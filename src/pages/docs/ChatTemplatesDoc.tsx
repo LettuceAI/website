@@ -66,6 +66,7 @@ export function ChatTemplatesDoc() {
         <li>An ordered list of starter messages</li>
         <li>An optional starting scene</li>
         <li>An optional system prompt template reference</li>
+        <li>An optional lorebook override (different lorebooks for this opener)</li>
       </ul>
 
       <p>The starter messages are limited to two roles:</p>
@@ -141,6 +142,25 @@ export function ChatTemplatesDoc() {
       <p>
         When a scene is used, it appears before the template’s conversation
         messages.
+      </p>
+
+      <DocHeading level={2}>How lorebook overrides behave</DocHeading>
+
+      <p>
+        A chat template can also override which lorebooks are active for the
+        session. If it does, those lorebooks replace the character's normal
+        lorebook selection while the session lasts. If the template does not
+        specify an override, the character's usual lorebook configuration is
+        used.
+      </p>
+
+      <DocHeading level={2}>Default chat template</DocHeading>
+
+      <p>
+        You can mark one of a character's chat templates as the default. When a
+        default is set, new chats with that character use that template
+        automatically without showing the picker. You can still pick a
+        different template by opening the picker explicitly.
       </p>
 
       <DocHeading level={2}>How system prompts behave</DocHeading>

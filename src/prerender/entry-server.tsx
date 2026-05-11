@@ -44,6 +44,11 @@ export const prerenderRoutes = [
   "/docs/model-browser",
   "/docs/ollama",
   "/docs/companion-mode",
+  "/docs/host-api",
+  "/docs/security",
+  "/docs/usage",
+  "/docs/backup-restore",
+  "/docs/speech-recognition",
   "/blog",
   ...getAllSlugs().map((slug) => `/blog/${slug}`),
 ];

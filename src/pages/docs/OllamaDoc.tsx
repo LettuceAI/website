@@ -113,8 +113,10 @@ export function OllamaDoc() {
         </p>
 
         <p>
-          The app automatically handles URL normalization, so it does not matter
-          if you include or omit a trailing <code>/v1</code> in the base URL.
+          The app automatically handles URL normalization. It will strip a
+          trailing <code>/v1</code>, <code>/api/chat</code>, or{" "}
+          <code>/api/tags</code> from the base URL so you can paste in whatever
+          form is handy.
         </p>
 
         {/* ── Settings ── */}
