@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { SEO } from "@/components/common/SEO";
 import { motion } from "framer-motion";
 import {
@@ -92,20 +92,35 @@ function shortVersion(version: string): string {
 }
 
 function HighlightsGrid({ section }: { section: ChangelogSection }) {
+  const bullets = section.items.filter((it) => it.kind === "bullet");
+  const quotes = section.items.filter((it) => it.kind === "quote");
   return (
-    <div className="mb-14 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5">
-      {section.items.map((item, i) => (
-        <div key={i} className="flex gap-3">
-          <span
-            aria-hidden
-            className="mt-[0.6rem] w-1 h-1 rounded-full bg-primary shrink-0"
-          />
-          <p
-            className="text-[14px] text-white/75 leading-[1.6]"
-            dangerouslySetInnerHTML={{ __html: item }}
-          />
+    <div className="mb-14">
+      {quotes.length > 0 && (
+        <div className="mb-6 space-y-3">
+          {quotes.map((item, i) => (
+            <blockquote
+              key={i}
+              className="border-l-2 border-primary/50 pl-4 py-1 text-[14px] text-white/70 leading-[1.6] italic"
+              dangerouslySetInnerHTML={{ __html: item.html }}
+            />
+          ))}
         </div>
-      ))}
+      )}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5">
+        {bullets.map((item, i) => (
+          <div key={i} className="flex gap-3">
+            <span
+              aria-hidden
+              className="mt-[0.6rem] w-1 h-1 rounded-full bg-primary shrink-0"
+            />
+            <p
+              className="text-[14px] text-white/75 leading-[1.6]"
+              dangerouslySetInnerHTML={{ __html: item.html }}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -120,11 +135,42 @@ function SectionBlock({ section }: { section: ChangelogSection }) {
           {section.title}
         </span>
       </div>
-      <ul className="space-y-2 text-[15px] text-white/65 leading-[1.7] list-disc list-outside pl-5 marker:text-white/20">
-        {section.items.map((item, i) => (
-          <li key={i} dangerouslySetInnerHTML={{ __html: item }} />
-        ))}
-      </ul>
+      <div className="space-y-3 text-[15px] text-white/65 leading-[1.7]">
+        {(() => {
+          const out: ReactNode[] = [];
+          let bulletGroup: typeof section.items = [];
+          const flushBullets = () => {
+            if (bulletGroup.length === 0) return;
+            out.push(
+              <ul
+                key={`b-${out.length}`}
+                className="space-y-2 list-disc list-outside pl-5 marker:text-white/20"
+              >
+                {bulletGroup.map((item, i) => (
+                  <li key={i} dangerouslySetInnerHTML={{ __html: item.html }} />
+                ))}
+              </ul>,
+            );
+            bulletGroup = [];
+          };
+          section.items.forEach((item, i) => {
+            if (item.kind === "quote") {
+              flushBullets();
+              out.push(
+                <blockquote
+                  key={`q-${i}`}
+                  className="border-l-2 border-primary/50 pl-4 py-1 text-white/70 italic"
+                  dangerouslySetInnerHTML={{ __html: item.html }}
+                />,
+              );
+            } else {
+              bulletGroup.push(item);
+            }
+          });
+          flushBullets();
+          return out;
+        })()}
+      </div>
     </section>
   );
 }
@@ -174,6 +220,26 @@ function ReleaseEntry({
             <p className="text-[15px] text-white/45 leading-[1.7] mb-10">
               {entry.tagline}
             </p>
+          )}
+
+          {entry.intro.length > 0 && (
+            <div className="mb-8 space-y-3">
+              {entry.intro.map((item, i) =>
+                item.kind === "quote" ? (
+                  <blockquote
+                    key={i}
+                    className="border-l-2 border-primary/50 pl-4 py-1 text-[14px] text-white/70 leading-[1.6] italic"
+                    dangerouslySetInnerHTML={{ __html: item.html }}
+                  />
+                ) : (
+                  <p
+                    key={i}
+                    className="text-[14px] text-white/75 leading-[1.6]"
+                    dangerouslySetInnerHTML={{ __html: item.html }}
+                  />
+                ),
+              )}
+            </div>
           )}
 
           {highlights && <HighlightsGrid section={highlights} />}

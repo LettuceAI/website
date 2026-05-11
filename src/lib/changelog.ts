@@ -1,6 +1,11 @@
+export type ChangelogItem = {
+  kind: "bullet" | "quote";
+  html: string;
+};
+
 export type ChangelogSection = {
   title: string;
-  items: string[];
+  items: ChangelogItem[];
 };
 
 export type ChangelogEntry = {
@@ -11,6 +16,7 @@ export type ChangelogEntry = {
   title: string;
   tagline: string;
   githubUrl?: string;
+  intro: ChangelogItem[];
   sections: ChangelogSection[];
 };
 
@@ -54,16 +60,23 @@ function renderItem(text: string): string {
 
 // Parse changelog body: ## Heading lines split sections, - lines are items.
 // Multi-line items are joined.
-function parseSections(body: string): ChangelogSection[] {
+function parseSections(
+  body: string,
+): { intro: ChangelogItem[]; sections: ChangelogSection[] } {
   const sections: ChangelogSection[] = [];
+  const intro: ChangelogItem[] = [];
   let current: ChangelogSection | null = null;
   let buffer: string | null = null;
+  let bufferKind: "bullet" | "quote" = "bullet";
 
   const flushItem = () => {
-    if (buffer != null && current) {
-      current.items.push(renderItem(buffer));
+    if (buffer != null) {
+      const item = { kind: bufferKind, html: renderItem(buffer) };
+      if (current) current.items.push(item);
+      else intro.push(item);
     }
     buffer = null;
+    bufferKind = "bullet";
   };
 
   const lines = body.split("\n");
@@ -79,6 +92,19 @@ function parseSections(body: string): ChangelogSection[] {
     if (itemMatch) {
       flushItem();
       buffer = itemMatch[1];
+      bufferKind = "bullet";
+      continue;
+    }
+    const quoteMatch = line.match(/^>\s?(.*)$/);
+    if (quoteMatch) {
+      // Consecutive quote lines merge into one quote block.
+      if (buffer != null && bufferKind === "quote") {
+        buffer += " " + quoteMatch[1].trim();
+      } else {
+        flushItem();
+        buffer = quoteMatch[1].trim();
+        bufferKind = "quote";
+      }
       continue;
     }
     // Continuation line for a multi-line item (indented or non-empty after item)
@@ -93,7 +119,7 @@ function parseSections(body: string): ChangelogSection[] {
   flushItem();
   if (current) sections.push(current);
 
-  return sections;
+  return { intro, sections };
 }
 
 function slugFromPath(filePath: string): string {
@@ -116,7 +142,7 @@ const entries: ChangelogEntry[] = Object.entries(rawFiles)
       title: data.title || "",
       tagline: data.tagline || "",
       githubUrl: data.githubUrl,
-      sections: parseSections(body),
+      ...parseSections(body),
     };
   })
   .sort((a, b) => {
