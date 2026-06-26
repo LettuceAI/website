@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Github, ChevronRight } from "lucide-react";
+import { Github } from "lucide-react";
 import { FaAndroid, FaWindows, FaLinux, FaApple } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
@@ -56,17 +56,6 @@ export function HeroSection() {
                     }}
                     className="w-full lg:w-[42%] shrink-0 lg:pr-4 py-8 lg:py-0"
                 >
-                    <a
-                        href={links.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-[11px] text-white/50 hover:text-white/70 transition-colors border border-white/[0.08] rounded-full px-3.5 py-1 bg-white/[0.02] hover:bg-white/[0.04] mb-8"
-                    >
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                        Open Source &amp; Free
-                        <ChevronRight className="w-3 h-3 text-white/20" />
-                    </a>
-
                     <h1 className="text-[2.75rem] sm:text-5xl lg:text-6xl xl:text-[4.25rem] font-bold tracking-tight leading-[1.05] text-white mb-5">
                         AI roleplay
                         <br />
