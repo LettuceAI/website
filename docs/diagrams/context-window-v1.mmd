@@ -1,0 +1,39 @@
+%%{init: {'theme':'dark','themeVariables':{
+  'background':'transparent',
+  'primaryColor':'#1f2b22',
+  'primaryTextColor':'#f4f4f5',
+  'primaryBorderColor':'#4ade80',
+  'lineColor':'#7dd3a6',
+  'secondaryColor':'#18181b',
+  'secondaryTextColor':'#e4e4e7',
+  'secondaryBorderColor':'#52525b',
+  'tertiaryColor':'#111827',
+  'tertiaryTextColor':'#f4f4f5',
+  'tertiaryBorderColor':'#22c55e',
+  'fontSize':'21px'
+}, 'flowchart': {
+  'nodeSpacing': 38,
+  'rankSpacing': 54,
+  'curve': 'basis'
+}}}%%
+flowchart TD
+  subgraph WIN [The context window: a fixed amount of room]
+    direction TB
+    P1[System prompt and instructions]
+    P2[Character and persona]
+    P3[Active lorebook entries]
+    P4[Retrieved memories]
+    P5[Recent chat history]
+    P6[Space saved for the reply]
+  end
+
+  WIN --> Q{Does it all fit?}
+  Q -- Yes --> R[The model reads everything<br/>and writes its reply]
+  Q -- No, the window is full --> S[The oldest chat messages<br/>drop out first]
+  S --> T[Those details are forgotten<br/>unless they were saved as memory]
+  T --> R
+
+  classDef accent fill:#14532d,stroke:#4ade80,color:#f0fdf4;
+  class P4,P6 accent;
+  classDef warn fill:#3b2f14,stroke:#f59e0b,color:#fef3c7;
+  class S,T warn;

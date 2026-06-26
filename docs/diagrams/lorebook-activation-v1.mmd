@@ -1,0 +1,41 @@
+%%{init: {'theme':'dark','themeVariables':{
+  'background':'transparent',
+  'primaryColor':'#1f2b22',
+  'primaryTextColor':'#f4f4f5',
+  'primaryBorderColor':'#4ade80',
+  'lineColor':'#7dd3a6',
+  'secondaryColor':'#18181b',
+  'secondaryTextColor':'#e4e4e7',
+  'secondaryBorderColor':'#52525b',
+  'tertiaryColor':'#111827',
+  'tertiaryTextColor':'#f4f4f5',
+  'tertiaryBorderColor':'#22c55e',
+  'fontSize':'21px'
+}, 'flowchart': {
+  'nodeSpacing': 40,
+  'rankSpacing': 56,
+  'curve': 'basis'
+}}}%%
+flowchart TD
+  A[You send a message] --> B{Lorebook<br/>detection mode}
+  B -- Recent message window --> C[Scan the last<br/>few turns]
+  B -- Latest user message --> D[Scan only your<br/>newest message]
+  C --> E[Check each<br/>enabled entry]
+  D --> E
+  E --> F{Is the entry<br/>disabled?}
+  F -- Yes --> X[Never activates]
+  F -- No --> G{Set to<br/>always active?}
+  G -- Yes --> K[Entry activates]
+  G -- No --> H{Does it have<br/>keywords?}
+  H -- No --> Y[Not injected]
+  H -- Yes --> I{A keyword appears<br/>in the scanned text?}
+  I -- No --> Y
+  I -- Yes --> K
+  K --> L[Sort active entries by<br/>their position in the lorebook]
+  L --> M[Combine into one<br/>World Information block]
+  M --> N[Inject into the prompt before the reply<br/>top entries take precedence]
+
+  classDef accent fill:#14532d,stroke:#4ade80,color:#f0fdf4;
+  class K,N accent;
+  classDef muted fill:#18181b,stroke:#52525b,color:#a1a1aa;
+  class X,Y muted;

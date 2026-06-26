@@ -1,0 +1,46 @@
+%%{init: {'theme':'dark','themeVariables':{
+  'background':'transparent',
+  'primaryColor':'#1f2b22',
+  'primaryTextColor':'#f4f4f5',
+  'primaryBorderColor':'#4ade80',
+  'lineColor':'#7dd3a6',
+  'secondaryColor':'#18181b',
+  'secondaryTextColor':'#e4e4e7',
+  'secondaryBorderColor':'#52525b',
+  'tertiaryColor':'#111827',
+  'tertiaryTextColor':'#f4f4f5',
+  'tertiaryBorderColor':'#22c55e',
+  'fontSize':'21px'
+}, 'flowchart': {
+  'nodeSpacing': 40,
+  'rankSpacing': 60,
+  'curve': 'basis'
+}}}%%
+flowchart TD
+  A[Opening message] --> B[Your reply]
+  B --> C[Character reply]
+  C --> D[A choice point<br/>in the story]
+  D --> E[Original path<br/>continues unchanged]
+  E --> E2[... and on it goes]
+  D -. Branch from here .-> F[A copy is made up to here<br/>the original is left untouched]
+  F --> G[Try a different choice]
+  G --> H[A new direction unfolds]
+  G -. Branch again .-> I[Yet another version]
+
+  D --> DEST{Branch into}
+  DEST -- Same chat --> F
+  DEST -- A new character --> N1[Continue the story<br/>with someone else]
+  DEST -- A group chat --> N2[Open it up<br/>to multiple characters]
+
+  subgraph TREE [The branch tree]
+    direction TB
+    T1[See every branch<br/>and how they relate]
+    T2[The branch you are in<br/>is highlighted as the active path]
+    T3[Compare two branches<br/>side by side]
+  end
+  H --> TREE
+  I --> TREE
+  TREE --> Z{{The active branch is the history<br/>the AI reads and continues from}}
+
+  classDef accent fill:#14532d,stroke:#4ade80,color:#f0fdf4;
+  class F,G,H,T2 accent;

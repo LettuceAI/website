@@ -1,0 +1,37 @@
+%%{init: {'theme':'dark','themeVariables':{
+  'background':'transparent',
+  'primaryColor':'#1f2b22',
+  'primaryTextColor':'#f4f4f5',
+  'primaryBorderColor':'#4ade80',
+  'lineColor':'#7dd3a6',
+  'secondaryColor':'#18181b',
+  'secondaryTextColor':'#e4e4e7',
+  'secondaryBorderColor':'#52525b',
+  'tertiaryColor':'#111827',
+  'tertiaryTextColor':'#f4f4f5',
+  'tertiaryBorderColor':'#22c55e',
+  'fontSize':'21px'
+}, 'flowchart': {
+  'nodeSpacing': 40,
+  'rankSpacing': 58,
+  'curve': 'basis'
+}}}%%
+flowchart TD
+  A[A turn opens<br/>in the group] --> B{How is the next<br/>speaker chosen?}
+  B -- LLM --> C[The app picks who<br/>best fits the moment]
+  B -- Manual --> D[You choose from<br/>the character list]
+  B -- Director: Cue --> E[Tap a character,<br/>then send your message]
+  B -- Director: Action --> F[Tap a character to make<br/>them respond right away]
+  C --> G[The chosen character<br/>replies in their own voice]
+  D --> G
+  E --> G
+  F --> G
+  G --> H{What next?}
+  H -- Add another reply --> I[Continue without retyping<br/>your persona is never impersonated]
+  H -- Your move --> J[Send your next message]
+  I --> B
+  J --> B
+  G --> K[Shared memory and lorebook<br/>keep the whole group consistent]
+
+  classDef accent fill:#14532d,stroke:#4ade80,color:#f0fdf4;
+  class E,F accent;

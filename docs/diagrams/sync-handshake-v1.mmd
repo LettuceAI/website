@@ -1,0 +1,36 @@
+%%{init: {'theme':'dark','themeVariables':{
+  'background':'transparent',
+  'primaryColor':'#1f2b22',
+  'primaryTextColor':'#f4f4f5',
+  'primaryBorderColor':'#4ade80',
+  'lineColor':'#7dd3a6',
+  'secondaryColor':'#18181b',
+  'secondaryTextColor':'#e4e4e7',
+  'secondaryBorderColor':'#52525b',
+  'tertiaryColor':'#111827',
+  'tertiaryTextColor':'#f4f4f5',
+  'tertiaryBorderColor':'#22c55e',
+  'fontSize':'21px'
+}, 'flowchart': {
+  'nodeSpacing': 40,
+  'rankSpacing': 58,
+  'curve': 'basis'
+}}}%%
+flowchart TD
+  Z[Both devices on the<br/>same Wi-Fi network] --> A
+  A[Device A<br/>Settings or onboarding: Start Hosting] --> B[Shows an IP<br/>address and code]
+  C[Device B<br/>Join: enter IP and code] --> D[Connect and authenticate]
+  B --> D
+  D --> E{Same memory model<br/>installed on both?}
+  E -- No --> F[Prompt to download<br/>the embedding model]
+  F --> D
+  E -- Yes: Ready --> G[Device A confirms<br/>the transfer]
+  G --> H[End to end encrypted transfer]
+  H --> H2[Chats, characters, personas,<br/>memories, settings, avatars<br/>and banner crop framing]
+  H2 --> I[Device B reloads<br/>with the synced data]
+  I --> J[Devices disconnect<br/>nothing is kept online]
+
+  classDef warn fill:#3b2f14,stroke:#f59e0b,color:#fef3c7;
+  class E,F warn;
+  classDef accent fill:#14532d,stroke:#4ade80,color:#f0fdf4;
+  class H,H2 accent;
