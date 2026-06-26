@@ -86,6 +86,62 @@ export function ModelsDoc() {
         without losing chats or memory.
       </p>
 
+      <DocHeading level={2}>Adding a model</DocHeading>
+
+      <p>
+        Models live under a provider. Once you have added a provider in{" "}
+        <strong>Settings → Providers</strong>, open that provider and add the
+        models you want to use. You give each model the model name your provider
+        expects (for example a name from their model list) and an optional
+        display name to make it easier to recognize.
+      </p>
+
+      <p>
+        You can mark one model as the <strong>default</strong>. The default is
+        used for new chats unless a character specifies its own model. Each
+        character can have its own preferred model, which is set on the character
+        instead of per chat.
+      </p>
+
+      <Callout type="info" title="Switching models anytime">
+        You can change the model for a conversation at any time without losing the
+        chat or its memory. Adding many models is fine. They only cost anything
+        when you actually send a message.
+      </Callout>
+
+      <DocHeading level={2}>The model editor</DocHeading>
+
+      <p>
+        Each model has its own settings page, organized into tabs. You do not have
+        to touch any of these. The defaults work for most people.
+      </p>
+
+      <ul>
+        <li>
+          <strong>Generation:</strong> the core settings shared by most models,
+          like temperature, Top-P, Top-K, max output tokens, and the penalties.
+          These are explained below.
+        </li>
+        <li>
+          <strong>Runtime:</strong> extra settings for local models (the built-in
+          engine, Ollama, and similar), such as how much work goes to your GPU,
+          thread and batch sizes, and advanced samplers. Cloud providers do not
+          show this tab.
+        </li>
+        <li>
+          <strong>Reasoning:</strong> controls for models that can think before
+          answering. See the Reasoning Mode section below.
+        </li>
+        <li>
+          <strong>Caching:</strong> prompt caching for providers that support it,
+          which can lower cost on long conversations.
+        </li>
+        <li>
+          <strong>Capabilities:</strong> a read-only summary of what the model
+          supports.
+        </li>
+      </ul>
+
       <DocHeading level={2}>Model Parameters</DocHeading>
 
       <p>

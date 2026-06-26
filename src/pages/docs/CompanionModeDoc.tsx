@@ -1,5 +1,7 @@
 import { Callout } from "@/components/docs/Callout";
 import { DocHeading } from "@/components/docs/DocHeading";
+import { DocImage } from "@/components/docs/DocImage";
+import { images } from "@/config/images";
 import { motion } from "framer-motion";
 import { SEO } from "@/components/common/SEO";
 import { buildBreadcrumbSchema } from "@/config/schemas";
@@ -9,7 +11,7 @@ export function CompanionModeDoc() {
     <>
       <SEO
         title="Companion Mode"
-        description="Companion Mode gives a character a persistent emotional and relationship model, with authored soul, live state, and dedicated inspection pages."
+        description="Companion Mode gives a character a living soul that grows from your shared memories, a real-time emotional and relationship state, and dedicated pages for setting it up and watching the bond evolve."
         path="/docs/companion-mode"
         jsonLd={buildBreadcrumbSchema([
           { name: "Home", path: "/" },
@@ -27,36 +29,41 @@ export function CompanionModeDoc() {
 
         <p className="lead">
           Companion Mode is the relationship-oriented chat mode in LettuceAI. It
-          gives a character a persistent emotional baseline, a live relationship
-          state that evolves with every user message, and dedicated pages for
-          inspecting how the bond is going.
+          gives a character a written "soul" that quietly grows over time, a
+          live emotional and relationship state that shifts with every message,
+          and shared memory that can follow you across every chat with that
+          companion. It is built for bonds that last, not one-off scenes.
         </p>
 
-        <Callout type="info" title="Beta feature">
-          Companion Mode is still experimental. The core flows (soul, live
-          state, prompt injection, memory pages) are real and shipping, but
-          some companion-specific surfaces are still being filled in.
-        </Callout>
-
         <Callout type="success" title="Opt-in and additive">
-          Companion Mode is fully opt-in. It only activates for characters
-          whose interaction mode is set to Companion. Roleplay characters and
-          regular chats are unaffected. Nothing about Companion Mode changes
-          how non-companion chats prompt, remember, or persist data.
+          Companion Mode is fully opt-in. It only activates for characters whose
+          interaction mode is set to Companion. Roleplay characters and regular
+          chats are completely unaffected: nothing about Companion Mode changes
+          how non-companion chats prompt, remember, or store data. If you never
+          turn it on, it is simply not there.
         </Callout>
 
-        <DocHeading level={2}>Companion Mode vs Roleplay Mode</DocHeading>
+        <Callout type="info" title="Runs on your device">
+          The pieces that make a companion feel alive (reading emotion,
+          recognizing who and what gets mentioned, recalling past moments) run
+          locally on your device using a few small models. The app only reaches
+          out to your chosen provider for the actual reply, exactly like
+          roleplay mode does.
+        </Callout>
+
+        <DocHeading level={2}>Companion vs Roleplay</DocHeading>
         <p>
-          LettuceAI characters can be authored in one of two interaction modes.
-          The mode is chosen during character creation and changes how the chat
-          stack treats the character.
+          Every character is created in one of two interaction modes. You pick
+          the mode during character creation (and can change it later from the
+          character editor) using the <strong>Interaction Mode</strong>{" "}
+          selector.
         </p>
 
         <table className="min-w-full text-sm my-6">
           <thead>
             <tr className="border-b border-border/50">
               <th className="text-left py-2 px-4">Mode</th>
-              <th className="text-left py-2 px-4">Driven by</th>
+              <th className="text-left py-2 px-4">What drives it</th>
               <th className="text-left py-2 px-4">Best for</th>
             </tr>
           </thead>
@@ -64,7 +71,7 @@ export function CompanionModeDoc() {
             <tr className="border-b border-border/10">
               <td className="py-2 px-4 font-medium">Roleplay</td>
               <td className="py-2 px-4">
-                Scenes, situational framing, standard prompt path.
+                Scenes, situational framing, the standard prompt path.
               </td>
               <td className="py-2 px-4">
                 Scene-first storytelling, one-shot scenarios, narrative play.
@@ -73,7 +80,7 @@ export function CompanionModeDoc() {
             <tr>
               <td className="py-2 px-4 font-medium">Companion</td>
               <td className="py-2 px-4">
-                Authored soul plus live emotional and relationship state.
+                A living soul plus real-time emotional and relationship state.
               </td>
               <td className="py-2 px-4">
                 Persistent relationships, slow-build dynamics, ongoing bonds.
@@ -84,628 +91,664 @@ export function CompanionModeDoc() {
 
         <p>
           Companion Mode does not remove scenes. They are still supported as
-          opening context. The emphasis simply shifts from scene framing to the
-          relational runtime.
-        </p>
-
-        <p>
-          The mode is a per-character setting (chosen with an interaction
-          mode selector during character creation and changeable from the
-          character editor). Sessions inherit the mode from their character,
-          so the runtime treats a chat as a companion chat when either the
-          character or the session is marked <code>companion</code>. There is
-          no global "companion mode" toggle: roleplay characters keep their
-          original prompt path even when companion infrastructure is
+          opening context (and you can skip them entirely for a companion). The
+          emphasis simply shifts from framing a scene to keeping a relationship
+          alive between sessions. There is no global switch: roleplay characters
+          keep their original behavior even with all the companion pieces
           installed.
         </p>
 
-        <DocHeading level={2}>The four pieces of companion state</DocHeading>
-        <p>
-          It helps to think of a companion character as having four distinct
-          layers of state. They are easy to confuse, but they serve different
-          purposes.
-        </p>
-
-        <ul>
-          <li>
-            <strong>The soul (per character)</strong> is the authored baseline:
-            who the companion is, how they tend to feel, how they regulate
-            emotion, and where the relationship starts. This is character
-            design data, set once and edited intentionally. It lives on the
-            character record as a structured config (not a free-form file).
-          </li>
-          <li>
-            <strong>The live session state (per chat)</strong> is the runtime
-            layer: the current felt, expressed, blocked, and momentum emotion
-            vectors, the live relationship metrics, the recent driver signals,
-            and a confidence score. It is stored on the session and changes
-            with every user turn.
-          </li>
-          <li>
-            <strong>Per-turn effects</strong> are per-message diffs that
-            describe what changed on a given assistant turn: relationship
-            delta, emotion delta, signal additions and removals, and any
-            memory entries added, updated, or superseded. These power the
-            inspection UI without rereading the whole state machine.
-          </li>
-          <li>
-            <strong>The companion memory view</strong> presents memory through
-            a relational lens. The underlying memory engine is shared with
-            normal Dynamic Memory, but companion pages categorize and surface
-            memories in a relationship-oriented way.
-          </li>
-        </ul>
-
         <DocHeading level={2}>The companion soul</DocHeading>
         <p>
-          The soul is the authored psychological base of the companion. You
-          write it (or generate it with the Soul Writer) and it stays fairly
-          stable over time. It has four sections.
+          The soul is the heart of a companion. It is who they are underneath
+          the basic character card: their nature, their history, the things they
+          love, the things that frighten them, and how they handle their
+          feelings. You write it in the <strong>Companion Soul</strong> step
+          during creation, or in the <strong>Soul</strong> tab of the character
+          editor afterward. You can author every word yourself, or let the Soul
+          Generator draft it for you and then edit freely.
         </p>
 
-        <DocHeading level={3}>Identity</DocHeading>
+        <DocHeading level={3}>The twelve identity blocks</DocHeading>
         <p>
-          Free-text fields that describe who the companion is on a human level.
+          The soul is built from twelve short written blocks. Each one is plain
+          text, and each comes with worked examples you can insert and adapt.
+          You only have to fill in what matters to you: empty blocks are fine.
         </p>
+
         <ul>
           <li>
-            <strong>Essence</strong>: the core of who they are.
+            <strong>Essence</strong>: who they are underneath the card
+            definition.
           </li>
           <li>
-            <strong>Voice</strong>: how they speak and phrase things.
+            <strong>Traits</strong>: their defining personality traits, a few
+            words each.
           </li>
           <li>
-            <strong>Relational style</strong>: how they relate to others.
+            <strong>Backstory</strong>: how they came to be. Origin, formative
+            events, what they do.
           </li>
           <li>
-            <strong>Vulnerabilities</strong>: where they are tender or guarded.
+            <strong>Appearance</strong>: how they look and dress, including a
+            signature outfit or style.
           </li>
           <li>
-            <strong>Habits</strong>: small recurring behaviors.
+            <strong>Goals</strong>: what they are working toward. Ambitions,
+            quests, unfinished business.
           </li>
           <li>
-            <strong>Boundaries</strong>: lines they tend not to cross.
+            <strong>Likes and Favorites</strong>: favorites and small joys.
+            Food, color, music, little gestures.
+          </li>
+          <li>
+            <strong>Inner Voice</strong>: how they sound in close conversation.
+          </li>
+          <li>
+            <strong>Relational Style</strong>: how they attach, trust, retreat,
+            and reconnect.
+          </li>
+          <li>
+            <strong>Vulnerabilities</strong>: soft spots, insecurities, things
+            they rarely say out loud.
+          </li>
+          <li>
+            <strong>Fears</strong>: what they can be pressured on. Literal fears
+            and the things that unsettle them.
+          </li>
+          <li>
+            <strong>Habits</strong>: recurring tells, rituals, and
+            conversational patterns.
+          </li>
+          <li>
+            <strong>Boundaries</strong>: lines they will not cross, the pace they
+            keep, and their comfort limits.
           </li>
         </ul>
 
-        <DocHeading level={3}>Baseline affect</DocHeading>
+        <Callout type="info" title="Why fears get their own block">
+          Fears are kept separate on purpose. They describe what genuinely
+          unsettles a companion, so the character can react believably when a
+          scene touches one of those nerves, instead of staying unflappable
+          about everything. The Soul Generator is aware of this block and will
+          draft fears alongside the rest.
+        </Callout>
+
+        <DocHeading level={3}>Fine-tuning the feelings</DocHeading>
         <p>
-          A numeric profile of the companion's default emotional tone. These
-          values seed the felt and expressed emotions when there is no live
-          session state yet, and act as the equilibrium the runtime decays
-          back toward over time.
+          Below the written blocks, a <strong>Fine-tune feelings</strong>{" "}
+          section lets you shape the companion's emotional makeup with sliders.
+          Most people can leave these at their sensible defaults, but they are
+          there if you want precise control.
         </p>
+        <ul>
+          <li>
+            <strong>Baseline Affect</strong> (ten sliders): the companion's
+            default emotional tone, for example warmth running from cold to
+            affectionate. These set the mood the companion rests at and gently
+            returns to between turns.
+          </li>
+          <li>
+            <strong>Regulation Style</strong> (nine sliders): how they handle
+            feelings before showing them, including suppression, volatility, and
+            pride. This is what creates the gap between what a companion feels
+            and what they actually let you see.
+          </li>
+          <li>
+            <strong>Relationship Defaults</strong> (four sliders): where the
+            relationship starts on closeness, trust, affection, and tension when
+            you begin chatting.
+          </li>
+        </ul>
+
         <p>
-          The axes include warmth, trust, calm, vulnerability, longing, hurt,
-          tension, irritation, affection intensity, and reassurance need.
+          The soul editor also carries two switches that apply to this companion
+          everywhere: <strong>Time Awareness</strong> and{" "}
+          <strong>Shared Memory Across Sessions</strong>. Both default to off and
+          are explained in their own sections below.
         </p>
 
-        <DocHeading level={3}>Regulation style</DocHeading>
+        <DocHeading level={2}>The Soul Generator</DocHeading>
         <p>
-          How the companion handles their feelings before showing them. This is
-          what creates the difference between what is felt and what is
-          expressed.
-        </p>
-        <p>
-          The axes include suppression, volatility, recovery speed, conflict
-          avoidance, reassurance seeking, protest behavior, emotional
-          transparency, attachment activation, and pride.
-        </p>
-
-        <DocHeading level={3}>Relationship defaults</DocHeading>
-        <p>
-          The starting values for the relational axes when a session begins:
-          closeness, trust, affection, and tension. These seed the live
-          relationship state on the first user turn.
+          You never have to write a soul from a blank page. The Soul Generator
+          drafts one for you from the character's name, definition, and any
+          scenes you have set. Find it in the{" "}
+          <strong>Generate from character</strong> card inside the soul editor
+          and tap <strong>Generate soul</strong>. It stays disabled until the
+          character has at least a name and a definition (it will tell you which
+          one is missing).
         </p>
 
-        <DocHeading level={3}>Memory and prompting config</DocHeading>
+        <ul>
+          <li>
+            <strong>Watch it think</strong>: while it works, a status pill shows
+            live steps such as authoring identity, setting the baseline mood,
+            tuning emotional regulation, and finishing up. You can expand it to
+            watch the text stream in as it is written.
+          </li>
+          <li>
+            <strong>Stop anytime</strong>: a <strong>Stop</strong> button next to
+            the status cancels the run immediately. A canceled run leaves your
+            existing soul untouched.
+          </li>
+          <li>
+            <strong>Review before applying</strong>: when it finishes, a{" "}
+            <strong>Review generated soul</strong> panel opens showing all twelve
+            blocks as editable fields (changed fields are marked) along with the
+            before-and-after slider changes. From there you can{" "}
+            <strong>Apply</strong>, <strong>Regenerate</strong>,{" "}
+            <strong>Discard</strong>, or open <strong>Direction</strong> to steer
+            the next draft.
+          </li>
+          <li>
+            <strong>Optional steering</strong>: the <strong>Direction</strong>{" "}
+            box lets you nudge how the soul is drafted (a tone, a theme, a detail
+            you want included). Leave it empty to let the model decide from the
+            character alone.
+          </li>
+        </ul>
+
         <p>
-          The companion config also carries a small memory profile (whether
-          companion memory is enabled, retrieval limit, max entries, and
-          whether the runtime should prioritize relationship memories,
-          episodic memories, and emotional snapshots) plus optional prompting
-          overrides (a per-character companion prompt template ID and freeform
-          style notes that are injected into the prompt alongside the soul).
+          You control which model writes souls and how, from{" "}
+          <strong>Settings &gt; Companion Soul Writer</strong>: pick the
+          generation model (or use the app default), choose a structured fallback
+          format (JSON or XML) for local models that cannot use tool calling, and
+          optionally supply your own Soul Writer prompt template.
+        </p>
+
+        <DocHeading level={2}>How the soul grows over time</DocHeading>
+        <p>
+          This is what makes a companion feel like it is truly getting to know
+          you. The soul you write is the starting point, not a cage. As you talk
+          and the companion forms memories, parts of its personality can quietly
+          evolve. We call this <strong>soul growth</strong>.
+        </p>
+
+        <DocImage
+          src={images.companion.soulGrowth}
+          alt="How companion memories turn into soul growth without overwriting the authored soul"
+          caption="As you chat, new memories feed a growth cycle. Only the parts allowed to change are updated, conflicts supersede older growth, and everything is added as an overlay so the soul you wrote is never overwritten."
+          containerClassName="max-w-2xl mx-auto"
+        />
+
+        <DocHeading level={3}>What growth does</DocHeading>
+        <p>
+          After the companion replies, the app notes any new memories from the
+          exchange. In the background, a growth pass looks at those fresh
+          memories alongside the companion's changeable traits and decides
+          whether anything about them has genuinely shifted. Maybe they have
+          picked up a new favorite, warmed up to a topic they used to avoid, or
+          revealed a goal. When it finds a real change, it records a small{" "}
+          <strong>growth entry</strong> layered on top of your authored soul.
+        </p>
+
+        <Callout type="info" title="Your writing is never overwritten">
+          Growth never edits the words you wrote. It stacks gentle adjustments on
+          top of the authored soul. A trait's current value is your original plus
+          any active growth, so you can always clear growth and get your original
+          companion back exactly as written.
+        </Callout>
+
+        <p>
+          When a new realization conflicts with an older one, the new entry{" "}
+          <strong>supersedes</strong> the old one rather than piling up beside
+          it, so the companion does not hold two contradictory beliefs at once.
+          Retired entries are kept as a short history. Much less often, once
+          enough small changes have built up, a <strong>consolidation</strong>{" "}
+          pass folds them into the companion's deeper core so the personality
+          stays coherent instead of drifting.
+        </p>
+
+        <DocHeading level={3}>Seeing and managing growth</DocHeading>
+        <p>
+          You stay in control of everything growth does. The{" "}
+          <strong>Relationship</strong> page for a companion chat has a{" "}
+          <strong>Soul growth</strong> section that lists how the changeable
+          traits have evolved, with badges showing whether each entry was added
+          or adjusted and how many memories it came from. From there you can:
+        </p>
+        <ul>
+          <li>
+            <strong>Remove a single entry</strong>, with a confirmation first.
+            This drops just that evolving trait and never touches your authored
+            soul.
+          </li>
+          <li>
+            <strong>Clear all growth</strong>, also confirmed first. This wipes
+            every accumulated change (including retired history) and returns the
+            companion to exactly the soul you wrote.
+          </li>
+        </ul>
+        <p>
+          If a companion has not formed any growth yet, the section simply says
+          so. Growth is companion-only and entirely optional in spirit: clearing
+          it is always safe.
+        </p>
+
+        <DocHeading level={2}>Which parts change, and how fast</DocHeading>
+        <p>
+          Not everything about a companion should shift at the same speed. A
+          person's favorite snack can change in a week, but who they are at their
+          core should not. LettuceAI sorts the soul into a few mutability levels
+          so growth feels natural rather than chaotic.
+        </p>
+
+        <table className="min-w-full text-sm my-6">
+          <thead>
+            <tr className="border-b border-border/50">
+              <th className="text-left py-2 px-4">Level</th>
+              <th className="text-left py-2 px-4">How it changes</th>
+              <th className="text-left py-2 px-4">Covers</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="border-b border-border/10">
+              <td className="py-2 px-4 font-medium">Fixed</td>
+              <td className="py-2 px-4">Never changes on its own.</td>
+              <td className="py-2 px-4">Backstory.</td>
+            </tr>
+            <tr className="border-b border-border/10">
+              <td className="py-2 px-4 font-medium">Core (very slow)</td>
+              <td className="py-2 px-4">
+                Only the rare consolidation pass can ever touch it.
+              </td>
+              <td className="py-2 px-4">Essence and traits.</td>
+            </tr>
+            <tr className="border-b border-border/10">
+              <td className="py-2 px-4 font-medium">Slowly evolving</td>
+              <td className="py-2 px-4">
+                Shifts gradually through ordinary growth.
+              </td>
+              <td className="py-2 px-4">
+                Appearance, goals, inner voice, relational style,
+                vulnerabilities, fears, habits, boundaries.
+              </td>
+            </tr>
+            <tr>
+              <td className="py-2 px-4 font-medium">Quickly evolving</td>
+              <td className="py-2 px-4">
+                The most responsive to new memories.
+              </td>
+              <td className="py-2 px-4">Likes and favorites.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>
+          The core identity is special: it is authored once and stored as-is, and
+          any evolution is layered over it rather than rewriting it. In the
+          companion pages, the original core values appear as read-only cards,
+          while anything growth has changed shows up under the Soul growth
+          section, so you can always tell what you wrote apart from what evolved.
+          On the relationship meters, values that have risen above their starting
+          point fill in a warm color, while values that have dropped below it are
+          shown in a danger color so a cooling bond is easy to spot at a glance.
         </p>
 
         <DocHeading level={2}>Live session state</DocHeading>
         <p>
-          Every companion session maintains a live state that updates from the
-          user's messages. It has two main parts.
+          Separate from the soul, every companion chat keeps a live state that
+          updates from your messages. The soul is who they are; the live state is
+          how they feel and where the relationship stands right now. Unlike
+          memory, this state stays per chat: different conversations with the
+          same companion can be in different emotional places.
         </p>
 
         <DocHeading level={3}>Emotional state</DocHeading>
         <ul>
           <li>
-            <strong>Felt</strong>: what the companion internally experiences
-            after baseline decay and the latest turn's update.
+            <strong>Felt</strong>: what the companion is actually experiencing
+            inside.
           </li>
           <li>
-            <strong>Expressed</strong>: the emotionally visible version after
-            regulation traits are applied.
+            <strong>Expressed</strong>: the version that surfaces in replies
+            after their regulation style is applied.
           </li>
           <li>
-            <strong>Blocked</strong>: what is felt but not shown: the gap
-            between felt and expressed.
+            <strong>Blocked</strong>: what is felt but held back. The gap between
+            felt and expressed.
           </li>
           <li>
-            <strong>Momentum</strong>: the direction emotions have been moving
-            in recently.
+            <strong>Momentum</strong>: which way the feelings have been trending
+            over recent turns.
           </li>
           <li>
-            <strong>Active drivers</strong>: the signal labels behind the
-            current state (for example <code>emotion:love</code>,{" "}
-            <code>emotion:conflict</code>, <code>emotion:distress</code>).
+            <strong>Active drivers</strong>: short labels for what is behind the
+            current mood, drawn from the last message.
           </li>
           <li>
-            <strong>Confidence</strong>: how strongly the emotion classifier
-            agreed with itself on the last turn. Low confidence shows up as a
-            softer, more cautious update.
+            <strong>Confidence</strong>: how sure the emotion reading was on the
+            last turn. Lower confidence produces a softer, more cautious update.
           </li>
         </ul>
 
-        <p>
-          Each axis on the felt and expressed vectors is clamped to the range
-          0 to 1. Momentum is a signed vector, so it can record direction as
-          well as magnitude.
-        </p>
+        <Callout type="info" title="Felt vs expressed">
+          A central idea in companion mode is that what a companion{" "}
+          <em>feels</em> and what they <em>show</em> are tracked separately.
+          Regulation traits like suppression and emotional transparency decide
+          how much of the felt state actually reaches you, which is why a guarded
+          companion can be hurting without ever saying so.
+        </Callout>
 
         <DocHeading level={3}>Relationship state</DocHeading>
-        <ul>
-          <li>
-            <strong>Closeness</strong>, <strong>trust</strong>,{" "}
-            <strong>affection</strong>, and <strong>tension</strong>: the
-            primary relational axes.
-          </li>
-          <li>
-            <strong>Stability</strong>: a coarse signal for how settled the
-            bond feels overall.
-          </li>
-          <li>
-            <strong>Interaction count</strong> and{" "}
-            <strong>last interaction time</strong>: usage metadata that helps
-            the runtime apply decay correctly.
-          </li>
-          <li>
-            <strong>Preferences</strong>: per-session toggles (currently the
-            time awareness flag, described in its own section below).
-          </li>
-        </ul>
+        <p>
+          The bond itself is tracked on a handful of meters, each with plain low
+          and high anchors so the numbers mean something.
+        </p>
 
-        <Callout type="info" title="State materializes lazily">
-          A new companion chat does not necessarily persist live state right
-          away. The runtime can synthesize a sensible fallback from the soul
-          and relationship defaults. The first real user message is usually
-          what writes the live state to the session.
+        <table className="min-w-full text-sm my-6">
+          <thead>
+            <tr className="border-b border-border/50">
+              <th className="text-left py-2 px-4">Meter</th>
+              <th className="text-left py-2 px-4">Low</th>
+              <th className="text-left py-2 px-4">High</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="border-b border-border/10">
+              <td className="py-2 px-4 font-medium">Closeness</td>
+              <td className="py-2 px-4">Withdrawn</td>
+              <td className="py-2 px-4">Intimate</td>
+            </tr>
+            <tr className="border-b border-border/10">
+              <td className="py-2 px-4 font-medium">Trust</td>
+              <td className="py-2 px-4">Distrustful</td>
+              <td className="py-2 px-4">Trusting</td>
+            </tr>
+            <tr className="border-b border-border/10">
+              <td className="py-2 px-4 font-medium">Affection</td>
+              <td className="py-2 px-4">Hostile</td>
+              <td className="py-2 px-4">Affectionate</td>
+            </tr>
+            <tr className="border-b border-border/10">
+              <td className="py-2 px-4 font-medium">Tension</td>
+              <td className="py-2 px-4">Easy</td>
+              <td className="py-2 px-4">Charged</td>
+            </tr>
+            <tr>
+              <td className="py-2 px-4 font-medium">Stability</td>
+              <td className="py-2 px-4">Volatile</td>
+              <td className="py-2 px-4">Stable</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>
+          The page also shows the number of interactions and when you last spoke.
+          Meters start low and build over time, and each meter's trend is
+          compared against the character's defaults so you can see whether things
+          are warming up or cooling down.
+        </p>
+
+        <Callout type="info" title="State settles in as you talk">
+          A brand-new companion chat does not need to write out its full state
+          right away. The runtime can fall back to sensible values from the soul
+          and the relationship defaults, and your first real message is usually
+          what locks in the live state for that chat.
         </Callout>
 
         <DocHeading level={2}>What happens on a companion turn</DocHeading>
         <p>
-          Companion mode adds a few extra steps to the normal chat flow. The
-          ordering matters because it lets the same turn's reply reflect how
-          the companion just reacted to your message.
+          Companion mode adds a few quiet steps around a normal reply. The order
+          matters, because it lets the same reply reflect how the companion just
+          reacted to you.
         </p>
 
         <ol>
           <li>You send a message.</li>
           <li>
-            The runtime decays the previous emotional state exponentially
-            toward the soul baseline based on how long it has been since the
-            last turn (the half-life is on the order of 45 minutes, scaled by
-            the soul's recovery speed). Tension decays separately, and
-            stability ticks slightly upward during calm gaps.
+            The previous emotional state relaxes back toward the companion's
+            baseline based on how long it has been since you last spoke, so a
+            long absence cools a heated moment.
           </li>
           <li>
-            The local emotion classifier reads your message and produces a
-            small set of high-confidence labels (love, caring, gratitude,
-            desire, sadness, anger, fear, and so on). Each one above its
-            threshold is mapped to a named driver signal plus a delta on the
-            ten emotion axes and the four relationship axes.
+            The on-device emotion reader looks at your message and produces a few
+            confident labels (such as love, gratitude, sadness, or anger), each
+            of which nudges the emotional and relationship meters.
           </li>
           <li>
-            The combined delta is scaled by the soul's volatility, applied to
-            the felt vector, and clamped. The regulation profile then derives
-            the expressed vector from the felt one (suppression pulls hurt and
-            vulnerability down, transparency lets them through, pride dampens
-            reassurance seeking, and so on). The blocked vector is the gap
-            between felt and expressed.
+            Those nudges are scaled by the companion's volatility and applied,
+            then their regulation style derives what they actually express from
+            what they feel.
           </li>
           <li>
-            Relationship axes update: closeness and affection drift slightly
-            upward by default on any turn, then the per-label deltas add on
-            top. Trust, tension, and stability move only in response to
-            specific signals.
+            The relationship meters update: closeness and affection drift gently
+            upward on any turn, while trust, tension, and stability move only in
+            response to specific signals.
           </li>
           <li>
-            Active drivers and momentum are recorded, interaction count is
-            incremented, and the new state is persisted to the session.
+            A compact summary of the companion's current state is woven into the
+            prompt, and the reply is generated with that live context in view.
           </li>
           <li>
-            The runtime renders a companion-state block (soul fragments, live
-            relationship percentages, expressed tone, blocked-but-felt notes,
-            recent drivers, and a couple of regulation hints) and injects it
-            into the prompt at the <code>{`{{companion_state}}`}</code>{" "}
-            template slot.
-          </li>
-          <li>
-            The assistant generates the reply with that live relational
-            context in scope.
-          </li>
-          <li>
-            After the reply is saved, dynamic memory processing runs in the
-            background and a per-turn effect record is written (relationship
-            delta, emotion delta, signals added or removed, memories added,
-            updated, or superseded).
+            After the reply is saved, memory processing and the soul growth pass
+            run in the background.
           </li>
         </ol>
 
-        <Callout type="info" title="Classifier fallback is graceful">
-          If the local emotion classifier is missing or fails on a given turn,
-          the runtime logs a warning and applies a near-neutral update (a
-          small stability nudge and low confidence) instead of refusing the
-          turn. Companion chats remain usable; they just stop updating
-          emotionally until the classifier is available again.
-        </Callout>
-
-        <Callout type="info" title="Felt vs expressed">
-          One of the central design ideas in companion mode is that what the
-          companion <em>feels</em> and what they <em>show</em> are tracked
-          separately. Regulation traits like suppression and emotional
-          transparency control how much of the felt state actually surfaces.
-        </Callout>
-
-        <DocHeading level={2}>Time awareness</DocHeading>
-        <p>
-          Time awareness is an opt-in per-session preference under the live
-          companion state. When it is on, the runtime gives the companion live
-          system-time grounding and starts stamping new companion memories with
-          when they happened, so questions like "what did we do last weekend"
-          can pull the right entries back.
-        </p>
-
-        <Callout type="info" title="Where to toggle it">
-          Open <strong>Chat Settings</strong> for a companion chat and flip the{" "}
-          <strong>Time Awareness</strong> switch. It is a per-session toggle
-          stored on the companion state's preferences, so each chat decides for
-          itself. The toggle is only shown for companion chats; non-companion
-          chats never read the flag.
-        </Callout>
-
-        <DocHeading level={3}>What it actually does</DocHeading>
-        <ul>
-          <li>
-            <strong>Live time in the prompt</strong>: the default companion
-            template includes a "Current Local Time" entry gated on the time
-            awareness condition. When the flag is on, that entry renders a
-            small block with the date, weekday, 24-hour and 12-hour clock,
-            timezone name and offset, and an ISO timestamp, all drawn from the
-            device's local clock at render time.
-          </li>
-          <li>
-            <strong>Time-stamped memories</strong>: new memories created during
-            the turn get an <code>observed_at</code> timestamp (and a "turn"
-            precision marker) sourced from the latest message. Without time
-            awareness, memories are created without that grounding.
-          </li>
-          <li>
-            <strong>Temporal retrieval</strong>: companion memory retrieval
-            parses phrases like "yesterday", "last week", "two fridays ago",
-            "this month", and "five weeks ago today" out of the user query.
-            When a phrase resolves to a date range, retrieval first filters
-            stored memories to those whose <code>observed_at</code> falls
-            inside that range before scoring. If nothing falls in the range,
-            the runtime stops there rather than padding with off-topic
-            entries.
-          </li>
-          <li>
-            <strong>Lexical anchor boost</strong>: with time awareness on, the
-            ranker also adds a small lexical-overlap boost on top of cosine
-            similarity, which helps tie literal anchors in the query (proper
-            nouns, place names) to memories that mention the same things.
-          </li>
-          <li>
-            <strong>Memory display</strong>: when a memory has an{" "}
-            <code>observed_at</code>, it is rendered into the prompt with a
-            short "observed YYYY-MM-DD HH:MM TZ" suffix so the model can reason
-            about chronology.
-          </li>
-        </ul>
-
-        <DocHeading level={3}>Template slots it produces</DocHeading>
-        <p>
-          Whether or not the toggle is on, the prompt renderer resolves the
-          following placeholders against the device's current local time
-          whenever a template references them:
-        </p>
-        <ul>
-          <li>
-            <code>{"{{date}}"}</code>: ISO-style date like <code>2026-05-11</code>.
-          </li>
-          <li>
-            <code>{"{{date_full}}"}</code>: long form like{" "}
-            <code>Monday, May 11, 2026</code>.
-          </li>
-          <li>
-            <code>{"{{weekday}}"}</code>: day name.
-          </li>
-          <li>
-            <code>{"{{time_hour}}"}</code>, <code>{"{{time_minute}}"}</code>,{" "}
-            <code>{"{{time_second}}"}</code>: 24-hour components.
-          </li>
-          <li>
-            <code>{"{{time_full}}"}</code>: 24-hour <code>HH:MM:SS</code> with
-            timezone offset.
-          </li>
-          <li>
-            <code>{"{{time_12hour_format}}"}</code>: 12-hour clock with AM/PM.
-          </li>
-          <li>
-            <code>{"{{time_timezone}}"}</code>: numeric offset.{" "}
-            <code>{"{{time_timezone_name}}"}</code>: zone name.
-          </li>
-          <li>
-            <code>{"{{datetime_iso}}"}</code>: full RFC 3339 timestamp.
-          </li>
-        </ul>
-        <p>
-          The shipped companion templates also reuse those slots inside the
-          dynamic summary and dynamic memory prompts, so the summarizer and the
-          memory router get the same "current local time context" line as the
-          chat reply.
-        </p>
-
-        <DocHeading level={3}>How conditions hook into it</DocHeading>
-        <p>
-          System prompt entries can gate themselves on an{" "}
-          <code>isTimeAwarenessEnabled</code> condition. That condition resolves
-          to true only when the chat is in companion mode and the per-session
-          time awareness flag is on. The default companion "Current Local Time"
-          entry uses this condition, which is why the time block disappears
-          cleanly the moment you toggle the preference off.
-        </p>
-
-        <Callout type="info" title="Scope today">
-          At the moment, time awareness is companion-only. Roleplay chats,
-          scene generation, lorebook generation, and group chats build their
-          context with this flag forced to false. The placeholders still
-          resolve there if a template uses them, but the conditional time
-          block and timestamped memories are companion-mode features.
+        <Callout type="info" title="It fails gracefully">
+          If the on-device emotion reader is unavailable on a given turn, the
+          companion keeps chatting. It simply applies a near-neutral update and
+          pauses emotional changes until the model is back, rather than blocking
+          the conversation.
         </Callout>
 
         <DocHeading level={2}>Companion memory</DocHeading>
         <p>
-          Companion memory uses the same dynamic memory engine as the rest of
-          the app. There is no separate companion memory database. What
-          companion mode adds is a relationship-oriented presentation on top
-          of that shared store.
+          Companion memory uses the same dynamic memory engine as the rest of the
+          app, presented through a relationship-oriented lens. From a companion
+          chat's <strong>Memory</strong> page you can browse, search, filter,
+          pin, warm up or cool down, re-date, edit, or delete memories, and even
+          hand-edit the running context summary.
         </p>
 
+        <DocHeading level={3}>Shared memory across sessions</DocHeading>
         <p>
-          The companion memory page normalizes entries into categories like:
+          The soul editor's <strong>Shared Memory Across Sessions</strong> switch
+          (off by default) decides how memory is scoped for a companion. When it
+          is on, every chat with that companion draws from a single shared memory
+          pool, so something they learn in one conversation carries into the
+          others, and an edit in one chat affects them all. Even with sharing on,
+          the emotional state and the relationship meters stay separate per chat.
         </p>
 
+        <DocHeading level={3}>When memories go stale</DocHeading>
+        <p>
+          People change their minds, and so should a companion's memory of you.
+          When a new memory contradicts an older one (you moved cities, you
+          changed jobs), the new memory <strong>supersedes</strong> the old one:
+          the outdated fact stops influencing replies, but a trail is kept so
+          nothing is silently lost. On the Memory page you can filter between
+          active and superseded entries, and superseded items are dimmed and
+          clearly tagged.
+        </p>
+
+        <DocHeading level={3}>Scheduled notes</DocHeading>
+        <p>
+          Scheduled notes let you hand the companion dated background context that
+          it only picks up when the day arrives. Think birthdays, anniversaries,
+          or a seasonal beat you want acknowledged. For each note you set the
+          exact text the companion will read, an optional label, whether it
+          repeats (once, daily, weekly, monthly, or yearly), and the date and
+          time window it is active. You can disable a note to keep it saved
+          without it entering prompts, and preview which notes would be active on
+          any chosen date.
+        </p>
+
+        <DocHeading level={3}>Custom memory prompts</DocHeading>
+        <p>
+          Companion chats share the app's dynamic memory backend, so the same
+          customization applies. Under{" "}
+          <strong>Settings &gt; Dynamic Memory</strong> you can swap in your own{" "}
+          <strong>Summary Prompt</strong> (how recent turns get summarized into
+          durable context) and <strong>Memory Manager Prompt</strong> (how
+          memories get added, updated, and removed), or leave both on the
+          built-in defaults.
+        </p>
+
+        <DocHeading level={2}>Time awareness</DocHeading>
+        <p>
+          Time awareness lets a companion know what day and time it is and
+          remember when things happened. It is off by default. The soul editor's{" "}
+          <strong>Time Awareness</strong> switch sets the default for new chats
+          with that companion, and any individual chat can override it from its
+          own settings.
+        </p>
+        <p>When it is on:</p>
         <ul>
           <li>
-            <strong>Relationship</strong>: how you and the companion relate.
+            <strong>Live time in the conversation</strong>: the companion is told
+            the current local date and time, so it can react to the hour, the
+            weekday, or the season naturally.
           </li>
           <li>
-            <strong>Milestone</strong>: meaningful moments in the bond.
+            <strong>Time-stamped memories</strong>: new memories record when they
+            happened, which is what makes questions like "what did we do last
+            weekend" pull back the right moments.
           </li>
           <li>
-            <strong>Boundary</strong>: limits or rules either side has set.
-          </li>
-          <li>
-            <strong>Preference</strong>: likes, dislikes, comforts.
-          </li>
-          <li>
-            <strong>Profile</strong>: stable factual details.
-          </li>
-          <li>
-            <strong>Routine</strong>: recurring patterns.
-          </li>
-          <li>
-            <strong>Episodic</strong>: specific events worth remembering.
-          </li>
-          <li>
-            <strong>Emotional snapshot</strong>: captured emotional moments.
+            <strong>Time-aware recall</strong>: when you mention a period like
+            "yesterday" or "a few weeks ago", memory retrieval can focus on that
+            window instead of guessing.
           </li>
         </ul>
-
         <p>
-          From the memory page you can browse, filter, pin, cool, edit, or
-          delete memories the same way you would in regular Dynamic Memory,
-          just with a companion-friendly category layout.
+          A per-chat <strong>Time Override</strong> gives you finer control over
+          the clock the companion sees. <strong>Live</strong> uses the real
+          clock, <strong>Frozen</strong> holds a fixed moment in place, and{" "}
+          <strong>Ticking</strong> keeps advancing from a time you set. This
+          shifts both the time the companion perceives and how the recency of
+          memories is judged, which is handy for stories set in a different
+          moment.
         </p>
 
-        <Callout type="info" title="Important nuance">
-          Because companion memory is layered on the shared engine, presentation
-          differences (a category not appearing as expected, for example) are
-          usually a normalization issue rather than a problem with how memory
-          is stored.
+        <DocHeading level={2}>Setting up a companion</DocHeading>
+        <p>
+          Setting up a companion is a guided flow, and the app handles the
+          technical parts for you.
+        </p>
+        <ol>
+          <li>
+            <strong>Choose the mode</strong>: in the character's Description
+            step, pick <strong>Companion</strong> in the Interaction Mode
+            selector.
+          </li>
+          <li>
+            <strong>Install the on-device pieces</strong>: the first time you do
+            this, a setup guide appears explaining that a companion runs on your
+            device and needs a few small models, a one-time download. Tap to
+            start it.
+          </li>
+          <li>
+            <strong>Keep your place during the download</strong>: starting the
+            download takes you to a queue page that installs the models one after
+            another and shows progress. When it finishes, it counts down and
+            returns you to exactly where you were, with everything you had
+            already typed still intact.
+          </li>
+          <li>
+            <strong>Learn how it works</strong>: once the models are ready, the
+            guide returns with a short explainer covering emotional state, the
+            relationship, and memory, plus an optional prompt to shape the soul.
+          </li>
+          <li>
+            <strong>Shape the soul</strong>: in the Companion Soul step, write
+            the twelve blocks yourself or use the Soul Generator, fine-tune the
+            feelings if you want, and set the optional Direction for generation.
+          </li>
+        </ol>
+
+        <Callout type="info" title="Sensible defaults, then generate">
+          There are no personality presets to wade through. A new companion
+          starts from sensible defaults, and the Soul Generator gives you a full
+          first draft to react to. From there you only change what you care
+          about.
         </Callout>
 
-        <DocHeading level={2}>Companion pages (in-chat)</DocHeading>
+        <DocHeading level={2}>The on-device models</DocHeading>
         <p>
-          Companion mode exposes three dedicated chat-side pages so the system
-          stays inspectable instead of being a black box. They are reachable
-          from the chat header of any session whose mode is{" "}
-          <code>companion</code>.
+          Companion mode relies on a small set of local models. When you switch a
+          character into companion mode, the app checks which ones are present and
+          offers to download anything missing before you continue. Chatting is
+          forgiving if one is missing (it degrades rather than blocks), but the
+          experience is fullest with all four installed.
         </p>
-
         <ul>
           <li>
-            <strong>Relationship page</strong>: live closeness, trust,
-            affection, tension, stability, interaction count, top felt and
-            expressed emotions, recent momentum, and the active driver
-            signals from the last turn.
+            <strong>Embedding model</strong> (about 90 MB): powers memory recall
+            and semantic search.
           </li>
           <li>
-            <strong>Memory page</strong>: the full companion memory browser
-            with category filters, search, pinning, cooling, editing, and
-            category reassignment. Each entry also shows its source role and
-            its canonicalized entity anchors when present.
+            <strong>Emotion classifier</strong> (about 120 MB): reads each
+            message and produces the signals that move the emotional state.
           </li>
           <li>
-            <strong>Soul page</strong>: in-chat soul editing and AI-assisted
-            soul drafting, so you can refine a companion's personality without
-            leaving the conversation.
-          </li>
-        </ul>
-
-        <DocHeading level={2}>The Companion Soul Writer</DocHeading>
-        <p>
-          The Soul Writer is an AI-assisted authoring flow that drafts or
-          refines a companion's soul from existing character context.
-        </p>
-
-        <ul>
-          <li>
-            It can generate a soul from scratch using the character name,
-            description, definition, and opening context.
+            <strong>Entity extractor</strong> (about 140 MB): recognizes people,
+            places, and things so memories can be linked together.
           </li>
           <li>
-            It can refine an existing soul based on user notes.
-          </li>
-          <li>
-            It uses a multi-step tool-calling loop when the provider supports
-            it, with a JSON or XML structured-output fallback for providers
-            and local models that do not expose tool calling. The fallback
-            format is configurable in the Soul Writer settings.
-          </li>
-        </ul>
-
-        <p>
-          The Soul Writer applies discrete operations rather than rewriting
-          the whole soul blob in one shot. The operation set is:{" "}
-          <code>set_identity</code>, <code>set_baseline_affect</code>,{" "}
-          <code>set_regulation_style</code>,{" "}
-          <code>set_relationship_defaults</code>, and a terminal{" "}
-          <code>done</code>. Each operation only writes the fields it
-          specifies, numeric values are clamped to the 0 to 1 range, and the
-          loop exits as soon as the model emits <code>done</code> or hits the
-          step limit. That keeps the authoring flow controllable and lets you
-          run partial refinements without losing the rest of the soul.
-        </p>
-        <p>
-          The Soul Writer is configured from the Companions hub: you can pick
-          the model used to draft souls (with a fallback to the app default
-          model), the structured-output format (JSON or XML), and a custom
-          prompt template for the Soul Writer prompt type.
-        </p>
-
-        <DocHeading level={2}>Local analysis models</DocHeading>
-        <p>
-          Companion mode leans on a small set of local models that the runtime
-          uses for analysis. When you switch a character into companion mode,
-          the character editor checks which ones are installed and surfaces a
-          "missing models" sheet so you can download whatever is missing
-          before saving. The runtime is forgiving at chat time (it degrades
-          rather than blocks), but the experience is much fuller with all
-          four present.
-        </p>
-
-        <ul>
-          <li>
-            <strong>Embedding model</strong>: needed for memory retrieval and
-            semantic search. Approximately 90 MB.
-          </li>
-          <li>
-            <strong>Emotion classifier</strong>: reads each user turn and
-            produces the signal labels that drive state updates.
-            Approximately 120 MB.
-          </li>
-          <li>
-            <strong>Entity extractor (NER)</strong>: identifies people,
-            places, and objects so memories can be canonicalized and linked.
-            Approximately 140 MB.
-          </li>
-          <li>
-            <strong>Memory router</strong>: decides whether new turns should
-            be stored as relationship, milestone, episodic, or other memory
-            categories. Approximately 70 MB.
+            <strong>Memory router</strong> (about 70 MB): decides how a new
+            memory should be categorized.
           </li>
         </ul>
 
         <Callout type="success" title="Local-first">
-          All of the companion-specific runtime models run locally on your
-          device. The app uses providers only for the actual chat reply
-          generation, the same as in roleplay mode.
+          All of these analysis models run on your device. Providers are used
+          only for the actual chat reply, the same as in roleplay mode.
         </Callout>
 
         <p>
-          Downloads are managed from{" "}
-          <strong>Settings &gt; Companions</strong>. Each model has its own
-          install and uninstall control, and there is a multi-step queue page
-          for batch installs (for example when you switch a character into
-          companion mode and several models are missing at once). The queue
-          auto-starts the first download and chains the rest, with a small
-          countdown back to where you came from when it finishes.
+          You can manage these downloads from{" "}
+          <strong>Settings &gt; Companions</strong>, which shows each model's
+          status with install and uninstall controls, an overall readiness
+          banner, and a pointer into Dynamic Memory settings (companion chats
+          share that backend). The companion-specific generation settings live
+          under <strong>Settings &gt; Companion Soul Writer</strong>.
         </p>
 
-        <DocHeading level={2}>The Companions hub</DocHeading>
+        <DocHeading level={2}>Companion pages in a chat</DocHeading>
         <p>
-          The Companions hub under <strong>Settings &gt; Companions</strong> is
-          the settings surface for the feature. It is split into two tabs:
+          So the system never feels like a black box, a companion chat exposes
+          dedicated pages from its header.
         </p>
         <ul>
           <li>
-            <strong>Models</strong>: shows the embedding model status, the
-            three analysis models (emotion, NER, router) with install or
-            uninstall buttons, an overall readiness banner, and a pointer
-            into the Dynamic Memory settings (companion chats share the same
-            memory backend).
+            <strong>Relationship page</strong>: the live meters (closeness,
+            trust, affection, tension, stability), interaction count, top felt
+            and expressed emotions, recent momentum and drivers, and the Soul
+            growth section where you review and manage how the personality has
+            evolved.
           </li>
           <li>
-            <strong>Soul Writer</strong>: picks the model used to draft souls,
-            the structured-output fallback format (JSON or XML), and an
-            optional custom Soul Writer prompt template.
+            <strong>Memory page</strong>: the full companion memory browser with
+            category filters, search, the active-or-superseded filter, pinning,
+            warming and cooling, re-dating, editing, and deletion.
+          </li>
+          <li>
+            <strong>Soul page</strong>: edit the soul and run the Soul Generator
+            without leaving the conversation.
           </li>
         </ul>
-        <p>
-          Switching an individual character to companion mode happens from
-          that character's settings, not from the hub. The hub is for the
-          shared infrastructure those characters depend on.
-        </p>
-
-        <DocHeading level={2}>What companion mode shares with the rest of the app</DocHeading>
-        <p>
-          Companion mode is a specialization on top of the normal chat stack,
-          not a separate app. It shares:
-        </p>
-
-        <ul>
-          <li>Session storage and chat history.</li>
-          <li>The completion, continuation, and regenerate flows.</li>
-          <li>The shared dynamic memory engine.</li>
-          <li>The same provider and model selection systems.</li>
-        </ul>
-
-        <p>
-          What it adds on top is the companion-specific prompt family, the
-          live emotional and relational state machine, the soul authoring
-          flow, the companion-oriented memory view, and the inspection pages.
-        </p>
 
         <DocHeading level={2}>When to use companion mode</DocHeading>
         <ul>
           <li>
             <strong>Use Companion Mode</strong> for ongoing relationships where
-            continuity, emotional tone, and relational progression matter more
-            than scene framing.
+            continuity, emotional tone, and a bond that grows matter more than
+            scene framing.
           </li>
           <li>
-            <strong>Use Roleplay Mode</strong> for scene-driven stories,
-            one-shot scenarios, or characters where the live emotional state
-            machine would feel out of place.
+            <strong>Use Roleplay Mode</strong> for scene-driven stories, one-shot
+            scenarios, or characters where a live emotional state would feel out
+            of place.
           </li>
         </ul>
 
-        <Callout type="info" title="It's still your chat">
-          Companion mode does not take control of the conversation. You can
-          always edit memory, adjust the soul, regenerate replies, or switch
-          providers. The relationship state is something the app maintains for
-          you, not something it locks you out of.
+        <Callout type="info" title="It is still your chat">
+          Companion mode never takes the wheel. You can always edit the soul,
+          clear growth, adjust memory, regenerate replies, or switch providers.
+          The relationship is something the app tends for you, not something it
+          locks you out of.
         </Callout>
       </motion.article>
     </>

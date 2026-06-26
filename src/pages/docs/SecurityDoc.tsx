@@ -143,6 +143,12 @@ export function SecurityDoc() {
           <li>Duplicates are detected on import.</li>
           <li>You can remove any imported certificate from the same panel.</li>
         </ul>
+        <p>
+          Certificates you import here apply to every outbound HTTPS request the
+          app makes, including image generation. So if your image provider sits
+          behind the same private CA as your text provider, a single imported
+          certificate covers both.
+        </p>
         <Callout type="warning" title="TLS verification stays on">
           Importing a certificate adds it to the app trust store. It does not
           disable certificate validation or allow self-signed certificates that
@@ -153,8 +159,15 @@ export function SecurityDoc() {
         <p>
           The Security page does not include an app lock, biometric prompt, or
           local password. If you need device-level protection, rely on your
-          operating system lock screen. API keys and conversation data live in
-          the local app database on your device.
+          operating system lock screen.
+        </p>
+        <p>
+          API keys and conversation data live in the local app database on your
+          device. Your keys are never sent to LettuceAI. They are used only to
+          talk to the provider you configured them for. Because they are stored
+          in the app database rather than your operating system keychain, treat
+          a device backup or an exported backup file as sensitive: anyone who
+          can read it (and, for backups, knows the password) can read your keys.
         </p>
       </motion.article>
     </>

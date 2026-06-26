@@ -11,7 +11,7 @@ export function ImageGenerationDoc() {
     <>
     <SEO
       title="Image Generation"
-      description="Generate images with scene generation, avatar creation, and design references using AUTOMATIC1111, OpenAI, Gemini, and more."
+      description="Generate images in LettuceAI with scene generation, avatar creation, and design references. Connect ComfyUI, Diffusers, AUTOMATIC1111, OpenAI, Gemini, Stability, and more."
       path="/docs/images"
       jsonLd={buildBreadcrumbSchema([
         { name: "Home", path: "/" },
@@ -33,6 +33,14 @@ export function ImageGenerationDoc() {
         roleplay images, and a design-reference writer for turning reference
         images into reusable visual notes.
       </p>
+
+      <Callout type="warning" title="Image generation now runs through a provider">
+        LettuceAI no longer ships an on-device image engine. Every image is
+        produced by a provider you connect, whether that provider runs on your
+        own machine (like ComfyUI or a Diffusers server) or is an online service
+        (like OpenAI or Google Gemini). If no image-capable model is set up,
+        nothing will generate.
+      </Callout>
 
       <DocHeading level={2}>What most users need to know</DocHeading>
 
@@ -92,7 +100,7 @@ export function ImageGenerationDoc() {
       <DocImage
         src={images.imageGeneration.imageGenerationSettings}
         alt="Image generation settings page"
-        caption="Image settings split the normal image model from the separate scene-writer model, and also control scene generation mode."
+        caption="In Settings, the Image page splits avatar and scene image models from the separate scene-writer model, and also controls how scene prompts are handled."
         containerClassName="mx-auto max-w-4xl"
         className="mx-auto max-h-[28rem] object-contain"
       />
@@ -181,12 +189,20 @@ export function ImageGenerationDoc() {
       <DocHeading level={3}>Supported image generators</DocHeading>
 
       <p>
-        The app currently includes built-in adapters for several image backends.
+        The app currently includes built-in support for several image backends.
         That means you can use different providers without rewriting the rest of
-        your workflow.
+        your workflow. Some run locally on your own hardware, and some are online
+        services.
       </p>
 
       <ul>
+        <li>
+          <strong>ComfyUI</strong> for local node-graph workflows you export from
+          ComfyUI yourself.
+        </li>
+        <li>
+          <strong>Diffusers</strong> for a local Diffusers-style image server.
+        </li>
         <li>
           <strong>AUTOMATIC1111</strong> for local Stable Diffusion style
           txt2img and img2img setups.
@@ -210,6 +226,9 @@ export function ImageGenerationDoc() {
         <li>
           <strong>NanoGPT</strong> OpenAI-style image generation requests.
         </li>
+        <li>
+          <strong>Pollinations</strong> for simple hosted image generation.
+        </li>
       </ul>
 
       <p>
@@ -217,6 +236,91 @@ export function ImageGenerationDoc() {
         still matters for edit quality, reference-image handling, returned
         formats, and how reliable multimodal prompting feels in practice.
       </p>
+
+      <DocHeading level={2}>Connecting a local image backend</DocHeading>
+
+      <p>
+        Local backends like ComfyUI and Diffusers are added the same way as any
+        other provider, under <strong>Settings → Providers</strong>. You
+        pick the provider, then give it the <strong>Base URL</strong> where it is
+        running (for example a ComfyUI or Diffusers server on your own machine or
+        local network). An API key is only needed if your endpoint requires one.
+      </p>
+
+      <DocHeading level={3}>ComfyUI workflows</DocHeading>
+
+      <p>
+        ComfyUI is driven by workflows rather than a single fixed request. In the
+        ComfyUI provider editor you paste an{" "}
+        <strong>API-format workflow exported from ComfyUI</strong>. You can paste
+        a text-to-image workflow and, optionally, a separate image-to-image
+        workflow that is used whenever reference images are present.
+      </p>
+
+      <p>
+        LettuceAI fills in the parts of the workflow that change per request by
+        replacing placeholder tokens. The available tokens include the prompt and
+        negative prompt, size, steps, CFG, seed, sampler, checkpoint, denoise,
+        and image count, plus ordered reference-image tokens (the first reference
+        image, the second, and so on). This is how the same saved workflow can be
+        reused for every generation.
+      </p>
+
+      <Callout type="info" title="The image workflow is for reference-based jobs">
+        Your text-to-image workflow handles plain prompts. The optional
+        image-to-image workflow is what runs when one or more reference images
+        are attached, so you can wire reference images into the nodes that expect
+        them.
+      </Callout>
+
+      <DocHeading level={3}>Diffusers</DocHeading>
+
+      <p>
+        A Diffusers endpoint is simpler to connect: set its Base URL and it works
+        like the other Stable Diffusion style backends. Per-model details such as
+        size, steps, CFG, sampler, seed, and denoise strength come from that
+        model's settings, described further down.
+      </p>
+
+      <DocHeading level={3}>Self-signed and local endpoints</DocHeading>
+
+      <p>
+        Local and self-hosted endpoints often do not have a normal public
+        certificate. LettuceAI applies your trusted certificates to image
+        requests, and for self-hosted providers you can turn on{" "}
+        <strong>Allow Invalid TLS</strong> in the provider editor to skip
+        certificate validation for that one endpoint.
+      </p>
+
+      <Callout type="warning" title="Only relax TLS for endpoints you control">
+        The Allow Invalid TLS option exists for your own local or private
+        machines. Do not enable it for an endpoint you do not personally trust.
+      </Callout>
+
+      <DocHeading level={2}>Reference images and ordering</DocHeading>
+
+      <p>
+        Several image features can send more than one reference image, and the
+        order is meaningful. LettuceAI passes the references as an ordered set, so
+        backends that care about position (like a ComfyUI workflow with separate
+        reference nodes) receive the first reference, the second reference, and so
+        on in a predictable sequence.
+      </p>
+
+      <ul>
+        <li>
+          Character design references come first, followed by any persona
+          references and an optional chat background image.
+        </li>
+        <li>
+          The first reference image is treated as the primary one for edit and
+          image-to-image style requests.
+        </li>
+        <li>
+          Ordering lets a workflow or model tell, for example, the character
+          reference apart from the background reference.
+        </li>
+      </ul>
 
       <DocHeading level={2}>Images generated inside chat</DocHeading>
 
@@ -299,6 +403,43 @@ export function ImageGenerationDoc() {
         generation.
       </p>
 
+      <DocHeading level={2}>Per-model image settings</DocHeading>
+
+      <p>
+        Image models keep their own settings inside the model editor, so each
+        model can be tuned without affecting the others. Open a model from the
+        Models page to find its image options.
+      </p>
+
+      <ul>
+        <li>
+          <strong>Negative prompt</strong>: things you never want in the image,
+          applied to every request for that model.
+        </li>
+        <li>
+          <strong>Extra prompt</strong>: text that is always added before your
+          prompt. This is the right place for quality tags and style boilerplate
+          so you do not have to retype them.
+        </li>
+        <li>
+          <strong>Prompt writer instructions</strong>: format guidance for the
+          scene writer when it composes prompts for this model. For example, you
+          can tell it to write comma-separated tags instead of full sentences.
+        </li>
+        <li>
+          <strong>Generation controls</strong> such as size, steps, CFG,
+          sampler, seed, and denoise strength for Stable Diffusion style
+          backends.
+        </li>
+      </ul>
+
+      <Callout type="info" title="Extra prompt vs writer instructions">
+        Extra prompt is glued onto the final image prompt. Prompt writer
+        instructions instead change how the scene writer phrases the prompt in
+        the first place. One shapes the words sent to the image model, the other
+        shapes how those words get written.
+      </Callout>
+
       <DocHeading level={2}>Prompting and visual consistency</DocHeading>
 
       <p>
@@ -374,6 +515,13 @@ export function ImageGenerationDoc() {
         image-generation model renders that prompt into the final image.
       </p>
 
+      <DocImage
+        src={images.imageGeneration.sceneFlow}
+        alt="How a scene image is built, approved, and rendered"
+        caption="A prompt writer turns the moment in the chat (plus your design references and extra prompt) into a scene prompt. Depending on your approval setting it generates automatically, after your review, or only when you ask, then a self-hosted or cloud backend renders the image into the chat."
+        containerClassName="max-w-2xl mx-auto"
+      />
+
       <ol>
         <li>
           The app looks at the selected message and a short recent context
@@ -388,22 +536,22 @@ export function ImageGenerationDoc() {
         </li>
         <li>
           The image model receives that prompt plus any saved character or
-          persona references.
+          persona references, sent in order.
         </li>
       </ol>
 
       <ul>
         <li>
-          In <strong>auto</strong> mode, the app runs the scene image generation
-          immediately.
+          In <strong>Automatic</strong> mode, the app generates the scene image
+          as soon as the model provides a scene prompt.
         </li>
         <li>
-          In <strong>ask first</strong> mode, you can review and edit the
-          drafted prompt before the image request is sent.
+          In <strong>Ask first</strong> mode, the detected scene prompt is shown
+          so you can review and edit it before any image is generated.
         </li>
         <li>
-          In <strong>manual</strong> mode, no automatic scene image job runs
-          from assistant replies.
+          In <strong>Manual</strong> mode, scene prompts in model responses are
+          ignored and images only generate from actions you trigger yourself.
         </li>
       </ul>
 
@@ -429,22 +577,32 @@ export function ImageGenerationDoc() {
         model still gets a stable face and outfit anchor.
       </Callout>
 
-      <DocHeading level={2}>Design reference drafting</DocHeading>
+      <DocHeading level={2}>Design references</DocHeading>
 
       <p>
-        Design reference generation does not create a picture. It creates text
-        notes from a subject avatar and optional reference images so future
-        image prompts can stay visually consistent.
+        Design references live on each character and persona, in the editor. A
+        design reference is a small set of clear reference images plus one
+        canonical visual description. Together they tell scene generation what
+        the same face, build, outfit cues, and style should keep looking like.
+      </p>
+
+      <p>
+        You can write the visual description yourself, or use{" "}
+        <strong>design reference drafting</strong> to have the app write it for
+        you. Drafting does not create a picture. It reads the subject avatar and
+        any reference images and produces a concise, artist-facing description,
+        not a narrative caption.
       </p>
 
       <ul>
         <li>The scene-writer model reads the images and any current notes.</li>
         <li>
-          The returned result is a concise artist-facing description, not a
-          narrative caption.
+          The returned result is a clean visual note covering things like face,
+          hair, build, outfit cues, accessories, and art direction.
         </li>
         <li>
-          Those notes can then feed later prompt templates and scene generation.
+          Those notes and images then feed later prompt templates and scene
+          generation.
         </li>
       </ul>
 
@@ -469,7 +627,8 @@ export function ImageGenerationDoc() {
       <ul>
         <li>Avatar templates write image prompts.</li>
         <li>
-          Scene-generation templates write one scene prompt from chat context.
+          Scene-generation templates write one scene prompt from chat context,
+          and can include your per-model prompt writer instructions.
         </li>
         <li>
           Design-reference templates can inject multimodal image payloads for
@@ -487,9 +646,10 @@ export function ImageGenerationDoc() {
 
       <p>
         Prompts and image inputs go only to the provider you selected for that
-        specific workflow. After generation, LettuceAI saves the resulting image
-        locally so it can be reused as an avatar, a chat attachment, or a design
-        reference.
+        specific workflow. If that provider runs on your own machine, the data
+        never leaves your network. After generation, LettuceAI saves the
+        resulting image locally so it can be reused as an avatar, a chat
+        attachment, or a design reference.
       </p>
 
       <ul>
@@ -508,8 +668,8 @@ export function ImageGenerationDoc() {
 
       <ol>
         <li>
-          Choose at least one model with image output for avatar or image
-          generation.
+          Connect at least one provider with image output and choose it for
+          avatar or scene image generation.
         </li>
         <li>
           Choose a separate scene-writer model if you want automatic scene

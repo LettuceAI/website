@@ -48,7 +48,7 @@ export function OllamaDoc() {
           </li>
           <li>
             In LettuceAI, go to{" "}
-            <strong>Settings &rarr; Providers &rarr; Ollama</strong>
+            <strong>Settings → Providers → Ollama</strong>
           </li>
           <li>
             Enter your Ollama base URL (e.g.{" "}
@@ -124,8 +124,21 @@ export function OllamaDoc() {
 
         <p>
           Ollama exposes a rich set of parameters that you can configure
-          per-model in LettuceAI's advanced model settings.
+          per-model. Go to <strong>Settings → Models</strong>, open one of
+          your Ollama models, and use the <strong>Runtime</strong> panel
+          (labelled &quot;Ollama&quot;). It is grouped into{" "}
+          <strong>Memory &amp; Tokens</strong>, <strong>Performance</strong>,
+          and <strong>Sampling &amp; Penalties</strong> sections. Every field
+          starts blank or on Auto, which leaves Ollama&apos;s own default in
+          place.
         </p>
+
+        <Callout type="info" title="Connection vs per-model settings">
+          The base URL and credentials live in{" "}
+          <strong>Settings → Providers → Ollama</strong>. The
+          generation parameters below live on each model under{" "}
+          <strong>Settings → Models</strong>.
+        </Callout>
 
         <DocHeading level={3}>Context and generation</DocHeading>
 
@@ -139,7 +152,7 @@ export function OllamaDoc() {
           </thead>
           <tbody>
             <tr className="border-b border-border/10">
-              <td className="py-2 px-4 font-medium">Context Window</td>
+              <td className="py-2 px-4 font-medium">Context Length</td>
               <td className="py-2 px-4">0 &ndash; 262,144</td>
               <td className="py-2 px-4">
                 How many tokens of conversation history the model can see.
@@ -153,7 +166,7 @@ export function OllamaDoc() {
               </td>
             </tr>
             <tr>
-              <td className="py-2 px-4 font-medium">Keep Tokens</td>
+              <td className="py-2 px-4 font-medium">Num Keep</td>
               <td className="py-2 px-4">0 &ndash; 32,768</td>
               <td className="py-2 px-4">
                 Number of tokens to keep from the beginning of the prompt.
@@ -175,19 +188,19 @@ export function OllamaDoc() {
           </thead>
           <tbody>
             <tr className="border-b border-border/10">
-              <td className="py-2 px-4 font-medium">GPU Layers</td>
+              <td className="py-2 px-4 font-medium">Num GPU</td>
               <td className="py-2 px-4">0 &ndash; 512</td>
               <td className="py-2 px-4">
                 Layers to offload to GPU. More = faster, but uses more VRAM.
               </td>
             </tr>
             <tr className="border-b border-border/10">
-              <td className="py-2 px-4 font-medium">Threads</td>
+              <td className="py-2 px-4 font-medium">Num Thread</td>
               <td className="py-2 px-4">1 &ndash; 256</td>
               <td className="py-2 px-4">CPU thread count for generation.</td>
             </tr>
             <tr>
-              <td className="py-2 px-4 font-medium">Batch Size</td>
+              <td className="py-2 px-4 font-medium">Num Batch</td>
               <td className="py-2 px-4">1 &ndash; 16,384</td>
               <td className="py-2 px-4">
                 Tokens processed at once during prompt evaluation.
@@ -222,14 +235,14 @@ export function OllamaDoc() {
               </td>
             </tr>
             <tr className="border-b border-border/10">
-              <td className="py-2 px-4 font-medium">Min-P</td>
+              <td className="py-2 px-4 font-medium">Min P</td>
               <td className="py-2 px-4">0 &ndash; 1</td>
               <td className="py-2 px-4">
                 Minimum probability threshold for token selection.
               </td>
             </tr>
             <tr className="border-b border-border/10">
-              <td className="py-2 px-4 font-medium">Typical-P</td>
+              <td className="py-2 px-4 font-medium">Typical P</td>
               <td className="py-2 px-4">0 &ndash; 1</td>
               <td className="py-2 px-4">
                 Typical sampling. Keeps tokens whose surprise is close to the
@@ -237,7 +250,7 @@ export function OllamaDoc() {
               </td>
             </tr>
             <tr>
-              <td className="py-2 px-4 font-medium">TFS-Z</td>
+              <td className="py-2 px-4 font-medium">TFS Z</td>
               <td className="py-2 px-4">0 &ndash; 1</td>
               <td className="py-2 px-4">
                 Tail free sampling threshold. 1 = disabled.
@@ -272,7 +285,7 @@ export function OllamaDoc() {
               </td>
             </tr>
             <tr className="border-b border-border/10">
-              <td className="py-2 px-4 font-medium">Mirostat Tau</td>
+              <td className="py-2 px-4 font-medium">Tau</td>
               <td className="py-2 px-4">0 &ndash; 10</td>
               <td className="py-2 px-4">
                 Target entropy. Lower values produce more focused, predictable
@@ -280,7 +293,7 @@ export function OllamaDoc() {
               </td>
             </tr>
             <tr>
-              <td className="py-2 px-4 font-medium">Mirostat Eta</td>
+              <td className="py-2 px-4 font-medium">Eta</td>
               <td className="py-2 px-4">0 &ndash; 1</td>
               <td className="py-2 px-4">
                 Learning rate. Controls how quickly the algorithm adapts.
@@ -301,6 +314,48 @@ export function OllamaDoc() {
           generating when encountered. This is useful for preventing the model
           from running past a natural stopping point.
         </p>
+
+        {/* ── More features ── */}
+        <DocHeading level={2}>Reasoning, images, and model management</DocHeading>
+
+        <ul>
+          <li>
+            <strong>Reasoning</strong>: if you set a reasoning effort on a model,
+            LettuceAI passes it through to Ollama&apos;s thinking support, so
+            models that can reason will do so.
+          </li>
+          <li>
+            <strong>Image input</strong>: images you attach in chat are sent to
+            Ollama vision models, so multimodal Ollama models can see them.
+          </li>
+          <li>
+            <strong>Manage models from the app</strong>: beyond pulling, you can
+            view and delete models on the Ollama server from within LettuceAI,
+            without switching to the command line.
+          </li>
+        </ul>
+
+        <DocHeading level={3}>Self-signed or HTTPS Ollama servers</DocHeading>
+
+        <p>
+          If your Ollama server sits behind a reverse proxy with HTTPS and a
+          self-signed or private certificate, you have two options:
+        </p>
+
+        <ul>
+          <li>
+            <strong>Recommended</strong>: import the certificate under{" "}
+            <strong>Settings → Security → Trusted Certificates →
+            Custom Root CAs</strong>. This makes LettuceAI trust the certificate
+            properly.
+          </li>
+          <li>
+            <strong>Quick but less secure</strong>: turn on{" "}
+            <strong>Allow Invalid TLS</strong> when editing the Ollama provider
+            under <strong>Settings → Providers</strong>. This skips
+            certificate checks for that one endpoint only.
+          </li>
+        </ul>
 
         {/* ── Comparison ── */}
         <DocHeading level={2}>Ollama vs built-in llama.cpp</DocHeading>

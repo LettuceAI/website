@@ -42,6 +42,26 @@ export const images = {
     memoryRetrievalFlow: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEhN9IRQYy8QKsz1bUcRixZ7tHBO4qoCruLYPV",
   },
 
+  branching: {
+    tree: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEXHz5AwhURCmJTLy5bkWoeHzN28xMVBZ4s6f7",
+  },
+
+  companion: {
+    soulGrowth: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiE8T7sJ7qFdHBKrgh7YW2EbSeyfUJVmjDRkonu",
+  },
+
+  localInference: {
+    runnability: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEoykKp8xgeUAy1BckbI0oS8FO2ihTxv7GqEl9",
+  },
+
+  lorebook: {
+    activation: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEUOXWboPbRA1NIGj6hJzEkX5OZctnWP7QpK80",
+  },
+
+  aiBasics: {
+    contextWindow: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiElfsvXoM7C73dLiJV9kSZtR4oG2cbhwPzgNan",
+  },
+
   quickStart: {
     step1:
       "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEGSaQBWolvZNz7b9S6JOnaWIErcYV8jTRAoKU",
@@ -83,6 +103,7 @@ export const images = {
     chat: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiE7NJlCdS3XDOMPNhgrUjbZp9fWTYnCuB0v4wx",
     settings:
       "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEPKwYHeQmcHWF6TyX3N5xaVrkuSGLnlRKZv81",
+    directorFlow: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEzR2WB65CgsDQbf3mrGI2U5jA9RHS8i0x1naJ",
   },
 
   imageGeneration: {
@@ -104,6 +125,7 @@ export const images = {
       "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiE80xZv9qFdHBKrgh7YW2EbSeyfUJVmjDRkonu",
     designReferenceDraftingUI:
       "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEQHqKK0g9vKmiI437oLMurRteET6N0XOnDfwW",
+    sceneFlow: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEj1NfOZyefClpeDuryxBRsUFaKGm9Jk3d017L",
   },
 
   sync: {
@@ -112,6 +134,7 @@ export const images = {
       "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEf11ZFERwzBGL7mPAbcZYn9yR6UWxaFkXK58g",
     client:
       "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEorEg7ixgeUAy1BckbI0oS8FO2ihTxv7GqEl9",
+    flow: "https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiERiXzz4Jx2P34yDg6iKGIpAlcoTf9etwqHkzC",
   },
 
   replyHelper: {

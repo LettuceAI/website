@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { DocHeading } from "@/components/docs/DocHeading";
 import { Callout } from "@/components/docs/Callout";
+import { DocImage } from "@/components/docs/DocImage";
+import { images } from "@/config/images";
 import { SEO } from "@/components/common/SEO";
 import { buildBreadcrumbSchema } from "@/config/schemas";
 
@@ -55,7 +57,7 @@ export function ModelBrowserDoc() {
 
         <p>
           Open the browser from{" "}
-          <strong>Settings &rarr; Models &rarr; HuggingFace Browser</strong>.
+          <strong>Settings → Models → HuggingFace Browser</strong>.
           You can search by name and sort results by:
         </p>
 
@@ -174,6 +176,13 @@ export function ModelBrowserDoc() {
           rank).
         </p>
 
+        <DocImage
+          src={images.localInference.runnability}
+          alt="How the app estimates whether a local model will run on your device"
+          caption="The app weighs the model's size and quantization against your memory and graphics card, works out how much can run on the GPU, and shows a runnability score before you download. If a model runs out of memory while loading, it retries at a smaller size before falling back to the CPU."
+          containerClassName="max-w-2xl mx-auto"
+        />
+
         <p>The final score is a weighted sum:</p>
 
         <ul>
@@ -224,6 +233,70 @@ export function ModelBrowserDoc() {
           V2/V3 use the MLA (multi-head latent attention) compressed KV size.
           Apple Silicon and other unified-memory devices use the maximum of RAM
           and VRAM rather than the sum.
+        </p>
+
+        <DocHeading level={4}>Mixture-of-Experts (MoE) awareness</DocHeading>
+
+        <p>
+          Large MoE models (for example Mixtral or Qwen MoE) only run a small
+          fraction of their weights for each token. The scorer detects MoE
+          models from their GGUF metadata and estimates the{" "}
+          <strong>active weight ratio</strong>: roughly the share of weights
+          actually used per token (attention plus the experts that fire). That
+          active size, not the full on-disk size, drives the compute and memory
+          overhead estimate. In practice this means a big sparse MoE can score
+          much better than its file size alone would suggest.
+        </p>
+
+        <DocHeading level={4}>Partial GPU offload</DocHeading>
+
+        <p>
+          The GPU acceleration score is not all-or-nothing. The browser
+          estimates one of several outcomes for your hardware and scores
+          accordingly:
+        </p>
+
+        <ul>
+          <li>
+            <strong>Full GPU</strong>: weights and KV cache both fit in VRAM
+            (highest score).
+          </li>
+          <li>
+            <strong>Mostly GPU with spill</strong>: weights fit but the KV
+            cache or compute buffers spill into system RAM.
+          </li>
+          <li>
+            <strong>Model in RAM, context on GPU</strong> (or the reverse),
+            for mixed setups.
+          </li>
+          <li>
+            <strong>Partial layer offload</strong>: only some transformer
+            layers fit in VRAM and the rest run on CPU, scaled by how much of
+            the model fits.
+          </li>
+        </ul>
+
+        <p>
+          Budgets reserve roughly 10 percent of free RAM and VRAM as headroom so
+          the estimate is conservative rather than optimistic.
+        </p>
+
+        <DocHeading level={4}>Quantization and KV cache quality</DocHeading>
+
+        <p>
+          Each quant type has a quality score (for example F16 = 100, Q8_0 = 90,
+          Q5_K_M = 85, Q4_K_M = 75, Q2_K = 35, IQ1_S = 15). Unsloth dynamic
+          (<code>UD-</code>) quants and quantization-aware-trained (QAT) files
+          are recognized and scored higher, because they hold up better at the
+          same size.
+        </p>
+
+        <p>
+          When the browser recommends settings for a file, it sizes the context
+          against the cost of different KV cache types and never recommends the
+          full-precision <code>f16</code> KV cache: <code>q8_0</code> is the
+          highest KV type it will suggest, since it saves memory at almost no
+          quality cost.
         </p>
 
         <DocHeading level={3}>Downloading</DocHeading>
@@ -299,7 +372,7 @@ export function ModelBrowserDoc() {
           <code>ollama</code> provider. Selecting one of those Ollama
           credentials switches the browser into <strong>Ollama mode</strong>.
           If you have no Ollama providers configured yet, the picker links you
-          to <strong>Settings &rarr; Providers</strong> to add one.
+          to <strong>Settings → Providers</strong> to add one.
         </p>
 
         <DocHeading level={3}>What changes in Ollama mode</DocHeading>
@@ -413,7 +486,7 @@ export function ModelBrowserDoc() {
         <ol>
           <li>Download a GGUF model from the browser.</li>
           <li>
-            Go to <strong>Settings &rarr; Models &rarr; Add Model</strong>.
+            Go to <strong>Settings → Models → Add Model</strong>.
           </li>
           <li>
             Choose <strong>Local (llama.cpp)</strong> as the provider and pick
@@ -674,6 +747,105 @@ export function ModelBrowserDoc() {
           </li>
         </ul>
 
+        <DocHeading level={3}>Full SWA Cache</DocHeading>
+
+        <p>
+          Some models (for example Gemma) use sliding-window attention, where
+          only a recent window of tokens is normally kept in the cache. The{" "}
+          <strong>Full SWA Cache</strong> toggle (in the model&apos;s{" "}
+          <strong>Runtime</strong> tab, under Layer Placement) keeps the entire
+          attention window resident instead. This improves recall over long
+          conversations, but at a high VRAM cost. Leave it off unless you have
+          VRAM to spare. It is off by default.
+        </p>
+
+        <DocHeading level={3}>Faster generation with MTP (speculative decoding)</DocHeading>
+
+        <p>
+          Multi-Token Prediction (MTP) is a speculative decoding feature that
+          can speed up local generation. A small, fast &quot;draft&quot; predicts
+          several tokens ahead and the main model verifies them in one pass, so
+          more tokens come out per step when the guesses are right. There is no
+          quality loss: any token the main model would not have produced is
+          rejected.
+        </p>
+
+        <p>
+          Turn it on in the model&apos;s <strong>Runtime</strong> tab under{" "}
+          <strong>Multi-Token Prediction</strong>. When enabled, two controls
+          appear:
+        </p>
+
+        <ul>
+          <li>
+            <strong>Draft Tokens</strong>: how many tokens the drafter proposes
+            per step (1 to 8, default 4).
+          </li>
+          <li>
+            <strong>MTP Draft File</strong>: an optional external draft GGUF.
+            Leave it on <em>Auto-discover</em> to pick up a matching{" "}
+            <code>mtp-*.gguf</code> sidecar next to your model, or use{" "}
+            <strong>Select from library</strong> to choose a downloaded draft
+            file.
+          </li>
+        </ul>
+
+        <p>
+          The drafter is sourced automatically. If the model file already ships
+          bundled MTP layers (so-called &quot;nextn&quot; layers), those are used
+          directly and no separate file is needed. Otherwise the app looks for
+          the external draft file described above. Gemma-style shared-assistant
+          drafters are detected automatically. If MTP is enabled but no usable
+          drafter is found, the model simply runs without it. MTP is also
+          skipped automatically for requests that include images.
+        </p>
+
+        <Callout type="info" title="No draft model? No problem">
+          MTP only helps when a compatible drafter is available. Many newer
+          GGUF releases bundle the draft layers; others publish a small{" "}
+          <code>mtp-*.gguf</code> sidecar in the same HuggingFace repo that you
+          can download alongside the main file.
+        </Callout>
+
+        <DocHeading level={3}>Reasoning and thinking</DocHeading>
+
+        <p>
+          For models that produce a hidden reasoning or &quot;thinking&quot;
+          stream, LettuceAI separates that stream from the final answer
+          automatically. It recognizes the common tag styles
+          (<code>&lt;think&gt;</code>, <code>&lt;thinking&gt;</code>,{" "}
+          <code>&lt;reasoning&gt;</code>) as well as Gemma channel-style tags,
+          and no setup is required.
+        </p>
+
+        <p>
+          The model&apos;s <strong>Reasoning</strong> tab has a{" "}
+          <strong>Force send thinking state</strong> toggle. Normally the app
+          omits the thinking flag and lets the model decide. Some local models
+          default to thinking when no value is sent; turning this on makes the
+          app send the flag explicitly so reasoning behaves as expected. It is
+          off by default.
+        </p>
+
+        <DocHeading level={3}>Automatic memory fallback</DocHeading>
+
+        <p>
+          When a model nearly fits but the chosen context or GPU layers would
+          run out of memory, the engine does not just fail. It retries with a
+          smaller context or batch size, moves the KV cache from VRAM to system
+          RAM, reduces how many layers are offloaded to the GPU, and as a last
+          resort falls back to running on CPU. The goal is to get the model
+          running instead of erroring out.
+        </p>
+
+        <p>
+          If you would rather the engine attempt exactly the settings you
+          entered and fail otherwise, enable <strong>Strict Mode</strong> on the
+          model. This bypasses the automatic fallbacks (lowering GPU layers,
+          clamping context or batch, or switching to CPU). It is off by default
+          and intended for advanced users tuning a known-good configuration.
+        </p>
+
         <DocHeading level={3}>Sampling parameters</DocHeading>
 
         <p>
@@ -793,10 +965,79 @@ export function ModelBrowserDoc() {
         </ul>
 
         <p>
-          If a model fails to load fully on GPU and falls back to CPU or a
-          smaller context, the Models page surfaces a hint so you can adjust
-          settings.
+          The report appears in the model&apos;s <strong>Runtime</strong> tab
+          under <strong>Last runtime report</strong>, with a plain-language
+          status such as &quot;Run succeeded&quot;, &quot;CPU fallback
+          recovered&quot;, or &quot;Run failed&quot;. If the engine had to fall
+          back to a CPU-safe context to get the model running, an{" "}
+          <strong>Apply working config</strong> button lets you save those
+          recovered settings so future runs reuse them directly.
         </p>
+
+        {/* Local runtime defaults */}
+        <DocHeading level={2}>Local Runtime Defaults & Model Storage</DocHeading>
+
+        <p>
+          From <strong>Settings → Models</strong> you can open{" "}
+          <strong>Local Runtime Defaults</strong> (&quot;Engine setup and
+          calculator baselines&quot;). It holds settings that apply across all
+          your local models rather than to one profile.
+        </p>
+
+        <DocHeading level={3}>Calculator baselines</DocHeading>
+
+        <p>
+          The <strong>llama.cpp Defaults</strong> section sets the assumptions
+          the runability calculator uses when it scores models in the browser:
+        </p>
+
+        <ul>
+          <li>
+            <strong>Default Context Length</strong>: the context size assumed
+            when scoring. Leave it empty to use 8192.
+          </li>
+          <li>
+            <strong>Default KV Cache Quant</strong>: the KV cache type assumed
+            when scoring. <code>Auto</code> behaves like <code>f16</code>.
+          </li>
+        </ul>
+
+        <p>
+          These only change how scores are estimated; they do not change how any
+          individual model actually runs.
+        </p>
+
+        <DocHeading level={3}>Where models are stored</DocHeading>
+
+        <p>
+          The <strong>Storage</strong> section shows the{" "}
+          <strong>LLM Models Folder</strong>, the folder on this computer where
+          downloaded GGUF files are kept. Use <strong>Change</strong> to pick a
+          different folder (for example a larger drive), or{" "}
+          <strong>Reset to default</strong> to go back.
+        </p>
+
+        <p>When you choose a new folder, the app asks what to do with your existing models:</p>
+
+        <ul>
+          <li>
+            <strong>Move them to the new folder</strong> (recommended): your
+            models are relocated and keep working automatically. The app also
+            updates the saved paths so every model profile still points at the
+            right file.
+          </li>
+          <li>
+            <strong>Leave them where they are</strong>: only new downloads use
+            the new folder; existing files stay put.
+          </li>
+        </ul>
+
+        <Callout type="info" title="Pick an empty folder">
+          A move is done safely: files are copied first and only deleted from
+          the old location once the copy succeeds. If the destination already
+          contains a model with the same name, the move is cancelled and you are
+          asked to pick an empty folder.
+        </Callout>
 
         {/* Import / Export */}
         <DocHeading level={2}>Model Import & Export</DocHeading>

@@ -187,18 +187,19 @@ export function MemoryDoc() {
 
       <DocHeading level={3}>Hot vs cold memory</DocHeading>
       <p>
-        Each dynamic entry has an importance score. Hot memories are eligible
-        for semantic retrieval. Cold memories remain stored but are normally
-        excluded from semantic search.
+        Each dynamic entry has an importance score. Hot memories are the active
+        working set and surface easily during retrieval. Cold memories are not
+        removed from search, but they count for less, so they only resurface
+        when they are clearly relevant.
       </p>
 
       <ul>
         <li>
-          <strong>Hot</strong>: active working memory for semantic retrieval.
+          <strong>Hot</strong>: active working memory, searched at full strength.
         </li>
         <li>
-          <strong>Cold</strong>: archived locally and available mainly through
-          keyword fallback.
+          <strong>Cold</strong>: kept locally and still searchable, but weighted
+          lower so it stays out of the way until it is a strong match.
         </li>
         <li>
           <strong>Pinned</strong>: protected from decay and forced to stay hot.
@@ -206,8 +207,9 @@ export function MemoryDoc() {
       </ul>
 
       <p>
-        Cooling does not delete a memory by itself. It only changes whether the
-        entry participates in normal semantic retrieval.
+        Cooling does not delete a memory by itself. It only changes how strongly
+        the entry competes during retrieval. A cold memory that turns out to be
+        relevant is pulled back and becomes hot again.
       </p>
 
       <DocImage
@@ -230,15 +232,18 @@ export function MemoryDoc() {
           enabled, that query can include more than just the latest message.
         </li>
         <li>
-          It searches <strong>hot and pinned</strong> memories semantically.
+          It ranks your stored memories by relevance. Hot memories are searched
+          at full strength and cold memories are included too, just weighted
+          lower so they only surface when they are a strong match.
         </li>
         <li>
-          In smart mode, it may also surface a recent hot memory or a frequently
-          used hot memory to stabilize recall.
+          In smart mode, if there are still open slots after ranking, it back
+          fills them with a recent memory or a frequently used one to keep
+          recall stable.
         </li>
         <li>
-          If nothing useful is found, it falls back to a keyword scan over{" "}
-          <strong>cold</strong> memories.
+          As a last resort, if the relevance search comes up empty, it runs a
+          plain keyword scan as a safety net.
         </li>
         <li>Any cold memory that is retrieved becomes hot again.</li>
       </ol>
@@ -252,8 +257,10 @@ export function MemoryDoc() {
       />
 
       <Callout type="info" title="Important">
-        Dynamic Memory does not search every stored memory semantically on every
-        turn. The hot/cold split is a core part of how it stays fast and cheap.
+        Dynamic Memory ranks your memories by relevance and only injects a small
+        top slice into the prompt, never the whole database. The hot/cold split
+        decides how strongly each memory competes, which keeps recall focused
+        and the prompt small.
       </Callout>
 
       <DocHeading level={3}>Time-aware retrieval (companion mode)</DocHeading>
@@ -321,8 +328,9 @@ export function MemoryDoc() {
       </ol>
 
       <p>
-        Manual retries can force another maintenance pass even if the normal
-        interval has not been reached yet.
+        You do not have to wait for the interval. You can also run a maintenance
+        pass on demand, or have the app check with you first. See{" "}
+        <strong>When memory updates run</strong> below.
       </p>
 
       <Callout type="info" title="Structured fallback format">
@@ -339,6 +347,144 @@ export function MemoryDoc() {
         containerClassName="mx-auto max-w-5xl"
         className="mx-auto max-h-[18rem] object-contain md:max-h-[22rem]"
       />
+
+      <DocHeading level={2}>When memory updates run</DocHeading>
+      <p>
+        By default the maintenance cycle runs on its own, but you can decide how
+        much say you get. Dynamic Memory has three run modes, set separately for
+        direct chats and group chats in{" "}
+        <strong>Settings → Dynamic Memory</strong> under{" "}
+        <strong>Memory Updates</strong>.
+      </p>
+
+      <table className="min-w-full text-sm my-6">
+        <thead>
+          <tr className="border-b border-border/50">
+            <th className="text-left py-2 px-4">Run mode</th>
+            <th className="text-left py-2 px-4">What it does</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr className="border-b border-border/10">
+            <td className="py-2 px-4 font-medium">Automatic</td>
+            <td className="py-2 px-4">
+              The default. Memory updates run on their own in the background once
+              enough new messages have built up.
+            </td>
+          </tr>
+          <tr className="border-b border-border/10">
+            <td className="py-2 px-4 font-medium">Ask First</td>
+            <td className="py-2 px-4">
+              The app asks before each update so you can start it now or skip it
+              and roll those messages into the next one.
+            </td>
+          </tr>
+          <tr>
+            <td className="py-2 px-4 font-medium">Manual</td>
+            <td className="py-2 px-4">
+              Updates never run on their own. They only happen when you trigger
+              them from the memory panel.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <Callout type="info" title="Per chat type">
+        Direct chats and group chats each have their own run mode. Changing one
+        does not change the other.
+      </Callout>
+
+      <DocHeading level={3}>The Ask First approval prompt</DocHeading>
+      <p>
+        In Ask First mode, once a full batch of new messages is ready, a small
+        sheet appears titled <strong>Update Memory?</strong> It tells you how
+        many new messages are waiting and gives you two choices:
+      </p>
+      <ul>
+        <li>
+          <strong>Start Now</strong>: run the memory update immediately.
+        </li>
+        <li>
+          <strong>Skip This Cycle</strong>: do nothing for now. The waiting
+          messages are not lost, they simply roll into the next update.
+        </li>
+      </ul>
+      <p>
+        The prompt appears only once per batch, so it will not nag you on every
+        message. If you close the chat with a prompt still pending, it reappears
+        the next time you open that chat.
+      </p>
+
+      <DocHeading level={3}>Running a cycle yourself</DocHeading>
+      <p>
+        In any mode you can run a memory update by hand from the memory panel.
+        This is the only way updates happen in Manual mode, and it is handy in
+        the other modes when you want to refresh memory right now.
+      </p>
+      <ul>
+        <li>
+          Open the chat's memory panel and use the <strong>Run</strong> button
+          (in companion chats this is labeled <strong>Process memory</strong>).
+        </li>
+        <li>
+          A progress bar shows the four stages of the cycle: summarizing the
+          conversation, analyzing memories, applying changes, and organizing
+          memories. A live token counter and speed readout appear while the
+          model works, plus a warning if the model goes quiet.
+        </li>
+        <li>
+          The same button becomes <strong>Cancel</strong> while a cycle is
+          running, so you can stop it at any time.
+        </li>
+        <li>
+          With developer mode on, a <strong>View live output</strong> button
+          lets you watch the model's raw text stream in as the memory is
+          generated.
+        </li>
+      </ul>
+
+      <DocHeading level={3}>Editing the context summary</DocHeading>
+      <p>
+        The context summary is the short recap Dynamic Memory keeps to hold a
+        long conversation together. You do not have to leave it entirely to the
+        app. In the memory panel, tap the <strong>Context Summary</strong> card
+        to open an editor, rewrite the recap in your own words, and save. This
+        works for both regular dynamic chats and companion chats.
+      </p>
+
+      <DocHeading level={3}>Cleaner memory generation</DocHeading>
+      <p>
+        When a local (on-device) model writes your memories, some models can get
+        stuck repeating the same phrase. Dynamic Memory ships with a built-in,
+        loop-resistant setup that discourages this repetition so memory updates
+        stay clean. It is on by default and can be turned off in the advanced
+        dynamic memory settings (<strong>Overwrite Sampler Configuration</strong>
+        ) if you would rather use your model's own settings.
+      </p>
+
+      <DocHeading level={3}>Custom summarizer and memory-manager prompts</DocHeading>
+      <p>
+        Advanced users can replace the two prompts that drive the maintenance
+        cycle. Both live in <strong>Settings → Dynamic Memory</strong> under{" "}
+        <strong>Summarisation</strong>, and both default to{" "}
+        <strong>Use built-in default</strong>.
+      </p>
+      <ul>
+        <li>
+          <strong>Summary Prompt</strong>: controls how recent conversation
+          turns are condensed into the context summary.
+        </li>
+        <li>
+          <strong>Memory Manager Prompt</strong>: controls how memories are
+          added, updated, and deleted, for both direct and group chats.
+        </li>
+      </ul>
+      <p>
+        You write the actual prompt text as a template in{" "}
+        <strong>Settings → System Prompts</strong> (using the Dynamic Memory
+        Summarizer and Dynamic Memory Manager template types), then choose it
+        from these dropdowns.
+      </p>
 
       <DocHeading level={3}>Decay, budgets, and deletion</DocHeading>
       <p>Dynamic Memory uses multiple controls, not just one:</p>
@@ -357,8 +503,9 @@ export function MemoryDoc() {
           active, older unpinned ones are demoted to cold.
         </li>
         <li>
-          <strong>Max entries</strong>: if the memory set grows too large, the
-          least recently used unpinned memories can be trimmed entirely.
+          <strong>Max entries</strong>: if the memory set grows too large,
+          lower-priority unpinned memories can be trimmed entirely, chosen by a
+          mix of importance and recency rather than age alone.
         </li>
       </ul>
 
@@ -476,6 +623,30 @@ export function MemoryDoc() {
         Capacity is chosen per install. If you want to change it later, you can
         re-run the download flow and pick a different size.
       </Callout>
+
+      <DocHeading level={3}>Upgrading or changing the model</DocHeading>
+      <p>
+        Every memory is stored as plain text alongside its meaning fingerprint,
+        so the text is always the source of truth. If you switch the embedding
+        model version or change its dimensions, those fingerprints have to be
+        rebuilt from the saved text so old and new memories stay comparable.
+      </p>
+      <ul>
+        <li>
+          Re-embedding happens quietly the next time each chat uses memory, not
+          all at once. A small <strong>Migrating memory vectors</strong> notice
+          shows progress, and replies may be delayed briefly while it runs.
+        </li>
+        <li>
+          Progress is saved as it goes. If the app closes or one memory fails to
+          rebuild, the next run picks up where it left off instead of starting
+          over, so it can no longer get stuck redoing the same work.
+        </li>
+        <li>
+          Memories left behind by deleted chats, groups, or characters are
+          cleaned up automatically so they do not pile up.
+        </li>
+      </ul>
 
       <DocHeading level={3}>Context enrichment</DocHeading>
       <p>

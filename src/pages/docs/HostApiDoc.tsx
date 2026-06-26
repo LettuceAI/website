@@ -47,7 +47,8 @@ export function HostApiDoc() {
 
         <DocHeading level={2}>Enabling the server</DocHeading>
         <p>
-          Open <strong>Settings &gt; Host API</strong> and configure:
+          Open <strong>Settings &gt; Advanced &gt; Host API</strong> and
+          configure:
         </p>
         <ul>
           <li>
@@ -76,10 +77,17 @@ export function HostApiDoc() {
         </ul>
         <p>
           Press <strong>Apply &amp; Restart Server</strong> to save the config
-          and start (or stop) the listener. The status banner at the top
-          shows whether the server is running and the base URL clients should
-          use.
+          and start (or stop) the listener. The status banner at the top shows
+          whether the server is running and the base URL clients should use.
+          When you bind to <code>0.0.0.0</code>, the banner shows your
+          machine&apos;s LAN address (instead of <code>0.0.0.0</code>) so you
+          can copy a URL other devices can actually reach.
         </p>
+        <Callout type="info" title="Desktop only, starts with the app">
+          The Host API runs on desktop builds only. If it is enabled and has a
+          token saved, it starts automatically when LettuceAI launches, so it is
+          ready without reopening this page.
+        </Callout>
         <Callout type="warning" title="Set a token">
           With no token, anyone who can reach the bind address can use your
           models and burn your credits. Generate a token before exposing the
@@ -109,6 +117,10 @@ export function HostApiDoc() {
 
         <DocHeading level={2}>Endpoints</DocHeading>
         <ul>
+          <li>
+            <code>GET /</code>: basic service info (status, auth type, available
+            endpoints). No auth required.
+          </li>
           <li>
             <code>GET /health</code>: status, exposed model IDs, auth info.
             No auth required.
@@ -175,6 +187,32 @@ print(resp.choices[0].message.content)`}</code>
           model name. This lets you rename things (for example, expose
           <code>claude-sonnet-4-5</code> as just <code>sonnet</code>) and
           swap the backend later without breaking client config.
+        </p>
+
+        <DocHeading level={2}>Per-request overrides</DocHeading>
+        <p>
+          Standard OpenAI sampling fields sent in the request body are honored
+          and override the model&apos;s saved settings for that call:{" "}
+          <code>temperature</code>, <code>top_p</code>,{" "}
+          <code>max_tokens</code> (or <code>max_completion_tokens</code>),{" "}
+          <code>frequency_penalty</code>, and <code>presence_penalty</code>. If a
+          field is omitted, the model&apos;s configured value is used.
+        </p>
+
+        <DocHeading level={2}>HTTPS and certificates</DocHeading>
+        <p>
+          The Host API serves plain <strong>HTTP</strong> only; there is no
+          option to serve it over HTTPS. Keep it on your trusted local network,
+          and rely on the bearer token for access control. If you need TLS,
+          place it behind your own reverse proxy.
+        </p>
+        <p>
+          This is separate from connecting LettuceAI <em>out</em> to a
+          self-signed endpoint (for example a local provider behind HTTPS). For
+          that, import the certificate under{" "}
+          <strong>Settings &gt; Security &gt; Trusted Certificates &gt; Custom
+          Root CAs</strong>, or enable <strong>Allow Invalid TLS</strong> on
+          that specific provider under <strong>Settings &gt; Providers</strong>.
         </p>
 
         <DocHeading level={2}>Stopping the server</DocHeading>

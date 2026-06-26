@@ -790,6 +790,77 @@ export function SystemPromptsDoc() {
         </tbody>
       </table>
 
+      <DocHeading level={2}>Managing your templates</DocHeading>
+      <p>
+        The System Prompts page lists every template you can use. From there you
+        can create a new template, edit one, duplicate it, export it, or delete
+        the ones you made.
+      </p>
+
+      <ul>
+        <li>
+          <strong>Create</strong>: start a fresh template and build it from
+          entries.
+        </li>
+        <li>
+          <strong>Edit</strong>: open a template in the entry-based editor.
+        </li>
+        <li>
+          <strong>Duplicate</strong>: make a copy (named with a{" "}
+          <em>(Copy)</em> suffix). This is the recommended way to customize a
+          built-in template without touching the original.
+        </li>
+        <li>
+          <strong>Export</strong>: share a template as a portable USC file or as
+          JSON.
+        </li>
+      </ul>
+
+      <DocHeading level={3}>Built-in (protected) templates</DocHeading>
+      <p>
+        The templates that ship with the app, like the direct-chat default and
+        the internal feature prompts, are marked as <strong>protected</strong>
+        with a lock badge. They behave a little differently from templates you
+        create:
+      </p>
+
+      <ul>
+        <li>
+          They <strong>cannot be deleted</strong>, so the delete action is
+          hidden for them.
+        </li>
+        <li>
+          You can still edit them. If you do, the app remembers that you changed
+          them and stops auto-updating that one.
+        </li>
+        <li>
+          A built-in template you have <strong>not</strong> edited is refreshed
+          to the latest shipped version automatically, so improvements arrive
+          without any action from you.
+        </li>
+        <li>
+          Each built-in template has a <strong>Reset</strong> action that
+          restores it to its original shipped version. This discards your edits
+          to that template.
+        </li>
+      </ul>
+
+      <p>
+        There is also an <strong>Update protected</strong> action that bulk
+        resets every built-in template to its latest shipped version and
+        reconnects them to auto-refresh. It asks for confirmation first, because
+        it discards any edits you made to built-in templates. Your own custom
+        templates are never touched by this.
+      </p>
+
+      <Callout type="warning" title="Deleting something that is in use">
+        Before you delete a template that a character or an internal feature is
+        currently using, the app warns you and lists what depends on it.
+        Deleting it makes those fall back to the default template. The same kind
+        of warning appears if you try to remove a model that characters still
+        rely on.
+      </Callout>
+
       <DocHeading level={2}>Default direct-chat structure</DocHeading>
       <p>
         The shipped direct-chat template is modular and sectioned. It is closer

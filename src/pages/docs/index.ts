@@ -28,3 +28,5 @@ export { SecurityDoc } from "./SecurityDoc";
 export { UsageDoc } from "./UsageDoc";
 export { BackupRestoreDoc } from "./BackupRestoreDoc";
 export { SpeechRecognitionDoc } from "./SpeechRecognitionDoc";
+export { ChatWidgetsDoc } from "./ChatWidgetsDoc";
+export { BranchingDoc } from "./BranchingDoc";

@@ -1,5 +1,7 @@
 import { Callout } from "@/components/docs/Callout";
 import { DocHeading } from "@/components/docs/DocHeading";
+import { DocImage } from "@/components/docs/DocImage";
+import { images } from "@/config/images";
 import { motion } from "framer-motion";
 import { SEO } from "@/components/common/SEO";
 import { buildBreadcrumbSchema } from "@/config/schemas";
@@ -142,6 +144,13 @@ export function LorebooksDoc() {
         When you send a message, the system scans according to the lorebook's
         detection mode for matching keywords.
       </p>
+
+      <DocImage
+        src={images.lorebook.activation}
+        alt="How a lorebook entry is decided on, assembled, and injected into the prompt"
+        caption="Each entry is checked against the scanned conversation. Always-active entries skip the keyword check, disabled entries never fire, and keyword entries activate only when a keyword appears. Everything that activates is sorted by its position, combined into one World Information block, and added to the prompt before the AI replies."
+        containerClassName="max-w-xl mx-auto"
+      />
 
       <ul>
         <li>

@@ -51,12 +51,18 @@ export function SyncDoc() {
         allow the devices to communicate with each other. Sync will not work
         over the internet or different networks.
       </Callout>
+      <DocImage
+        src={images.sync.flow}
+        alt="The host and join handshake from start to finished transfer"
+        caption="One device hosts and shows a code, the other joins on the same Wi-Fi. After a quick readiness check and your confirmation, the data transfers end to end encrypted and the receiving device reloads. Nothing stays online afterward."
+        containerClassName="max-w-2xl mx-auto"
+      />
       <DocHeading level={2}>What can be synced?</DocHeading>
       <p>Sync can transfer the data you create inside the app, including:</p>
       <ul>
-        <li>Chats</li>
-        <li>Characters</li>
-        <li>Memories</li>
+        <li>Chats and group chats</li>
+        <li>Characters and personas, including avatar and banner crop framing</li>
+        <li>Memories and their saved embeddings</li>
         <li>Settings & preferences</li>
       </ul>
       ...Basically, everything.
@@ -126,7 +132,40 @@ export function SyncDoc() {
         containerClassName="max-w-lg mx-auto"
         alt="Join UI"
       />
-            
+
+      <DocHeading level={3}>Step 3: Wait for the transfer to finish</DocHeading>
+      <p>
+        Once you confirm on the host, the data transfers directly between the
+        two devices. Before the receiving device reports it is{" "}
+        <strong>Ready</strong>, it checks whether everything needed to use the
+        incoming data is in place, for example the embedding model that powers
+        dynamic memory. When the transfer completes, the receiving device
+        reloads its settings automatically, so the synced preferences take
+        effect right away without a restart.
+      </p>
+      <p>
+        If something the synced data relies on is missing, the app tells you
+        after the sync and offers to set it up. For dynamic memory, that means
+        downloading the embedding model and continuing with dynamic memory on,
+        or finishing with dynamic memory off for now and enabling it later once
+        the model is installed.
+      </p>
+
+      <DocHeading level={2}>Sync during first-time setup</DocHeading>
+      <p>
+        You do not have to finish setting up a fresh install before you can pull
+        your data over. During onboarding, choose{" "}
+        <strong>Sync from another device</strong> to receive everything from a
+        device you already use. The new device acts as the receiver and connects
+        to the device hosting the sync, exactly like the Join step above.
+      </p>
+      <p>
+        This is the fastest way to set up a second device: instead of importing
+        characters and re-entering settings by hand, you connect once and the
+        new device ends up matching the original, including the model readiness
+        check and the settings reload described above.
+      </p>
+
       <DocHeading level={2}>When do I need Sync?</DocHeading>
       <p>You may want to use Sync when:</p>
       <ul>

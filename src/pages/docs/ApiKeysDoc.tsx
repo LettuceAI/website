@@ -92,6 +92,13 @@ export function ApiKeysDoc() {
         LettuceAI.
       </p>
 
+      <Callout type="info" title="Local providers need no key">
+        Providers that run on your own machine or network do not need an API key.
+        That includes the built-in local engine (llama.cpp), Ollama, LM Studio,
+        IntenseRP Next, and self-hosted image servers like AUTOMATIC1111, ComfyUI,
+        and Diffusers. You only need a key for cloud providers.
+      </Callout>
+
       <DocHeading level={3}>OpenAI</DocHeading>
       <p>Best all-around models and strong reasoning.</p>
       <ol>
@@ -199,6 +206,20 @@ export function ApiKeysDoc() {
         <li>Generate an API key</li>
       </ol>
 
+      <DocHeading level={3}>Cerebras</DocHeading>
+      <p>Very fast inference for popular open models.</p>
+      <ol>
+        <li>
+          Go to{" "}
+          <a href="https://cloud.cerebras.ai" target="_blank" rel="noreferrer">
+            cloud.cerebras.ai
+          </a>
+        </li>
+        <li>Create an account or log in</li>
+        <li>Open the API Keys section</li>
+        <li>Generate a new key</li>
+      </ol>
+
       <DocHeading level={3}>xAI (Grok)</DocHeading>
       <p>Grok models with a more opinionated, conversational style.</p>
       <ol>
@@ -226,6 +247,34 @@ export function ApiKeysDoc() {
           Open <strong>Keys</strong> in your dashboard
         </li>
         <li>Create a new API key</li>
+      </ol>
+
+      <DocHeading level={3}>LiteRouter</DocHeading>
+      <p>Another router-style service that exposes many models behind one key.</p>
+      <ol>
+        <li>
+          Go to{" "}
+          <a href="https://literouter.com" target="_blank" rel="noreferrer">
+            literouter.com
+          </a>
+        </li>
+        <li>Create an account or log in</li>
+        <li>Open your dashboard or keys section</li>
+        <li>Create a new API key</li>
+      </ol>
+
+      <DocHeading level={3}>Pollinations AI</DocHeading>
+      <p>An open, low-cost service with generous free-tier access to several models.</p>
+      <ol>
+        <li>
+          Go to{" "}
+          <a href="https://pollinations.ai" target="_blank" rel="noreferrer">
+            pollinations.ai
+          </a>
+        </li>
+        <li>Create an account</li>
+        <li>Generate an API token from your account area</li>
+        <li>Paste the token where LettuceAI asks for the API key</li>
       </ol>
 
       <DocHeading level={3}>Moonshot (Kimi)</DocHeading>

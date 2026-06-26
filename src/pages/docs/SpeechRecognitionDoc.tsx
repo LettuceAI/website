@@ -47,9 +47,10 @@ export function SpeechRecognitionDoc() {
           smaller and faster with only a small accuracy cost.
         </p>
         <p>
-          Open <strong>Settings &rarr; Speech Recognition</strong>, browse the
-          model catalogue, and tap a model to download it. Common starting
-          points the app marks as recommended:
+          Open{" "}
+          <strong>Settings → Voices → Speech Recognition</strong>,
+          browse the model catalogue, and tap a model to download it. Common
+          starting points the app marks as recommended:
         </p>
         <ul>
           <li>
@@ -89,6 +90,40 @@ export function SpeechRecognitionDoc() {
           use; the choice is remembered between sessions.
         </p>
 
+        <DocHeading level={2}>Uploading audio into a chat</DocHeading>
+        <p>
+          Separately from dictation, you can attach an existing audio file to a
+          message and send it to the AI. Use the attachment control in the chat
+          input to pick an audio file (common formats like MP3, WAV, OGG, FLAC,
+          AAC, M4A, and others are supported). The clip is added to your message
+          as an attachment, and a small player lets you listen to it right in
+          the conversation.
+        </p>
+        <p>
+          This is different from microphone dictation. Dictation is transcribed
+          locally and turned into text. An uploaded clip is sent to the model as
+          audio, so the AI can actually listen to it. For this to work you need
+          a model that understands audio input (for example, audio-capable
+          Gemini models). With models that do not support audio, the clip is
+          simply left out of the request.
+        </p>
+        <Callout title="Audio uses tokens">
+          When you send audio to a model, it counts toward your usage just like
+          text does. The app tracks audio tokens separately so you can see how
+          much audio is contributing to a request.
+        </Callout>
+        <p>
+          Every clip you upload, plus any speech your characters generate, is
+          collected in the <strong>Audio Library</strong> under{" "}
+          <strong>Settings → Library</strong>, where you can replay,
+          download, or delete it. See the Text-to-Speech page for details.
+        </p>
+        <Callout type="warning" title="Uploaded audio leaves your device">
+          Unlike microphone dictation, which is processed locally, an audio clip
+          you upload and send is delivered to your chosen model's provider so it
+          can be heard. Only send audio to providers you trust.
+        </Callout>
+
         <DocHeading level={2}>Vocabulary</DocHeading>
         <p>
           Vocabulary lets you teach Whisper words it is likely to mishear,
@@ -113,7 +148,7 @@ export function SpeechRecognitionDoc() {
           used terms are included first.
         </Callout>
 
-        <DocHeading level={2}>Corrections: wrong &rarr; correct rewrites</DocHeading>
+        <DocHeading level={2}>Corrections: wrong → correct rewrites</DocHeading>
         <p>
           Corrections are simple find-and-replace rules applied to Whisper's
           output after transcription. Use them when a specific phrase is

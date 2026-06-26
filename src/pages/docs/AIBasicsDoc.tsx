@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Callout } from "@/components/docs/Callout";
 import { DocHeading } from "@/components/docs/DocHeading";
+import { DocImage } from "@/components/docs/DocImage";
+import { images } from "@/config/images";
 import { SEO } from "@/components/common/SEO";
 import { buildBreadcrumbSchema } from "@/config/schemas";
 
@@ -197,6 +199,13 @@ export function AIBasicsDoc() {
         a single request, not its permanent memory.
       </Callout>
 
+      <DocImage
+        src={images.aiBasics.contextWindow}
+        alt="What fills the context window and what happens when it is full"
+        caption="The context window is one fixed space shared by the system prompt, character and persona, lorebook entries, memories, recent history, and the room saved for the reply. When it fills up, the oldest messages drop out first, which is why saved memories matter."
+        containerClassName="max-w-5xl mx-auto"
+      />
+
       <DocHeading level={2}>Why AI forgets things</DocHeading>
 
       <p>
@@ -313,15 +322,17 @@ export function AIBasicsDoc() {
           servers over the internet
         </li>
         <li>
-          <strong>Local models:</strong> the model runs on your own machine,
-          usually through something like Ollama
+          <strong>Local models:</strong> the model runs on your own machine.
+          LettuceAI can run local models directly, including ones you download
+          from inside the app, or connect to a local server like Ollama
         </li>
       </ul>
 
       <p>
-        Cloud models are usually easier to start with and often stronger. Local
-        models give you more privacy and can work offline, but they depend on
-        your hardware.
+        Cloud models (the bring-your-own-key option) are usually easier to start
+        with and often stronger. Local models give you more privacy and can work
+        offline, but they depend on your hardware. You can mix both and switch
+        between them whenever you like.
       </p>
 
       <DocHeading level={2}>Why some replies are slow</DocHeading>

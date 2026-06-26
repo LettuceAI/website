@@ -144,6 +144,15 @@ export function ChatTemplatesDoc() {
         messages.
       </p>
 
+      <p>
+        Scenes themselves are authored on the character (see the{" "}
+        <Link to="/docs/characters">Characters guide</Link>). A scene can carry
+        its own background image, and you can insert inline images or GIFs into
+        the scene text with <strong>Upload</strong> or{" "}
+        <strong>From library</strong>. Those inline images are shown for
+        atmosphere but are not sent to the AI.
+      </p>
+
       <DocHeading level={2}>How lorebook overrides behave</DocHeading>
 
       <p>
@@ -157,10 +166,11 @@ export function ChatTemplatesDoc() {
       <DocHeading level={2}>Default chat template</DocHeading>
 
       <p>
-        You can mark one of a character's chat templates as the default. When a
-        default is set, new chats with that character use that template
-        automatically without showing the picker. You can still pick a
-        different template by opening the picker explicitly.
+        You can mark one of a character's chat templates as the default. The
+        default is highlighted in the picker with a star so it is easy to spot
+        and choose quickly. The picker still appears when a character has
+        templates, so you can always pick a different opener or choose{" "}
+        <strong>No template</strong>.
       </p>
 
       <DocHeading level={2}>How system prompts behave</DocHeading>

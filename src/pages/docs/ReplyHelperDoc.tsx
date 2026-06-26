@@ -117,6 +117,26 @@ export function ReplyHelperDoc() {
         alt="Help Me Reply settings panel"
       />
 
+      <DocHeading level={3}>How much chat it reads</DocHeading>
+      <p>
+        Help Me Reply bases its suggestions on the recent conversation. You can
+        control how far back it looks with the{" "}
+        <strong>Messages Sent</strong> setting, which sets how many recent
+        messages are included as context. It defaults to{" "}
+        <strong>10</strong> messages, with quick presets for 5, 10, 20, and 40,
+        and you can set any value from 1 up to 100.
+      </p>
+      <ul>
+        <li>
+          A <strong>smaller</strong> window keeps suggestions focused on the
+          latest exchange and is a little faster and cheaper.
+        </li>
+        <li>
+          A <strong>larger</strong> window gives the assistant more of the story
+          to work with, which helps in longer or more involved conversations.
+        </li>
+      </ul>
+
       <DocHeading level={2}>Using your text as a base</DocHeading>
 
       <p>

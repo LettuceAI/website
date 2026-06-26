@@ -53,8 +53,8 @@ export function UsageDoc() {
           </li>
           <li>
             Token counts: prompt, completion, total, cached prompt, cache
-            write, reasoning, image, and any web search requests reported by
-            the provider.
+            write, reasoning, image, audio, and any web search requests reported
+            by the provider.
           </li>
           <li>
             Token breakdown contributed by the app itself: memory embedding
@@ -96,6 +96,33 @@ export function UsageDoc() {
           <li>The finish reason and any error message.</li>
           <li>Session, character, and model metadata.</li>
         </ul>
+
+        <DocHeading level={2}>Per-message metrics</DocHeading>
+        <p>
+          As well as the central usage log, each AI message keeps its own
+          performance numbers attached to it, so you can see how a specific
+          reply was generated without leaving the chat:
+        </p>
+        <ul>
+          <li>
+            <strong>Token count</strong> for that message (prompt and completion
+            tokens, plus the same detailed breakdown used in the usage log).
+          </li>
+          <li>
+            <strong>Speed</strong> in tokens per second for the response.
+          </li>
+          <li>
+            <strong>Time to first token</strong>, how long the model took to
+            start replying after the request was sent.
+          </li>
+        </ul>
+        <p>
+          Open the message actions on any AI reply to view these numbers. Each
+          regenerated variant of a message keeps its own metrics, so you can
+          compare how different attempts performed. The figures are saved with
+          the message and remain available later, including after a backup and
+          restore.
+        </p>
 
         <DocHeading level={2}>How cost is calculated</DocHeading>
         <p>

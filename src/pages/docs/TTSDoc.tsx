@@ -11,7 +11,7 @@ export function TTSDoc() {
     <>
     <SEO
       title="Text-to-Speech"
-      description="Make characters speak aloud with ElevenLabs, Google Gemini TTS, OpenAI-compatible TTS, or local Kokoro voices in LettuceAI."
+      description="Make characters speak aloud with ElevenLabs, Google Gemini TTS, OpenAI-compatible TTS, Fish, or local Kokoro voices in LettuceAI."
       path="/docs/tts"
       jsonLd={buildBreadcrumbSchema([
         { name: "Home", path: "/" },
@@ -71,6 +71,16 @@ export function TTSDoc() {
           ID, base URL, and voice ID.
         </li>
         <li>
+          <strong>Fish (cloud):</strong> Fish Audio's hosted voice synthesis.
+          It uses an API key and lets you pick from the voice models in your
+          Fish account.
+        </li>
+        <li>
+          <strong>Fish (local):</strong> connects to a Fish Speech server you
+          run yourself. You point LettuceAI at the server address, and an API
+          key is optional depending on how the server is configured.
+        </li>
+        <li>
           <strong>Kokoro (local):</strong> fully offline TTS that runs on your
           device. Voices, model weights, and the eSpeak NG phonemizer are
           downloaded once and then used without network access.
@@ -78,9 +88,11 @@ export function TTSDoc() {
       </ul>
 
       <p>
-        Cloud providers (ElevenLabs, Gemini TTS, OpenAI-compatible) need an API
-        key. Kokoro is local and does not need a key, but it does need its
-        assets installed and (on desktop) eSpeak NG available on your system.
+        Cloud providers (ElevenLabs, Gemini TTS, OpenAI-compatible, Fish cloud)
+        need an API key. Kokoro is local and does not need a key, but it does
+        need its assets installed and (on desktop) eSpeak NG available on your
+        system. The local Fish option talks to a server you host, so it does not
+        send audio to a third party.
       </p>
 
       <DocHeading level={2}>My Voices</DocHeading>
@@ -235,12 +247,49 @@ export function TTSDoc() {
         If no voice is assigned, Autoplay has no effect.
       </Callout>
 
+      <DocHeading level={2}>Setting up Kokoro (local voices)</DocHeading>
+
+      <p>
+        Kokoro runs entirely on your device, so before you can use it you need
+        to download its model once. Setup now happens with a guided menu right
+        where you add the provider, so you do not need to hunt for files
+        manually.
+      </p>
+
+      <ul>
+        <li>
+          Open <strong>Settings → Providers</strong> and switch to the{" "}
+          <strong>Audio</strong> tab, then add or open the{" "}
+          <strong>Kokoro (Local)</strong> provider.
+        </li>
+        <li>
+          A setup menu appears where you pick a <strong>model variant</strong>.
+          The options trade size for quality: a smaller compressed build, a
+          balanced build (recommended for most devices), and a full-size build.
+        </li>
+        <li>
+          You can also tick a <strong>starter pack</strong> to install a small
+          set of ready-to-use voices alongside the model, so you have something
+          to speak with immediately.
+        </li>
+        <li>
+          Tap download and let the model and any selected voices install. Once
+          finished, Kokoro is ready to use offline.
+        </li>
+      </ul>
+
+      <Callout>
+        On desktop, Kokoro also needs the eSpeak NG phonemizer installed on your
+        system. On mobile this is bundled for you.
+      </Callout>
+
       <DocHeading level={2}>Kokoro Studio</DocHeading>
 
       <p>
-        Kokoro Studio is the management hub for the local Kokoro provider. You
-        reach it from a Kokoro audio provider in TTS settings. It handles
-        everything Kokoro needs to run offline:
+        Once the model is installed, Kokoro Studio is the management hub for your
+        local voices. You reach it from the <strong>Voices</strong> screen by
+        opening your Kokoro provider. It handles everything Kokoro needs to run
+        offline:
       </p>
 
       <ul>
@@ -335,6 +384,48 @@ export function TTSDoc() {
       <p>
         You can clear cached audio anytime.
       </p>
+
+      <DocHeading level={2}>Audio Library</DocHeading>
+
+      <p>
+        The Audio Library is one place to find every audio clip in the app. Open
+        it from <strong>Settings → Library</strong> and switch to the{" "}
+        <strong>Audio</strong> tab. It gathers two kinds of audio:
+      </p>
+
+      <ul>
+        <li>
+          <strong>Generated</strong>: speech created by your TTS voices.
+        </li>
+        <li>
+          <strong>Uploaded</strong>: audio files you attached to a chat.
+        </li>
+      </ul>
+
+      <p>
+        You can filter between all audio, generated only, or uploaded only. Each
+        clip shows as a player card with a play button, a progress bar you can
+        scrub, and the file name, size, and date. From a card you can:
+      </p>
+
+      <ul>
+        <li>
+          <strong>Open in chat</strong>: jump back to the message the clip came
+          from (available for clips tied to a conversation).
+        </li>
+        <li>
+          <strong>Download</strong>: save the audio file to your device.
+        </li>
+        <li>
+          <strong>Delete</strong>: remove the clip after a confirmation.
+        </li>
+      </ul>
+
+      <Callout type="warning" title="Reset removes downloaded models">
+        Resetting the app's data clears downloaded voice and speech models,
+        including Kokoro and Whisper, along with cached and library audio. You
+        can re-download anything you need afterward.
+      </Callout>
     </motion.article>
     </>
   );

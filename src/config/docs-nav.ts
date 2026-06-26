@@ -24,6 +24,8 @@ import {
   BarChart3,
   Archive,
   Mic,
+  LayoutDashboard,
+  GitBranch,
 } from "lucide-react";
 import { Wheelchair } from "./WheelChairIcon";
 
@@ -211,6 +213,36 @@ export const docsNav = [
         href: "/docs/group-chats",
         icon: Users,
         keywords: ["group chat", "multi character", "conversation", "roleplay"],
+      },
+      {
+        title: "Chat Widgets",
+        href: "/docs/chat-widgets",
+        icon: LayoutDashboard,
+        keywords: [
+          "widget",
+          "widgets",
+          "panel",
+          "side panel",
+          "stat tracker",
+          "scratch pad",
+          "dice",
+          "layout",
+        ],
+      },
+      {
+        title: "Chat Branching",
+        href: "/docs/branching",
+        icon: GitBranch,
+        keywords: [
+          "branch",
+          "branching",
+          "fork",
+          "tree",
+          "lineage",
+          "alternate",
+          "timeline",
+          "compare",
+        ],
       },
       {
         title: "Discovery",

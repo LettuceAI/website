@@ -59,6 +59,15 @@ export function CharactersDoc() {
             with an in-app crop tool
           </li>
           <li>
+            <strong>Card type</strong>: choose how this character appears in
+            your lists. <strong>Circle</strong> is the classic round avatar.{" "}
+            <strong>Banner</strong> shows a wide banner image with the name on
+            top. When you pick Banner, a separate{" "}
+            <strong>Banner image</strong> picker appears with its own crop tool.
+            If you leave the banner image empty, the banner card falls back to
+            the base avatar.
+          </li>
+          <li>
             <strong>Chat background (optional)</strong>: Background image for
             this character's conversations
           </li>
@@ -92,8 +101,19 @@ export function CharactersDoc() {
             and lore that should always be in scope
           </li>
           <li>
-            <strong>System prompt or prompt template</strong>: instructions
-            that guide responses, with optional per-character template override
+            <strong>Design references</strong>: an optional set of reference
+            images plus one short visual note. These keep generated avatars and
+            scene images on-model, so the same face, proportions, outfit cues,
+            and style carry across pictures.
+          </li>
+          <li>
+            <strong>Prompt template overrides</strong>: instructions that guide
+            responses. You can leave these on the app default, or point the
+            character at a specific template. There are separate optional
+            overrides for direct chat, for group conversation, and for group
+            roleplay. In Companion mode you can also set a standalone{" "}
+            <strong>Companion Prompt</strong>, which is stored on its own and
+            does not change the normal roleplay system prompt.
           </li>
           <li>
             <strong>Memory mode</strong>
@@ -108,8 +128,8 @@ export function CharactersDoc() {
             </ul>
           </li>
           <li>
-            <strong>Default model</strong> and <strong>fallback model</strong>:
-            used when starting new chats
+            <strong>Default model</strong>: the model used when starting new
+            chats with this character
           </li>
           <li>
             <strong>Voice config</strong> with optional auto-play for TTS
@@ -119,11 +139,16 @@ export function CharactersDoc() {
 
       <DocHeading level={2}>Step 3: Companion soul (companion mode only)</DocHeading>
       <p>
-        If you picked Companion in Step 1, an extra step lets you author or
-        AI-generate the companion's soul: identity, baseline affect, regulation
-        style, and relationship defaults. You can skip this step and edit the
-        soul later from inside the chat. Roleplay characters bypass this step
-        entirely.
+        If you picked Companion in Step 1, an extra step lets you author the
+        companion's soul: identity, baseline affect, regulation style, and
+        relationship defaults. You can fill these in by hand, or use{" "}
+        <strong>Generate from character</strong> to have the app draft a soul
+        from the character's description. A <strong>Direction</strong> bottom
+        menu lets you add optional steering notes that shape how the soul is
+        drafted; leave it empty to let the model decide from the character
+        alone. You can skip this step and edit the soul later from inside the
+        chat. Roleplay characters bypass this step entirely. For the full
+        picture, see the Companion Mode page.
       </p>
 
       <DocHeading level={2}>Step 4: Starting scenes</DocHeading>
@@ -138,6 +163,15 @@ export function CharactersDoc() {
         <ul>
           <li>You can create multiple starting scenes</li>
           <li>One scene can be selected as the default</li>
+          <li>
+            Each scene can have its own background image, set from your library
+            or uploaded from the device
+          </li>
+          <li>
+            You can insert inline images or GIFs into the scene text, using{" "}
+            <strong>Upload</strong> or <strong>From library</strong>. These show
+            in the scene for atmosphere but are not sent to the AI.
+          </li>
           <li>
             Scenes only affect the beginning, not the character's personality
           </li>

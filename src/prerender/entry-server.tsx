@@ -49,6 +49,8 @@ export const prerenderRoutes = [
   "/docs/usage",
   "/docs/backup-restore",
   "/docs/speech-recognition",
+  "/docs/chat-widgets",
+  "/docs/branching",
   "/blog",
   ...getAllSlugs().map((slug) => `/blog/${slug}`),
 ];

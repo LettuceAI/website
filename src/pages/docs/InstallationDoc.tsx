@@ -11,7 +11,7 @@ export function InstallationDoc() {
     <>
       <SEO
         title="Installation"
-        description="Install LettuceAI on Android, Arch Linux, Debian and Ubuntu systems, build a Flatpak locally, or build it from source for desktop and mobile development."
+        description="Install LettuceAI on Android, Windows, macOS, and Linux, including Arch Linux AUR, Debian and Ubuntu via APT, Nix, or building from source for desktop and mobile development."
         path="/docs/installation"
         jsonLd={buildBreadcrumbSchema([
           { name: "Home", path: "/" },
@@ -28,16 +28,20 @@ export function InstallationDoc() {
         <DocHeading level={1}>Installation</DocHeading>
 
         <p className="lead">
-          LettuceAI is available as an Android app, desktop release assets, Arch
-          Linux AUR packages, a Debian-style APT repository, and a Flatpak
-          manifest you can build locally. Contributors can also build it from
-          source for desktop, Android, and iOS.
+          LettuceAI is available as an Android app, desktop release assets for
+          Windows, macOS, and Linux, Arch Linux AUR packages, a Debian-style APT
+          repository, and a Nix flake you can run directly. Contributors can also
+          build it from source for desktop, Android, and iOS.
         </p>
 
         <DocHeading level={2}>Choose a Path</DocHeading>
         <ul>
           <li>
             Use the Android release if you want the mobile app on a phone or tablet.
+          </li>
+          <li>
+            Use the Windows, macOS, or Linux desktop downloads if you want a
+            ready-to-run desktop app.
           </li>
           <li>
             Use the AUR package if you are on Arch Linux or an Arch-based
@@ -48,9 +52,8 @@ export function InstallationDoc() {
             derivative and want updates through <code>apt</code>.
           </li>
           <li>
-            Use the Flatpak manifest if you want a sandboxed Linux install that
-            works across distributions. The manifest currently ships in the
-            repository as a local build path.
+            Use the Nix flake if you are a Nix user and want to run the app
+            without a manual install.
           </li>
           <li>
             Build from source if you are contributing, developing locally, or need
@@ -79,9 +82,10 @@ export function InstallationDoc() {
         </ol>
 
         <Callout type="info" title="Android Requirements">
-          Android 12 or higher is required. Keep several gigabytes of free storage
-          available for chats, assets, downloaded models, voices, and generated
-          media.
+          Android 7.0 or higher is required. The download is a single universal
+          APK that works on all device types. Keep several gigabytes of free
+          storage available for chats, assets, downloaded models, voices, and
+          generated media.
         </Callout>
 
         <DocHeading level={2}>Desktop Release Assets</DocHeading>
@@ -97,8 +101,10 @@ export function InstallationDoc() {
             <code>-setup.exe</code> package for the CPU, Vulkan, or CUDA variant.
           </li>
           <li>
-            macOS: use the published <code>.dmg</code> installer for the matching
-            architecture and rendering path.
+            macOS: use the published <code>.dmg</code> installer for your
+            architecture (Apple Silicon or Intel). A CPU build and a Metal
+            GPU-accelerated build are provided. macOS 11 (Big Sur) or newer is
+            required.
           </li>
           <li>
             Linux: use the AUR or APT repository instructions below if you want
@@ -106,6 +112,39 @@ export function InstallationDoc() {
             release tarball assets directly from GitHub Releases.
           </li>
         </ul>
+
+        <Callout type="info" title="Which GPU variant?">
+          The CPU build runs everywhere and is the safe default. The CUDA and
+          Vulkan builds only matter if you plan to run local models on your own
+          hardware: choose CUDA for NVIDIA GPUs, Vulkan for AMD, Intel, or mixed
+          setups, and Metal on macOS. If you only use cloud providers, the CPU
+          build is all you need.
+        </Callout>
+
+        <DocHeading level={3}>Opening Downloaded macOS Builds (Gatekeeper)</DocHeading>
+        <p>
+          macOS release builds are ad-hoc signed, not notarized, so the first
+          launch of a downloaded build is blocked by Gatekeeper. This is expected.
+          You only need to do this once.
+        </p>
+        <ul>
+          <li>
+            On macOS 15 (Sequoia) and later: try to open the app once, then go to
+            <strong> System Settings &gt; Privacy &amp; Security</strong> and click{" "}
+            <strong>Open Anyway</strong>.
+          </li>
+          <li>
+            On older macOS versions: right-click (or Control-click) the app and
+            choose <strong>Open</strong>.
+          </li>
+        </ul>
+        <p>
+          If macOS reports that the app is "damaged and cannot be opened", clear
+          the quarantine flag from a terminal:
+        </p>
+        <div className="not-prose">
+          <CodeBlock language="bash">{`xattr -cr /Applications/lettuceai.app`}</CodeBlock>
+        </div>
 
         <DocHeading level={2}>Arch Linux and AUR</DocHeading>
         <p>
@@ -200,45 +239,20 @@ sudo apt install ./lettuceai-linux-x86_64-cpu.deb`}</CodeBlock>
           incompatible builds as interchangeable candidates.
         </Callout>
 
-        <DocHeading level={2}>Flatpak (Local Build)</DocHeading>
+        <DocHeading level={2}>Nix</DocHeading>
         <p>
-          The repository ships a Flatpak manifest at{" "}
-          <code>flatpak/com.lettuceai.app.yml</code> and a helper script at{" "}
-          <code>scripts/flatpak-local-build.sh</code>. This lets you build a
-          sandboxed Linux package on your own machine and install it through{" "}
-          <code>flatpak</code>. There is no hosted Flathub or remote repository
-          yet, so this is a build-from-manifest workflow rather than a one-line
-          install.
+          If you use Nix, you can run LettuceAI straight from the project flake
+          without a manual install.
         </p>
 
-        <DocHeading level={3}>Prerequisites</DocHeading>
-        <ul>
-          <li>
-            <code>flatpak</code> and <code>flatpak-builder</code> installed
-          </li>
-          <li>The Flathub remote configured for your user</li>
-          <li>
-            GNOME platform and SDK runtimes plus the Rust and Node SDK
-            extensions (the build script will install missing dependencies from
-            Flathub on first run)
-          </li>
-        </ul>
-
         <div className="not-prose">
-          <CodeBlock language="bash">{`# From the mobile-app repository root
-bash scripts/flatpak-local-build.sh
-
-# Install the produced bundle
-flatpak install --user ./lettuceai.flatpak
-
-# Run it
-flatpak run com.lettuceai.app`}</CodeBlock>
+          <CodeBlock language="bash">{`nix run github:LettuceAI/app`}</CodeBlock>
         </div>
 
         <Callout type="info" title="Flatpak Status">
-          Flatpak support is currently a local build path. The manifest and
-          helper script are in the repository, but there is no published
-          Flathub or remote Flatpak repository yet.
+          There is no Flathub or Flatpak package yet. If you are on Linux, use the
+          AUR package, the APT repository, the Nix flake, or the published
+          <code> .deb</code> and tarball assets from GitHub Releases.
         </Callout>
 
         <DocHeading level={2}>Build from Source</DocHeading>

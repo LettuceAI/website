@@ -55,6 +55,8 @@ import {
   UsageDoc,
   BackupRestoreDoc,
   SpeechRecognitionDoc,
+  ChatWidgetsDoc,
+  BranchingDoc,
 } from "@/pages/docs";
 import Snowfall from "react-snowfall";
 import { SnowProvider, useSnow } from "@/contexts/SnowContext";
@@ -162,6 +164,8 @@ export function AppContent() {
               <Route path="usage" element={<UsageDoc />} />
               <Route path="backup-restore" element={<BackupRestoreDoc />} />
               <Route path="speech-recognition" element={<SpeechRecognitionDoc />} />
+              <Route path="chat-widgets" element={<ChatWidgetsDoc />} />
+              <Route path="branching" element={<BranchingDoc />} />
               <Route
                 path="character-creator"
                 element={<Navigate to="/docs/smart-creator" replace />}

@@ -73,7 +73,9 @@ export function CharacterCreatorDoc() {
       <ul>
         <li>
           <strong>Model</strong>: which text model the Creator uses. Defaults
-          to your global default model.
+          to your global default model. The picker lists both your connected
+          provider models and any local llama.cpp models you have set up, so the
+          Creator can run fully on-device if you prefer.
         </li>
         <li>
           <strong>Streaming</strong>: stream replies token by token, or wait for

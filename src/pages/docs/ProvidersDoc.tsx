@@ -71,38 +71,62 @@ export function ProvidersDoc() {
 
             <DocHeading level={2}>Supported providers</DocHeading>
             <p>
-                LettuceAI ships with built-in support for these providers. You can also add
-                a custom OpenAI-format or Anthropic-format endpoint if your provider is not
-                in this list.
+                LettuceAI ships with built-in support for the providers below. You add them
+                under <strong>Settings → Providers</strong>. If your provider is not in this
+                list, you can still connect it using a custom OpenAI-format or
+                Anthropic-format endpoint.
             </p>
 
-            <DocHeading level={3}>Cloud providers</DocHeading>
+            <DocHeading level={3}>Cloud text providers</DocHeading>
+            <p>
+                These run AI models in the cloud. Each one needs an API key from that
+                provider. See the API Keys doc for step-by-step instructions.
+            </p>
             <ul>
                 <li>OpenAI</li>
                 <li>Anthropic (Claude)</li>
                 <li>Google (Gemini)</li>
+                <li>Gemini Agent Platform (Express)</li>
+                <li>Cerebras</li>
                 <li>DeepSeek</li>
                 <li>Mistral AI</li>
                 <li>Groq</li>
                 <li>xAI (Grok)</li>
                 <li>OpenRouter</li>
+                <li>LiteRouter</li>
+                <li>Pollinations AI</li>
+                <li>NanoGPT</li>
                 <li>Moonshot AI (Kimi)</li>
                 <li>Qwen (Alibaba DashScope)</li>
+                <li>Featherless AI</li>
+                <li>Anannas AI</li>
                 <li>zAI (GLM)</li>
                 <li>NVIDIA NIM</li>
-                <li>Anannas AI</li>
-                <li>Featherless AI</li>
-                <li>NanoGPT</li>
                 <li>Chutes</li>
-                <li>Stability AI (image generation)</li>
+            </ul>
+
+            <DocHeading level={3}>Image generation providers</DocHeading>
+            <p>
+                These create images instead of text. Stability AI runs in the cloud and
+                needs an API key. The others run on your own machine or local network, so
+                they do not need a key.
+            </p>
+            <ul>
+                <li>Stability AI (cloud)</li>
+                <li>AUTOMATIC1111 (self-hosted)</li>
+                <li>ComfyUI (self-hosted)</li>
+                <li>Diffusers (self-hosted)</li>
             </ul>
 
             <DocHeading level={3}>Local providers</DocHeading>
+            <p>
+                Local providers run models on your own device or network. They do not need
+                an API key and do not send your chats to a cloud service.
+            </p>
             <ul>
-                <li>Local (llama.cpp), the built-in engine. See the Model Browser doc.</li>
+                <li>The built-in local engine (llama.cpp). See the Model Browser doc.</li>
                 <li>Ollama (Local)</li>
                 <li>LM Studio (Local)</li>
-                <li>AUTOMATIC1111 (Local, image generation)</li>
                 <li>IntenseRP Next (Local)</li>
             </ul>
 
@@ -111,11 +135,16 @@ export function ProvidersDoc() {
                 <li>Custom (OpenAI-format) for any OpenAI-compatible server</li>
                 <li>Custom (Anthropic-format) for any Anthropic-compatible server</li>
             </ul>
+            <p>
+                For a custom endpoint you provide the base URL yourself, plus a key or any
+                headers the server expects.
+            </p>
 
             <Callout type="info" title="Verifying a provider">
-                When you save a provider, LettuceAI can verify the API key against the
+                When you save a provider, LettuceAI can verify the connection against the
                 provider's models endpoint. If verification fails, double-check the key,
-                base URL, and any required headers.
+                base URL, and any required headers. Local and self-hosted providers must be
+                running and reachable on the address you entered.
             </Callout>
         </motion.article>
         </>

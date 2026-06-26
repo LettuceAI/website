@@ -41,9 +41,27 @@ export function GroupChatsDoc() {
         <DocHeading level={2}>Create a group</DocHeading>
         <p>
           Open the <strong>+</strong> menu and pick <strong>Group Chat</strong>.
-          Select at least two characters, then give the group a name and
-          optional background.
+          Creating a group is a short three-step wizard, with a button at the
+          bottom of the screen that carries you to the next step (it also shows
+          how many characters you have selected).
         </p>
+        <ol>
+          <li>
+            <strong>Select characters</strong>: pick at least two members for
+            the group. You can also import a shared group file on this step.
+          </li>
+          <li>
+            <strong>Group setup</strong>: choose the chat type, how speakers take
+            turns, the memory mode, an optional name (one is generated from the
+            character names if you leave it blank), and an optional background
+            image.
+          </li>
+          <li>
+            <strong>Starting scene</strong>: shown only for roleplay groups,
+            where you set the opening scene.
+          </li>
+        </ol>
+        <p>The two chat types are:</p>
         <ul>
           <li>
             <strong>Conversation</strong>: freeform multi-character chat
@@ -81,15 +99,41 @@ export function GroupChatsDoc() {
           You can also cancel a response at any time using the abort controls.
         </p>
         <p>
+          Use <strong>Continue</strong> to let the next character speak again
+          without typing anything yourself. Continue no longer puts words in
+          your mouth: it asks the next character to respond based on the
+          conversation so far, without adding a fake message from your persona.
+        </p>
+        <p>
           Group chat message cards are optimized for readability and longer
-          sessions.
+          sessions. There is also a message search that lets you find and jump
+          to any message in a long group session.
         </p>
       </DocSplit>
 
       <DocHeading level={2}>Group settings</DocHeading>
       <p>
-        The Group Settings page lets you edit the group name, manage members,
-        update the background image, and choose a persona for the conversation.
+        Group settings come in two layers, both using the same clean option-row
+        layout with character avatars in the header:
+      </p>
+      <ul>
+        <li>
+          <strong>Group settings</strong> set the defaults for new sessions of
+          that group: background image, persona, lorebooks, the default speaker
+          selection method, the default memory mode, and the chat appearance.
+        </li>
+        <li>
+          <strong>Session settings</strong> apply to the conversation you are in
+          right now: background image, persona, lorebooks, an author's note,
+          speaker selection, and the member roster (add or remove characters,
+          mute them, or target them with a mention). Session settings also hold
+          actions like export, import, duplicate, and branching the group into a
+          one-on-one chat.
+        </li>
+      </ul>
+      <p>
+        On desktop, session settings open as a side panel next to the
+        conversation instead of a full screen.
       </p>
 
       <DocImage
@@ -97,6 +141,15 @@ export function GroupChatsDoc() {
         alt="Group chat settings screen"
         containerClassName="max-w-xl mx-auto"
       />
+
+      <DocHeading level={2}>Appearance</DocHeading>
+      <p>
+        Group chats use the same appearance editor as one-on-one chats. Each
+        group can override the global look across Typography, Bubbles, Layout,
+        Colors, and Background, so a group can have its own style without
+        changing your other chats. On desktop you also get layout controls for
+        the wider, multi-column view.
+      </p>
 
       <DocHeading level={2}>Personas in group chats</DocHeading>
       <p>
@@ -110,6 +163,13 @@ export function GroupChatsDoc() {
         When you send a message, the app decides which character should reply
         next using a clear priority order:
       </p>
+
+      <DocImage
+        src={images.groupChats.directorFlow}
+        alt="The ways the next speaker is chosen in a group chat"
+        caption="You can let the app pick who fits the moment, choose manually, or take the wheel with Director mode (tap a character to cue them or have them respond right away). Shared memory and lorebooks keep the whole group consistent."
+        containerClassName="max-w-2xl mx-auto"
+      />
       <ol>
         <li>
           <strong>@mentions</strong> always win and force a specific character.
@@ -126,7 +186,7 @@ export function GroupChatsDoc() {
 
       <p>
         Each group session stores its own speaker selection method. You can
-        switch between three options at any time from group settings:
+        switch between four options at any time from group settings:
       </p>
 
       <ul>
@@ -141,6 +201,10 @@ export function GroupChatsDoc() {
         <li>
           <strong>Round robin</strong>: the next speaker is chosen by rotating
           through the participants, so everyone gets a turn.
+        </li>
+        <li>
+          <strong>Director</strong>: you decide who speaks instead of the app. See
+          Director mode below.
         </li>
       </ul>
       <div className="relative -mx-6 w-[calc(100%+3rem)] px-6">
@@ -183,6 +247,36 @@ export function GroupChatsDoc() {
         <li>Name mentions inside the user message</li>
       </ul>
 
+      <DocHeading level={2}>Director mode</DocHeading>
+      <p>
+        Director mode hands the casting to you. Instead of the app choosing who
+        replies, nothing speaks automatically: you pick the character who
+        responds by tapping their avatar in the participants bar. This is great
+        for staging a scene exactly the way you want it.
+      </p>
+      <p>
+        When you turn Director mode on, you choose one of two styles:
+      </p>
+      <ul>
+        <li>
+          <strong>Cue</strong> (default, shown as &quot;Pick, then send&quot;):
+          tap the character who should answer, then press Send. Your message goes
+          out and that character replies. If you press Send without picking
+          anyone first, the avatar bar nudges you to choose. Your last pick stays
+          selected for the next turn.
+        </li>
+        <li>
+          <strong>Action</strong> (shown as &quot;Tap to respond&quot;): pressing
+          Send only adds your message to the conversation, with no reply. Tapping
+          a character&apos;s avatar makes them respond right away. There is also
+          an option to post your line without any response.
+        </li>
+      </ul>
+      <p>
+        Director mode is opt-in and does not change the default for other
+        groups, which stay on LLM selection.
+      </p>
+
       <DocHeading level={2}>Muting participants</DocHeading>
       <p>
         You can mute individual characters in a group. Muted characters are
@@ -213,6 +307,11 @@ export function GroupChatsDoc() {
         background maintenance cycle) is implemented in parallel with the
         direct-chat pipeline and uses the same settings. See the{" "}
         <a href="/docs/memory">Memory System</a> doc for details.
+      </p>
+      <p>
+        The memory mode is set when you create the group and can be changed later
+        in settings. The group&apos;s memories page shows over the group
+        background image, so it stays visually consistent with the conversation.
       </p>
 
       <Callout type="info" title="Tips">

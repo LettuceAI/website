@@ -26,11 +26,75 @@ export function AccessibilityDoc() {
       <DocHeading level={1}>Accessibility</DocHeading>
 
       <p>
-        The Accessibility settings let you customise feedback in the app so it
-        feels clearer, easier to use, and more comfortable for your needs. These
-        options are fully optional. You can enable only the features you find
-        helpful.
+        These settings let you adjust how the app feels and looks, so it is
+        clearer, easier to use, and more comfortable for your needs. Everything
+        here is optional. You can enable only the features you find helpful.
       </p>
+
+      <Callout type="info" title="Now called Customization in the app">
+        This page used to be called <strong>Accessibility</strong> in the app and
+        is now named <strong>Customization</strong>. You will find it under{" "}
+        <strong>Settings &gt; Customization</strong>. Along with the original
+        accessibility options it now also bundles appearance and look-and-feel
+        controls, including desktop window styling and theme colors.
+      </Callout>
+
+      <DocHeading level={2}>Language</DocHeading>
+      <p>
+        At the top of the Customization page you can choose the{" "}
+        <strong>app language</strong> used across navigation and settings. This
+        is available on every platform.
+      </p>
+
+      <DocHeading level={2}>Window Controls (Desktop)</DocHeading>
+      <p>
+        On desktop, LettuceAI uses its own custom title bar instead of the
+        standard operating-system one, which gives the window a clean, rounded
+        look. The <strong>Window Controls</strong> section lets you choose how the
+        minimize, maximize, and close buttons look and where they sit. These
+        options only appear on the desktop app.
+      </p>
+
+      <p>You can pick from several title bar designs:</p>
+      <ul>
+        <li>
+          <strong>Classic</strong>: flat minimize, maximize, and close buttons.
+        </li>
+        <li>
+          <strong>Traffic Lights</strong>: round colored dots that show their
+          symbols on hover.
+        </li>
+        <li>
+          <strong>Traffic Lights (Dimmed)</strong>: muted dots that take on color
+          when you hover them.
+        </li>
+        <li>
+          <strong>Minimal</strong>: quiet monochrome icons with no backgrounds.
+        </li>
+        <li>
+          <strong>Native</strong>: use the operating system title bar instead of
+          the custom one.
+        </li>
+      </ul>
+
+      <p>When a custom design is selected, you can also adjust:</p>
+      <ul>
+        <li>
+          <strong>Position</strong>: whether the window buttons sit on the left
+          or the right.
+        </li>
+        <li>
+          <strong>Size</strong>: scale the window buttons small, medium, or large.
+        </li>
+        <li>
+          <strong>Rounded corners</strong> (Linux only): round the window edges,
+          off, small, medium, or large. The window squares off when maximized.
+        </li>
+      </ul>
+
+      <Callout>
+        Window Controls are desktop-only and do not appear in the mobile app.
+      </Callout>
 
       <DocHeading level={2}>Sound Feedback</DocHeading>
 
@@ -193,6 +257,17 @@ export function AccessibilityDoc() {
           opacity.
         </li>
         <li>
+          <strong>Chat input color</strong>: set a custom color for the message
+          input box at the bottom of the chat. As with the bubbles, the app picks
+          readable text automatically so your typing stays legible against the
+          color you choose.
+        </li>
+        <li>
+          <strong>Text colors</strong>: separate colors for plain text, italics,
+          block quotes, inline quotes, and inline code, so formatted roleplay is
+          easy to scan.
+        </li>
+        <li>
           <strong>Background blur</strong>: applied over the chat background
           image.
         </li>
@@ -244,6 +319,14 @@ export function AccessibilityDoc() {
         Theme changes apply instantly. If a custom color makes parts of the UI
         hard to read, use the per-token reset to revert just that color.
       </Callout>
+
+      <DocHeading level={2}>Easter Eggs</DocHeading>
+      <p>
+        Just for fun, the Customization page has a small Easter Eggs section. For
+        example, <strong>Beetroot Rain</strong> drops a few beetroots down the
+        screen when a chat mentions them. It is purely cosmetic and off by
+        default.
+      </p>
     </motion.article>
     </>
   );

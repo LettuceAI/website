@@ -158,13 +158,73 @@ export function DocsIndex() {
           className="p-5 rounded-xl bg-zinc-900/50 border border-border/30 hover:border-primary/30 transition-colors group"
         >
           <h3 className="font-semibold text-white mb-2 group-hover:text-primary transition-colors">
-            Accessibility
+            Accessibility & Customization
           </h3>
           <p className="text-sm text-muted-foreground mb-3">
-            Sound cues, haptics, voice input, and screen reader support.
+            Sound cues, haptics, theme colors, and desktop window styling.
           </p>
           <span className="text-sm text-primary flex items-center gap-1">
             Customize <ArrowRight className="w-4 h-4" />
+          </span>
+        </Link>
+
+        <Link
+          to="/docs/companion-mode"
+          className="p-5 rounded-xl bg-zinc-900/50 border border-border/30 hover:border-primary/30 transition-colors group"
+        >
+          <h3 className="font-semibold text-white mb-2 group-hover:text-primary transition-colors">
+            Companion Mode
+          </h3>
+          <p className="text-sm text-muted-foreground mb-3">
+            A persistent persona, evolving emotional state, and lasting memories.
+          </p>
+          <span className="text-sm text-primary flex items-center gap-1">
+            Bond <ArrowRight className="w-4 h-4" />
+          </span>
+        </Link>
+
+        <Link
+          to="/docs/characters"
+          className="p-5 rounded-xl bg-zinc-900/50 border border-border/30 hover:border-primary/30 transition-colors group"
+        >
+          <h3 className="font-semibold text-white mb-2 group-hover:text-primary transition-colors">
+            Characters
+          </h3>
+          <p className="text-sm text-muted-foreground mb-3">
+            Create, customize, and import characters and personas.
+          </p>
+          <span className="text-sm text-primary flex items-center gap-1">
+            Create <ArrowRight className="w-4 h-4" />
+          </span>
+        </Link>
+
+        <Link
+          to="/docs/group-chats"
+          className="p-5 rounded-xl bg-zinc-900/50 border border-border/30 hover:border-primary/30 transition-colors group"
+        >
+          <h3 className="font-semibold text-white mb-2 group-hover:text-primary transition-colors">
+            Group Chats
+          </h3>
+          <p className="text-sm text-muted-foreground mb-3">
+            Chat with several characters at once in scenes and roleplay.
+          </p>
+          <span className="text-sm text-primary flex items-center gap-1">
+            Gather <ArrowRight className="w-4 h-4" />
+          </span>
+        </Link>
+
+        <Link
+          to="/docs/model-browser"
+          className="p-5 rounded-xl bg-zinc-900/50 border border-border/30 hover:border-primary/30 transition-colors group"
+        >
+          <h3 className="font-semibold text-white mb-2 group-hover:text-primary transition-colors">
+            Local Models
+          </h3>
+          <p className="text-sm text-muted-foreground mb-3">
+            Download and run models on your own device, fully offline.
+          </p>
+          <span className="text-sm text-primary flex items-center gap-1">
+            Run local <ArrowRight className="w-4 h-4" />
           </span>
         </Link>
       </div>
@@ -175,36 +235,72 @@ export function DocsIndex() {
         <li className="flex items-start gap-3">
           <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
           <span>
-            <strong className="text-white">BYOK:</strong> Use your own API keys
-            from any provider
+            <strong className="text-white">Bring your own key:</strong> connect
+            your own accounts across 20+ AI providers, or run models locally
           </span>
         </li>
         <li className="flex items-start gap-3">
           <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
           <span>
-            <strong className="text-white">Privacy First:</strong> All data
-            stored locally on your device
+            <strong className="text-white">Privacy first:</strong> your chats,
+            characters, and keys are stored locally on your device
           </span>
         </li>
         <li className="flex items-start gap-3">
           <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
           <span>
-            <strong className="text-white">Smart Memory:</strong> Infinite
-            context without token limits
+            <strong className="text-white">Smart memory:</strong> long-term
+            memory that keeps quality high in long chats while cutting token cost
           </span>
         </li>
         <li className="flex items-start gap-3">
           <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
           <span>
-            <strong className="text-white">Custom Characters:</strong> Create
-            and customize AI personas
+            <strong className="text-white">Characters and personas:</strong>
+            {" "}build, import, and discover characters, personas, and lorebooks
           </span>
         </li>
         <li className="flex items-start gap-3">
           <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
           <span>
-            <strong className="text-white">Multi-Provider:</strong> Switch
-            between models mid-conversation
+            <strong className="text-white">Companion mode:</strong> a persistent
+            persona with an evolving emotional state and lasting memories
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
+          <span>
+            <strong className="text-white">Branching and widgets:</strong> fork a
+            chat into alternate paths, and add interactive in-chat widgets
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
+          <span>
+            <strong className="text-white">Local inference:</strong> download and
+            run models on your own hardware, with GPU acceleration
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
+          <span>
+            <strong className="text-white">Image generation:</strong> create
+            avatars and scenes via local engines or cloud image providers
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
+          <span>
+            <strong className="text-white">Voice:</strong> give characters a
+            voice with text-to-speech, and dictate messages with on-device
+            speech recognition
+          </span>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
+          <span>
+            <strong className="text-white">Group chats:</strong> bring several
+            characters into one conversation
           </span>
         </li>
       </ul>

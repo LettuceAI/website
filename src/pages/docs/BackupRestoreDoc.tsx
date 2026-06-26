@@ -38,7 +38,7 @@ export function BackupRestoreDoc() {
 
         <DocHeading level={2}>Creating a backup</DocHeading>
         <p>
-          Open <strong>Settings &rarr; Backup & Restore</strong> and tap{" "}
+          Open <strong>Settings → Backup & Restore</strong> and tap{" "}
           <strong>Create new backup</strong>. You will be asked to choose a
           password (minimum 6 characters) and confirm it. The app then bundles
           your data into a single encrypted <code>.lettuce</code> file and
@@ -59,11 +59,19 @@ export function BackupRestoreDoc() {
         <p>A backup contains the data you have created and configured in the app, including:</p>
         <ul>
           <li>Providers, models, and downloaded model references</li>
-          <li>Characters, personas, and chats</li>
-          <li>Memories and dynamic memory entries</li>
-          <li>Preferences and settings</li>
-          <li>Media attached to your data</li>
+          <li>Characters, personas, chats, and group chats</li>
+          <li>Memories, dynamic memory entries, and their saved embeddings</li>
+          <li>Prompt and chat templates, lorebooks, and creation helper sessions</li>
+          <li>Usage history</li>
+          <li>Preferences, settings, and advanced settings</li>
+          <li>Media attached to your data, including generated images</li>
         </ul>
+        <p>
+          Backups keep the saved memory embeddings as the source of truth, so
+          restored characters can use dynamic memory immediately without having
+          to re-process every past message. Your advanced settings are carried
+          over as well, so a restored device matches the original setup.
+        </p>
         <p>
           The backup also records the app version and a manifest so the app
           knows how to restore it correctly on a future version.
@@ -99,13 +107,34 @@ export function BackupRestoreDoc() {
         <p>
           Copy the <code>.lettuce</code> file to the other device (USB drive,
           file share, cloud storage of your choice, anywhere you trust),
-          install LettuceAI there, open <strong>Settings &rarr; Backup &
+          install LettuceAI there, open <strong>Settings → Backup &
           Restore</strong>, tap <strong>Browse Files</strong>, select the
           file, and enter the password.
         </p>
         <p>
           The new device will have the same chats, characters, settings, and
           memories as the device where the backup was created.
+        </p>
+
+        <DocHeading level={2}>Exporting a single chat</DocHeading>
+        <p>
+          Separate from full backups, you can export one conversation on its own
+          from the chat. This uses the widely supported SillyTavern{" "}
+          <code>.jsonl</code> chat format, with one message per line, so the file
+          can be opened or imported in other tools that understand that format.
+          The exported file includes the message text, who sent each message,
+          timestamps, and the character and persona names.
+        </p>
+        <Callout>
+          A single-chat export is a convenience for moving or sharing one
+          conversation. It is plain text and is not encrypted, and it does not
+          include your providers, keys, settings, or memories. Use a full
+          encrypted backup when you want to move your whole setup or keep a
+          secure archive.
+        </Callout>
+        <p>
+          You can also import a SillyTavern <code>.jsonl</code> chat file back
+          into the app to bring an exported conversation in.
         </p>
 
         <DocHeading level={2}>How this differs from Sync</DocHeading>
@@ -136,15 +165,27 @@ export function BackupRestoreDoc() {
         <DocHeading level={2}>Factory reset</DocHeading>
         <p>
           A factory reset wipes the app back to its first-launch state. It is
-          available under <strong>Settings &rarr; About &rarr; Reset</strong>{" "}
+          available under <strong>Settings → About → Reset</strong>{" "}
           (or the Reset entry in Settings).
         </p>
         <p>The reset removes:</p>
         <ul>
-          <li>Providers, models, and downloaded files</li>
-          <li>Characters, personas, and chats</li>
-          <li>Preferences, backups, and cached data</li>
+          <li>Providers, models, characters, personas, and chats</li>
+          <li>Memories and usage history</li>
+          <li>Preferences, settings, and cached data</li>
+          <li>Attachments, avatars, and generated images</li>
+          <li>
+            Downloaded local models and engines: the embedding model, speech to
+            text (Whisper) and voice (Kokoro) models, and the local image
+            generation engine along with its models and LoRAs
+          </li>
         </ul>
+        <p>
+          Because a reset also deletes the local models you downloaded, you will
+          need to download them again afterward if you want to keep using
+          on-device features like dynamic memory, voice, or local image
+          generation.
+        </p>
         <Callout type="warning" title="Reset is permanent">
           Reset cannot be undone. Once it finishes, the app exits. Create a
           backup first if there is anything you might want back.
