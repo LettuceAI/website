@@ -12,7 +12,7 @@ export function AIBasicsDoc() {
     <>
     <SEO
       title="AI Basics"
-      description="Learn what tokens, context length, models, providers, and API keys mean in plain English for beginners new to AI apps."
+      description="Learn the basics of AI chat and roleplay in plain English: characters, personas, providers, API keys, tokens, context, and memory, written for total beginners."
       path="/docs/ai-basics"
       jsonLd={buildBreadcrumbSchema([
         { name: "Home", path: "/" },
@@ -63,7 +63,7 @@ export function AIBasicsDoc() {
             <td className="py-2 px-4">
               The service that gives you access to models
             </td>
-            <td className="py-2 px-4">OpenRouter, Anthropic, Chutes, Ollama</td>
+            <td className="py-2 px-4">OpenRouter, Anthropic, Gemini, Ollama</td>
           </tr>
           <tr className="border-b border-border/10">
             <td className="py-2 px-4 font-medium">Model</td>
@@ -119,6 +119,150 @@ export function AIBasicsDoc() {
         something is missing from that window, it can forget it, contradict it,
         or make up details.
       </Callout>
+
+      <DocHeading level={2}>What AI roleplaying is</DocHeading>
+
+      <p>
+        Most people first meet AI as an assistant: you ask a question, it gives
+        an answer. AI roleplaying is different. Instead of asking for facts, you
+        have a conversation with a <strong>character</strong> and play a part in
+        a story yourself. The AI stays in character, you reply as yourself or as
+        a role you have chosen, and the two of you make up the story as you go.
+      </p>
+
+      <p>
+        There is no script, no score, and no single correct path. It is closer
+        to improv acting or collaborative writing than to a search engine. You
+        steer where things go, and the character reacts.
+      </p>
+
+      <Callout title="The mindset that helps most" type="info">
+        Think of yourself as a co-author, not a customer. The story is something
+        you build together, and you are allowed to steer it, rewrite it, and try
+        again.
+      </Callout>
+
+      <DocHeading level={2}>
+        Characters, personas, and the opening scene
+      </DocHeading>
+
+      <p>Three pieces shape almost every roleplay chat:</p>
+
+      <ul>
+        <li>
+          <strong>Character:</strong> who the AI plays. A character is defined by
+          a profile (sometimes called a character card) that holds its name,
+          personality, background, and speaking style.
+        </li>
+        <li>
+          <strong>Persona:</strong> who <em>you</em> are in the story. Your
+          persona tells the character your name and a little about you, so it can
+          react to you specifically.
+        </li>
+        <li>
+          <strong>Opening message:</strong> the first message that sets the
+          scene, also called a greeting or starting scene. It establishes where
+          you are and how the story begins.
+        </li>
+      </ul>
+
+      <p>
+        You can learn more in <Link to="/docs/characters">Characters</Link>,{" "}
+        <Link to="/docs/personas">Personas</Link>, and{" "}
+        <Link to="/docs/chat-templates">Chat Templates</Link>.
+      </p>
+
+      <DocHeading level={2}>How roleplay messages usually look</DocHeading>
+
+      <p>
+        Roleplay writing has a few common habits. None of them are required, but
+        recognizing them helps you read and write replies:
+      </p>
+
+      <ul>
+        <li>
+          <strong>Speech and actions:</strong> spoken words are usually written
+          plainly or in quotes, while actions and descriptions are often wrapped
+          in asterisks, like <code>*she glances up from her book*</code>.
+        </li>
+        <li>
+          <strong>First or third person:</strong> some people write as{" "}
+          <code>I walk closer</code> and others as <code>He walks closer</code>.
+          Pick whichever feels natural, and the character will usually mirror
+          your style.
+        </li>
+        <li>
+          <strong>Out of character (OOC):</strong> when you want to talk to the
+          AI <em>about</em> the story rather than inside it, people often label
+          it OOC or put it in parentheses, like{" "}
+          <code>(OOC: can we slow this scene down?)</code>.
+        </li>
+      </ul>
+
+      <Callout title="You set the tone" type="info">
+        The length and style you write in teaches the character what to match.
+        Short replies tend to get short replies, and rich, descriptive writing
+        tends to get more of the same back.
+      </Callout>
+
+      <DocHeading level={2}>Steering the story: swipe, edit, continue</DocHeading>
+
+      <p>
+        Because you are a co-author, you are never stuck with a reply you did not
+        like. The main tools are:
+      </p>
+
+      <ul>
+        <li>
+          <strong>Regenerate (swipe):</strong> ask for a fresh version of the
+          last reply when it misses the mark. Each try can go a different way.
+        </li>
+        <li>
+          <strong>Edit:</strong> change the wording of a message, including the
+          character's, to fix a detail or nudge the direction before you
+          continue.
+        </li>
+        <li>
+          <strong>Continue:</strong> let the character keep writing from where it
+          stopped, instead of sending a new message.
+        </li>
+        <li>
+          <strong>Branch:</strong> split off an alternate version of the chat to
+          try a different path without losing the original. See{" "}
+          <Link to="/docs/branching">Chat Branching</Link>.
+        </li>
+      </ul>
+
+      <Callout title="A small habit that pays off" type="success">
+        If a character drifts off course, edit or regenerate early. Fixing one
+        reply is much easier than arguing with the character for ten turns.
+      </Callout>
+
+      <DocHeading level={2}>Who can see my roleplay chats?</DocHeading>
+
+      <p>
+        This matters a lot in roleplay, so it is worth saying plainly. LettuceAI
+        does not run its own AI and does not store your chats on a LettuceAI
+        server. Where your messages go depends only on the model you pick:
+      </p>
+
+      <ul>
+        <li>
+          <strong>Cloud models:</strong> your messages are sent to the provider
+          you connected, and are handled under that provider's privacy and
+          content rules.
+        </li>
+        <li>
+          <strong>Local models:</strong> everything stays on your own device, and
+          nothing is sent over the internet.
+        </li>
+      </ul>
+
+      <p>
+        If privacy is a priority, a local model keeps the whole conversation on
+        your machine. See <Link to="/docs/security">Security</Link> for the full
+        picture.
+      </p>
 
       <DocHeading level={2}>What is a token?</DocHeading>
 
@@ -251,8 +395,8 @@ export function AIBasicsDoc() {
 
       <p>
         A <strong>provider</strong> is the service that gives you access to AI
-        models. Examples include OpenAI-compatible endpoints, Anthropic, Gemini,
-        Chutes, Ollama, and many others.
+        models. Examples include OpenAI, Anthropic, Gemini, OpenRouter, Ollama,
+        and many others.
       </p>
 
       <p>
@@ -468,6 +612,7 @@ export function AIBasicsDoc() {
         <li>what a provider is</li>
         <li>what a model is</li>
         <li>what an API key is</li>
+        <li>what a character and a persona are</li>
         <li>what tokens and context length mean</li>
         <li>how memory changes long chats</li>
       </ol>
@@ -497,6 +642,29 @@ export function AIBasicsDoc() {
         </li>
         <li>
           <strong>Inference:</strong> the act of the model generating a reply
+        </li>
+        <li>
+          <strong>Roleplay:</strong> chatting in character to build a story
+          together, rather than asking an assistant for answers
+        </li>
+        <li>
+          <strong>Character:</strong> the personality the AI plays, defined by a
+          character card
+        </li>
+        <li>
+          <strong>Persona:</strong> who you are in the story, so the character
+          can react to you
+        </li>
+        <li>
+          <strong>Greeting:</strong> the opening message that sets the scene
+        </li>
+        <li>
+          <strong>Regenerate (swipe):</strong> asking for a fresh version of the
+          last reply
+        </li>
+        <li>
+          <strong>OOC:</strong> out of character, talking to the AI about the
+          story instead of inside it
         </li>
       </ul>
 
