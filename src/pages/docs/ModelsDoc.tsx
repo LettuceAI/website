@@ -434,6 +434,45 @@ export function ModelsDoc() {
         or favorite words, a higher frequency penalty can help break that habit.
       </p>
 
+      <DocHeading level={3}>XTC (Exclude Top Choices)</DocHeading>
+
+      <p>
+        XTC is an advanced sampler for{" "}
+        <strong>local (llama.cpp) models</strong> that does the opposite of the
+        settings above. Instead of trimming the unlikely options, it
+        occasionally removes the most <strong>obvious</strong> ones, nudging the
+        model toward fresher, less predictable wording. It is great for creative
+        writing and roleplay, and is turned <strong>off by default</strong>.
+      </p>
+
+      <p>It has two settings:</p>
+
+      <ul>
+        <li>
+          <strong>XTC Probability:</strong> how often XTC activates.{" "}
+          <code>0</code> means off (the default). Higher values like{" "}
+          <code>0.5</code> apply it more often, adding more variety.
+        </li>
+        <li>
+          <strong>XTC Threshold:</strong> how likely a word must be to count as
+          a "top choice" that can be dropped. The default is <code>0.1</code>.
+          Lower is more aggressive; values above about <code>0.5</code>{" "}
+          effectively turn it off.
+        </li>
+      </ul>
+
+      <p>
+        A good starting point is <code>Probability 0.5</code> and{" "}
+        <code>Threshold 0.1</code>. XTC always keeps at least one solid option,
+        so replies stay coherent — it just avoids the predictable pick.
+      </p>
+
+      <Callout>
+        Leave XTC off for tasks that need precise, correct answers (code, math,
+        factual questions), since it deliberately steers away from the most
+        likely — and often correct — word.
+      </Callout>
+
       <DocHeading level={2}>Reasoning Mode</DocHeading>
 
       <p>
