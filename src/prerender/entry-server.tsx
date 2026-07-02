@@ -44,6 +44,7 @@ export const prerenderRoutes = [
   "/docs/model-browser",
   "/docs/ollama",
   "/docs/sprout",
+  "/docs/multi-gpu",
   "/docs/companion-mode",
   "/docs/host-api",
   "/docs/security",

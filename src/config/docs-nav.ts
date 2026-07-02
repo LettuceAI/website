@@ -27,6 +27,7 @@ import {
   LayoutDashboard,
   GitBranch,
   Sprout,
+  Cpu,
 } from "lucide-react";
 import { Wheelchair } from "./WheelChairIcon";
 
@@ -127,6 +128,22 @@ export const docsNav = [
           "inference",
           "gpu",
           "offline",
+        ],
+      },
+      {
+        title: "Multi-GPU Local Models",
+        href: "/docs/multi-gpu",
+        icon: Cpu,
+        keywords: [
+          "multi-gpu",
+          "multi gpu",
+          "tensor split",
+          "layer distribution",
+          "kv cache",
+          "vram",
+          "llama.cpp",
+          "offload",
+          "main gpu",
         ],
       },
       {

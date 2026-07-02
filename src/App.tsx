@@ -50,6 +50,7 @@ import {
   ModelBrowserDoc,
   OllamaDoc,
   SproutDoc,
+  MultiGpuDoc,
   CompanionModeDoc,
   HostApiDoc,
   SecurityDoc,
@@ -160,6 +161,7 @@ export function AppContent() {
               <Route path="model-browser" element={<ModelBrowserDoc />} />
               <Route path="ollama" element={<OllamaDoc />} />
               <Route path="sprout" element={<SproutDoc />} />
+              <Route path="multi-gpu" element={<MultiGpuDoc />} />
               <Route path="companion-mode" element={<CompanionModeDoc />} />
               <Route path="host-api" element={<HostApiDoc />} />
               <Route path="security" element={<SecurityDoc />} />
