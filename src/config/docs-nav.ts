@@ -26,6 +26,7 @@ import {
   Mic,
   LayoutDashboard,
   GitBranch,
+  Sprout,
 } from "lucide-react";
 import { Wheelchair } from "./WheelChairIcon";
 
@@ -139,6 +140,21 @@ export const docsNav = [
           "self-hosted",
           "inference",
           "mirostat",
+        ],
+      },
+      {
+        title: "Sprout Hardware Probe",
+        href: "/docs/sprout",
+        icon: Sprout,
+        keywords: [
+          "sprout",
+          "hardware probe",
+          "runnability",
+          "remote ollama",
+          "gpu",
+          "vram",
+          "lan",
+          "specs",
         ],
       },
       {

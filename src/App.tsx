@@ -49,6 +49,7 @@ import {
   ChatTemplatesDoc,
   ModelBrowserDoc,
   OllamaDoc,
+  SproutDoc,
   CompanionModeDoc,
   HostApiDoc,
   SecurityDoc,
@@ -158,6 +159,7 @@ export function AppContent() {
               <Route path="smart-creator" element={<CharacterCreatorDoc />} />
               <Route path="model-browser" element={<ModelBrowserDoc />} />
               <Route path="ollama" element={<OllamaDoc />} />
+              <Route path="sprout" element={<SproutDoc />} />
               <Route path="companion-mode" element={<CompanionModeDoc />} />
               <Route path="host-api" element={<HostApiDoc />} />
               <Route path="security" element={<SecurityDoc />} />

@@ -43,6 +43,7 @@ export const prerenderRoutes = [
   "/docs/smart-creator",
   "/docs/model-browser",
   "/docs/ollama",
+  "/docs/sprout",
   "/docs/companion-mode",
   "/docs/host-api",
   "/docs/security",
