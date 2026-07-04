@@ -26,3 +26,5 @@ images/
 bun.lock
 package-lock.json
 backup.zip
+# Release marketing drafts (Discord/Reddit texts)
+marketing/
