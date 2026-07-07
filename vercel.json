@@ -1,6 +1,11 @@
 {
   "redirects": [
     {
+      "source": "/discord",
+      "destination": "https://discord.gg/745bEttw2r",
+      "statusCode": 302
+    },
+    {
       "source": "/",
       "has": [
         {

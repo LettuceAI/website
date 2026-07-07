@@ -10,6 +10,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { AnimatePresence, motion } from "framer-motion";
 import { ScrollToTop } from "@/components/common/ScrollToTop";
 import { Layout } from "@/components/layout/Layout";
+import { links } from "@/config/links";
 import {
   HomePage,
   DownloadPage,
@@ -102,6 +103,7 @@ function AnimatedRoutes() {
           <Route path="/license" element={<LicensePage />} />
           <Route path="/changelog" element={<ChangelogPage />} />
           <Route path="/convert" element={<ConvertPage />} />
+          <Route path="/discord" element={<ExternalRedirect url={links.discord} />} />
           <Route path="/blog/end-of-lettuceai" element={<ExternalRedirect url="https://www.youtube.com/watch?v=dQw4w9WgXcQ&autoplay=1" />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:slug" element={<BlogPostPage />} />
