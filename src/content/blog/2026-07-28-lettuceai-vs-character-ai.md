@@ -5,6 +5,7 @@ excerpt: On a hosted service you are a tenant. Bring your own key and you are th
 author: MegalithOfficial
 avatarUrl: https://avatars.githubusercontent.com/u/74655120?v=4
 categories: Comparisons, Guides
+cover: https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiE0Ygfomyk6DfZnzYUrwN8u5WjlCsBoTG7H4ei
 featured: false
 ---
 
