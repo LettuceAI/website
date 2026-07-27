@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { execFileSync } from "node:child_process";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import TurndownService from "turndown";
 import { gfm } from "@joplin/turndown-plugin-gfm";
@@ -116,6 +117,7 @@ function buildMarkdown(route, headHtml, mainHtml) {
 
 let ok = 0;
 let failed = 0;
+const rendered = [];
 
 for (const route of prerenderRoutes) {
   try {
@@ -172,6 +174,7 @@ for (const route of prerenderRoutes) {
     await fs.writeFile(mdPath, markdown);
 
     ok++;
+    rendered.push(route);
     console.log(`  ✓ ${route}`);
   } catch (err) {
     failed++;
@@ -182,4 +185,115 @@ for (const route of prerenderRoutes) {
 await fs.rm(prerenderDir, { recursive: true, force: true });
 
 console.log(`\nPrerendered ${ok} route(s)${failed ? `, ${failed} failed` : ""}.`);
+
+await writeSitemap(rendered);
+
 if (failed) process.exit(1);
+
+async function writeSitemap(routes) {
+  const origin = "https://lettuceai.app";
+
+  const rules = [
+    [(r) => r === "/", "1.0", "weekly"],
+    [(r) => r === "/download", "0.9", "weekly"],
+    [(r) => r === "/changelog", "0.8", "weekly"],
+    [(r) => r === "/blog", "0.8", "weekly"],
+    [(r) => r === "/docs", "0.8", "monthly"],
+    [(r) => r.startsWith("/blog/"), "0.7", "monthly"],
+    [(r) => r.startsWith("/docs/"), "0.7", "monthly"],
+    [(r) => ["/privacy", "/terms", "/license"].includes(r), "0.3", "yearly"],
+  ];
+
+  const classify = (route) => {
+    const hit = rules.find(([test]) => test(route));
+    return hit ? { priority: hit[1], changefreq: hit[2] } : { priority: "0.8", changefreq: "monthly" };
+  };
+
+  const gitDate = (file) => {
+    try {
+      const out = execFileSync("git", ["log", "-1", "--format=%cs", "--", file], {
+        cwd: rootDir,
+        encoding: "utf8",
+        stdio: ["ignore", "pipe", "ignore"],
+      }).trim();
+      return /^\d{4}-\d{2}-\d{2}$/.test(out) ? out : null;
+    } catch {
+      return null;
+    }
+  };
+
+  const blogDates = new Map();
+  try {
+    const dir = path.join(rootDir, "src/content/blog");
+    for (const name of await fs.readdir(dir)) {
+      if (!name.endsWith(".md")) continue;
+      const raw = await fs.readFile(path.join(dir, name), "utf8");
+      const slug =
+        /^slug:\s*(.+)$/m.exec(raw)?.[1]?.trim() ??
+        name.replace(/\.md$/, "").replace(/^\d{4}-\d{2}-\d{2}-/, "");
+      const date = /^date:\s*(\d{4}-\d{2}-\d{2})/m.exec(raw)?.[1];
+      if (date) blogDates.set(slug, date);
+    }
+  } catch {}
+
+  let docFiles = [];
+  try {
+    docFiles = await fs.readdir(path.join(rootDir, "src/pages/docs"));
+  } catch {}
+
+  const topLevel = {
+    "/": "HomePage",
+    "/download": "DownloadPage",
+    "/providers": "ProvidersPage",
+    "/faq": "FAQPage",
+    "/changelog": "ChangelogPage",
+    "/convert": "ConvertPage",
+    "/privacy": "PrivacyPage",
+    "/terms": "TermsPage",
+    "/license": "LicensePage",
+    "/blog": "BlogPage",
+  };
+
+  const lastmodFor = (route) => {
+    if (route.startsWith("/blog/")) {
+      const slug = route.slice("/blog/".length);
+      return blogDates.get(slug) ?? gitDate(`src/content/blog`);
+    }
+    if (route === "/docs") return gitDate("src/pages/docs/DocsIndex.tsx");
+    if (route.startsWith("/docs/")) {
+      const slug = route.slice("/docs/".length);
+      const aliases = {
+        images: "ImageGenDoc.tsx",
+        "help-me-reply": "ReplyHelperDoc.tsx",
+        "smart-creator": "CharacterCreatorDoc.tsx",
+      };
+      const key = slug.replace(/-/g, "").toLowerCase();
+      const match =
+        aliases[slug] ?? docFiles.find((f) => f.toLowerCase().replace(/-/g, "").startsWith(key));
+      return match ? gitDate(`src/pages/docs/${match}`) : null;
+    }
+    const page = topLevel[route];
+    return page ? gitDate(`src/pages/${page}.tsx`) : null;
+  };
+
+  const urls = routes
+    .map((route) => {
+      const { priority, changefreq } = classify(route);
+      const lastmod = lastmodFor(route);
+      return [
+        "  <url>",
+        `    <loc>${origin}${route === "/" ? "/" : route}</loc>`,
+        lastmod ? `    <lastmod>${lastmod}</lastmod>` : null,
+        `    <changefreq>${changefreq}</changefreq>`,
+        `    <priority>${priority}</priority>`,
+        "  </url>",
+      ]
+        .filter(Boolean)
+        .join("\n");
+    })
+    .join("\n");
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
+  await fs.writeFile(path.join(distDir, "sitemap.xml"), xml);
+  console.log(`Sitemap: ${routes.length} URL(s) -> dist/sitemap.xml`);
+}
