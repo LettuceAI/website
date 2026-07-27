@@ -224,4 +224,4 @@ We haven't formally tested every third-party client, so treat a specific setup a
 
 ---
 
-*Verified against SillyTavern's official documentation and repository on 27 July 2026: 31.2k stars, Node 20+, the Termux install guide, Vector Storage with Vectra and its default embedding model, the group chat reply strategies, the character design docs, and the UI customization docs covering custom CSS and theme files. Checked against LettuceAI 2.1.1. Both projects move fast. If anything here is out of date or wrong, [open an issue](https://github.com/LettuceAI/mobile-app/issues) and we'll fix the post.*
+*Verified against SillyTavern's official documentation and repository on 27 July 2026: 31.2k stars, Node 20+, the Termux install guide, Vector Storage with Vectra and its default embedding model, the group chat reply strategies, the character design docs, and the UI customization docs covering custom CSS and theme files. Checked against LettuceAI 2.1.1. Both projects move fast. If anything here is out of date or wrong, [open an issue](https://github.com/LettuceAI/app/issues) and we'll fix the post.*
