@@ -1,5 +1,21 @@
 import { marked } from "marked";
 
+// Fonts a post may set for its headline, via `titleFont:` in the frontmatter.
+// A whitelist rather than a free string: the value ends up in a class name, and
+// an unknown key silently falls back to the site default instead of rendering
+// with no font class at all.
+export const TITLE_FONTS = {
+  display: "font-display",          // Fraunces, the site default
+  grotesk: "font-grotesk",          // Space Grotesk
+  sans: "font-sans",                // Noto Sans
+} as const;
+
+export type TitleFont = keyof typeof TITLE_FONTS;
+
+export function titleFontClass(font?: string): string {
+  return TITLE_FONTS[(font ?? "") as TitleFont] ?? TITLE_FONTS.display;
+}
+
 export type BlogPostMeta = {
   slug: string;
   title: string;
@@ -10,6 +26,9 @@ export type BlogPostMeta = {
   categories: string[];
   cover?: string;
   featured: boolean;
+  titleFont?: string;
+  /** "full" swaps the column layout for a full-bleed cover with the title on it */
+  heroStyle?: string;
 };
 
 export type BlogPost = BlogPostMeta & {
@@ -89,6 +108,8 @@ const posts: BlogPost[] = Object.entries(rawFiles)
       categories,
       cover: data.cover,
       featured: /^(true|1|yes)$/i.test(data.featured || ""),
+      titleFont: data.titleFont,
+      heroStyle: data.heroStyle,
       html,
       readingMinutes: readingTime(body),
     };
@@ -106,6 +127,8 @@ export function getAllPosts(): BlogPostMeta[] {
     categories: p.categories,
     cover: p.cover,
     featured: p.featured,
+    titleFont: p.titleFont,
+    heroStyle: p.heroStyle,
   }));
 }
 

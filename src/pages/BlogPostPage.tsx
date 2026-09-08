@@ -7,7 +7,9 @@ import {
   formatBlogDate,
   getAllPosts,
   getPostBySlug,
+  titleFontClass,
 } from "@/lib/blog";
+import { WideHero } from "@/components/blog/WideHero";
 import { NotFoundPage } from "./NotFoundPage";
 
 export function BlogPostPage() {
@@ -59,7 +61,37 @@ export function BlogPostPage() {
 
   if (!post) return <NotFoundPage />;
 
+  const wideHero = post.heroStyle === "full";
   const allPosts = getAllPosts();
+
+  // Over a cover image the low-contrast version disappears into whatever is
+  // behind it, so the on-image variant is brighter and carries a shadow.
+  const renderBreadcrumb = (onImage: boolean) => (
+    <nav
+      className={`flex items-center gap-2 text-[13px] ${
+        onImage
+          ? "text-white/75 [text-shadow:0_1px_14px_rgba(0,0,0,0.95)]"
+          : "text-white/40"
+      }`}
+    >
+      <Link to="/" className="hover:text-primary transition-colors">
+        Home
+      </Link>
+      <span className={onImage ? "text-white/40" : "text-white/20"}>/</span>
+      <Link to="/blog" className="hover:text-primary transition-colors inline-flex items-center gap-1.5">
+        <ArrowLeft className="w-3 h-3" />
+        Blog
+      </Link>
+      {post.categories[0] && (
+        <>
+          <span className={onImage ? "text-white/40" : "text-white/20"}>/</span>
+          <span className={onImage ? "text-white" : "text-white/60"}>
+            {post.categories[0]}
+          </span>
+        </>
+      )}
+    </nav>
+  );
   const idx = allPosts.findIndex((p) => p.slug === slug);
   const prev = idx >= 0 ? allPosts[idx + 1] : undefined;
   const next = idx > 0 ? allPosts[idx - 1] : undefined;
@@ -84,59 +116,65 @@ export function BlogPostPage() {
           url: `https://lettuceai.app/blog/${post.slug}`,
         }}
       />
-      <main className="min-h-screen bg-[#050505] pt-24 pb-24">
-        {/* Hero — left-aligned title, wide cover image */}
+      <main className={`min-h-screen bg-[#050505] pb-24 ${wideHero ? "" : "pt-24"}`}>
+        {/* Hero. `heroStyle: full` puts the cover edge to edge with the
+            headline on it; otherwise title first, cover as a card below. */}
+        {!wideHero && (
+          <motion.header
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-6xl mx-auto px-6 sm:px-10"
+          >
+            <div className="mb-12">{renderBreadcrumb(false)}</div>
+
+            <h1
+              className={`${titleFontClass(post.titleFont)} text-[2.5rem] sm:text-[3.5rem] lg:text-[4.25rem] font-bold text-white leading-[1.05] tracking-[-0.025em] mb-6 max-w-4xl`}
+            >
+              {post.title}
+            </h1>
+
+            {post.excerpt && (
+              <p className="text-lg sm:text-xl text-white/55 leading-[1.55] mb-12 max-w-3xl">
+                {post.excerpt}
+              </p>
+            )}
+
+            {/* Big cover image */}
+            {post.cover && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="relative aspect-[2/1] sm:aspect-[21/9] overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] mb-10"
+              >
+                <img
+                  src={post.cover}
+                  alt={post.title}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              </motion.div>
+            )}
+          </motion.header>
+        )}
+
+        {wideHero && (
+          <WideHero
+            title={post.title}
+            excerpt={post.excerpt}
+            cover={post.cover}
+            titleClass={titleFontClass(post.titleFont)}
+            topSlot={renderBreadcrumb(true)}
+          />
+        )}
+
         <motion.header
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
           className="max-w-6xl mx-auto px-6 sm:px-10"
         >
-          {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 mb-12 text-[13px] text-white/40">
-            <Link to="/" className="hover:text-primary transition-colors">
-              Home
-            </Link>
-            <span className="text-white/20">/</span>
-            <Link to="/blog" className="hover:text-primary transition-colors inline-flex items-center gap-1.5">
-              <ArrowLeft className="w-3 h-3" />
-              Blog
-            </Link>
-            {post.categories[0] && (
-              <>
-                <span className="text-white/20">/</span>
-                <span className="text-white/60">{post.categories[0]}</span>
-              </>
-            )}
-          </nav>
-
-          <h1 className="font-display text-[2.5rem] sm:text-[3.5rem] lg:text-[4.25rem] font-bold text-white leading-[1.05] tracking-[-0.025em] mb-6 max-w-4xl">
-            {post.title}
-          </h1>
-
-          {post.excerpt && (
-            <p className="text-lg sm:text-xl text-white/55 leading-[1.55] mb-12 max-w-3xl">
-              {post.excerpt}
-            </p>
-          )}
-
-          {/* Big cover image */}
-          {post.cover && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="relative aspect-[2/1] sm:aspect-[21/9] overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] mb-10"
-            >
-              <img
-                src={post.cover}
-                alt={post.title}
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-            </motion.div>
-          )}
-
-          {/* Author + meta row, below image, left-aligned */}
+          {/* Author + meta row, left-aligned */}
           <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pb-10 mb-12 border-b border-white/[0.06]">
             {post.author && (
               <div className="flex items-center gap-3">
