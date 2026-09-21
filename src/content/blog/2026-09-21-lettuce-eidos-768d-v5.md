@@ -31,7 +31,7 @@ It succeeds `lettuce-emb-768d-v4`. v4 made roleplay memory reliable in English. 
 
 All scores are recall: the share of queries for which the correct memory is returned first (or within the top five, where stated). `hotchpotch/bekko-embedding-v1-a25m` is included as the strongest compact multilingual embedder we evaluated.
 
-![Eidos v5 and v4 compared on small and large histories, across languages, and across vector sizes](/images/blog/v5/01_hero.png)
+![Eidos v5 and v4 compared on small and large histories, across languages, and across vector sizes](https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiETOkRdt1vLgnoyBUP4fh5Ym03jIwd2HkAqcaZ)
 
 On a small history the two models perform similarly. The difference appears where memory is hardest: large histories full of similar passages, and conversations that are not in English.
 
@@ -51,7 +51,7 @@ All embedding, storage and retrieval remain local. Only the final prompt is sent
 
 The primary benchmark uses 5,000 queries against a haystack of 144,000 passages, comparable to the history a long-term user accumulates.
 
-![First-result and top-five accuracy on the 144k-passage history](/images/blog/v5/02_tier_b.png)
+![First-result and top-five accuracy on the 144k-passage history](https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEmFyCXJMLsaiE1GPrgcTIvH6l03y9FhketVp2)
 
 v5 returns the correct memory first for 72.5% of queries, compared with 51.3% for v4 and 53.5% for bekko. The correct memory appears in the top five for 90.3%.
 
@@ -65,7 +65,7 @@ This benchmark is built from our persona corpus, which both v4 and v5 were train
 
 A second benchmark evaluates chat-memory retrieval with queries and memories in 15 languages. It is drawn from held-out scenarios of our own roleplay dataset, described under [Training](#training). It is considerably harder than the English benchmark, and absolute scores are lower for every model.
 
-![Multilingual chat-memory accuracy by language](/images/blog/v5/03_multilingual.png)
+![Multilingual chat-memory accuracy by language](https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEdqmUOMpPCcV0eNMqHE2pOGjTY185FLrRZvst)
 
 v5 leads in all 15 languages, from 0.171 in Polish to 0.301 in Korean, with an average of 0.232. v4 averages 0.025 and bekko 0.095.
 
@@ -73,13 +73,13 @@ v5 leads in all 15 languages, from 0.171 in Polish to 0.301 in Korean, with an a
 
 On-device cost is determined by the computation performed per token rather than by total parameter count.
 
-![Accuracy on the 144k history against active parameters per token](/images/blog/v5/06_compute_vs_quality.png)
+![Accuracy on the 144k history against active parameters per token](https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEKwxt4CjUThaiVjQ5lFnW8C6uS7RMmf4pPb9t)
 
 Of v5's 262M parameters, 201M form the multilingual vocabulary table, which is a lookup rather than a computation. The transformer itself has 60M parameters, roughly half of v4's 113M.
 
 v5 is also trained with Matryoshka representation learning, which concentrates the most useful information in the leading dimensions of each vector. Applications can store shorter vectors with little loss in accuracy.
 
-![Accuracy on the 144k history across vector sizes](/images/blog/v5/04_matryoshka.png)
+![Accuracy on the 144k history across vector sizes](https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiEI0dt0cH5ZchmM4LX9xYKk8DP0ard7TuUASve)
 
 | Dimensions | Bytes per memory | v5 | v4 |
 | ---------- | ---------------- | -- | -- |
@@ -98,7 +98,7 @@ At 64 dimensions, v5 outperforms v4 at its full 768. Above 256 dimensions the ga
 
 v5 is derived from `ibm-granite/granite-embedding-311m-multilingual-r2`, a multilingual ModernBERT encoder released under Apache 2.0. We reduced it from 22 to 12 layers by removing one layer at a time, each time selecting the layer whose removal changed the model's output least, while preserving the global-attention layers required for long context.
 
-![Similarity to the full model as layers are removed](/images/blog/v5/07_pruning.png)
+![Similarity to the full model as layers are removed](https://lhdgeo5fms.ufs.sh/f/m0TBUtMLsaiELFIt4Qum4E1s7fKcbIrtgJlMzOkUhDv6GqQX)
 
 Before training, the 12-layer model already produced embeddings with a cosine similarity of 0.936 to the full model's.
 
