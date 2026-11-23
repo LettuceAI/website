@@ -10,3 +10,4 @@ export { NotFoundPage } from "./NotFoundPage";
 export { ConvertPage } from "./ConvertPage";
 export { BlogPage } from "./BlogPage";
 export { BlogPostPage } from "./BlogPostPage";
+export { MemoryBenchmarkPage } from "./MemoryBenchmarkPage";

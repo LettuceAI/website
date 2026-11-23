@@ -24,6 +24,7 @@ import {
   ConvertPage,
   BlogPage,
   BlogPostPage,
+  MemoryBenchmarkPage,
 } from "@/pages";
 import {
   DocsLayout,
@@ -103,6 +104,7 @@ function AnimatedRoutes() {
           <Route path="/license" element={<LicensePage />} />
           <Route path="/changelog" element={<ChangelogPage />} />
           <Route path="/convert" element={<ConvertPage />} />
+          <Route path="/benchmarks/memory" element={<MemoryBenchmarkPage />} />
           <Route path="/discord" element={<ExternalRedirect url={links.discord} />} />
           <Route path="/blog/end-of-lettuceai" element={<ExternalRedirect url="https://www.youtube.com/watch?v=dQw4w9WgXcQ&autoplay=1" />} />
           <Route path="/blog" element={<BlogPage />} />

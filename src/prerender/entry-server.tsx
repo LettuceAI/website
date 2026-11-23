@@ -17,6 +17,7 @@ export const prerenderRoutes = [
   "/faq",
   "/changelog",
   "/convert",
+  "/benchmarks/memory",
   "/privacy",
   "/terms",
   "/license",
